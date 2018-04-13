@@ -1,5 +1,6 @@
 # w3gjs
 [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+[![Maintainability](https://api.codeclimate.com/v1/badges/ebf0d0020d5dc9efba0e/maintainability)](https://codeclimate.com/github/anXieTyPB/w3gjs/maintainability)
 ## Parser
 From scratch JavaScript implementation of a w3g parser for WarCraft 3 replay files.
 Uses the excellent https://github.com/keichi/binary-parser to parse the replay file.
