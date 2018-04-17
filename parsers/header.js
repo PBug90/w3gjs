@@ -1,4 +1,5 @@
 const { Parser } = require('binary-parser')
+const {raceFlagFormatter} = require ('./formatters')
 
 const Header = new Parser()
   .string('magic', {zeroTerminated: true})
@@ -47,7 +48,7 @@ const PlayerRecordCustom = new Parser()
 
 const PlayerRecordLadder = new Parser()
   .string('runtimeMS', {encoding: 'hex', length: 4})
-  .string('raceFlags', {encoding: 'hex', length: 4})
+  .int32le('raceFlags', { formatter: raceFlagFormatter })
 
 const PlayerRecord = new Parser()
   .int8('recordId')
@@ -69,9 +70,9 @@ const PlayerSlotRecord = new Parser()
   .skip(1) // mapDownloadPercent
   .int8('slotStatus')
   .int8('computerFlag')
-  .int8('teamNo')
+  .int8('teamId')
   .int8('color')
-  .int8('raceFlag')
+  .int8('raceFlag', { formatter: raceFlagFormatter})
   .int8('aiStrength')
   .int8('handicapFlag')
 
