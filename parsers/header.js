@@ -1,5 +1,5 @@
 const { Parser } = require('binary-parser')
-const {raceFlagFormatter} = require ('./formatters')
+const {raceFlagFormatter} = require('./formatters')
 
 const Header = new Parser()
   .string('magic', {zeroTerminated: true})
@@ -72,7 +72,7 @@ const PlayerSlotRecord = new Parser()
   .int8('computerFlag')
   .int8('teamId')
   .int8('color')
-  .int8('raceFlag', { formatter: raceFlagFormatter})
+  .int8('raceFlag', { formatter: raceFlagFormatter })
   .int8('aiStrength')
   .int8('handicapFlag')
 

@@ -10,7 +10,7 @@ const objectIdFormatter = (arr) => {
 }
 
 const raceFlagFormatter = (flag) => {
-  switch (flag){
+  switch (flag) {
     case 0x01:
     case 0x41:
       return 'H'
@@ -31,7 +31,7 @@ const raceFlagFormatter = (flag) => {
 }
 
 const chatModeFormatter = (flag) => {
-  switch (flag){
+  switch (flag) {
     case 0x00:
       return 'ALL'
     case 0x01:
