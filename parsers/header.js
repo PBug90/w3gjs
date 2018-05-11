@@ -58,7 +58,8 @@ const PlayerRecord = new Parser()
   .choice('additional', {tag: 'addDataFlag',
     choices: {
       1: PlayerRecordCustom,
-      8: PlayerRecordLadder
+      8: PlayerRecordLadder,
+      2: new Parser().skip(2)
     }})
 
 const PlayerRecordInList = new Parser()
