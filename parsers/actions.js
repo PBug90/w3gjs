@@ -23,7 +23,7 @@ const SaveGameFinishedAction = new Parser()
 const UnitBuildingAbilityActionNoParams = new Parser()
   .int16le('abilityFlags')
   .array('itemId', {
-    type: 'int8',
+    type: 'uint8',
     length: 4,
     formatter: objectIdFormatter
   })
@@ -33,7 +33,7 @@ const UnitBuildingAbilityActionNoParams = new Parser()
 const UnitBuildingAbilityActionTargetPosition = new Parser()
   .int16le('abilityFlags')
   .array('itemId', {
-    type: 'int8',
+    type: 'uint8',
     length: 4,
     formatter: objectIdFormatter
   })
