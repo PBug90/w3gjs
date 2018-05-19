@@ -10,8 +10,8 @@ describe('Replay parsing tests', () => {
     expect(test.header.magic).to.equal('Warcraft III recorded game\u001a')
     expect(test.teams['24']).to.be.an('array')
     expect(test.teams['24']).to.have.lengthOf(4)
-    expect(test.players['4'].playerName).to.equal('S.o.K.o.L')
-    expect(test.players['6'].playerName).to.equal('Stormhoof')
+    expect(test.players['4'].name).to.equal('S.o.K.o.L')
+    expect(test.players['6'].name).to.equal('Stormhoof')
   })
 
   it('parses a netease replay properly', () => {
@@ -19,6 +19,6 @@ describe('Replay parsing tests', () => {
 
     expect(test.header.magic).to.equal('Warcraft III recorded game\u001a')
     expect(test.teams['24']).to.be.an('array')
-    expect(test.players['3'].playerName).to.equal('rudan')
+    expect(test.players['3'].name).to.equal('rudan')
   })
 })
