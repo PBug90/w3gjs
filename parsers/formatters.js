@@ -2,9 +2,7 @@ const objectIdFormatter = (arr) => {
   let copy = arr
   if (arr[3] >= 0x41 && arr[3] <= 0x7A) {
     copy = arr.slice()
-    let s = arr.reverse().map(a => parseInt(a, 10))
-    let test = arr.map(e => String.fromCharCode(parseInt(e, 10))).join('')
-    return test
+    return arr.map(e => String.fromCharCode(parseInt(e, 10))).join('')
   }
   return copy
 }
