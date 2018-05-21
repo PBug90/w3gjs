@@ -10,10 +10,6 @@
     "es6": true
   },
   "rules": {
-    "space-before-function-paren": "off",
-    "linebreak-style": "off",
-    "global-require": "off",
-    "semi": "warn",
-    "arrow-body-style": "off"
+
   }
 }

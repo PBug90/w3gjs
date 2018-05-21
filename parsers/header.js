@@ -43,9 +43,6 @@ const ReplayHeader = new Parser()
   .nest(null, { type: SubHeaderV1 })
   .nest(null, { type: DataBlocks })
 
-const PlayerRecordCustom = new Parser()
-  .string('nullByte', {encoding: 'hex', length: 1})
-
 const PlayerRecordLadder = new Parser()
   .string('runtimeMS', {encoding: 'hex', length: 4})
   .int32le('raceFlags', { formatter: raceFlagFormatter })
@@ -57,7 +54,7 @@ const PlayerRecord = new Parser()
   .uint8('addDataFlag')
   .choice('additional', {tag: 'addDataFlag',
     choices: {
-      1: PlayerRecordCustom,
+      1: new Parser().skip(1),
       8: PlayerRecordLadder,
       2: new Parser().skip(2)
     }})

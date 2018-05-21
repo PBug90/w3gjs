@@ -208,7 +208,7 @@ const W3MMDAction = new Parser()
 
 const ActionBlock = new Parser()
   .int8('actionId')
-  .choice('data', {
+  .choice({
     tag: 'actionId',
     choices: {
       0x1: PauseGameAction,

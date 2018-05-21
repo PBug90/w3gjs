@@ -2,10 +2,11 @@
 
 const {expect} = require('chai')
 const W3GReplay = require('../index')
+const Parser = new W3GReplay()
 
 describe('Replay parsing tests', () => {
   it('parses a replay with observers properly', () => {
-    const test = new W3GReplay(`./replays/observers.w3g`)
+    const test = Parser.parse(`./replays/observers.w3g`)
 
     expect(test.header.magic).to.equal('Warcraft III recorded game\u001a')
     expect(test.teams['24']).to.be.an('array')
@@ -19,7 +20,7 @@ describe('Replay parsing tests', () => {
   })
 
   it('parses a netease replay properly', () => {
-    const test = new W3GReplay(`./replays/netease1.nwg`)
+    const test = Parser.parse(`./replays/netease1.nwg`)
     expect(test.header.magic).to.equal('Warcraft III recorded game\u001a')
     expect(test.teams['24']).to.be.an('array')
     expect(test.players['3'].name).to.equal('rudan')
