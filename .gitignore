@@ -3,3 +3,5 @@ node_modules
 replays_batch/
 yarn.lock
 package-lock.json
+.nyc_output
+coverage
