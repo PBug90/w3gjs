@@ -10,7 +10,7 @@ This parser is aimed to be more modular than other parsers.
 You can easily add your custom action parsing logic by overriding the processTimeSlot() function
 of a W3GReplay instance.
 
-** It does not support replays of game version < 1.13. **
+** It does not fully support replays of game version <= 1.14. **
 
 ## Usage
 ```javascript
