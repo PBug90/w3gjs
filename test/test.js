@@ -7,7 +7,6 @@ const Parser = new W3GReplay()
 describe('Replay parsing tests', () => {
   it('parses a standard 1.29 replay with observers properly', () => {
     const test = Parser.parse(`./replays/standard_129_obs.w3g`)
-
     expect(test.header.magic).to.equal('Warcraft III recorded game\u001a')
     expect(test.header.version).to.equal(29)
     expect(test.teams['24']).to.be.an('array')
