@@ -9,8 +9,6 @@ describe('Replay parsing tests', () => {
     const test = Parser.parse(`./replays/standard_129_obs.w3g`)
     expect(test.header.magic).to.equal('Warcraft III recorded game\u001a')
     expect(test.header.version).to.equal(29)
-    expect(test.teams['24']).to.be.an('array')
-    expect(test.teams['24']).to.have.lengthOf(4)
     expect(test.players['4'].name).to.equal('S.o.K.o.L')
     expect(test.players['4'].detectedRace).to.equal('O')
     expect(test.players['4'].color).to.equal('#50c878')
@@ -18,6 +16,7 @@ describe('Replay parsing tests', () => {
     expect(test.players['6'].detectedRace).to.equal('O')
     expect(test.players['6'].color).to.equal('#800000')
     expect(test.observers).to.have.lengthOf(4)
+    expect(test.teams['24']).to.equal(undefined)
     expect(Object.keys(test.players)).to.have.lengthOf(2)
   })
 
@@ -32,6 +31,7 @@ describe('Replay parsing tests', () => {
     expect(test.players['10'].name).to.equal('u2.sok')
     expect(test.players['10'].detectedRace).to.equal('H')
     expect(test.players['10'].color).to.equal('#ff0000')
+    expect(test.teams['12']).to.equal(undefined)
     expect(Object.keys(test.players)).to.have.lengthOf(2)
   })
 
@@ -39,10 +39,11 @@ describe('Replay parsing tests', () => {
     const test = Parser.parse(`./replays/netease_129_obs.nwg`)
     expect(test.header.magic).to.equal('Warcraft III recorded game\u001a')
     expect(test.header.version).to.equal(29)
-    expect(test.teams['24']).to.be.an('array')
+
     expect(test.players['3'].name).to.equal('rudan')
     expect(test.players['3'].color).to.equal('#3eb489')
     expect(test.observers).to.have.lengthOf(1)
+    expect(test.teams['24']).to.equal(undefined)
     expect(Object.keys(test.players)).to.have.lengthOf(2)
   })
 })
