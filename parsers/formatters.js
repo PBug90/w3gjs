@@ -1,12 +1,10 @@
 const objectIdFormatter = (arr) => {
-  // console.log(arr.toString(16).split(',').reverse().map(a => String.fromCharCode(parseInt(a,10))).join(''))
-  let s = arr.reverse().map(a => parseInt(a, 10))
-  if (s[0] >= 0x41 && s[0] <= 0x7A) {
-    let test = arr.map(e => String.fromCharCode(parseInt(e, 10))).join('')
-    // console.log("test ", test)
-    return test
+  let copy = arr
+  if (arr[3] >= 0x41 && arr[3] <= 0x7A) {
+    copy = arr.slice()
+    return arr.map(e => String.fromCharCode(parseInt(e, 10))).join('')
   }
-  return arr.toString(16)
+  return copy
 }
 
 const raceFlagFormatter = (flag) => {
