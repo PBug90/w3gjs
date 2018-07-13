@@ -1,6 +1,7 @@
 const fs = require('fs')
 const replays = fs.readdirSync('./replays/')
 const W3GReplay = require('.')
+const W3GParser = new W3GReplay()
 
 function formatBytes(bytes,decimals) {
    if(bytes == 0) return '0 Bytes';

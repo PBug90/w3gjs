@@ -1,5 +1,5 @@
 /*
-  Parses gzip-encoded game data
+  Parses actual game data
   Please note that TimeSlotBlocks do not fully parse included actions.
   They should be parsed block by block manually
   afterwards to ensure proper error handling.
@@ -62,7 +62,7 @@ const ForcedGameEndCountdown = new Parser()
 
 const GameData = new Parser()
   .uint8('type')
-  .choice('data', {
+  .choice({
     tag: 'type',
     choices: {
       0x17: LeaveGameBlock,
