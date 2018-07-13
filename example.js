@@ -13,6 +13,7 @@ function formatBytes(bytes,decimals) {
 }
 
 replays.forEach((replayFile) => {
-  const test = new W3GReplay(`./replays/${replayFile}`)
-  console.log(formatBytes(Buffer.byteLength(JSON.stringify(test), 'utf8')))
+  const parser = new W3GReplay()
+  const parseResult = parser.parse(`./replays/${replayFile}`)
+  console.log(formatBytes(Buffer.byteLength(JSON.stringify(parseResult), 'utf8')))
 })
