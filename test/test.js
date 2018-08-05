@@ -17,6 +17,7 @@ describe('Replay parsing tests', () => {
     expect(test.players['6'].color).to.equal('#800000')
     expect(test.observers).to.have.lengthOf(4)
     expect(test.teams['24']).to.equal(undefined)
+    expect(test.matchup).to.equal('OvO')
     expect(Object.keys(test.players)).to.have.lengthOf(2)
   })
 
@@ -32,6 +33,7 @@ describe('Replay parsing tests', () => {
     expect(test.players['10'].detectedRace).to.equal('H')
     expect(test.players['10'].color).to.equal('#ff0000')
     expect(test.teams['12']).to.equal(undefined)
+    expect(test.matchup).to.equal('HvU')
     expect(Object.keys(test.players)).to.have.lengthOf(2)
   })
 
@@ -44,6 +46,15 @@ describe('Replay parsing tests', () => {
     expect(test.players['3'].color).to.equal('#3eb489')
     expect(test.observers).to.have.lengthOf(1)
     expect(test.teams['24']).to.equal(undefined)
+    expect(test.matchup).to.equal('NvN')
     expect(Object.keys(test.players)).to.have.lengthOf(2)
+  })
+
+  it('parses a 2on2standard 1.29 replay properly', () => {
+    const test = Parser.parse(`./replays/999.w3g`)
+    expect(test.header.magic).to.equal('Warcraft III recorded game\u001a')
+    expect(test.header.version).to.equal(26)
+    expect(test.matchup).to.equal('HUvHU')
+    expect(Object.keys(test.players)).to.have.lengthOf(4)
   })
 })
