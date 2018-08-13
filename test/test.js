@@ -57,4 +57,18 @@ describe('Replay parsing tests', () => {
     expect(test.matchup).to.equal('HUvHU')
     expect(Object.keys(test.players)).to.have.lengthOf(4)
   })
+
+  it('parses a standard 1.30 replay properly', () => {
+    const test = Parser.parse(`./replays/standard_130.w3g`)
+    expect(test.header.magic).to.equal('Warcraft III recorded game\u001a')
+    expect(test.header.version).to.equal(30)
+    expect(test.matchup).to.equal('NvU')
+    expect(test.players['3'].name).to.equal('sheik')
+    expect(test.players['3'].race).to.equal('U')
+    expect(test.players['3'].detectedRace).to.equal('U')
+    expect(test.players['5'].name).to.equal('123456789012345')
+    expect(test.players['5'].race).to.equal('N')
+    expect(test.players['5'].detectedRace).to.equal('N')
+    expect(Object.keys(test.players)).to.have.lengthOf(2)
+  })
 })
