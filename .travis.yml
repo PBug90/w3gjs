@@ -2,8 +2,8 @@ language: node_js
 node_js:
   - "8"
 install:
-  - npm install
-  - npm i -g standard
+  - yarn install
+  - yarn add standard
 script:
-  - standard
-  - npm test
+  - yarn standard
+  - yarn test
