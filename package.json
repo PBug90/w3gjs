@@ -21,7 +21,9 @@
   },
   "scripts": {
     "test": "jest test/test.js",
-    "coverage": "jest test/test.js --collectCoverage"
+    "coverage": "jest test/test.js --collectCoverage",
+    "lint": "eslint --ext .jsx,.js lib/ test/",
+    "lint:fix": "eslint --ext .jsx,.js lib/ --fix"
   },
   "repository": {
     "type": "git",

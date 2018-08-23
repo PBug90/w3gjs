@@ -5,5 +5,5 @@ install:
   - yarn install
   - yarn add standard
 script:
-  - yarn standard
+  - yarn lint
   - yarn test

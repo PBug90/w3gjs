@@ -5,3 +5,4 @@ yarn.lock
 package-lock.json
 .nyc_output
 coverage
+yarn-error.log
