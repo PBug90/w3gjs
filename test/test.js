@@ -1,5 +1,6 @@
 const W3GReplay = require('../index')
 const Parser = new W3GReplay()
+const {Validator} = require('jsonschema')
 
 describe('Replay parsing tests', () => {
   it('parses a standard 1.29 replay with observers properly', () => {
@@ -72,5 +73,12 @@ describe('Replay parsing tests', () => {
     expect(test.players['5'].race).toBe('N')
     expect(test.players['5'].detectedRace).toBe('N')
     expect(Object.keys(test.players).length).toBe(2)
+  })
+
+  it('parsing result has the correct schema', () => {
+    const schema = require('./schema')
+    const test = Parser.parse(`./replays/standard_130.w3g`)
+    const validatorInstance = new Validator()
+    validatorInstance.validate(test, schema, {throwError: true})
   })
 })

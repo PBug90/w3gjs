@@ -1,0 +1,709 @@
+{
+    "definitions": {},
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "http://example.com/root.json",
+    "type": "object",
+    "title": "The Root Schema",
+    "required": [
+      "players",
+      "gamename",
+      "matchup",
+      "uuid",
+      "type",
+      "creator",
+      "map",
+      "version",
+      "settings",
+      "observers",
+      "chat",
+      "replayIdentifier"
+    ],
+    "properties": {
+      "players": {
+        "$id": "#/properties/players",
+        "type": "array",
+        "title": "The Players Schema",
+        "items": {
+          "$id": "#/properties/players/items",
+          "type": "object",
+          "title": "The Items Schema",
+          "required": [
+            "name",
+            "race",
+            "raceDetected",
+            "color",
+            "units",
+            "teamid",
+            "id",
+            "buildings",
+            "upgrades",
+            "items"
+          ],
+          "properties": {
+            "name": {
+              "$id": "#/properties/players/items/properties/name",
+              "type": "string",
+              "title": "The Name Schema",
+              "default": "",
+              "examples": [
+                ""
+              ],
+              "pattern": "^(.*)$"
+            },
+            "race": {
+              "$id": "#/properties/players/items/properties/race",
+              "type": "string",
+              "title": "The Race Schema",
+              "default": "",
+              "examples": [
+                ""
+              ],
+              "pattern": "^(.*)$"
+            },
+            "raceDetected": {
+              "$id": "#/properties/players/items/properties/raceDetected",
+              "type": "string",
+              "title": "The Racedetected Schema",
+              "default": "",
+              "examples": [
+                ""
+              ],
+              "pattern": "^(.*)$"
+            },
+            "color": {
+              "$id": "#/properties/players/items/properties/color",
+              "type": "string",
+              "title": "The Color Schema",
+              "default": "",
+              "examples": [
+                ""
+              ],
+              "pattern": "^(.*)$"
+            },
+            "units": {
+              "$id": "#/properties/players/items/properties/units",
+              "type": "object",
+              "title": "The Units Schema",
+              "required": [
+                "summary",
+                "order"
+              ],
+              "properties": {
+                "summary": {
+                  "$id": "#/properties/players/items/properties/units/properties/summary",
+                  "type": "object",
+                  "title": "The Summary Schema",
+                  "required": [
+                    "hfoo",
+                    "hbar"
+                  ],
+                  "properties": {
+                    "hfoo": {
+                      "$id": "#/properties/players/items/properties/units/properties/summary/properties/hfoo",
+                      "type": "integer",
+                      "title": "The Hfoo Schema",
+                      "default": 0,
+                      "examples": [
+                        5
+                      ]
+                    },
+                    "hbar": {
+                      "$id": "#/properties/players/items/properties/units/properties/summary/properties/hbar",
+                      "type": "integer",
+                      "title": "The Hbar Schema",
+                      "default": 0,
+                      "examples": [
+                        10
+                      ]
+                    }
+                  }
+                },
+                "order": {
+                  "$id": "#/properties/players/items/properties/units/properties/order",
+                  "type": "array",
+                  "title": "The Order Schema",
+                  "items": {
+                    "$id": "#/properties/players/items/properties/units/properties/order/items",
+                    "type": "object",
+                    "title": "The Items Schema",
+                    "required": [
+                      "ms",
+                      "id"
+                    ],
+                    "properties": {
+                      "ms": {
+                        "$id": "#/properties/players/items/properties/units/properties/order/items/properties/ms",
+                        "type": "integer",
+                        "title": "The Ms Schema",
+                        "default": 0,
+                        "examples": [
+                          1500
+                        ]
+                      },
+                      "id": {
+                        "$id": "#/properties/players/items/properties/units/properties/order/items/properties/id",
+                        "type": "string",
+                        "title": "The Id Schema",
+                        "default": "",
+                        "examples": [
+                          "hfoo"
+                        ],
+                        "pattern": "^(.*)$"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "teamid": {
+              "$id": "#/properties/players/items/properties/teamid",
+              "type": "integer",
+              "title": "The Teamid Schema",
+              "default": 0,
+              "examples": [
+                2
+              ]
+            },
+            "id": {
+              "$id": "#/properties/players/items/properties/id",
+              "type": "integer",
+              "title": "The Id Schema",
+              "default": 0,
+              "examples": [
+                0
+              ]
+            },
+            "buildings": {
+              "$id": "#/properties/players/items/properties/buildings",
+              "type": "object",
+              "title": "The Buildings Schema",
+              "required": [
+                "summary",
+                "order"
+              ],
+              "properties": {
+                "summary": {
+                  "$id": "#/properties/players/items/properties/buildings/properties/summary",
+                  "type": "object",
+                  "title": "The Summary Schema",
+                  "required": [
+                    "hfoo",
+                    "hbar"
+                  ],
+                  "properties": {
+                    "hfoo": {
+                      "$id": "#/properties/players/items/properties/buildings/properties/summary/properties/hfoo",
+                      "type": "integer",
+                      "title": "The Hfoo Schema",
+                      "default": 0,
+                      "examples": [
+                        5
+                      ]
+                    },
+                    "hbar": {
+                      "$id": "#/properties/players/items/properties/buildings/properties/summary/properties/hbar",
+                      "type": "integer",
+                      "title": "The Hbar Schema",
+                      "default": 0,
+                      "examples": [
+                        10
+                      ]
+                    }
+                  }
+                },
+                "order": {
+                  "$id": "#/properties/players/items/properties/buildings/properties/order",
+                  "type": "array",
+                  "title": "The Order Schema",
+                  "items": {
+                    "$id": "#/properties/players/items/properties/buildings/properties/order/items",
+                    "type": "object",
+                    "title": "The Items Schema",
+                    "required": [
+                      "ms",
+                      "id"
+                    ],
+                    "properties": {
+                      "ms": {
+                        "$id": "#/properties/players/items/properties/buildings/properties/order/items/properties/ms",
+                        "type": "integer",
+                        "title": "The Ms Schema",
+                        "default": 0,
+                        "examples": [
+                          1500
+                        ]
+                      },
+                      "id": {
+                        "$id": "#/properties/players/items/properties/buildings/properties/order/items/properties/id",
+                        "type": "string",
+                        "title": "The Id Schema",
+                        "default": "",
+                        "examples": [
+                          "hfoo"
+                        ],
+                        "pattern": "^(.*)$"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "upgrades": {
+              "$id": "#/properties/players/items/properties/upgrades",
+              "type": "object",
+              "title": "The Upgrades Schema",
+              "required": [
+                "summary",
+                "order"
+              ],
+              "properties": {
+                "summary": {
+                  "$id": "#/properties/players/items/properties/upgrades/properties/summary",
+                  "type": "object",
+                  "title": "The Summary Schema",
+                  "required": [
+                    "hfoo",
+                    "hbar"
+                  ],
+                  "properties": {
+                    "hfoo": {
+                      "$id": "#/properties/players/items/properties/upgrades/properties/summary/properties/hfoo",
+                      "type": "integer",
+                      "title": "The Hfoo Schema",
+                      "default": 0,
+                      "examples": [
+                        5
+                      ]
+                    },
+                    "hbar": {
+                      "$id": "#/properties/players/items/properties/upgrades/properties/summary/properties/hbar",
+                      "type": "integer",
+                      "title": "The Hbar Schema",
+                      "default": 0,
+                      "examples": [
+                        10
+                      ]
+                    }
+                  }
+                },
+                "order": {
+                  "$id": "#/properties/players/items/properties/upgrades/properties/order",
+                  "type": "array",
+                  "title": "The Order Schema",
+                  "items": {
+                    "$id": "#/properties/players/items/properties/upgrades/properties/order/items",
+                    "type": "object",
+                    "title": "The Items Schema",
+                    "required": [
+                      "ms",
+                      "id"
+                    ],
+                    "properties": {
+                      "ms": {
+                        "$id": "#/properties/players/items/properties/upgrades/properties/order/items/properties/ms",
+                        "type": "integer",
+                        "title": "The Ms Schema",
+                        "default": 0,
+                        "examples": [
+                          1500
+                        ]
+                      },
+                      "id": {
+                        "$id": "#/properties/players/items/properties/upgrades/properties/order/items/properties/id",
+                        "type": "string",
+                        "title": "The Id Schema",
+                        "default": "",
+                        "examples": [
+                          "hfoo"
+                        ],
+                        "pattern": "^(.*)$"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "items": {
+              "$id": "#/properties/players/items/properties/items",
+              "type": "object",
+              "title": "The Items Schema",
+              "required": [
+                "summary",
+                "order"
+              ],
+              "properties": {
+                "summary": {
+                  "$id": "#/properties/players/items/properties/items/properties/summary",
+                  "type": "object",
+                  "title": "The Summary Schema",
+                  "required": [
+                    "hfoo",
+                    "hbar"
+                  ],
+                  "properties": {
+                    "hfoo": {
+                      "$id": "#/properties/players/items/properties/items/properties/summary/properties/hfoo",
+                      "type": "integer",
+                      "title": "The Hfoo Schema",
+                      "default": 0,
+                      "examples": [
+                        5
+                      ]
+                    },
+                    "hbar": {
+                      "$id": "#/properties/players/items/properties/items/properties/summary/properties/hbar",
+                      "type": "integer",
+                      "title": "The Hbar Schema",
+                      "default": 0,
+                      "examples": [
+                        10
+                      ]
+                    }
+                  }
+                },
+                "order": {
+                  "$id": "#/properties/players/items/properties/items/properties/order",
+                  "type": "array",
+                  "title": "The Order Schema",
+                  "items": {
+                    "$id": "#/properties/players/items/properties/items/properties/order/items",
+                    "type": "object",
+                    "title": "The Items Schema",
+                    "required": [
+                      "ms",
+                      "id"
+                    ],
+                    "properties": {
+                      "ms": {
+                        "$id": "#/properties/players/items/properties/items/properties/order/items/properties/ms",
+                        "type": "integer",
+                        "title": "The Ms Schema",
+                        "default": 0,
+                        "examples": [
+                          1500
+                        ]
+                      },
+                      "id": {
+                        "$id": "#/properties/players/items/properties/items/properties/order/items/properties/id",
+                        "type": "string",
+                        "title": "The Id Schema",
+                        "default": "",
+                        "examples": [
+                          "hfoo"
+                        ],
+                        "pattern": "^(.*)$"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "gamename": {
+        "$id": "#/properties/gamename",
+        "type": "string",
+        "title": "The Gamename Schema",
+        "default": "",
+        "examples": [
+          ""
+        ],
+        "pattern": "^(.*)$"
+      },
+      "matchup": {
+        "$id": "#/properties/matchup",
+        "type": "string",
+        "title": "The Matchup Schema",
+        "default": "",
+        "examples": [
+          "a well defined, universal matchup string"
+        ],
+        "pattern": "^(.*)$"
+      },
+      "uuid": {
+        "$id": "#/properties/uuid",
+        "type": "string",
+        "title": "The Uuid Schema",
+        "default": "",
+        "examples": [
+          "a game uuid that is generated for this particular game"
+        ],
+        "pattern": "^(.*)$"
+      },
+      "type": {
+        "$id": "#/properties/type",
+        "type": "string",
+        "title": "The Type Schema",
+        "default": "",
+        "examples": [
+          "1vs1"
+        ],
+        "pattern": "^(.*)$"
+      },
+      "creator": {
+        "$id": "#/properties/creator",
+        "type": "string",
+        "title": "The Creator Schema",
+        "default": "",
+        "examples": [
+          "BNet"
+        ],
+        "pattern": "^(.*)$"
+      },
+      "map": {
+        "$id": "#/properties/map",
+        "type": "object",
+        "title": "The Map Schema",
+        "required": [
+          "path",
+          "shortened",
+          "file"
+        ],
+        "properties": {
+          "path": {
+            "$id": "#/properties/map/properties/path",
+            "type": "string",
+            "title": "The Path Schema",
+            "default": "",
+            "examples": [
+              "Maps\\FrozenThrone\\(4)TwistedMeadows.w3x"
+            ],
+            "pattern": "^(.*)$"
+          },
+          "shortened": {
+            "$id": "#/properties/map/properties/shortened",
+            "type": "string",
+            "title": "The Shortened Schema",
+            "default": "",
+            "examples": [
+              "TwistedMeadows"
+            ],
+            "pattern": "^(.*)$"
+          },
+          "file": {
+            "$id": "#/properties/map/properties/file",
+            "type": "string",
+            "title": "The File Schema",
+            "default": "",
+            "examples": [
+              "(4)TwistedMeadows.w3x"
+            ],
+            "pattern": "^(.*)$"
+          }
+        }
+      },
+      "version": {
+        "$id": "#/properties/version",
+        "type": "string",
+        "title": "The Version Schema",
+        "default": "",
+        "examples": [
+          "1.31"
+        ],
+        "pattern": "^(.*)$"
+      },
+      "settings": {
+        "$id": "#/properties/settings",
+        "type": "object",
+        "title": "The Settings Schema",
+        "required": [
+          "visibility",
+          "hideTerrain",
+          "mapExplored",
+          "alwaysVisible",
+          "default",
+          "teamsTogether",
+          "randomHero",
+          "randomRaces",
+          "referees",
+          "fixedTeams",
+          "fullSharedUnitControl",
+          "speed"
+        ],
+        "properties": {
+          "visibility": {
+            "$id": "#/properties/settings/properties/visibility",
+            "type": "integer",
+            "title": "The Visibility Schema",
+            "default": 0,
+            "examples": [
+              0
+            ]
+          },
+          "hideTerrain": {
+            "$id": "#/properties/settings/properties/hideTerrain",
+            "type": "boolean",
+            "title": "The Hideterrain Schema",
+            "default": false,
+            "examples": [
+              true
+            ]
+          },
+          "mapExplored": {
+            "$id": "#/properties/settings/properties/mapExplored",
+            "type": "boolean",
+            "title": "The Mapexplored Schema",
+            "default": false,
+            "examples": [
+              true
+            ]
+          },
+          "alwaysVisible": {
+            "$id": "#/properties/settings/properties/alwaysVisible",
+            "type": "boolean",
+            "title": "The Alwaysvisible Schema",
+            "default": false,
+            "examples": [
+              true
+            ]
+          },
+          "default": {
+            "$id": "#/properties/settings/properties/default",
+            "type": "boolean",
+            "title": "The Default Schema",
+            "default": false,
+            "examples": [
+              true
+            ]
+          },
+          "teamsTogether": {
+            "$id": "#/properties/settings/properties/teamsTogether",
+            "type": "boolean",
+            "title": "The Teamstogether Schema",
+            "default": false,
+            "examples": [
+              false
+            ]
+          },
+          "randomHero": {
+            "$id": "#/properties/settings/properties/randomHero",
+            "type": "boolean",
+            "title": "The Randomhero Schema",
+            "default": false,
+            "examples": [
+              false
+            ]
+          },
+          "randomRaces": {
+            "$id": "#/properties/settings/properties/randomRaces",
+            "type": "boolean",
+            "title": "The Randomraces Schema",
+            "default": false,
+            "examples": [
+              false
+            ]
+          },
+          "referees": {
+            "$id": "#/properties/settings/properties/referees",
+            "type": "boolean",
+            "title": "The Referees Schema",
+            "default": false,
+            "examples": [
+              false
+            ]
+          },
+          "fixedTeams": {
+            "$id": "#/properties/settings/properties/fixedTeams",
+            "type": "boolean",
+            "title": "The Fixedteams Schema",
+            "default": false,
+            "examples": [
+              true
+            ]
+          },
+          "fullSharedUnitControl": {
+            "$id": "#/properties/settings/properties/fullSharedUnitControl",
+            "type": "boolean",
+            "title": "The Fullsharedunitcontrol Schema",
+            "default": false,
+            "examples": [
+              true
+            ]
+          },
+          "speed": {
+            "$id": "#/properties/settings/properties/speed",
+            "type": "integer",
+            "title": "The Speed Schema",
+            "default": 0,
+            "examples": [
+              2
+            ]
+          }
+        }
+      },
+      "observers": {
+        "$id": "#/properties/observers",
+        "type": "array",
+        "title": "The Observers Schema",
+        "items": {
+          "$id": "#/properties/observers/items",
+          "type": "string",
+          "title": "The Items Schema",
+          "default": "",
+          "examples": [
+            "observer1",
+            "observer2"
+          ],
+          "pattern": "^(.*)$"
+        }
+      },
+      "chat": {
+        "$id": "#/properties/chat",
+        "type": "array",
+        "title": "The Chat Schema",
+        "items": {
+          "$id": "#/properties/chat/items",
+          "type": "object",
+          "title": "The Items Schema",
+          "required": [
+            "mode",
+            "player",
+            "message"
+          ],
+          "properties": {
+            "mode": {
+              "$id": "#/properties/chat/items/properties/mode",
+              "type": "string",
+              "title": "The Mode Schema",
+              "default": "",
+              "examples": [
+                "ALL|ALLY|OBS|REF|PRIVATE"
+              ],
+              "pattern": "^(.*)$"
+            },
+            "player": {
+              "$id": "#/properties/chat/items/properties/player",
+              "type": "string",
+              "title": "The Player Schema",
+              "default": "",
+              "examples": [
+                "a playername"
+              ],
+              "pattern": "^(.*)$"
+            },
+            "message": {
+              "$id": "#/properties/chat/items/properties/message",
+              "type": "string",
+              "title": "The Message Schema",
+              "default": "",
+              "examples": [
+                "the chat message"
+              ],
+              "pattern": "^(.*)$"
+            }
+          }
+        }
+      },
+      "replayIdentifier": {
+        "$id": "#/properties/replayIdentifier",
+        "type": "string",
+        "title": "The Replayidentifier Schema",
+        "default": "",
+        "examples": [
+          "algorithm tbd"
+        ],
+        "pattern": "^(.*)$"
+      }
+    }
+  }
