@@ -94,7 +94,8 @@ const GameMetaData = new Parser()
         defaultChoice: new Parser()
       }),
     readUntil: function (item, buffer) {
-      return (buffer.readInt8() !== 22 && buffer.readInt8() !== 25) || item.hasRecord === 25
+      const next = buffer.readInt8()
+      return (next !== 22 && next !== 25) || item.hasRecord === 25
     },
     formatter: (input) => {
       input.splice(-1, 1)
