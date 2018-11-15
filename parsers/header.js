@@ -48,7 +48,6 @@ const PlayerRecordLadder = new Parser()
   .int32le('raceFlags', { formatter: raceFlagFormatter })
 
 const PlayerRecord = new Parser()
-  .int8('recordId')
   .int8('playerId')
   .string('playerName', {zeroTerminated: true})
   .uint8('addDataFlag')
@@ -76,6 +75,7 @@ const PlayerSlotRecord = new Parser()
 
 const GameMetaData = new Parser()
   .skip(4)
+  .skip(1)
   .nest('player', {type: PlayerRecord})
   .string('gameName', {zeroTerminated: true})
   .skip(1)
@@ -83,11 +83,25 @@ const GameMetaData = new Parser()
   .int32le('playerCount')
   .string('gameType', {length: 4, encoding: 'hex'})
   .string('languageId', {length: 4, encoding: 'hex'})
-  .array('playerList', {type: PlayerRecordInList,
+  .array('playerList', {
+    type: new Parser()
+      .int8('hasRecord')
+      .choice(null, {tag: 'hasRecord',
+        choices: {
+          0: new Parser(),
+          22: PlayerRecordInList
+        },
+        defaultChoice: new Parser()
+      }),
     readUntil: function (item, buffer) {
-      return buffer.readInt8() !== 22
-    }})
-  .string('gameStartRecord', {length: 1, encoding: 'hex'})
+      const next = buffer.readInt8()
+      return (next !== 22 && next !== 25) || item.hasRecord === 25
+    },
+    formatter: (input) => {
+      input.splice(-1, 1)
+      return input
+    }
+  })
   .int16('dataByteCount')
   .int8('slotRecordCount')
   .array('playerSlotRecords', {type: PlayerSlotRecord, length: 'slotRecordCount'})
