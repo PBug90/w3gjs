@@ -30,3 +30,30 @@ W3GReplay.prototype.generateUUID = function () {
 # game type algorithm
 
 # matchup algorithm
+
+For a given matchup, the matchup algorithm is supposed to return the same string regardless of player or team order. 
+Consider the following example:
+* Team1: Undead + Human
+* Team0: Orc + Human
+
+The resulting matchup string must be HOvHU
+
+Algorithm:
+
+* for each team, get the first letter of the race of each player and uppercase it
+* in that team, sort by race letter ascending
+* for each sorted team race combination, sort the team race combinations ascending
+* concat the resulting team race combinations with a 'v' to form the final matchup string
+
+```javascript
+W3GReplay.prototype.determineMatchup = function () {
+  let teamRaces = {}
+  Object.values(this.players).forEach((p) => {
+    if (!this.isObserver(p)) {
+      teamRaces[p.teamid] = teamRaces[p.teamid] || []
+      teamRaces[p.teamid].push(p.detectedRace || p.race)
+    }
+  })
+  this.matchup = (Object.values(teamRaces).map(e => e.sort().join(''))).sort().join('v')
+}
+```
