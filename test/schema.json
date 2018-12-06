@@ -4,6 +4,7 @@
   "$id": "http://example.com/root.json",
   "type": "object",
   "title": "The Root Schema",
+  "additionalProperties": false,
   "required": [
     "players",
     "gamename",
@@ -49,6 +50,16 @@
             ],
             "pattern": "^(.*)$"
           },
+          "apm": {
+            "$id": "#/properties/players/items/properties/apm",
+            "type": "integer",
+            "title": "Average APM of the player",
+            "default": "",
+            "examples": [
+              180
+            ],
+            "pattern": "^(.*)$"
+          },          
           "race": {
             "$id": "#/properties/players/items/properties/race",
             "type": "string",
@@ -305,6 +316,48 @@
         }
       }
     },
+    "randomseed": {
+      "$id": "#/properties/randomseed",
+      "type": "integer",
+      "title": "The randomseed Schema",
+      "default": ""
+    },    
+    "apm": {
+      "$id": "#/properties/apm",
+      "type": "object",
+      "title": "The apm information Schema",
+      "required": ["trackingInterval"],
+      "properties": {
+        "trackingInterval": {
+          "$id": "#/properties/apm/properties/trackingInterval",
+          "type": "integer",
+          "title": "apm tracking interval in ms"
+        }
+      }
+    },   
+    "expansion": {
+      "$id": "#/properties/expansion",
+      "type": "boolean",
+      "title": "The expansion Schema",
+      "default": false
+    },           
+    "startSpots": {
+      "$id": "#/properties/startSpots",
+      "type": "integer",
+      "title": "The startSpots Schema",
+      "default": "",
+      "examples": [
+        4
+      ],
+      "pattern": "^(.*)$"
+    },       
+    "duration": {
+      "$id": "#/properties/duration",
+      "type": "integer",
+      "title": "The duration schema",
+      "default": "",
+      "pattern": "^(.*)$"
+    },     
     "gamename": {
       "$id": "#/properties/gamename",
       "type": "string",
