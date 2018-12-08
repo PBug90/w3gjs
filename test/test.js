@@ -69,6 +69,9 @@ describe('Replay parsing tests', () => {
     expect(test.players[1].race).toBe('N')
     expect(test.players[1].raceDetected).toBe('N')
     expect(test.players.length).toBe(2)
+    expect(test.players[0].heroes[0]).toEqual(expect.objectContaining({id: 'Udea', level: 6}))
+    expect(test.players[0].heroes[1]).toEqual(expect.objectContaining({id: 'Ulic', level: 6}))
+    expect(test.players[0].heroes[2]).toEqual(expect.objectContaining({id: 'Udre', level: 3}))
   })
 
   it('parsing result has the correct schema', () => {

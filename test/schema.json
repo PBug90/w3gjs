@@ -37,9 +37,44 @@
           "id",
           "buildings",
           "upgrades",
-          "items"
+          "items",
+          "heroes"
         ],
         "properties": {
+          "heroes": {
+            "$id": "#/properties/players/items/properties/heroes",
+            "type": "array",
+            "title": "The Heroes Schema",
+
+            "items": {
+              "$id": "#/properties/players/items/properties/heroes/items",
+              "type": "object",
+              "title": "The Items Schema",
+              "additionalProperties": false,              
+              "required": [
+                "level",
+                "abilities",
+                "id"
+              ],
+              "properties": {
+                "id": {
+                  "$id": "#/properties/players/items/properties/heroes/items/properties/id",
+                  "type": "string",
+                  "title": "The id Schema"
+                },
+                "level": {
+                  "$id": "#/properties/players/items/properties/heroes/items/properties/level",
+                  "type": "integer",
+                  "title": "The level Schema"
+                },
+                "abilities": {
+                  "$id": "#/properties/players/items/properties/heroes/items/properties/abilities",
+                  "type": "object",
+                  "title": "The hero abilities schema"
+                }                                                          
+              }
+            }
+          },
           "name": {
             "$id": "#/properties/players/items/properties/name",
             "type": "string",
