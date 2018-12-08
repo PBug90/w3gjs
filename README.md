@@ -25,6 +25,11 @@ of a W3GReplay instance.
 ```javascript
   To be updated.
 ```
+
+### Example demo app
+You can see the parser in action here:
+https://enigmatic-springs-58797.herokuapp.com/
+
 ## Contributing
 There is no point in hiding the implementation of tools that the community can use. So please feel free to discuss in the issues section or provide a pull request if you think you can improve this parser.
 
