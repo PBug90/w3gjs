@@ -110,7 +110,7 @@ const GameMetaData = new Parser()
       return next === 25
     }
   })
-  .int8('hi')
+  .int8('gameStartRecord')
   .int16('dataByteCount')
   .int8('slotRecordCount')
   .array('playerSlotRecords', {type: PlayerSlotRecord, length: 'slotRecordCount'})
