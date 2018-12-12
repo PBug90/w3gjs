@@ -47,6 +47,18 @@ const PlayerRecordLadder = new Parser()
   .string('runtimeMS', {encoding: 'hex', length: 4})
   .int32le('raceFlags', { formatter: raceFlagFormatter })
 
+const HostRecord = new Parser()
+  .int8('playerId')
+  .string('playerName', {zeroTerminated: true})
+  .uint8('addDataFlagHost')
+  .choice('additional', {tag: 'addDataFlagHost',
+    choices: {
+      8: PlayerRecordLadder,
+      0: new Parser().skip(0),
+      1: new Parser().skip(1),
+      2: new Parser().skip(2)
+    }})
+
 const PlayerRecord = new Parser()
   .int8('playerId')
   .string('playerName', {zeroTerminated: true})
@@ -55,7 +67,8 @@ const PlayerRecord = new Parser()
     choices: {
       1: new Parser().skip(1),
       8: PlayerRecordLadder,
-      2: new Parser().skip(2)
+      2: new Parser().skip(2),
+      0: new Parser().skip(0)
     }})
 
 const PlayerRecordInList = new Parser()
@@ -74,9 +87,8 @@ const PlayerSlotRecord = new Parser()
   .int8('handicapFlag')
 
 const GameMetaData = new Parser()
-  .skip(4)
-  .skip(1)
-  .nest('player', {type: PlayerRecord})
+  .skip(5)
+  .nest('player', {type: HostRecord})
   .string('gameName', {zeroTerminated: true})
   .skip(1)
   .string('encodedString', {zeroTerminated: true, encoding: 'hex'})
@@ -88,20 +100,17 @@ const GameMetaData = new Parser()
       .int8('hasRecord')
       .choice(null, {tag: 'hasRecord',
         choices: {
-          0: new Parser(),
           22: PlayerRecordInList
+
         },
-        defaultChoice: new Parser()
+        defaultChoice: new Parser().skip(-1)
       }),
     readUntil: function (item, buffer) {
       const next = buffer.readInt8()
-      return (next !== 22 && next !== 25) || item.hasRecord === 25
-    },
-    formatter: (input) => {
-      input.splice(-1, 1)
-      return input
+      return next === 25
     }
   })
+  .int8('hi')
   .int16('dataByteCount')
   .int8('slotRecordCount')
   .array('playerSlotRecords', {type: PlayerSlotRecord, length: 'slotRecordCount'})

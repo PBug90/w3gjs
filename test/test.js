@@ -73,4 +73,12 @@ describe('Replay parsing tests', () => {
     expect(test.players['5'].detectedRace).toBe('N')
     expect(Object.keys(test.players).length).toBe(2)
   })
+
+  it('parses a standard 1.30.2 replay properly', () => {
+    const test = Parser.parse(`./replays/standard_1.302.w3g`)
+    expect(test.header.magic).toBe('Warcraft III recorded game\u001a')
+    expect(test.header.version).toBe(10030)
+    expect(test.matchup).toBe('NvU')
+    expect(Object.keys(test.players).length).toBe(2)
+  })
 })
