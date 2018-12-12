@@ -50,7 +50,8 @@ const PlayerChatMessageBlock = new Parser()
 
 // 0x22
 const Unknown0x22 = new Parser()
-  .skip(5)
+  .int8('length')
+  .string('content', {length: 'length'})
 
 // 0x23
 const Unknown0x23 = new Parser()
