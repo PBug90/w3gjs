@@ -45,8 +45,14 @@ const PlayerChatMessageBlock = new Parser()
   .int8('playerId')
   .int16le('byteCount')
   .int8('flags')
-  .int8('chatMode', {length: 4, formatter: chatModeFormatter, encoding: 'hex'})
-  .skip(3)
+  .choice(
+    {tag: 'flags',
+      choices: {
+        0x10: new Parser(),
+        0x20: new Parser().int8('chatMode', {length: 4, formatter: chatModeFormatter, encoding: 'hex'}).skip(3)
+      }
+    }
+  )
   .string('message', {zeroTerminated: true, encoding: 'utf8'})
 
 // 0x22
