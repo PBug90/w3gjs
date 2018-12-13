@@ -1,5 +1,5 @@
 const fs = require('fs')
-
+const replays = fs.readdirSync('./replays/')
 const W3GReplay = require('.')
 const W3GParser = new W3GReplay()
 
@@ -12,13 +12,7 @@ function formatBytes (bytes, decimals) {
   return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i]
 }
 
-// const replays = ['z1.302.w3g']
-const replays = fs.readdirSync('./replays/')
 replays.forEach((replayFile) => {
-  console.log(replayFile)
   const parseResult = W3GParser.parse(`./replays/${replayFile}`)
-  // console.log(parseResult)
   console.log(formatBytes(Buffer.byteLength(JSON.stringify(parseResult), 'utf8')))
-  console.log(parseResult.chat)
-  process.exit()
 })
