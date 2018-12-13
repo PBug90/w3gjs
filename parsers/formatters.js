@@ -37,6 +37,11 @@ const chatModeFormatter = (flag) => {
     case 0x02:
       return 'OBS'
   }
+
+  if (flag >= 3 && flag <= 27) {
+    return `PRIVATE${flag}`
+  }
+
   return flag
 }
 
