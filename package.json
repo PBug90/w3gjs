@@ -20,7 +20,7 @@
     "jest": "^23.5.0"
   },
   "scripts": {
-    "test": "jest test/test.js",
+    "test": "jest",
     "coverage": "jest test/test.js --collectCoverage",
     "lint": "eslint --ext .jsx,.js lib/ test/",
     "lint:fix": "eslint --ext .jsx,.js lib/ --fix"
