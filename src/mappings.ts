@@ -1,4 +1,4 @@
-const items = {
+const items: { [key: string]: string } = {
   'amrc': 'i_Amulet of Recall',
   'ankh': 'i_Ankh of Reincarnation',
   'belv': 'i_Boots of Quel\'Thalas +6',
@@ -240,7 +240,7 @@ const items = {
   'dthb': 'i_Thunderbloom Bulb'
 }
 
-const units = {
+const units: { [key: string]: string } = {
   'hfoo': 'u_Footman',
   'hkni': 'u_Knight',
   'hmpr': 'u_Priest',
@@ -403,7 +403,7 @@ const units = {
   'nndr': 'u_Nether Dragon'
 }
 
-const buildings = {
+const buildings: { [key: string]: string } = {
   'hhou': 'Farm',
   'halt': 'Altar of Kings',
   'harm': 'Workshop',
@@ -449,7 +449,7 @@ const buildings = {
   'ugrv': 'Graveyard'
 }
 
-const upgrades = {
+const upgrades: { [key: string]: string } = {
   'Rhss': 'p_Control Magic',
   'Rhme': 'p_Swords',
   'Rhra': 'p_Gunpowder',
@@ -533,10 +533,12 @@ const upgrades = {
   'Rupm': 'p_Backpack'
 }
 
-module.exports = {
+const itemIds = Object.keys(items)
+
+export {
   items,
   units,
   buildings,
   upgrades,
-  itemIds: Object.keys(items)
+  itemIds
 }

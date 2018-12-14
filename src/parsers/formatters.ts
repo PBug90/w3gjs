@@ -1,4 +1,4 @@
-const objectIdFormatter = (arr) => {
+const objectIdFormatter = (arr: any[]): any => {
   let copy = arr
   if (arr[3] >= 0x41 && arr[3] <= 0x7A) {
     copy = arr.slice()
@@ -7,7 +7,7 @@ const objectIdFormatter = (arr) => {
   return copy
 }
 
-const raceFlagFormatter = (flag) => {
+const raceFlagFormatter = (flag: any): any => {
   switch (flag) {
     case 0x01:
     case 0x41:
@@ -28,7 +28,7 @@ const raceFlagFormatter = (flag) => {
   return flag
 }
 
-const chatModeFormatter = (flag) => {
+const chatModeFormatter = (flag: any): string => {
   switch (flag) {
     case 0x00:
       return 'ALL'
@@ -41,11 +41,11 @@ const chatModeFormatter = (flag) => {
   if (flag >= 3 && flag <= 27) {
     return `PRIVATE${flag}`
   }
-
+  
   return flag
 }
 
-module.exports = {
+export {
   objectIdFormatter,
   raceFlagFormatter,
   chatModeFormatter

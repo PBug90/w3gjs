@@ -1,5 +1,5 @@
-module.exports = {
-  playerColor: (color) => {
+export default {
+  playerColor: (color: number): string => {
     switch (color) {
       case 0:
         return '#ff0000'

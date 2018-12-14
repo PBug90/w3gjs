@@ -2,8 +2,8 @@
   Parses a CommandDataBlock that is contained inside of a TimeSlotBlock
 */
 
-const { Parser } = require('binary-parser')
-const { objectIdFormatter } = require('./formatters')
+import { Parser } from 'binary-parser'
+import { objectIdFormatter } from './formatters'
 
 const PauseGameAction = new Parser()
 const ResumeGameAction = new Parser()
@@ -15,8 +15,9 @@ const IncreaseGameSpeedAction = new Parser()
 const DecreaseGameSpeedAction = new Parser()
 
 const SaveGameAction = new Parser()
-  .string('saveGameName', {zeroTerminated: true})
+  .string('saveGameName', { zeroTerminated: true })
 
+// @ts-ignore
 const SaveGameFinishedAction = new Parser()
   .int16le()
 
@@ -25,6 +26,7 @@ const UnitBuildingAbilityActionNoParams = new Parser()
   .array('itemId', {
     type: 'uint8',
     length: 4,
+    // @ts-ignore
     formatter: objectIdFormatter
   })
   .int32le('unknownA')
@@ -35,6 +37,7 @@ const UnitBuildingAbilityActionTargetPosition = new Parser()
   .array('itemId', {
     type: 'uint8',
     length: 4,
+    // @ts-ignore
     formatter: objectIdFormatter
   })
   .int32le('unknownA')
@@ -47,6 +50,7 @@ const UnitBuildingAbilityActionTargetPositionTargetObjectId = new Parser()
   .array('itemId', {
     type: 'int8',
     length: 4,
+    // @ts-ignore
     formatter: objectIdFormatter
   })
   .int32le('unknownA')
@@ -61,6 +65,7 @@ const GiveItemToUnitAction = new Parser()
   .array('itemId', {
     type: 'int8',
     length: 4,
+    // @ts-ignore
     formatter: objectIdFormatter
   })
   .int32le('unknownA')
@@ -77,6 +82,7 @@ const UnitBuildingAbilityActionTwoTargetPositions = new Parser()
   .array('itemId1', {
     type: 'int8',
     length: 4,
+    // @ts-ignore
     formatter: objectIdFormatter
   })
   .int32le('unknownA')
@@ -96,6 +102,7 @@ const SelectionUnit = new Parser()
   .array('itemId1', {
     type: 'int8',
     length: 4,
+    // @ts-ignore
     formatter: objectIdFormatter
   })
   .array('itemId2', {
@@ -128,6 +135,7 @@ const SelectSubgroupAction = new Parser()
   .array('itemId', {
     type: 'int8',
     length: 4,
+    // @ts-ignore
     formatter: objectIdFormatter
   })
   .int32le('objectId1')
@@ -143,6 +151,7 @@ const SelectGroundItemAction = new Parser()
   .array('itemId1', {
     type: 'int8',
     length: 4,
+    // @ts-ignore
     formatter: objectIdFormatter
   })
   .array('itemId2', {
@@ -155,6 +164,7 @@ const CancelHeroRevivalAction = new Parser()
   .array('itemId1', {
     type: 'int8',
     length: 4,
+    // @ts-ignore
     formatter: objectIdFormatter
   })
   .array('itemId2', {
@@ -168,6 +178,7 @@ const RemoveUnitFromBuildingQueueAction = new Parser()
   .array('itemId', {
     type: 'int8',
     length: 4,
+    // @ts-ignore
     formatter: objectIdFormatter
   })
 
@@ -180,7 +191,7 @@ const TransferResourcesAction = new Parser()
 
 const MapTriggerChatAction = new Parser()
   .skip(8)
-  .string('action', {zeroTerminated: true})
+  .string('action', { zeroTerminated: true })
 
 const ESCPressedAction = new Parser()
 
@@ -201,11 +212,12 @@ const ScenarioTriggerAction = new Parser()
   .skip(12)
 
 const W3MMDAction = new Parser()
-  .string('filename', {zeroTerminated: true})
-  .string('missionKey', {zeroTerminated: true})
-  .string('key', {zeroTerminated: true})
+  .string('filename', { zeroTerminated: true })
+  .string('missionKey', { zeroTerminated: true })
+  .string('key', { zeroTerminated: true })
   .int32le('value')
 
+// @ts-ignore
 const ActionBlock = new Parser()
   .int8('actionId')
   .choice({
@@ -271,15 +283,16 @@ const ActionBlock = new Parser()
   })
 
 const ActionBlockList = new Parser()
+  // @ts-ignore
   .array(null, { type: ActionBlock, readUntil: 'eof' })
 
 // 0x17
 const CommandDataBlock = new Parser()
   .int8('playerId')
   .int16le('actionBlockLength')
-  .buffer('actions', {length: 'actionBlockLength'})
+  .buffer('actions', { length: 'actionBlockLength' })
 
-module.exports = {
+export {
   CommandDataBlock,
   ActionBlockList
 }

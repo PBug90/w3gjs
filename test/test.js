@@ -1,9 +1,8 @@
-const W3GReplay = require('../index')
-const Parser = new W3GReplay()
+const W3GReplay = require('../dist/W3GReplay.umd')
 
 describe('Replay parsing tests', () => {
   it('parses a standard 1.29 replay with observers properly', () => {
-    const test = Parser.parse(`./replays/standard_129_obs.w3g`)
+    const test = new W3GReplay(`./replays/standard_129_obs.w3g`).parse()
     expect(test.header.magic).toBe('Warcraft III recorded game\u001a')
     expect(test.header.version).toBe(29)
     expect(test.players['4'].name).toBe('S.o.K.o.L')
@@ -24,7 +23,7 @@ describe('Replay parsing tests', () => {
   })
 
   it('parses a standard 1.26 replay properly', () => {
-    const test = Parser.parse(`./replays/standard_126.w3g`)
+    const test = new W3GReplay(`./replays/standard_126.w3g`).parse()
     expect(test.header.magic).toBe('Warcraft III recorded game\u001a')
     expect(test.header.version).toBe(26)
     expect(test.observers.length).toBe(8)
@@ -40,7 +39,7 @@ describe('Replay parsing tests', () => {
   })
 
   it('parses a netease 1.29 replay properly', () => {
-    const test = Parser.parse(`./replays/netease_129_obs.nwg`)
+    const test = new W3GReplay(`./replays/netease_129_obs.nwg`).parse()
     expect(test.header.magic).toBe('Warcraft III recorded game\u001a')
     expect(test.header.version).toBe(29)
 
@@ -53,7 +52,7 @@ describe('Replay parsing tests', () => {
   })
 
   it('parses a 2on2standard 1.29 replay properly', () => {
-    const test = Parser.parse(`./replays/999.w3g`)
+    const test = new W3GReplay(`./replays/999.w3g`).parse()
     expect(test.header.magic).toBe('Warcraft III recorded game\u001a')
     expect(test.header.version).toBe(26)
     expect(test.matchup).toBe('HUvHU')
@@ -61,7 +60,7 @@ describe('Replay parsing tests', () => {
   })
 
   it('parses a standard 1.30 replay properly', () => {
-    const test = Parser.parse(`./replays/standard_130.w3g`)
+    const test = new W3GReplay(`./replays/standard_130.w3g`).parse()
     expect(test.header.magic).toBe('Warcraft III recorded game\u001a')
     expect(test.header.version).toBe(30)
     expect(test.matchup).toBe('NvU')
@@ -75,7 +74,7 @@ describe('Replay parsing tests', () => {
   })
 
   it('parses a standard 1.30.2 replay properly', () => {
-    const test = Parser.parse(`./replays/standard_1.302.w3g`)
+    const test = new W3GReplay(`./replays/standard_1.302.w3g`).parse()
     expect(test.header.magic).toBe('Warcraft III recorded game\u001a')
     expect(test.header.version).toBe(10030)
     expect(test.matchup).toBe('NvU')

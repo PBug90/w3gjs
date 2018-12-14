@@ -1,19 +1,19 @@
-const { Parser } = require('binary-parser')
-const {raceFlagFormatter} = require('./formatters')
+import { Parser } from 'binary-parser'
+import { raceFlagFormatter } from './formatters'
 
 const Header = new Parser()
-  .string('magic', {zeroTerminated: true})
+  .string('magic', { zeroTerminated: true })
   .int32le('offset')
   .int32le('compressedSize')
-  .string('headerVersion', {encoding: 'hex', length: 4})
+  .string('headerVersion', { encoding: 'hex', length: 4 })
   .int32le('decompressedSize')
   .int32le('compressedDataBlockCount')
 
 const SubHeaderV1 = new Parser()
-  .string('gameIdentifier', {length: 4})
+  .string('gameIdentifier', { length: 4 })
   .int32le('version')
   .int16le('buildNo')
-  .string('flags', {encoding: 'hex', length: 2})
+  .string('flags', { encoding: 'hex', length: 2 })
   .int32le('replayLengthMS')
   .uint32le('checksum')
 
@@ -30,13 +30,14 @@ const SubHeaderV0 = new Parser()
 const DataBlock = new Parser()
   .int16le('blockSize')
   .int16le('blockDecompressedSize')
-  .string('unknown', {encoding: 'hex', length: 4})
-  .buffer('compressed', {length: 'blockSize'})
+  .string('unknown', { encoding: 'hex', length: 4 })
+  .buffer('compressed', { length: 'blockSize' })
 
 const DataBlocks = new Parser()
-  .array('blocks', {type: DataBlock, readUntil: 'eof'})
+  .array('blocks', { type: DataBlock, readUntil: 'eof' })
 
 const ReplayHeader = new Parser()
+  // @ts-ignore
   .nest(null, {
     type: Header
   })
@@ -44,35 +45,40 @@ const ReplayHeader = new Parser()
   .nest(null, { type: DataBlocks })
 
 const PlayerRecordLadder = new Parser()
-  .string('runtimeMS', {encoding: 'hex', length: 4})
+  .string('runtimeMS', { encoding: 'hex', length: 4 })
   .int32le('raceFlags', { formatter: raceFlagFormatter })
 
 const HostRecord = new Parser()
   .int8('playerId')
-  .string('playerName', {zeroTerminated: true})
+  .string('playerName', { zeroTerminated: true })
   .uint8('addDataFlagHost')
-  .choice('additional', {tag: 'addDataFlagHost',
+  .choice('additional', {
+    tag: 'addDataFlagHost',
     choices: {
       8: PlayerRecordLadder,
       0: new Parser().skip(0),
       1: new Parser().skip(1),
       2: new Parser().skip(2)
-    }})
+    }
+  })
 
 const PlayerRecord = new Parser()
   .int8('playerId')
-  .string('playerName', {zeroTerminated: true})
+  .string('playerName', { zeroTerminated: true })
   .uint8('addDataFlag')
-  .choice('additional', {tag: 'addDataFlag',
+  .choice('additional', {
+    tag: 'addDataFlag',
     choices: {
       1: new Parser().skip(1),
       8: PlayerRecordLadder,
       2: new Parser().skip(2),
       0: new Parser().skip(0)
-    }})
+    }
+  })
 
 const PlayerRecordInList = new Parser()
-  .nest(null, {type: PlayerRecord})
+  // @ts-ignore
+  .nest(null, { type: PlayerRecord })
   .skip(4)
 
 const PlayerSlotRecord = new Parser()
@@ -88,24 +94,27 @@ const PlayerSlotRecord = new Parser()
 
 const GameMetaData = new Parser()
   .skip(5)
-  .nest('player', {type: HostRecord})
-  .string('gameName', {zeroTerminated: true})
+  .nest('player', { type: HostRecord })
+  .string('gameName', { zeroTerminated: true })
   .skip(1)
-  .string('encodedString', {zeroTerminated: true, encoding: 'hex'})
+  .string('encodedString', { zeroTerminated: true, encoding: 'hex' })
   .int32le('playerCount')
-  .string('gameType', {length: 4, encoding: 'hex'})
-  .string('languageId', {length: 4, encoding: 'hex'})
+  .string('gameType', { length: 4, encoding: 'hex' })
+  .string('languageId', { length: 4, encoding: 'hex' })
   .array('playerList', {
     type: new Parser()
       .int8('hasRecord')
-      .choice(null, {tag: 'hasRecord',
+      // @ts-ignore
+      .choice(null, {
+        tag: 'hasRecord',
         choices: {
           22: PlayerRecordInList
 
         },
         defaultChoice: new Parser().skip(-1)
       }),
-    readUntil: function (item, buffer) {
+    readUntil(item, buffer) {
+      // @ts-ignore
       const next = buffer.readInt8()
       return next === 25
     }
@@ -113,9 +122,9 @@ const GameMetaData = new Parser()
   .int8('gameStartRecord')
   .int16('dataByteCount')
   .int8('slotRecordCount')
-  .array('playerSlotRecords', {type: PlayerSlotRecord, length: 'slotRecordCount'})
+  .array('playerSlotRecords', { type: PlayerSlotRecord, length: 'slotRecordCount' })
   .int32le('randomSeed')
-  .string('selectMode', {length: 1, encoding: 'hex'})
+  .string('selectMode', { length: 1, encoding: 'hex' })
   .int8('startSpotCount')
 
 const EncodedMapMetaString = new Parser()
@@ -135,11 +144,11 @@ const EncodedMapMetaString = new Parser()
   .bit3('empty')
   .bit1('referees')
   .skip(5)
-  .string('mapChecksum', {length: 4, encoding: 'hex'})
-  .string('mapName', {zeroTerminated: true})
-  .string('creator', {zeroTerminated: true})
+  .string('mapChecksum', { length: 4, encoding: 'hex' })
+  .string('mapName', { zeroTerminated: true })
+  .string('creator', { zeroTerminated: true })
 
-module.exports = {
+export {
   ReplayHeader,
   EncodedMapMetaString,
   GameMetaData
