@@ -114,7 +114,7 @@ class W3GReplay {
     playerId: number
     result: string
   }[]
-  w3mmd: any
+  w3mmd: any[]
   totalTimeTracker: number
   timeSegmentTracker: number
   matchup: string
@@ -185,11 +185,13 @@ class W3GReplay {
     this.slots = []
     this.playerList = []
     this.teams = {}
-    this.playerActionTrackInterval = 0
     this.totalTimeTracker = 0
     this.timeSegmentTracker = 0
     this.matchup = ''
     this.observers = []
+    this.w3mmd = []
+    // apm tracking interval in milliseconds
+    this.playerActionTrackInterval = 60000
   }
 
   parse(): this {
@@ -219,8 +221,6 @@ class W3GReplay {
     this.slots = this.gameMetaDataDecoded.meta.playerSlotRecords
     this.playerList = [this.gameMetaDataDecoded.meta.player, ...this.gameMetaDataDecoded.meta.playerList]
 
-    this.playerActionTrackInterval = 60000 // apm tracking interval in milliseconds
-
     this.createPlayerList()
     this.processGameDataBlocks()
     this.cleanup()
@@ -230,17 +230,16 @@ class W3GReplay {
   }
 
   createPlayerList() {
-    const tempPlayers: { [key: string]: any } = {}
+    const tempPlayers: { [key: string]: W3GReplay['playerList'][0] } = {}
     this.teams = {}
     this.players = {}
 
-    this.playerList.forEach((player: any): void => {
+    this.playerList.forEach((player): void => {
       tempPlayers[player.playerId] = player
     })
 
-    this.slots.forEach((slot: any) => {
+    this.slots.forEach(slot => {
       if (slot.slotStatus > 1) {
-        this.players[slot.playerId] = { ...this.players[slot.playerId], ...slot }
         this.teams[slot.teamId] = this.teams[slot.teamId] || []
         this.teams[slot.teamId].push(slot.playerId)
         this.players[slot.playerId] = new Player(slot.playerId, tempPlayers[slot.playerId]
@@ -264,7 +263,7 @@ class W3GReplay {
           this.totalTimeTracker += block.timeIncrement
           this.timeSegmentTracker += block.timeIncrement
           if (this.timeSegmentTracker > this.playerActionTrackInterval) {
-            Object.values(this.players).forEach((p: any) => p.newActionTrackingSegment())
+            Object.values(this.players).forEach(p => p.newActionTrackingSegment())
             this.timeSegmentTracker = 0
           }
           this.processTimeSlot(block)
@@ -279,7 +278,7 @@ class W3GReplay {
       }
     })
 
-    this.chatlog = this.chatlog.map((elem: any) => ({ ...elem, playerName: this.players[elem.playerId].name }))
+    this.chatlog = this.chatlog.map(elem => ({ ...elem, playerName: this.players[elem.playerId].name }))
     delete this.temporaryAPMTracker
   }
 
@@ -363,26 +362,26 @@ class W3GReplay {
     return decoded
   }
 
-  isObserver(player: any): boolean {
+  isObserver(player: Player): boolean {
     return (player.teamid === 24 && this.header.version >= 29) || (player.teamid === 12 && this.header.version < 29)
   }
 
   determineMatchup(): void {
     let teamRaces: { [key: string]: any } = {}
-    Object.values(this.players).forEach((p: any) => {
+    Object.values(this.players).forEach(p => {
       if (!this.isObserver(p)) {
         teamRaces[p.teamid] = teamRaces[p.teamid] || []
         teamRaces[p.teamid].push(p.detectedRace || p.race)
       }
     })
-    this.matchup = (Object.values(teamRaces).map((e: any) => e.sort().join(''))).sort().join('v')
+    this.matchup = (Object.values(teamRaces).map(e => e.sort().join(''))).sort().join('v')
   }
 
   cleanup(): void {
     this.determineMatchup()
     this.observers = []
 
-    Object.values(this.players).forEach((p: any) => {
+    Object.values(this.players).forEach(p => {
       p.newActionTrackingSegment(this.playerActionTrackInterval)
       p.cleanup()
       if (this.isObserver(p)) {
