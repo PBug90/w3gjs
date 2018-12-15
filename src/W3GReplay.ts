@@ -1,9 +1,11 @@
-import { readFileSync } from 'fs';
-import { inflateSync, constants } from 'zlib';
+// Cannot object destructuring fs&zlib because error with rollup
+import fs from 'fs';
+import zlib from 'zlib';
 import { Parser } from 'binary-parser'
-import { ActionBlockList } from './parsers/actions'
-import { ReplayHeader, EncodedMapMetaString, GameMetaData } from './parsers/header'
-import { GameDataParser } from './parsers/gamedata'
+import { ActionBlockList } from '../parsers/actions'
+import { ReplayHeader, EncodedMapMetaString, GameMetaData } from '../parsers/header'
+import { GameDataParser } from '../parsers/gamedata'
+import { Races } from './types'
 
 const GameDataParserComposed = new Parser()
   .nest('meta', { type: GameMetaData })
@@ -12,44 +14,115 @@ const GameDataParserComposed = new Parser()
 import Player from './Player'
 
 class W3GReplay {
-  private buffer: Buffer;
-  private header: {
-    magic: string;
-    offset: number;
-    compressedSize: number;
-    headerVersion: string;
-    decompressedSize: number;
-    compressedDataBlockCount: number;
-    gameIdentifier: string;
-    version: number;
-    buildNo: number;
-    flags: string;
-    replayLengthMS: number;
-    checksum: number;
-    blocks: any[];
+  buffer: Buffer
+  header: {
+    magic: string
+    offset: number
+    compressedSize: number
+    headerVersion: string
+    decompressedSize: number
+    compressedDataBlockCount: number
+    gameIdentifier: string
+    version: number
+    buildNo: number
+    flags: string
+    replayLengthMS: number
+    checksum: number
+    blocks: any[]
   }
-  private decompressed: Buffer;
-  private gameMetaDataDecoded: any;
-  private temporaryAPMTracker: any;
-  private decodedMetaStringBuffer: any;
-  private meta: any;
-  private slots: any;
-  private playerList: any;
-  private playerActionTrackInterval: any;
-  private teams: { [key: string]: number[] };
-  private players: { [key: string]: Player };
-  private chatlog: any;
-  private leaveEvents: any;
-  private w3mmd: any;
-  private totalTimeTracker: number;
-  private timeSegmentTracker: number;
-  private matchup: string;
-  private observers: string[];
-  private apmTimeSeries: any;
-
+  decompressed: Buffer
+  gameMetaDataDecoded: any
+  temporaryAPMTracker: any
+  meta: {
+    meta: {
+      player: {
+        playerId: number
+        playerName: string
+        addDataFlagHost: number
+        additional: {
+          runtimeMs?: string
+          raceFlags?: Races
+        }
+      }
+      gameName: string
+      encodedString: string
+      playerCount: number
+      gameType: string
+      languageId: string
+      playerList: {
+        hasRecord: number
+        playerId: number
+        playerName: string
+        addDataFlag: 8
+        additional: {
+          runtimeMs?: string
+          raceFlags?: Races
+        }
+      }[]
+      gameStartRecord: number
+      dataByteCount: number
+      slotRecordCount: number
+      playerSlotRecords: {
+        playerId: number
+        slotStatus: number
+        cumputerFlag: number
+        teamId: number
+        color: number
+        raceFlag: Races
+        aiStrength: number
+        handicapFlag: number 
+      }[]
+      randomSeed: number
+      selectMode: string
+      startSpotCount: number
+    }
+    speed: number
+    hideTerrain: number
+    mapExplored: number
+    alwaysVisible: number
+    default: number
+    observerMode: number
+    teamsTogether: number
+    empty: number
+    fixedTeams: number
+    fullSharedUnitControl: number
+    randomHero: number
+    randomRaces: number
+    referees: number
+    mapChecksum: string
+    mapName: string
+    creator: string
+    blocks: any[]
+  }
+  slots: W3GReplay['meta']['meta']['playerSlotRecords']
+  playerList: W3GReplay['meta']['meta']['playerList']
+  playerActionTrackInterval: number
+  teams: { [key: string]: number[] }
+  players: { [key: string]: Player }
+  chatlog: {
+    type: number
+    playerId: number
+    flags: number
+    chatModel: string,
+    message: string
+    time: number
+    playerName: string
+  }[]
+  leaveEvents: {
+    type: number
+    reason: string
+    playerId: number
+    result: string
+  }[]
+  w3mmd: any
+  totalTimeTracker: number
+  timeSegmentTracker: number
+  matchup: string
+  observers: string[]
+  apmTimeSeries: any
 
   constructor($buffer: string) {
-    this.buffer = readFileSync($buffer)
+    this.buffer = fs.readFileSync($buffer)
     this.header = {
       magic: '',
       offset: 0,
@@ -65,9 +138,54 @@ class W3GReplay {
       checksum: 0,
       blocks: []
     }
+    this.meta = {
+      meta: {
+        player: {
+          playerId: 0,
+          playerName: '',
+          addDataFlagHost: 0,
+          additional: {}
+        },
+        gameName: '',
+        encodedString: '',
+        playerCount: 0,
+        gameType: '',
+        languageId: '',
+        playerList: [],
+        gameStartRecord: 0,
+        dataByteCount: 0,
+        slotRecordCount: 0,
+        playerSlotRecords: [],
+        randomSeed: 0,
+        selectMode: '',
+        startSpotCount: 0,
+      },
+      speed: 0,
+      hideTerrain: 0,
+      mapExplored: 0,
+      alwaysVisible: 0,
+      default: 0,
+      observerMode: 0,
+      teamsTogether: 0,
+      empty: 0,
+      fixedTeams: 0,
+      fullSharedUnitControl: 0,
+      randomHero: 0,
+      randomRaces: 0,
+      referees: 0,
+      mapChecksum: '',
+      mapName: '',
+      creator: '',
+      blocks: []
+    }
     this.players = {}
-    this.decompressed = new Buffer('')
+    this.chatlog = []
+    this.leaveEvents = []
+    this.decompressed = Buffer.from('')
+    this.slots = []
+    this.playerList = []
     this.teams = {}
+    this.playerActionTrackInterval = 0
     this.totalTimeTracker = 0
     this.timeSegmentTracker = 0
     this.matchup = ''
@@ -83,7 +201,7 @@ class W3GReplay {
     this.header.blocks.forEach((block: any) => {
       if (block.blockSize > 0 && block.blockDecompressedSize === 8192) {
         try {
-          const r = inflateSync(block.compressed, { finishFlush: constants.Z_SYNC_FLUSH })
+          const r = zlib.inflateSync(block.compressed, { finishFlush: zlib.constants.Z_SYNC_FLUSH })
           if (r.byteLength > 0 && block.compressed.byteLength > 0) {
             decompressed.push(r)
           }
@@ -95,8 +213,8 @@ class W3GReplay {
     this.decompressed = Buffer.concat(decompressed)
     this.gameMetaDataDecoded = GameDataParserComposed.parse(this.decompressed)
 
-    this.decodedMetaStringBuffer = this.decodeGameMetaString(this.gameMetaDataDecoded.meta.encodedString)
-    this.meta = { ...this.gameMetaDataDecoded, ...EncodedMapMetaString.parse(this.decodedMetaStringBuffer) }
+    const decodedMetaStringBuffer = this.decodeGameMetaString(this.gameMetaDataDecoded.meta.encodedString)
+    this.meta = { ...this.gameMetaDataDecoded, ...EncodedMapMetaString.parse(decodedMetaStringBuffer) }
 
     this.slots = this.gameMetaDataDecoded.meta.playerSlotRecords
     this.playerList = [this.gameMetaDataDecoded.meta.player, ...this.gameMetaDataDecoded.meta.playerList]
@@ -108,7 +226,6 @@ class W3GReplay {
     this.cleanup()
 
     console.timeEnd('parse')
-    // @ts-ignore
     return { ...this }
   }
 
@@ -284,7 +401,6 @@ class W3GReplay {
     delete this.buffer
     delete this.decompressed
     delete this.gameMetaDataDecoded
-    delete this.decodedMetaStringBuffer
     delete this.header.blocks
     delete this.apmTimeSeries
     delete this.meta.blocks

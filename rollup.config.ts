@@ -4,6 +4,8 @@ import sourceMaps from 'rollup-plugin-sourcemaps'
 import camelCase from 'lodash.camelcase'
 import typescript from 'rollup-plugin-typescript2'
 import json from 'rollup-plugin-json'
+import globals from 'rollup-plugin-node-globals'
+import builtins from 'rollup-plugin-node-builtins'
 
 const pkg = require('./package.json')
 
@@ -32,5 +34,11 @@ export default {
 
     // Resolve source maps to the original source
     sourceMaps(),
+    // Node globals
+    globals(),
+    // Node built-ins
+    // Causing Circular dependency warning
+    // https://github.com/calvinmetcalf/rollup-plugin-node-builtins/issues/39
+    builtins(),
   ],
 }

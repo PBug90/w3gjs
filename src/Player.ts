@@ -22,18 +22,18 @@ class Player {
   items: { [key: string]: number }
   buildings: { [key: string]: number }
   actions: {
-    timed: any[];
-    assigngroup: number;
-    rightclick: number;
-    basic: number;
-    buildtrain: number;
-    ability: number;
-    item: number;
-    select: number;
-    removeunit: number;
-    subgroup: number;
-    selecthotkey: number;
-    esc: number;
+    timed: any[]
+    assigngroup: number
+    rightclick: number
+    basic: number
+    buildtrain: number
+    ability: number
+    item: number
+    select: number
+    removeunit: number
+    subgroup: number
+    selecthotkey: number
+    esc: number
   }
   _currentlyTrackedAPM: number
   currentTimePlayed: number
