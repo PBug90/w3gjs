@@ -1,10 +1,10 @@
-// Cannot object destructuring fs&zlib because error with rollup
-import fs from 'fs';
-import zlib from 'zlib';
+// Cannot import fs&zlib because error with rollup
+const { readFileSync } = require('fs')
+const { inflateSync, constants } = require('zlib')
 import { Parser } from 'binary-parser'
-import { ActionBlockList } from '../parsers/actions'
-import { ReplayHeader, EncodedMapMetaString, GameMetaData } from '../parsers/header'
-import { GameDataParser } from '../parsers/gamedata'
+import { ActionBlockList } from './parsers/actions'
+import { ReplayHeader, EncodedMapMetaString, GameMetaData } from './parsers/header'
+import { GameDataParser } from './parsers/gamedata'
 import { Races } from './types'
 
 const GameDataParserComposed = new Parser()
@@ -122,7 +122,7 @@ class W3GReplay {
   apmTimeSeries: any
 
   constructor($buffer: string) {
-    this.buffer = fs.readFileSync($buffer)
+    this.buffer = readFileSync($buffer)
     this.header = {
       magic: '',
       offset: 0,
@@ -201,7 +201,7 @@ class W3GReplay {
     this.header.blocks.forEach((block: any) => {
       if (block.blockSize > 0 && block.blockDecompressedSize === 8192) {
         try {
-          const r = zlib.inflateSync(block.compressed, { finishFlush: zlib.constants.Z_SYNC_FLUSH })
+          const r = inflateSync(block.compressed, { finishFlush: constants.Z_SYNC_FLUSH })
           if (r.byteLength > 0 && block.compressed.byteLength > 0) {
             decompressed.push(r)
           }
