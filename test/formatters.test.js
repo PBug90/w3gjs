@@ -1,4 +1,4 @@
-const formatters = require('../parsers/formatters')
+const formatters = require('../dist/lib/parsers/formatters')
 
 describe('chatModeFormatter', () => {
   const {chatModeFormatter} = formatters
