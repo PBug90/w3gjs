@@ -87,16 +87,16 @@ const UnitBuildingAbilityActionTwoTargetPositions = new Parser()
   })
   .int32le('unknownA')
   .int32le('unknownB')
-  .floatle('targetX')
-  .floatle('targetY')
+  .floatle('targetAX')
+  .floatle('targetAY')
   .array('itemId2', {
     type: 'int8',
     length: 4,
     formatter: objectIdFormatter
   })
   .skip(9)
-  .floatle('targetX')
-  .floatle('targetY')
+  .floatle('targetBX')
+  .floatle('targetBY')
 
 const SelectionUnit = new Parser()
   .array('itemId1', {
