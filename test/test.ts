@@ -1,4 +1,4 @@
-const W3GReplay = require('../dist/W3GReplay.umd')
+const W3GReplay = require('../src/W3GReplay')
 
 describe('Replay parsing tests', () => {
   it('parses a standard 1.29 replay with observers properly', () => {
