@@ -28,17 +28,22 @@ class W3GReplay {
     flags: string
     replayLengthMS: number
     checksum: number
-    blocks: any[]
+    blocks: {
+      blockSize: number
+      blockDecompressedSize: number
+      unknown: string
+      compressed: Buffer
+    }[]
   }
   decompressed: Buffer
-  gameMetaDataDecoded: any
-  temporaryAPMTracker: any
-  meta: {
+  gameMetaDataDecoded: {
     meta: {
       player: {
+        hasRecord?: number
         playerId: number
         playerName: string
-        addDataFlagHost: number
+        addDataFlag?: number
+        addDataFlagHost?: number
         additional: {
           runtimeMs?: string
           raceFlags?: Races
@@ -49,16 +54,7 @@ class W3GReplay {
       playerCount: number
       gameType: string
       languageId: string
-      playerList: {
-        hasRecord: number
-        playerId: number
-        playerName: string
-        addDataFlag: 8
-        additional: {
-          runtimeMs?: string
-          raceFlags?: Races
-        }
-      }[]
+      playerList: W3GReplay['gameMetaDataDecoded']['meta']['player'][]
       gameStartRecord: number
       dataByteCount: number
       slotRecordCount: number
@@ -76,6 +72,13 @@ class W3GReplay {
       selectMode: string
       startSpotCount: number
     }
+    blocks: {
+      type: number
+      [key: string]: any
+    }[]
+  }
+  meta: {
+    meta: W3GReplay['gameMetaDataDecoded']['meta']
     speed: number
     hideTerrain: number
     mapExplored: number
@@ -92,10 +95,10 @@ class W3GReplay {
     mapChecksum: string
     mapName: string
     creator: string
-    blocks: any[]
+    blocks: W3GReplay['gameMetaDataDecoded']['blocks']
   }
-  slots: W3GReplay['meta']['meta']['playerSlotRecords']
-  playerList: W3GReplay['meta']['meta']['playerList']
+  slots: W3GReplay['gameMetaDataDecoded']['meta']['playerSlotRecords']
+  playerList: W3GReplay['gameMetaDataDecoded']['meta']['playerList']
   playerActionTrackInterval: number
   teams: { [key: string]: number[] }
   players: { [key: string]: Player }
@@ -114,12 +117,19 @@ class W3GReplay {
     playerId: number
     result: string
   }[]
-  w3mmd: any[]
+  w3mmd: {
+    actionId: number
+    filename: string
+    missionKey: string
+    key: string
+    value: number
+  }[]
   totalTimeTracker: number
   timeSegmentTracker: number
   matchup: string
   observers: string[]
   apmTimeSeries: any
+  temporaryAPMTracker: any
 
   constructor($buffer: string) {
     this.buffer = readFileSync($buffer)
@@ -138,7 +148,7 @@ class W3GReplay {
       checksum: 0,
       blocks: []
     }
-    this.meta = {
+    this.gameMetaDataDecoded = {
       meta: {
         player: {
           playerId: 0,
@@ -160,6 +170,10 @@ class W3GReplay {
         selectMode: '',
         startSpotCount: 0,
       },
+      blocks: [],
+    }
+    this.meta = {
+      ...this.gameMetaDataDecoded,
       speed: 0,
       hideTerrain: 0,
       mapExplored: 0,
@@ -176,7 +190,6 @@ class W3GReplay {
       mapChecksum: '',
       mapName: '',
       creator: '',
-      blocks: []
     }
     this.players = {}
     this.chatlog = []
@@ -200,7 +213,7 @@ class W3GReplay {
 
     this.header = ReplayHeader.parse(this.buffer)
     const decompressed: Buffer[] = []
-    this.header.blocks.forEach((block: any) => {
+    this.header.blocks.forEach(block => {
       if (block.blockSize > 0 && block.blockDecompressedSize === 8192) {
         try {
           const r = inflateSync(block.compressed, { finishFlush: constants.Z_SYNC_FLUSH })
@@ -213,7 +226,10 @@ class W3GReplay {
       }
     })
     this.decompressed = Buffer.concat(decompressed)
+
+    // @ts-ignore
     this.gameMetaDataDecoded = GameDataParserComposed.parse(this.decompressed)
+    console.log(this.gameMetaDataDecoded.meta)
 
     const decodedMetaStringBuffer = this.decodeGameMetaString(this.gameMetaDataDecoded.meta.encodedString)
     this.meta = { ...this.gameMetaDataDecoded, ...EncodedMapMetaString.parse(decodedMetaStringBuffer) }

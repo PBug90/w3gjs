@@ -34,13 +34,11 @@ const TimeSlotBlock = new Parser()
   .int16le('timeIncrement')
   .array('actions', {
     type: CommandDataBlock,
-    // @ts-ignore
-    lengthInBytes(x) {
+    lengthInBytes() {
       // @ts-ignore
       return this.byteCount - 2
     }
-  }
-  )
+  })
 
 // 0x20
 // @ts-ignore
@@ -49,20 +47,21 @@ const PlayerChatMessageBlock = new Parser()
   .int16le('byteCount')
   .int8('flags')
   .choice(
-    {tag: 'flags',
+    {
+      tag: 'flags',
       choices: {
         0x10: new Parser(),
         // @ts-ignore
-        0x20: new Parser().int8('chatMode', { length: 4, formatter: chatModeFormatter, encoding: 'hex'} ).skip(3)
+        0x20: new Parser().int8('chatMode', { length: 4, formatter: chatModeFormatter, encoding: 'hex' }).skip(3)
       }
     }
   )
-  .string('message', {zeroTerminated: true, encoding: 'utf8'})
+  .string('message', { zeroTerminated: true, encoding: 'utf8' })
 
 // 0x22
 const Unknown0x22 = new Parser()
   .int8('length')
-  .string('content', {length: 'length'})
+  .string('content', { length: 'length' })
 
 // 0x23
 const Unknown0x23 = new Parser()
