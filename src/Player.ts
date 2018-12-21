@@ -1,5 +1,6 @@
 import convert from './convert';
 import { items, units, buildings, upgrades } from './mappings'
+import { Races } from './types'
 
 /**
  * Helpers
@@ -14,7 +15,7 @@ class Player {
   name: string
   teamid: number
   color: string
-  race: string
+  race: Races
   detectedRace: string
   units: { [key: string]: number }
   upgrades: { [key: string]: number }
@@ -39,7 +40,7 @@ class Player {
   currentTimePlayed: number
   apm: number
 
-  constructor(id: number, name: string, teamid: number, color: number, race: string) {
+  constructor(id: number, name: string, teamid: number, color: number, race: Races) {
     this.id = id
     this.name = name
     this.teamid = teamid

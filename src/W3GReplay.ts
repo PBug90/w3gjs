@@ -245,7 +245,7 @@ class W3GReplay {
   }
 
   createPlayerList() {
-    const tempPlayers: { [key: string]: W3GReplay['playerList'][0] } = {}
+    const tempPlayers: { [key: string]: W3GReplay['gameMetaDataDecoded']['meta']['player'] } = {}
     this.teams = {}
     this.players = {}
 
@@ -382,7 +382,7 @@ class W3GReplay {
   }
 
   determineMatchup(): void {
-    let teamRaces: { [key: string]: any } = {}
+    let teamRaces: { [key: string]: string[] } = {}
     Object.values(this.players).forEach(p => {
       if (!this.isObserver(p)) {
         teamRaces[p.teamid] = teamRaces[p.teamid] || []
