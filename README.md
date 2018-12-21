@@ -17,8 +17,8 @@ of a W3GReplay instance.
   //assuming that you cloned this repo into your project
   //sorry, no npm yet ;)
   const W3GReplay = require('./w3gjs')
-  const Parser = new W3GReplay()
-  const replay = Parser.parse('./replays/sample1.w3g')
+  const Parser = new W3GReplay('./replays/sample1.w3g')
+  const replay = Parser.parse()
 ```
 
 ### example output of the observers.w3g example replay:
