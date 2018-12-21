@@ -1,17 +1,17 @@
-// Cannot import fs&zlib because error with rollup
-const { readFileSync } = require('fs')
-const { inflateSync, constants } = require('zlib')
 import { Parser } from 'binary-parser'
 import { ActionBlockList } from './parsers/actions'
 import { ReplayHeader, EncodedMapMetaString, GameMetaData } from './parsers/header'
 import { GameDataParser } from './parsers/gamedata'
 import { Races } from './types'
+import Player from './Player'
+
+// Cannot import fs&zlib because error with rollup
+const { readFileSync } = require('fs')
+const { inflateSync, constants } = require('zlib')
 
 const GameDataParserComposed = new Parser()
   .nest('meta', { type: GameMetaData })
   .nest('blocks', { type: GameDataParser })
-
-import Player from './Player'
 
 class W3GReplay {
   buffer: Buffer
@@ -229,7 +229,6 @@ class W3GReplay {
 
     // @ts-ignore
     this.gameMetaDataDecoded = GameDataParserComposed.parse(this.decompressed)
-    console.log(this.gameMetaDataDecoded.meta)
 
     const decodedMetaStringBuffer = this.decodeGameMetaString(this.gameMetaDataDecoded.meta.encodedString)
     this.meta = { ...this.gameMetaDataDecoded, ...EncodedMapMetaString.parse(decodedMetaStringBuffer) }
