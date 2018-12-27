@@ -9,7 +9,7 @@
     "players",
     "gamename",
     "matchup",
-    "uuid",
+    "id",
     "type",
     "creator",
     "map",
@@ -413,13 +413,13 @@
       ],
       "pattern": "^(.*)$"
     },
-    "uuid": {
-      "$id": "#/properties/uuid",
+    "id": {
+      "$id": "#/properties/id",
       "type": "string",
-      "title": "The Uuid Schema",
+      "title": "The id Schema",
       "default": "",
       "examples": [
-        "a game uuid that is generated for this particular game"
+        "A (not necessarily guaranteed) unique identifier for the game played in this replay. Edge cases with duplicates can exist."
       ],
       "pattern": "^(.*)$"
     },
