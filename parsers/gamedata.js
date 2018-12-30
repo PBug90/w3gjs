@@ -7,7 +7,7 @@
 
 const { Parser } = require('binary-parser')
 const { CommandDataBlock } = require('./actions')
-const {chatModeFormatter} = require('./formatters')
+const { chatModeFormatter } = require('./formatters')
 
 // 0x17
 const LeaveGameBlock = new Parser()
@@ -45,12 +45,20 @@ const PlayerChatMessageBlock = new Parser()
   .int8('playerId')
   .int16le('byteCount')
   .int8('flags')
-  .int32('chatMode', {formatter: chatModeFormatter})
+  .choice(
+    {tag: 'flags',
+      choices: {
+        0x10: new Parser(),
+        0x20: new Parser().int8('chatMode', {length: 4, formatter: chatModeFormatter, encoding: 'hex'}).skip(3)
+      }
+    }
+  )
   .string('message', {zeroTerminated: true, encoding: 'utf8'})
 
 // 0x22
 const Unknown0x22 = new Parser()
-  .skip(5)
+  .int8('length')
+  .string('content', {length: 'length'})
 
 // 0x23
 const Unknown0x23 = new Parser()
