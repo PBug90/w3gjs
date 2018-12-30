@@ -4,26 +4,27 @@ That unique identifier must not rely on actual game data or game outcome and mus
 Since replays of the same game can differ in binary (players leaving earlier than other players), a file hash is of no use. But one can use existing replay information to construct a hash as follows:
 
 - create a list of all playing players that are NOT observers or referees
-- sort this list by playername ascending
-- concat all player names of the sorted list to form a list of player names without spaces
+- for each player in this list, create a string for each player following this schema: {playername}_{playerid}_{teamid}
+- sort the resulting list of strings alphabetically in ascending order
+- concat all strings of the sorted list to form a list of player information without spaces
 - concat the randomseed string representation with string generated in the previous step and the full map path
 - use sha256 to generate a hash of the resulting string of the previous step
 
 ## example implementation
 
 ```javascript
-W3GReplay.prototype.generateUUID = function () {
+W3GReplay.prototype.generateID = function () {
   let players = Object.values(this.players).filter((p) => this.isObserver(p) === false).sort((player1, player2) => {
     if (player1.id < player2.id) {
       return -1
     }
     return 1
   }).reduce((accumulator, player) => {
-    accumulator += player.name
+    accumulator += `${player.name}_${player.id}_${player.teamid}`
     return accumulator
   }, '')
-   const uuidBase = this.meta.meta.randomSeed + players + this.meta.mapName
-  this.uuid = crypto.createHash('sha256').update(uuidBase).digest('hex')
+  const idBase = this.meta.meta.randomSeed + players + this.meta.mapName
+  this.id = crypto.createHash('sha256').update(idBase).digest('hex')
 }
 ```
 
