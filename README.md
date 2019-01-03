@@ -15,8 +15,8 @@ of a W3GReplay instance.
 ## Usage
 ```javascript
   const W3GReplay = require('./w3gjs')
-  const Parser = new W3GReplay('./replays/sample1.w3g')
-  const replay = Parser.parse()
+  const Parser = new W3GReplay()
+  const replay = Parser.parse('./replays/sample1.w3g')
 ```
 
 ### Example output of the observers.w3g example replay
