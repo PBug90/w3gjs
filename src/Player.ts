@@ -1,5 +1,5 @@
 import convert from './convert';
-import { items, units, buildings, upgrades } from './mappings'
+import { items, units, buildings, upgrades, abilityToHero } from './mappings'
 import { Races } from './types'
 
 /**
@@ -16,12 +16,33 @@ class Player {
   teamid: number
   color: string
   race: Races
-  detectedRace: string
-  units: { [key: string]: number }
-  upgrades: { [key: string]: number }
+  raceDetected: string
+  units: {
+    summary: { [key: string]: number },
+    order: { id: string, ms: number }[]
+  }
+  upgrades: {
+    summary: { [key: string]: number },
+    order: { id: string, ms: number }[]
+  }
+  items: {
+    summary: { [key: string]: number },
+    order: { id: string, ms: number }[]
+  }
+  buildings: {
+    summary: { [key: string]: number },
+    order: { id: string, ms: number }[]
+  }
+  heroes: {
+    [key: string]: {
+      level: number,
+      abilities: { [key: string]: number },
+      order: number,
+      id: string
+    }
+  }
   heroSkills: { [key: string]: number }
-  items: { [key: string]: number }
-  buildings: { [key: string]: number }
+  heroCount: number
   actions: {
     timed: any[]
     assigngroup: number
@@ -46,11 +67,14 @@ class Player {
     this.teamid = teamid
     this.color = convert.playerColor(color)
     this.race = race
-    this.detectedRace = ''
-    this.units = {}
-    this.upgrades = {}
+    this.raceDetected = ''
+    this.units = { summary: {}, order: [] }
+    this.upgrades = { summary: {}, order: [] }
+    this.items = { summary: {}, order: [] }
+    this.buildings = { summary: {}, order: [] }
+    this.heroes = {}
     this.heroSkills = {}
-    this.items = {}
+    this.heroCount = 0
     this.actions = {
       timed: [],
       assigngroup: 0,
@@ -65,7 +89,6 @@ class Player {
       selecthotkey: 0,
       esc: 0
     }
-    this.buildings = {}
     this._currentlyTrackedAPM = 0
     this.currentTimePlayed = 0
     this.apm = 0
@@ -80,33 +103,47 @@ class Player {
   detectRaceByActionId(actionId: string): void {
     switch (actionId[0]) {
       case 'e':
-        this.detectedRace = 'N'
+        this.raceDetected = 'N'
         break
       case 'o':
-        this.detectedRace = 'O'
+        this.raceDetected = 'O'
         break
       case 'h':
-        this.detectedRace = 'H'
+        this.raceDetected = 'H'
         break
       case 'u':
-        this.detectedRace = 'U'
+        this.raceDetected = 'U'
         break
     }
   }
 
-  handleActionId(actionId: string): void {
+  handleActionId(actionId: string, gametime: number): void {
     if (units[actionId]) {
-      this.units[actionId] = this.units[actionId] + 1 || 1
+      this.units.summary[actionId] = this.units.summary[actionId] + 1 || 1
+      this.units.order.push({id: actionId, ms: gametime})
     } else if (items[actionId]) {
-      this.items[actionId] = this.items[actionId] + 1 || 1
+      this.items.summary[actionId] = this.items.summary[actionId] + 1 || 1
+      this.items.order.push({id: actionId, ms: gametime})
     } else if (buildings[actionId]) {
-      this.buildings[actionId] = this.buildings[actionId] + 1 || 1
+      this.buildings.summary[actionId] = this.buildings.summary[actionId] + 1 || 1
+      this.buildings.order.push({id: actionId, ms: gametime})
     } else if (upgrades[actionId]) {
-      this.upgrades[actionId] = this.upgrades[actionId] + 1 || 1
+      this.upgrades.summary[actionId] = this.upgrades.summary[actionId] + 1 || 1
+      this.upgrades.order.push({id: actionId, ms: gametime})
     }
   }
 
-  handle0x10(actionId: string): void {
+  handleHeroSkill(actionId: string): void {
+    if (this.heroes[abilityToHero[actionId]] === undefined) {
+      this.heroCount += 1
+      this.heroes[abilityToHero[actionId]] = { level: 0, abilities: {}, order: this.heroCount, id: abilityToHero[actionId] }
+    }
+    this.heroes[abilityToHero[actionId]].level += 1
+    this.heroes[abilityToHero[actionId]].abilities[actionId] = this.heroes[abilityToHero[actionId]].abilities[actionId] || 0
+    this.heroes[abilityToHero[actionId]].abilities[actionId] += 1
+  }
+
+  handle0x10(actionId: string, gametime: number): void {
     if (typeof actionId === 'string') {
       actionId = reverseString(actionId)
     }
@@ -114,21 +151,22 @@ class Player {
     switch (actionId[0]) {
       case 'A':
         this.heroSkills[actionId] = this.heroSkills[actionId] + 1 || 1
+        this.handleHeroSkill(actionId)
         break
       case 'R':
-        this.upgrades[actionId] = this.upgrades[actionId] + 1 || 1
+      this.handleActionId(actionId, gametime)
         break
       case 'u':
       case 'e':
       case 'h':
       case 'o':
-        if (!this.detectedRace) {
+        if (!this.raceDetected) {
           this.detectRaceByActionId(actionId)
         }
-        this.handleActionId(actionId)
+        this.handleActionId(actionId, gametime)
         break
       default:
-        this.handleActionId(actionId)
+        this.handleActionId(actionId, gametime)
     }
 
     actionId[0] !== '0'
@@ -138,7 +176,7 @@ class Player {
     this._currentlyTrackedAPM ++
   }
 
-  handle0x11(actionId: string | number[]): void {
+  handle0x11(actionId: string | number[], gametime: number): void {
     this._currentlyTrackedAPM ++
 
     if (Array.isArray(actionId)) {
@@ -153,7 +191,7 @@ class Player {
 
     actionId = reverseString(actionId)
     if (isObjectId(actionId)) {
-      this.buildings[actionId] = this.buildings[actionId] + 1 || 1
+      this.handleActionId(actionId, gametime)
     }
   }
 
@@ -221,6 +259,13 @@ class Player {
   cleanup(): void {
     const apmSum = this.actions.timed.reduce((a: number, b: number): number => a + b)
     this.apm = Math.round(apmSum / this.actions.timed.length)
+    // @ts-ignore
+    this.heroes = Object.values(this.heroes).sort((h1, h2) => h1.order - h2.order).reduce((aggregator, hero) => {
+      delete hero['order']
+      // @ts-ignore
+      aggregator.push(hero)
+      return aggregator
+    }, [])
 
     delete this._currentlyTrackedAPM
   }

@@ -5,9 +5,11 @@ import { GameDataParser } from './parsers/gamedata'
 import { Races } from './types'
 import Player from './Player'
 
-// Cannot import fs&zlib because error with rollup
+// Cannot import node modules directly because error with rollup
+// https://rollupjs.org/guide/en#error-name-is-not-exported-by-module-
 const { readFileSync } = require('fs')
 const { inflateSync, constants } = require('zlib')
+const { createHash } = require('crypto')
 
 const GameDataParserComposed = new Parser()
   .nest('meta', { type: GameMetaData })
@@ -15,6 +17,7 @@ const GameDataParserComposed = new Parser()
 
 class W3GReplay {
   buffer: Buffer
+  id: string
   header: {
     magic: string
     offset: number
@@ -106,7 +109,7 @@ class W3GReplay {
     type: number
     playerId: number
     flags: number
-    chatModel: string,
+    chatModel: string
     message: string
     time: number
     playerName: string
@@ -126,13 +129,51 @@ class W3GReplay {
   }[]
   totalTimeTracker: number
   timeSegmentTracker: number
+  gametype: string
   matchup: string
   observers: string[]
   apmTimeSeries: any
   temporaryAPMTracker: any
 
-  constructor($buffer: string) {
-    this.buffer = readFileSync($buffer)
+  final: {
+    id: W3GReplay['id']
+    gameName: W3GReplay['meta']['meta']['gameName']
+    randomSeed: W3GReplay['meta']['meta']['randomSeed']
+    startSpots: W3GReplay['meta']['meta']['startSpotCount']
+    observers: W3GReplay['observers']
+    players: Player[]
+    matchup: W3GReplay['matchup']
+    creator: W3GReplay['meta']['creator']
+    type: W3GReplay['gametype']
+    chat: any[]
+    apm: {
+      trackingInterval: W3GReplay['playerActionTrackInterval']
+    }
+    map: {
+      path: W3GReplay['meta']['mapName']
+      file: string
+      checksum: W3GReplay['meta']['mapChecksum']
+    }
+    version: string
+    duration: W3GReplay['header']['replayLengthMS']
+    expansion: boolean
+    settings: {
+      referees: boolean
+      fixedTeams: boolean
+      fullSharedUnitControl: boolean
+      alwaysVisible: boolean
+      hideTerrain: boolean
+      mapExplored: boolean
+      teamsTogether: boolean
+      randomHero: boolean
+      randomRaces: boolean
+      speed: W3GReplay['meta']['speed']
+    }
+  }
+
+  constructor() {
+    this.buffer = Buffer.from('')
+    this.id = ''
     this.header = {
       magic: '',
       offset: 0,
@@ -200,15 +241,53 @@ class W3GReplay {
     this.teams = {}
     this.totalTimeTracker = 0
     this.timeSegmentTracker = 0
+    this.gametype = ''
     this.matchup = ''
     this.observers = []
     this.w3mmd = []
     // apm tracking interval in milliseconds
     this.playerActionTrackInterval = 60000
+
+    this.final = {
+      id: '',
+      gameName: '',
+      randomSeed: 0,
+      startSpots: 0,
+      observers: [],
+      players: [],
+      matchup: '',
+      creator: '',
+      type: '',
+      chat: [],
+      apm: {
+        trackingInterval: 0,
+      },
+      map: {
+        path: '',
+        file: '',
+        checksum: '',
+      },
+      version: '',
+      duration: 0,
+      expansion: false,
+      settings: {
+        referees: false,
+        fixedTeams: false,
+        fullSharedUnitControl: false,
+        alwaysVisible: false,
+        hideTerrain: false,
+        mapExplored: false,
+        teamsTogether: false,
+        randomHero: false,
+        randomRaces: false,
+        speed: 0
+      }
+    }
   }
 
-  parse(): this {
+  parse($buffer: Buffer): W3GReplay['final'] {
     console.time('parse')
+    this.buffer = readFileSync($buffer)
     this.buffer = this.buffer.slice(this.buffer.indexOf('Warcraft III recorded game'))
 
     this.header = ReplayHeader.parse(this.buffer)
@@ -241,7 +320,7 @@ class W3GReplay {
     this.cleanup()
 
     console.timeEnd('parse')
-    return { ...this }
+    return this.finalize()
   }
 
   createPlayerList() {
@@ -311,10 +390,10 @@ class W3GReplay {
       ActionBlockList.parse(actionBlock.actions).forEach((action: any): void => {
         switch (action.actionId) {
           case 0x10:
-            currentPlayer.handle0x10(action.itemId)
+            currentPlayer.handle0x10(action.itemId, this.totalTimeTracker)
             break
           case 0x11:
-            currentPlayer.handle0x11(action.itemId)
+            currentPlayer.handle0x11(action.itemId, this.totalTimeTracker)
             break
           case 0x12:
             currentPlayer.handle0x12(action.itemId)
@@ -386,14 +465,31 @@ class W3GReplay {
     Object.values(this.players).forEach(p => {
       if (!this.isObserver(p)) {
         teamRaces[p.teamid] = teamRaces[p.teamid] || []
-        teamRaces[p.teamid].push(p.detectedRace || p.race)
+        teamRaces[p.teamid].push(p.raceDetected || p.race)
       }
     })
-    this.matchup = (Object.values(teamRaces).map(e => e.sort().join(''))).sort().join('v')
+    this.gametype = Object.values(teamRaces).map(e => e.length).sort().join('on')
+    this.matchup = Object.values(teamRaces).map(e => e.sort().join('')).sort().join('v')
+  }
+
+  generateID(): void {
+    let players = Object.values(this.players).filter((p) => this.isObserver(p) === false).sort((player1, player2) => {
+      if (player1.id < player2.id) {
+        return -1
+      }
+      return 1
+    }).reduce((accumulator, player) => {
+      accumulator += player.name
+      return accumulator
+    }, '')
+  
+    const idBase = this.meta.meta.randomSeed + players + this.meta.mapName
+    this.id = createHash('sha256').update(idBase).digest('hex')
   }
 
   cleanup(): void {
     this.determineMatchup()
+    this.generateID()
     this.observers = []
 
     Object.values(this.players).forEach(p => {
@@ -418,6 +514,47 @@ class W3GReplay {
     delete this.header.blocks
     delete this.apmTimeSeries
     delete this.meta.blocks
+  }
+
+  finalize(): W3GReplay['final'] {
+    const settings = {
+      referees: !!this.meta.referees,
+      fixedTeams: !!this.meta.fixedTeams,
+      fullSharedUnitControl: !!this.meta.fullSharedUnitControl,
+      alwaysVisible: !!this.meta.alwaysVisible,
+      hideTerrain: !!this.meta.hideTerrain,
+      mapExplored: !!this.meta.mapExplored,
+      teamsTogether: !!this.meta.teamsTogether,
+      randomHero: !!this.meta.randomHero,
+      randomRaces: !!this.meta.randomRaces,
+      speed: this.meta.speed
+    }
+    const root = {
+      id: this.id,
+      gameName: this.meta.meta.gameName,
+      randomSeed: this.meta.meta.randomSeed,
+      startSpots: this.meta.meta.startSpotCount,
+      observers: this.observers,
+      players: Object.values(this.players).sort((player1, player2) => player2.teamid >= player1.teamid && player2.id > player1.id ? -1 : 1),
+      matchup: this.matchup,
+      creator: this.meta.creator,
+      type: this.gametype,
+      chat: [],
+      apm: {
+        trackingInterval: this.playerActionTrackInterval
+      },
+      map: {
+        path: this.meta.mapName,
+        file: this.meta.mapName.split('\\').pop() || '',
+        checksum: this.meta.mapChecksum
+      },
+      version: `1.${this.header.version}`,
+      duration: this.header.replayLengthMS,
+      expansion: this.header.gameIdentifier === 'PX3W',
+      settings
+    }
+  
+    return root
   }
 }
 
