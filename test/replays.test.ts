@@ -75,7 +75,7 @@ describe('Replay parsing tests', () => {
   })
 
   it('parsing result has the correct schema', () => {
-    const schema = require('./schema')
+    const schema = require('./schema.json')
     const test = Parser.parse(`./replays/standard_130.w3g`)
     const validatorInstance = new Validator()
     validatorInstance.validate(test, schema, {throwError: true})

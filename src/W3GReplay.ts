@@ -137,8 +137,8 @@ class W3GReplay {
 
   final: {
     id: W3GReplay['id']
-    gameName: W3GReplay['meta']['meta']['gameName']
-    randomSeed: W3GReplay['meta']['meta']['randomSeed']
+    gamename: W3GReplay['meta']['meta']['gameName']
+    randomseed: W3GReplay['meta']['meta']['randomSeed']
     startSpots: W3GReplay['meta']['meta']['startSpotCount']
     observers: W3GReplay['observers']
     players: Player[]
@@ -250,8 +250,8 @@ class W3GReplay {
 
     this.final = {
       id: '',
-      gameName: '',
-      randomSeed: 0,
+      gamename: '',
+      randomseed: 0,
       startSpots: 0,
       observers: [],
       players: [],
@@ -531,8 +531,8 @@ class W3GReplay {
     }
     const root = {
       id: this.id,
-      gameName: this.meta.meta.gameName,
-      randomSeed: this.meta.meta.randomSeed,
+      gamename: this.meta.meta.gameName,
+      randomseed: this.meta.meta.randomSeed,
       startSpots: this.meta.meta.startSpotCount,
       observers: this.observers,
       players: Object.values(this.players).sort((player1, player2) => player2.teamid >= player1.teamid && player2.id > player1.id ? -1 : 1),
