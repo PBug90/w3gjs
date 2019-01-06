@@ -12,8 +12,8 @@ Since replays of the same game can differ in binary (players leaving earlier tha
 
 ## example implementation
 
-```javascript
-W3GReplay.prototype.generateID = function () {
+```typescript
+generateID(): void {
   let players = Object.values(this.players).filter((p) => this.isObserver(p) === false).sort((player1, player2) => {
     if (player1.id < player2.id) {
       return -1
@@ -24,7 +24,7 @@ W3GReplay.prototype.generateID = function () {
     return accumulator
   }, '')
   const idBase = this.meta.meta.randomSeed + players + this.meta.mapName
-  this.id = crypto.createHash('sha256').update(idBase).digest('hex')
+  this.id = createHash('sha256').update(idBase).digest('hex')
 }
 ```
 
@@ -46,8 +46,8 @@ Algorithm:
 * for each sorted team race combination, sort the team race combinations ascending
 * concat the resulting team race combinations with a 'v' to form the final matchup string
 
-```javascript
-W3GReplay.prototype.determineMatchup = function () {
+```typescript
+determineMatchup(): void {
   let teamRaces = {}
   Object.values(this.players).forEach((p) => {
     if (!this.isObserver(p)) {

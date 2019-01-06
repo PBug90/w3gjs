@@ -6,3 +6,7 @@ package-lock.json
 .nyc_output
 coverage
 yarn-error.log
+dist
+.vscode
+.rpt2_cache
+playground.js
