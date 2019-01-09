@@ -1,12 +1,13 @@
 {
   "name": "w3gjs",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A native JavaScript WarCraft 3 replay parser implementation.",
   "main": "dist/W3GReplay.umd.js",
   "module": "dist/W3GReplay.es5.js",
   "typings": "dist/types/W3GReplay.d.ts",
   "files": [
-    "dist"
+    "dist",
+    "index.js"
   ],
   "directories": {
     "lib": "lib"
