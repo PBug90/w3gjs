@@ -4,6 +4,8 @@ import { ReplayHeader, EncodedMapMetaString, GameMetaData } from './parsers/head
 import { GameDataParser } from './parsers/gamedata'
 import { Races } from './types'
 import Player from './Player'
+import convert from './convert'
+import { chatModeFormatter } from './parsers/formatters';
 
 // Cannot import node modules directly because error with rollup
 // https://rollupjs.org/guide/en#error-name-is-not-exported-by-module-
@@ -548,7 +550,7 @@ class W3GReplay {
         file: this.meta.mapName.split('\\').pop() || '',
         checksum: this.meta.mapChecksum
       },
-      version: `1.${this.header.version}`,
+      version: convert.gameVersion(this.header.version),
       duration: this.header.replayLengthMS,
       expansion: this.header.gameIdentifier === 'PX3W',
       settings

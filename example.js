@@ -14,5 +14,7 @@ function formatBytes (bytes, decimals) {
 
 replays.forEach((replayFile) => {
   const parseResult = W3GParser.parse(`./replays/${replayFile}`)
-  console.log(formatBytes(Buffer.byteLength(JSON.stringify(parseResult), 'utf8')))
+  console.log(parseResult.version)
+  console.log(replayFile, formatBytes(Buffer.byteLength(JSON.stringify(parseResult), 'utf8')))
+  console.log('=====')
 })
