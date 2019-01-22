@@ -12,9 +12,14 @@ of a W3GReplay instance.
 
 **It does not fully support replays of game version <= 1.14.**
 
+## Installation
+```
+  npm install w3gjs
+```
+
 ## Usage
 ```javascript
-  const W3GReplay = require('./w3gjs')
+  const W3GReplay = require('w3gjs')
   const Parser = new W3GReplay()
   const replay = Parser.parse('./replays/sample1.w3g')
 ```
