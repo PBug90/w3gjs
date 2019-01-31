@@ -9,15 +9,16 @@ import { chatModeFormatter } from './parsers/formatters';
 
 // Cannot import node modules directly because error with rollup
 // https://rollupjs.org/guide/en#error-name-is-not-exported-by-module-
-const { readFileSync } = require('fs')
+const { readFileSync, appendFileSync } = require('fs')
 const { inflateSync, constants } = require('zlib')
 const { createHash } = require('crypto')
-
 const GameDataParserComposed = new Parser()
   .nest('meta', { type: GameMetaData })
   .nest('blocks', { type: GameDataParser })
+const EventEmitter = require('events')
 
-class W3GReplay {
+class W3GReplay extends EventEmitter{
+  filename: string
   buffer: Buffer
   id: string
   header: {
@@ -174,7 +175,9 @@ class W3GReplay {
   }
 
   constructor() {
+    super()
     this.buffer = Buffer.from('')
+    this.filename= ''
     this.id = ''
     this.header = {
       magic: '',
@@ -287,11 +290,11 @@ class W3GReplay {
     }
   }
 
-  parse($buffer: Buffer): W3GReplay['final'] {
+  parse($buffer: string): W3GReplay['final'] {
     console.time('parse')
     this.buffer = readFileSync($buffer)
     this.buffer = this.buffer.slice(this.buffer.indexOf('Warcraft III recorded game'))
-
+    this.filename = $buffer
     this.header = ReplayHeader.parse(this.buffer)
     const decompressed: Buffer[] = []
     this.header.blocks.forEach(block => {
@@ -353,6 +356,7 @@ class W3GReplay {
     this.totalTimeTracker = 0
     this.timeSegmentTracker = 0
     this.gameMetaDataDecoded.blocks.forEach((block: any) => {
+      this.emit('gamedatablock', block)
       switch (block.type) {
         case 31:
         case 30:
@@ -379,62 +383,69 @@ class W3GReplay {
   }
 
   processTimeSlot(timeSlotBlock: any): void {
+    this.emit('timeslot', timeSlotBlock)
     timeSlotBlock.actions.forEach((actionBlock: any): void => {
       this.processCommandDataBlock(actionBlock)
+      this.emit('commandblock', actionBlock)
     })
   }
 
   processCommandDataBlock(actionBlock: any) {
     const currentPlayer = this.players[actionBlock.playerId]
-    let lastActionWasDeselect = false
     currentPlayer.currentTimePlayed = this.totalTimeTracker
+    currentPlayer._lastActionWasDeselect = false
     try {
       ActionBlockList.parse(actionBlock.actions).forEach((action: any): void => {
-        switch (action.actionId) {
-          case 0x10:
-            currentPlayer.handle0x10(action.itemId, this.totalTimeTracker)
-            break
-          case 0x11:
-            currentPlayer.handle0x11(action.itemId, this.totalTimeTracker)
-            break
-          case 0x12:
-            currentPlayer.handle0x12(action.itemId)
-            break
-          case 0x13:
-            currentPlayer.handle0x13(action.itemId)
-            break
-          case 0x14:
-            currentPlayer.handle0x14(action.itemId1)
-            break
-          case 0x16:
-            if (action.selectMode === 0x02) {
-              lastActionWasDeselect = true
-              currentPlayer.handle0x16(action.selectMode, true)
-            } else {
-              if (lastActionWasDeselect === false) {
-                currentPlayer.handle0x16(action.selectMode, true)
-              }
-              lastActionWasDeselect = false
-            }
-            break
-          case 0x17:
-          case 0x18:
-          case 0x1C:
-          case 0x1D:
-          case 0x1E:
-          case 0x61:
-          case 0x65:
-          case 0x66:
-          case 0x67:
-            currentPlayer.handleOther(action.actionId)
-            break
-          case 0x6b:
-            this.w3mmd.push(action)
-            break
-        }
+        this.processActionBlock(action, currentPlayer)
+        this.emit('actionblock', action, currentPlayer)
       })
     } catch (ex) {
       console.error(ex)
+    }
+  }
+
+  processActionBlock(action: any, currentPlayer: Player){
+    switch (action.actionId) {
+      case 0x10:
+        currentPlayer.handle0x10(action.itemId, this.totalTimeTracker)
+        break
+      case 0x11:
+        currentPlayer.handle0x11(action.itemId, this.totalTimeTracker)
+        break
+      case 0x12:
+        currentPlayer.handle0x12(action.itemId)
+        break
+      case 0x13:
+        currentPlayer.handle0x13(action.itemId)
+        break
+      case 0x14:
+        currentPlayer.handle0x14(action.itemId1)
+        break
+      case 0x16:
+        if (action.selectMode === 0x02) {
+          currentPlayer._lastActionWasDeselect = true
+          currentPlayer.handle0x16(action.selectMode, true)
+        } else {
+          if (currentPlayer._lastActionWasDeselect === false) {
+            currentPlayer.handle0x16(action.selectMode, true)
+          }
+          currentPlayer._lastActionWasDeselect = false
+        }
+        break
+      case 0x17:
+      case 0x18:
+      case 0x1C:
+      case 0x1D:
+      case 0x1E:
+      case 0x61:
+      case 0x65:
+      case 0x66:
+      case 0x67:
+        currentPlayer.handleOther(action.actionId)
+        break
+      case 0x6b:
+        this.w3mmd.push(action)
+        break
     }
   }
 

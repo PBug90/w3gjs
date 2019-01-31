@@ -58,6 +58,7 @@ class Player {
     esc: number
   }
   _currentlyTrackedAPM: number
+  _lastActionWasDeselect: boolean
   currentTimePlayed: number
   apm: number
 
@@ -90,6 +91,7 @@ class Player {
       esc: 0
     }
     this._currentlyTrackedAPM = 0
+    this._lastActionWasDeselect = false
     this.currentTimePlayed = 0
     this.apm = 0
     return this
