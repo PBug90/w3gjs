@@ -1,372 +1,82 @@
-import { Parser } from 'binary-parser'
 import { ActionBlockList } from './parsers/actions'
-import { ReplayHeader, EncodedMapMetaString, GameMetaData } from './parsers/header'
-import { GameDataParser } from './parsers/gamedata'
-import { Races } from './types'
 import Player from './Player'
 import convert from './convert'
-import { chatModeFormatter } from './parsers/formatters';
-
+import ReplayParser from './ReplayParser'
 // Cannot import node modules directly because error with rollup
 // https://rollupjs.org/guide/en#error-name-is-not-exported-by-module-
-const { readFileSync, appendFileSync } = require('fs')
-const { inflateSync, constants } = require('zlib')
 const { createHash } = require('crypto')
-const GameDataParserComposed = new Parser()
-  .nest('meta', { type: GameMetaData })
-  .nest('blocks', { type: GameDataParser })
-const EventEmitter = require('events')
 
-class W3GReplay extends EventEmitter{
-  filename: string
-  buffer: Buffer
-  id: string
-  header: {
-    magic: string
-    offset: number
-    compressedSize: number
-    headerVersion: string
-    decompressedSize: number
-    compressedDataBlockCount: number
-    gameIdentifier: string
-    version: number
-    buildNo: number
-    flags: string
-    replayLengthMS: number
-    checksum: number
-    blocks: {
-      blockSize: number
-      blockDecompressedSize: number
-      unknown: string
-      compressed: Buffer
-    }[]
-  }
-  decompressed: Buffer
-  gameMetaDataDecoded: {
-    meta: {
-      player: {
-        hasRecord?: number
-        playerId: number
-        playerName: string
-        addDataFlag?: number
-        addDataFlagHost?: number
-        additional: {
-          runtimeMs?: string
-          raceFlags?: Races
-        }
-      }
-      gameName: string
-      encodedString: string
-      playerCount: number
-      gameType: string
-      languageId: string
-      playerList: W3GReplay['gameMetaDataDecoded']['meta']['player'][]
-      gameStartRecord: number
-      dataByteCount: number
-      slotRecordCount: number
-      playerSlotRecords: {
-        playerId: number
-        slotStatus: number
-        cumputerFlag: number
-        teamId: number
-        color: number
-        raceFlag: Races
-        aiStrength: number
-        handicapFlag: number 
-      }[]
-      randomSeed: number
-      selectMode: string
-      startSpotCount: number
-    }
-    blocks: {
-      type: number
-      [key: string]: any
-    }[]
-  }
-  meta: {
-    meta: W3GReplay['gameMetaDataDecoded']['meta']
-    speed: number
-    hideTerrain: number
-    mapExplored: number
-    alwaysVisible: number
-    default: number
-    observerMode: number
-    teamsTogether: number
-    empty: number
-    fixedTeams: number
-    fullSharedUnitControl: number
-    randomHero: number
-    randomRaces: number
-    referees: number
-    mapChecksum: string
-    mapName: string
-    creator: string
-    blocks: W3GReplay['gameMetaDataDecoded']['blocks']
-  }
-  slots: W3GReplay['gameMetaDataDecoded']['meta']['playerSlotRecords']
-  playerList: W3GReplay['gameMetaDataDecoded']['meta']['playerList']
-  playerActionTrackInterval: number
-  teams: { [key: string]: number[] }
-  players: { [key: string]: Player }
-  chatlog: {
-    type: number
-    playerId: number
-    flags: number
-    chatModel: string
-    message: string
-    time: number
-    playerName: string
-  }[]
-  leaveEvents: {
-    type: number
-    reason: string
-    playerId: number
-    result: string
-  }[]
-  w3mmd: {
-    actionId: number
-    filename: string
-    missionKey: string
-    key: string
-    value: number
-  }[]
-  totalTimeTracker: number
-  timeSegmentTracker: number
-  gametype: string
-  matchup: string
-  observers: string[]
-  apmTimeSeries: any
-  temporaryAPMTracker: any
-
-  final: {
-    id: W3GReplay['id']
-    gamename: W3GReplay['meta']['meta']['gameName']
-    randomseed: W3GReplay['meta']['meta']['randomSeed']
-    startSpots: W3GReplay['meta']['meta']['startSpotCount']
-    observers: W3GReplay['observers']
-    players: Player[]
-    matchup: W3GReplay['matchup']
-    creator: W3GReplay['meta']['creator']
-    type: W3GReplay['gametype']
-    chat: any[]
-    apm: {
-      trackingInterval: W3GReplay['playerActionTrackInterval']
-    }
-    map: {
-      path: W3GReplay['meta']['mapName']
-      file: string
-      checksum: W3GReplay['meta']['mapChecksum']
-    }
-    version: string
-    duration: W3GReplay['header']['replayLengthMS']
-    expansion: boolean
-    settings: {
-      referees: boolean
-      fixedTeams: boolean
-      fullSharedUnitControl: boolean
-      alwaysVisible: boolean
-      hideTerrain: boolean
-      mapExplored: boolean
-      teamsTogether: boolean
-      randomHero: boolean
-      randomRaces: boolean
-      speed: W3GReplay['meta']['speed']
-    }
-  }
-
+class W3GReplay extends ReplayParser{
   constructor() {
     super()
+    this.on('gamemetadata', (metaData: any ) => this.handleMetaData(metaData))
+    this.on('gamedatablock', (timeslotblock: any ) => this.processGameDataBlock(timeslotblock)) 
+    this.on('timeslotblock', (timeslotblock: any ) => this.handleTimeSlot(timeslotblock))        
+  }
+
+  // gamedatablock timeslotblock commandblock actionblock
+  parse($buffer: string): W3GReplay['final'] {
     this.buffer = Buffer.from('')
     this.filename= ''
     this.id = ''
-    this.header = {
-      magic: '',
-      offset: 0,
-      compressedSize: 0,
-      headerVersion: '',
-      decompressedSize: 0,
-      compressedDataBlockCount: 0,
-      gameIdentifier: '',
-      version: 0,
-      buildNo: 0,
-      flags: '',
-      replayLengthMS: 0,
-      checksum: 0,
-      blocks: []
-    }
-    this.gameMetaDataDecoded = {
-      meta: {
-        player: {
-          playerId: 0,
-          playerName: '',
-          addDataFlagHost: 0,
-          additional: {}
-        },
-        gameName: '',
-        encodedString: '',
-        playerCount: 0,
-        gameType: '',
-        languageId: '',
-        playerList: [],
-        gameStartRecord: 0,
-        dataByteCount: 0,
-        slotRecordCount: 0,
-        playerSlotRecords: [],
-        randomSeed: 0,
-        selectMode: '',
-        startSpotCount: 0,
-      },
-      blocks: [],
-    }
-    this.meta = {
-      ...this.gameMetaDataDecoded,
-      speed: 0,
-      hideTerrain: 0,
-      mapExplored: 0,
-      alwaysVisible: 0,
-      default: 0,
-      observerMode: 0,
-      teamsTogether: 0,
-      empty: 0,
-      fixedTeams: 0,
-      fullSharedUnitControl: 0,
-      randomHero: 0,
-      randomRaces: 0,
-      referees: 0,
-      mapChecksum: '',
-      mapName: '',
-      creator: '',
-    }
-    this.players = {}
     this.chatlog = []
     this.leaveEvents = []
-    this.decompressed = Buffer.from('')
-    this.slots = []
-    this.playerList = []
-    this.teams = {}
+    this.w3mmd = []   
+    this.players = {}
     this.totalTimeTracker = 0
     this.timeSegmentTracker = 0
-    this.gametype = ''
-    this.matchup = ''
-    this.observers = []
-    this.w3mmd = []
-    // apm tracking interval in milliseconds
     this.playerActionTrackInterval = 60000
 
-    this.final = {
-      id: '',
-      gamename: '',
-      randomseed: 0,
-      startSpots: 0,
-      observers: [],
-      players: [],
-      matchup: '',
-      creator: '',
-      type: '',
-      chat: [],
-      apm: {
-        trackingInterval: 0,
-      },
-      map: {
-        path: '',
-        file: '',
-        checksum: '',
-      },
-      version: '',
-      duration: 0,
-      expansion: false,
-      settings: {
-        referees: false,
-        fixedTeams: false,
-        fullSharedUnitControl: false,
-        alwaysVisible: false,
-        hideTerrain: false,
-        mapExplored: false,
-        teamsTogether: false,
-        randomHero: false,
-        randomRaces: false,
-        speed: 0
-      }
-    }
-  }
+    super.parse($buffer)
 
-  parse($buffer: string): W3GReplay['final'] {
-    console.time('parse')
-    this.buffer = readFileSync($buffer)
-    this.buffer = this.buffer.slice(this.buffer.indexOf('Warcraft III recorded game'))
-    this.filename = $buffer
-    this.header = ReplayHeader.parse(this.buffer)
-    const decompressed: Buffer[] = []
-    this.header.blocks.forEach(block => {
-      if (block.blockSize > 0 && block.blockDecompressedSize === 8192) {
-        try {
-          const r = inflateSync(block.compressed, { finishFlush: constants.Z_SYNC_FLUSH })
-          if (r.byteLength > 0 && block.compressed.byteLength > 0) {
-            decompressed.push(r)
-          }
-        } catch (ex) {
-          console.log(ex)
-        }
-      }
+    this.chatlog = this.chatlog.map((elem: any) => {
+      return ({ ...elem, playerName: this.players[elem.playerId].name })
     })
-    this.decompressed = Buffer.concat(decompressed)
 
-    // @ts-ignore
-    this.gameMetaDataDecoded = GameDataParserComposed.parse(this.decompressed)
-
-    const decodedMetaStringBuffer = this.decodeGameMetaString(this.gameMetaDataDecoded.meta.encodedString)
-    this.meta = { ...this.gameMetaDataDecoded, ...EncodedMapMetaString.parse(decodedMetaStringBuffer) }
-
-    this.slots = this.gameMetaDataDecoded.meta.playerSlotRecords
-    this.playerList = [this.gameMetaDataDecoded.meta.player, ...this.gameMetaDataDecoded.meta.playerList]
-
-    this.createPlayerList()
-    this.processGameDataBlocks()
+    this.generateID()
+    this.determineMatchup()
     this.cleanup()
 
-    console.timeEnd('parse')
     return this.finalize()
   }
 
-  createPlayerList() {
-    const tempPlayers: { [key: string]: W3GReplay['gameMetaDataDecoded']['meta']['player'] } = {}
+  handleMetaData(metaData: any) {
+    this.slots = metaData.playerSlotRecords
+    this.playerList = [metaData.player, ...metaData.playerList]
+    this.meta = metaData
+    const tempPlayers: {  } = {}
     this.teams = {}
     this.players = {}
 
-    this.playerList.forEach((player): void => {
+    this.playerList.forEach((player: any): void => {
+      // @ts-ignore
       tempPlayers[player.playerId] = player
     })
 
-    this.slots.forEach(slot => {
+    this.slots.forEach((slot: any) => {
       if (slot.slotStatus > 1) {
         this.teams[slot.teamId] = this.teams[slot.teamId] || []
         this.teams[slot.teamId].push(slot.playerId)
+        // @ts-ignore
         this.players[slot.playerId] = new Player(slot.playerId, tempPlayers[slot.playerId]
+          // @ts-ignore
           ? tempPlayers[slot.playerId].playerName
           : 'Computer', slot.teamId, slot.color, slot.raceFlag)
       }
     })
   }
 
-  processGameDataBlocks() {
-    this.chatlog = []
-    this.leaveEvents = []
-    this.w3mmd = []
-
-    this.totalTimeTracker = 0
-    this.timeSegmentTracker = 0
-    this.gameMetaDataDecoded.blocks.forEach((block: any) => {
-      this.emit('gamedatablock', block)
+  processGameDataBlock(block: any) {
       switch (block.type) {
         case 31:
         case 30:
           this.totalTimeTracker += block.timeIncrement
           this.timeSegmentTracker += block.timeIncrement
           if (this.timeSegmentTracker > this.playerActionTrackInterval) {
+            //@ts-ignore
             Object.values(this.players).forEach(p => p.newActionTrackingSegment())
             this.timeSegmentTracker = 0
           }
-          this.processTimeSlot(block)
           break
         case 32:
           block.timeMS = this.totalTimeTracker
@@ -376,17 +86,11 @@ class W3GReplay extends EventEmitter{
           this.leaveEvents.push(block)
           break
       }
-    })
-
-    this.chatlog = this.chatlog.map(elem => ({ ...elem, playerName: this.players[elem.playerId].name }))
-    delete this.temporaryAPMTracker
   }
 
-  processTimeSlot(timeSlotBlock: any): void {
-    this.emit('timeslot', timeSlotBlock)
+  handleTimeSlot(timeSlotBlock: any): void {
     timeSlotBlock.actions.forEach((actionBlock: any): void => {
       this.processCommandDataBlock(actionBlock)
-      this.emit('commandblock', actionBlock)
     })
   }
 
@@ -396,15 +100,14 @@ class W3GReplay extends EventEmitter{
     currentPlayer._lastActionWasDeselect = false
     try {
       ActionBlockList.parse(actionBlock.actions).forEach((action: any): void => {
-        this.processActionBlock(action, currentPlayer)
-        this.emit('actionblock', action, currentPlayer)
+        this.handleActionBlock(action, currentPlayer)
       })
     } catch (ex) {
       console.error(ex)
     }
   }
 
-  processActionBlock(action: any, currentPlayer: Player){
+  handleActionBlock(action: any, currentPlayer: Player){
     switch (action.actionId) {
       case 0x10:
         currentPlayer.handle0x10(action.itemId, this.totalTimeTracker)
@@ -449,35 +152,18 @@ class W3GReplay extends EventEmitter{
     }
   }
 
-  decodeGameMetaString(str: string): Buffer {
-    let test = Buffer.from(str, 'hex')
-    let decoded = Buffer.alloc(test.length)
-    let mask = 0
-    let dpos = 0
-
-    for (let i = 0; i < test.length; i++) {
-      if (i % 8 === 0) {
-        mask = test[i]
-      } else {
-        if ((mask & (0x1 << (i % 8))) === 0) {
-          decoded.writeUInt8(test[i] - 1, dpos++)
-        } else {
-          decoded.writeUInt8(test[i], dpos++)
-        }
-      }
-    }
-    return decoded
-  }
-
   isObserver(player: Player): boolean {
     return (player.teamid === 24 && this.header.version >= 29) || (player.teamid === 12 && this.header.version < 29)
   }
-
+  
   determineMatchup(): void {
     let teamRaces: { [key: string]: string[] } = {}
     Object.values(this.players).forEach(p => {
+      //@ts-ignore
       if (!this.isObserver(p)) {
+        //@ts-ignore
         teamRaces[p.teamid] = teamRaces[p.teamid] || []
+        //@ts-ignore
         teamRaces[p.teamid].push(p.raceDetected || p.race)
       }
     })
@@ -486,30 +172,36 @@ class W3GReplay extends EventEmitter{
   }
 
   generateID(): void {
+    //@ts-ignore
     let players = Object.values(this.players).filter((p) => this.isObserver(p) === false).sort((player1, player2) => {
+      //@ts-ignore
       if (player1.id < player2.id) {
         return -1
       }
       return 1
     }).reduce((accumulator, player) => {
+      //@ts-ignore
       accumulator += player.name
       return accumulator
     }, '')
   
-    const idBase = this.meta.meta.randomSeed + players + this.meta.mapName
+    const idBase = this.meta.randomSeed + players + this.meta.mapName
     this.id = createHash('sha256').update(idBase).digest('hex')
   }
 
   cleanup(): void {
-    this.determineMatchup()
-    this.generateID()
     this.observers = []
 
     Object.values(this.players).forEach(p => {
+      //@ts-ignore
       p.newActionTrackingSegment(this.playerActionTrackInterval)
+      //@ts-ignore
       p.cleanup()
+      //@ts-ignore
       if (this.isObserver(p)) {
+        //@ts-ignore
         this.observers.push(p.name)
+        //@ts-ignore
         delete this.players[p.id]
       }
     })
@@ -526,10 +218,9 @@ class W3GReplay extends EventEmitter{
     delete this.gameMetaDataDecoded
     delete this.header.blocks
     delete this.apmTimeSeries
-    delete this.meta.blocks
   }
 
-  finalize(): W3GReplay['final'] {
+  finalize(): W3GReplay['final'] {1
     const settings = {
       referees: !!this.meta.referees,
       fixedTeams: !!this.meta.fixedTeams,
@@ -544,10 +235,11 @@ class W3GReplay extends EventEmitter{
     }
     const root = {
       id: this.id,
-      gamename: this.meta.meta.gameName,
-      randomseed: this.meta.meta.randomSeed,
-      startSpots: this.meta.meta.startSpotCount,
+      gamename: this.meta.gameName,
+      randomseed: this.meta.randomSeed,
+      startSpots: this.meta.startSpotCount,
       observers: this.observers,
+      //@ts-ignore
       players: Object.values(this.players).sort((player1, player2) => player2.teamid >= player1.teamid && player2.id > player1.id ? -1 : 1),
       matchup: this.matchup,
       creator: this.meta.creator,

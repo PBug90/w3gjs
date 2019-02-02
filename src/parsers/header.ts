@@ -151,5 +151,6 @@ const EncodedMapMetaString = new Parser()
 export {
   ReplayHeader,
   EncodedMapMetaString,
-  GameMetaData
+  GameMetaData,
+  DataBlock
 }

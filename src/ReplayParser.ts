@@ -16,28 +16,6 @@ const EventEmitter = require('events')
 class ReplayParser extends EventEmitter{
   filename: string
   buffer: Buffer
-  id: string
-  header: {
-    magic: string
-    offset: number
-    compressedSize: number
-    headerVersion: string
-    decompressedSize: number
-    compressedDataBlockCount: number
-    gameIdentifier: string
-    version: number
-    buildNo: number
-    flags: string
-    replayLengthMS: number
-    checksum: number
-    blocks: {
-      blockSize: number
-      blockDecompressedSize: number
-      unknown: string
-      compressed: Buffer
-    }[]
-  }
-  }
 
   constructor() {
     super()
@@ -45,14 +23,16 @@ class ReplayParser extends EventEmitter{
     this.filename= ''
   }
 
-  parse($buffer: string): W3GReplay['final'] {
+  parse($buffer: string) {
     console.time('parse')
     this.buffer = readFileSync($buffer)
     this.buffer = this.buffer.slice(this.buffer.indexOf('Warcraft III recorded game'))
     this.filename = $buffer
-    this.parseHeader(this.buffer)
     const decompressed: Buffer[] = []
-    this.header.blocks.forEach(block => {
+
+    this._parseHeader()
+
+    this.header.blocks.forEach((block: any ) => {
       if (block.blockSize > 0 && block.blockDecompressedSize === 8192) {
         try {
           const r = inflateSync(block.compressed, { finishFlush: constants.Z_SYNC_FLUSH })
@@ -68,53 +48,47 @@ class ReplayParser extends EventEmitter{
 
     // @ts-ignore
     this.gameMetaDataDecoded = GameDataParserComposed.parse(this.decompressed)
-
     const decodedMetaStringBuffer = this.decodeGameMetaString(this.gameMetaDataDecoded.meta.encodedString)
-    this.meta = { ...this.gameMetaDataDecoded, ...EncodedMapMetaString.parse(decodedMetaStringBuffer) }
-
-    this.slots = this.gameMetaDataDecoded.meta.playerSlotRecords
-    this.playerList = [this.gameMetaDataDecoded.meta.player, ...this.gameMetaDataDecoded.meta.playerList]
-
+    const meta = { ...this.gameMetaDataDecoded, ...this.gameMetaDataDecoded.meta, ...EncodedMapMetaString.parse(decodedMetaStringBuffer) }
+    let newMeta = meta
+    delete newMeta.meta    
+    this.emit('gamemetadata', newMeta)
+    this._parseGameDataBlocks()
     console.timeEnd('parse')
-    return this.finalize()
   }
 
-  parseHeader(){
+  _parseHeader(){
     this.header = ReplayHeader.parse(this.buffer)
   }
 
-  parseGameDataBlock(){
+  _parseGameDataBlocks(){
     this.gameMetaDataDecoded.blocks.forEach((block: any) => {
         this.emit('gamedatablock', block)
-        this.processGameDataBlock(block)
+        this._processGameDataBlock(block)
     })
   }
 
-  processGameDataBlock(block) {
+  _processGameDataBlock(block: any) {
       switch (block.type) {
         case 31:
         case 30:
           this.emit('timeslotblock', block)
+          this._processTimeSlot(block)
           break
       }
-    })
   }
 
-  processTimeSlot(timeSlotBlock: any): void {
-    this.emit('timeslot', timeSlotBlock)
+  _processTimeSlot(timeSlotBlock: any): void {
     timeSlotBlock.actions.forEach((actionBlock: any): void => {
-      this.processCommandDataBlock(actionBlock)
+      this._processCommandDataBlock(actionBlock)
       this.emit('commandblock', actionBlock)
     })
   }
 
-  processCommandDataBlock(actionBlock: any) {
-    const currentPlayer = this.players[actionBlock.playerId]
-    currentPlayer.currentTimePlayed = this.totalTimeTracker
-    currentPlayer._lastActionWasDeselect = false
+  _processCommandDataBlock(actionBlock: any) {
     try {
       ActionBlockList.parse(actionBlock.actions).forEach((action: any): void => {
-        this.emit('actionblock', action, currentPlayer)
+        this.emit('actionblock', action, actionBlock.playerId)
       })
     } catch (ex) {
       console.error(ex)
@@ -139,6 +113,7 @@ class ReplayParser extends EventEmitter{
       }
     }
     return decoded
+  }
 }
 
-export default W3GReplay
+export default ReplayParser
