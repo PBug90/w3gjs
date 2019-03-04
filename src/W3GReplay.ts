@@ -2,11 +2,57 @@ import { ActionBlockList } from './parsers/actions'
 import Player from './Player'
 import convert from './convert'
 import ReplayParser from './ReplayParser'
+import { Races } from './types'
+
 // Cannot import node modules directly because error with rollup
 // https://rollupjs.org/guide/en#error-name-is-not-exported-by-module-
 const { createHash } = require('crypto')
 
+interface gameMetaDataDecoded {
+  meta: {
+    player: {
+      hasRecord?: number
+      playerId: number
+      playerName: string
+      addDataFlag?: number
+      addDataFlagHost?: number
+      additional: {
+        runtimeMs?: string
+        raceFlags?: Races
+      }
+    }
+    gameName: string
+    encodedString: string
+    playerCount: number
+    gameType: string
+    languageId: string
+    playerList: gameMetaDataDecoded['meta']['player'][]
+    gameStartRecord: number
+    dataByteCount: number
+    slotRecordCount: number
+    playerSlotRecords: {
+      playerId: number
+      slotStatus: number
+      cumputerFlag: number
+      teamId: number
+      color: number
+      raceFlag: Races
+      aiStrength: number
+      handicapFlag: number 
+    }[]
+    randomSeed: number
+    selectMode: string
+    startSpotCount: number
+  }
+  blocks: {
+    type: number
+    [key: string]: any
+  }[]
+}
+
 class W3GReplay extends ReplayParser{
+  players: { [key: string]: Player } = {}
+  
   constructor() {
     super()
     this.on('gamemetadata', (metaData: any ) => this.handleMetaData(metaData))
@@ -44,12 +90,11 @@ class W3GReplay extends ReplayParser{
     this.slots = metaData.playerSlotRecords
     this.playerList = [metaData.player, ...metaData.playerList]
     this.meta = metaData
-    const tempPlayers: {  } = {}
+    const tempPlayers: {[key: string]: gameMetaDataDecoded["meta"]["player"]   } = {}
     this.teams = {}
     this.players = {}
 
-    this.playerList.forEach((player: any): void => {
-      // @ts-ignore
+    this.playerList.forEach((player: gameMetaDataDecoded["meta"]["player"]): void => {
       tempPlayers[player.playerId] = player
     })
 
@@ -57,9 +102,8 @@ class W3GReplay extends ReplayParser{
       if (slot.slotStatus > 1) {
         this.teams[slot.teamId] = this.teams[slot.teamId] || []
         this.teams[slot.teamId].push(slot.playerId)
-        // @ts-ignore
+    
         this.players[slot.playerId] = new Player(slot.playerId, tempPlayers[slot.playerId]
-          // @ts-ignore
           ? tempPlayers[slot.playerId].playerName
           : 'Computer', slot.teamId, slot.color, slot.raceFlag)
       }
@@ -159,11 +203,8 @@ class W3GReplay extends ReplayParser{
   determineMatchup(): void {
     let teamRaces: { [key: string]: string[] } = {}
     Object.values(this.players).forEach(p => {
-      //@ts-ignore
       if (!this.isObserver(p)) {
-        //@ts-ignore
         teamRaces[p.teamid] = teamRaces[p.teamid] || []
-        //@ts-ignore
         teamRaces[p.teamid].push(p.raceDetected || p.race)
       }
     })
@@ -172,15 +213,12 @@ class W3GReplay extends ReplayParser{
   }
 
   generateID(): void {
-    //@ts-ignore
     let players = Object.values(this.players).filter((p) => this.isObserver(p) === false).sort((player1, player2) => {
-      //@ts-ignore
       if (player1.id < player2.id) {
         return -1
       }
       return 1
     }).reduce((accumulator, player) => {
-      //@ts-ignore
       accumulator += player.name
       return accumulator
     }, '')
@@ -193,15 +231,10 @@ class W3GReplay extends ReplayParser{
     this.observers = []
 
     Object.values(this.players).forEach(p => {
-      //@ts-ignore
       p.newActionTrackingSegment(this.playerActionTrackInterval)
-      //@ts-ignore
       p.cleanup()
-      //@ts-ignore
       if (this.isObserver(p)) {
-        //@ts-ignore
         this.observers.push(p.name)
-        //@ts-ignore
         delete this.players[p.id]
       }
     })
@@ -239,7 +272,6 @@ class W3GReplay extends ReplayParser{
       randomseed: this.meta.randomSeed,
       startSpots: this.meta.startSpotCount,
       observers: this.observers,
-      //@ts-ignore
       players: Object.values(this.players).sort((player1, player2) => player2.teamid >= player1.teamid && player2.id > player1.id ? -1 : 1),
       matchup: this.matchup,
       creator: this.meta.creator,

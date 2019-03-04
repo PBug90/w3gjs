@@ -46,7 +46,6 @@ class ReplayParser extends EventEmitter{
     })
     this.decompressed = Buffer.concat(decompressed)
 
-    // @ts-ignore
     this.gameMetaDataDecoded = GameDataParserComposed.parse(this.decompressed)
     const decodedMetaStringBuffer = this.decodeGameMetaString(this.gameMetaDataDecoded.meta.encodedString)
     const meta = { ...this.gameMetaDataDecoded, ...this.gameMetaDataDecoded.meta, ...EncodedMapMetaString.parse(decodedMetaStringBuffer) }
