@@ -2,66 +2,31 @@ import { ActionBlockList } from './parsers/actions'
 import Player from './Player'
 import convert from './convert'
 import ReplayParser from './ReplayParser'
-import { Races } from './types'
+import { 
+  GameMetaDataDecoded, 
+  GameDataBlock, 
+  TimeSlotBlock, 
+  ParserOutput, 
+  PlayerChatMessageBlock 
+} from './types'
 
 // Cannot import node modules directly because error with rollup
 // https://rollupjs.org/guide/en#error-name-is-not-exported-by-module-
 const { createHash } = require('crypto')
 
-interface gameMetaDataDecoded {
-  meta: {
-    player: {
-      hasRecord?: number
-      playerId: number
-      playerName: string
-      addDataFlag?: number
-      addDataFlagHost?: number
-      additional: {
-        runtimeMs?: string
-        raceFlags?: Races
-      }
-    }
-    gameName: string
-    encodedString: string
-    playerCount: number
-    gameType: string
-    languageId: string
-    playerList: gameMetaDataDecoded['meta']['player'][]
-    gameStartRecord: number
-    dataByteCount: number
-    slotRecordCount: number
-    playerSlotRecords: {
-      playerId: number
-      slotStatus: number
-      cumputerFlag: number
-      teamId: number
-      color: number
-      raceFlag: Races
-      aiStrength: number
-      handicapFlag: number 
-    }[]
-    randomSeed: number
-    selectMode: string
-    startSpotCount: number
-  }
-  blocks: {
-    type: number
-    [key: string]: any
-  }[]
-}
-
 class W3GReplay extends ReplayParser{
   players: { [key: string]: Player } = {}
-  
+  observers: string[] = []
+
   constructor() {
     super()
-    this.on('gamemetadata', (metaData: any ) => this.handleMetaData(metaData))
-    this.on('gamedatablock', (timeslotblock: any ) => this.processGameDataBlock(timeslotblock)) 
-    this.on('timeslotblock', (timeslotblock: any ) => this.handleTimeSlot(timeslotblock))        
+    this.on('gamemetadata', (metaData: GameMetaDataDecoded ) => this.handleMetaData(metaData))
+    this.on('gamedatablock', (block: GameDataBlock ) => this.processGameDataBlock(block)) 
+    this.on('timeslotblock', (block: TimeSlotBlock ) => this.handleTimeSlot(block))        
   }
 
   // gamedatablock timeslotblock commandblock actionblock
-  parse($buffer: string): W3GReplay['final'] {
+  parse($buffer: string): ParserOutput {
     this.buffer = Buffer.from('')
     this.filename= ''
     this.id = ''
@@ -75,8 +40,8 @@ class W3GReplay extends ReplayParser{
 
     super.parse($buffer)
 
-    this.chatlog = this.chatlog.map((elem: any) => {
-      return ({ ...elem, playerName: this.players[elem.playerId].name })
+    this.chatlog = this.chatlog.map((elem: PlayerChatMessageBlock) => {
+      return ({ ...elem, player: this.players[elem.playerId].name })
     })
 
     this.generateID()
@@ -86,15 +51,15 @@ class W3GReplay extends ReplayParser{
     return this.finalize()
   }
 
-  handleMetaData(metaData: any) {
+  handleMetaData(metaData: GameMetaDataDecoded) {
     this.slots = metaData.playerSlotRecords
     this.playerList = [metaData.player, ...metaData.playerList]
     this.meta = metaData
-    const tempPlayers: {[key: string]: gameMetaDataDecoded["meta"]["player"]   } = {}
+    const tempPlayers: {[key: string]: GameMetaDataDecoded["player"]   } = {}
     this.teams = {}
     this.players = {}
 
-    this.playerList.forEach((player: gameMetaDataDecoded["meta"]["player"]): void => {
+    this.playerList.forEach((player: GameMetaDataDecoded["player"]): void => {
       tempPlayers[player.playerId] = player
     })
 
@@ -253,7 +218,7 @@ class W3GReplay extends ReplayParser{
     delete this.apmTimeSeries
   }
 
-  finalize(): W3GReplay['final'] {1
+  finalize(): ParserOutput {
     const settings = {
       referees: !!this.meta.referees,
       fixedTeams: !!this.meta.fixedTeams,
@@ -276,7 +241,7 @@ class W3GReplay extends ReplayParser{
       matchup: this.matchup,
       creator: this.meta.creator,
       type: this.gametype,
-      chat: [],
+      chat: this.chatlog,
       apm: {
         trackingInterval: this.playerActionTrackInterval
       },
@@ -290,7 +255,6 @@ class W3GReplay extends ReplayParser{
       expansion: this.header.gameIdentifier === 'PX3W',
       settings
     }
-  
     return root
   }
 }

@@ -17,6 +17,7 @@ describe('Replay parsing tests', () => {
     expect(test.players[0].id).toBe(6)
     expect(test.players[0].teamid).toBe(0)
     expect(test.observers.length).toBe(4)
+    expect(test.chat.length).toBeGreaterThan(2)
     expect(test.matchup).toBe('OvO')
     expect(test.type).toBe('1on1')
     expect(test.players.length).toBe(2)

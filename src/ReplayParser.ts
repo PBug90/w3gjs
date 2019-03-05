@@ -3,11 +3,12 @@ import { ActionBlockList } from './parsers/actions'
 import { ReplayHeader, EncodedMapMetaString, GameMetaData } from './parsers/header'
 import { GameDataParser } from './parsers/gamedata'
 
+import {TimeSlotBlock, CommandDataBlock} from './types'
+
 // Cannot import node modules directly because error with rollup
 // https://rollupjs.org/guide/en#error-name-is-not-exported-by-module-
-const { readFileSync, appendFileSync } = require('fs')
+const { readFileSync } = require('fs')
 const { inflateSync, constants } = require('zlib')
-const { createHash } = require('crypto')
 const GameDataParserComposed = new Parser()
   .nest('meta', { type: GameMetaData })
   .nest('blocks', { type: GameDataParser })
@@ -71,20 +72,20 @@ class ReplayParser extends EventEmitter{
       switch (block.type) {
         case 31:
         case 30:
-          this.emit('timeslotblock', block)
+          this.emit('timeslotblock', <TimeSlotBlock>block)
           this._processTimeSlot(block)
           break
       }
   }
 
-  _processTimeSlot(timeSlotBlock: any): void {
+  _processTimeSlot(timeSlotBlock: TimeSlotBlock): void {
     timeSlotBlock.actions.forEach((actionBlock: any): void => {
       this._processCommandDataBlock(actionBlock)
       this.emit('commandblock', actionBlock)
     })
   }
 
-  _processCommandDataBlock(actionBlock: any) {
+  _processCommandDataBlock(actionBlock: CommandDataBlock) {
     try {
       ActionBlockList.parse(actionBlock.actions).forEach((action: any): void => {
         this.emit('actionblock', action, actionBlock.playerId)

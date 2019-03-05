@@ -52,7 +52,7 @@ const PlayerChatMessageBlock = new Parser()
       choices: {
         0x10: new Parser(),
         // @ts-ignore
-        0x20: new Parser().int8('chatMode', { length: 4, formatter: chatModeFormatter, encoding: 'hex' }).skip(3)
+        0x20: new Parser().int8('mode', { length: 4, formatter: chatModeFormatter, encoding: 'hex' }).skip(3)
       }
     }
   )
