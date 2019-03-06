@@ -3,7 +3,13 @@ import { ActionBlockList } from './parsers/actions'
 import { ReplayHeader, EncodedMapMetaString, GameMetaData } from './parsers/header'
 import { GameDataParser } from './parsers/gamedata'
 
-import {TimeSlotBlock, CommandDataBlock} from './types'
+import {
+  TimeSlotBlock, 
+  CommandDataBlock, 
+  GameDataBlock, 
+  ActionBlock, 
+  CompressedDataBlock
+} from './types'
 
 // Cannot import node modules directly because error with rollup
 // https://rollupjs.org/guide/en#error-name-is-not-exported-by-module-
@@ -33,7 +39,7 @@ class ReplayParser extends EventEmitter{
 
     this._parseHeader()
 
-    this.header.blocks.forEach((block: any ) => {
+    this.header.blocks.forEach((block: CompressedDataBlock ) => {
       if (block.blockSize > 0 && block.blockDecompressedSize === 8192) {
         try {
           const r = inflateSync(block.compressed, { finishFlush: constants.Z_SYNC_FLUSH })
@@ -62,32 +68,32 @@ class ReplayParser extends EventEmitter{
   }
 
   _parseGameDataBlocks(){
-    this.gameMetaDataDecoded.blocks.forEach((block: any) => {
+    this.gameMetaDataDecoded.blocks.forEach((block: GameDataBlock) => {
         this.emit('gamedatablock', block)
         this._processGameDataBlock(block)
     })
   }
 
-  _processGameDataBlock(block: any) {
+  _processGameDataBlock(block: GameDataBlock) {
       switch (block.type) {
         case 31:
         case 30:
-          this.emit('timeslotblock', <TimeSlotBlock>block)
-          this._processTimeSlot(block)
+          this.emit('timeslotblock', <TimeSlotBlock> <unknown> block)
+          this._processTimeSlot( <TimeSlotBlock> <unknown> block)
           break
       }
   }
 
   _processTimeSlot(timeSlotBlock: TimeSlotBlock): void {
-    timeSlotBlock.actions.forEach((actionBlock: any): void => {
-      this._processCommandDataBlock(actionBlock)
-      this.emit('commandblock', actionBlock)
+    timeSlotBlock.actions.forEach((block: CommandDataBlock): void => {
+      this._processCommandDataBlock(block)
+      this.emit('commandblock', block)
     })
   }
 
   _processCommandDataBlock(actionBlock: CommandDataBlock) {
     try {
-      ActionBlockList.parse(actionBlock.actions).forEach((action: any): void => {
+      ActionBlockList.parse(actionBlock.actions).forEach((action: ActionBlock): void => {
         this.emit('actionblock', action, actionBlock.playerId)
       })
     } catch (ex) {

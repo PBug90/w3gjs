@@ -3,9 +3,12 @@ import Player from './Player'
 import convert from './convert'
 import ReplayParser from './ReplayParser'
 import { 
-  GameMetaDataDecoded, 
+  GameMetaDataDecoded,
+  SlotRecord, 
   GameDataBlock, 
+  ActionBlock,
   TimeSlotBlock, 
+  CommandDataBlock,
   ParserOutput, 
   PlayerChatMessageBlock 
 } from './types'
@@ -63,7 +66,7 @@ class W3GReplay extends ReplayParser{
       tempPlayers[player.playerId] = player
     })
 
-    this.slots.forEach((slot: any) => {
+    this.slots.forEach((slot: SlotRecord) => {
       if (slot.slotStatus > 1) {
         this.teams[slot.teamId] = this.teams[slot.teamId] || []
         this.teams[slot.teamId].push(slot.playerId)
@@ -75,7 +78,7 @@ class W3GReplay extends ReplayParser{
     })
   }
 
-  processGameDataBlock(block: any) {
+  processGameDataBlock(block: GameDataBlock) {
       switch (block.type) {
         case 31:
         case 30:
@@ -97,18 +100,18 @@ class W3GReplay extends ReplayParser{
       }
   }
 
-  handleTimeSlot(timeSlotBlock: any): void {
-    timeSlotBlock.actions.forEach((actionBlock: any): void => {
-      this.processCommandDataBlock(actionBlock)
+  handleTimeSlot(block: TimeSlotBlock): void {
+    block.actions.forEach((commandBlock: CommandDataBlock): void => {
+      this.processCommandDataBlock(commandBlock)
     })
   }
 
-  processCommandDataBlock(actionBlock: any) {
-    const currentPlayer = this.players[actionBlock.playerId]
+  processCommandDataBlock(block: CommandDataBlock) {
+    const currentPlayer = this.players[block.playerId]
     currentPlayer.currentTimePlayed = this.totalTimeTracker
     currentPlayer._lastActionWasDeselect = false
     try {
-      ActionBlockList.parse(actionBlock.actions).forEach((action: any): void => {
+      ActionBlockList.parse(block.actions).forEach((action: ActionBlock): void => {
         this.handleActionBlock(action, currentPlayer)
       })
     } catch (ex) {
@@ -116,7 +119,7 @@ class W3GReplay extends ReplayParser{
     }
   }
 
-  handleActionBlock(action: any, currentPlayer: Player){
+  handleActionBlock(action: ActionBlock, currentPlayer: Player){
     switch (action.actionId) {
       case 0x10:
         currentPlayer.handle0x10(action.itemId, this.totalTimeTracker)
@@ -216,6 +219,8 @@ class W3GReplay extends ReplayParser{
     delete this.gameMetaDataDecoded
     delete this.header.blocks
     delete this.apmTimeSeries
+
+    this.parse
   }
 
   finalize(): ParserOutput {

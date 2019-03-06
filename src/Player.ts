@@ -226,7 +226,7 @@ class Player {
     this._currentlyTrackedAPM ++
   }
 
-  handle0x16(selectMode: any, isAPM: any) {
+  handle0x16(selectMode: number, isAPM: boolean) {
     if (isAPM) {
       this.actions['select'] = this.actions['select'] + 1 || 1
       this._currentlyTrackedAPM ++

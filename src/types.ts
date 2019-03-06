@@ -6,6 +6,18 @@ export enum Races {
   orcs = 'O',
   undeads = 'U'
 }
+
+export interface SlotRecord {
+    playerId: number
+    slotStatus: number
+    computerFlag: number
+    teamId: number
+    color: number
+    raceFlag: Races
+    aiStrength: number
+    handicapFlag: number 
+  }
+
 export interface GameMetaDataDecoded {
     player: {
       hasRecord?: number
@@ -27,16 +39,7 @@ export interface GameMetaDataDecoded {
     gameStartRecord: number
     dataByteCount: number
     slotRecordCount: number
-    playerSlotRecords: {
-      playerId: number
-      slotStatus: number
-      computerFlag: number
-      teamId: number
-      color: number
-      raceFlag: Races
-      aiStrength: number
-      handicapFlag: number 
-    }[]
+    playerSlotRecords: SlotRecord[]
     randomSeed: number
     selectMode: string
     startSpotCount: number,
@@ -57,6 +60,11 @@ export interface GameMetaDataDecoded {
     mapName: string,
     creator: string   
   }
+
+export interface ActionBlock{
+  actionId: number
+  [key: string]: any
+}
 
 export interface TimeSlotBlock {
   byteCount: number
@@ -87,6 +95,13 @@ export interface Unknown0x22{
   length: number
 }
 
+export interface CompressedDataBlock {
+  blockSize: number
+  blockDecompressedSize: number
+  unknown: string
+  compressed: Buffer
+}
+
 export interface CommandDataBlock {
   playerId: number,
   blockLength: number,
@@ -95,6 +110,7 @@ export interface CommandDataBlock {
 
 export interface GameDataBlock {
   type: number
+  [key: string]: any
 }
 
 export interface ParserOutput {
