@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.1.0"></a>
+# [1.1.0](https://github.com/anXieTyPB/w3gjs/compare/v1.0.2...v1.1.0) (2019-03-07)
+
+
+### Features
+
+* new low level EventEmitter API to emit events for replay blocks ([#20](https://github.com/anXieTyPB/w3gjs/issues/20)) ([b476e5d](https://github.com/anXieTyPB/w3gjs/commit/b476e5d))
+
+
+
 <a name="1.0.2"></a>
 ## [1.0.2](https://github.com/anXieTyPB/w3gjs/compare/v1.0.1...v1.0.2) (2019-01-22)
 
