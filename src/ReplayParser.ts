@@ -23,7 +23,8 @@ const EventEmitter = require('events')
 class ReplayParser extends EventEmitter{
   filename: string
   buffer: Buffer
-
+  msElapsed: number = 0
+  
   constructor() {
     super()
     this.buffer = Buffer.from('')
@@ -78,6 +79,7 @@ class ReplayParser extends EventEmitter{
       switch (block.type) {
         case 31:
         case 30:
+          this.msElapsed += block.timeIncrement
           this.emit('timeslotblock', <TimeSlotBlock> <unknown> block)
           this._processTimeSlot( <TimeSlotBlock> <unknown> block)
           break
