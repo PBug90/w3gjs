@@ -8,7 +8,9 @@ Uses the excellent https://github.com/keichi/binary-parser to parse the replay f
 
 This parser is aimed to be more modular than other parsers.
 You can easily add your custom action parsing logic by overriding the processTimeSlot() function
-of a W3GReplay instance.
+of a W3GReplay instance or by listening for one of the five main events:
+
+
 
 **It does not fully support replays of game version <= 1.14.**
 
@@ -18,10 +20,31 @@ of a W3GReplay instance.
 ```
 
 ## Usage
+
+### High Level API
+
 ```javascript
   const W3GReplay = require('w3gjs')
   const Parser = new W3GReplay()
   const replay = Parser.parse('./replays/sample1.w3g')
+  console.log(replay)
+```
+
+### Low Level API
+Low level API allows you to either implement your own logic on top of the ReplayParser class by extending it or 
+to listen for its callbacks for specific events.
+
+```javascript
+const W3GReplay = require('w3gjs')
+const Parser = new W3GReplay()
+
+Parser.on('gamemetadata', (metadata) => console.log(metadata))
+Parser.on('gamedatablock', (block) => console.log('game data block.'))
+Parser.on('timeslotblock', (block) => console.log('time slot block.', Parser.msElapsed))
+Parser.on('commandblock', (block) => console.log('command block.'))
+Parser.on('actionblock', (block) => console.log('action block.'))
+
+Parser.parse('./replays/999.w3g')
 ```
 
 ### Example output of the observers.w3g example replay

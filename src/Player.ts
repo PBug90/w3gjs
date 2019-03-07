@@ -10,6 +10,13 @@ const isObjectId = (input: string) => ['u', 'e', 'h', 'o'].includes(input[0])
 const isRightclickAction = (input: number[]) => input[0] === 0x03 && input[1] === 0
 const isBasicAction = (input: number[]) => input[0] <= 0x19 && input[1] === 0
 
+interface heroInfo {
+    level: number,
+    abilities: { [key: string]: number },
+    order: number,
+    id: string
+}
+
 class Player {
   id: number
   name: string
@@ -33,14 +40,8 @@ class Player {
     summary: { [key: string]: number },
     order: { id: string, ms: number }[]
   }
-  heroes: {
-    [key: string]: {
-      level: number,
-      abilities: { [key: string]: number },
-      order: number,
-      id: string
-    }
-  }
+  heroes:heroInfo[]
+  heroCollector: {[key: string]: heroInfo}
   heroSkills: { [key: string]: number }
   heroCount: number
   actions: {
@@ -58,6 +59,7 @@ class Player {
     esc: number
   }
   _currentlyTrackedAPM: number
+  _lastActionWasDeselect: boolean
   currentTimePlayed: number
   apm: number
 
@@ -72,7 +74,8 @@ class Player {
     this.upgrades = { summary: {}, order: [] }
     this.items = { summary: {}, order: [] }
     this.buildings = { summary: {}, order: [] }
-    this.heroes = {}
+    this.heroes = []
+    this.heroCollector = {}
     this.heroSkills = {}
     this.heroCount = 0
     this.actions = {
@@ -90,6 +93,7 @@ class Player {
       esc: 0
     }
     this._currentlyTrackedAPM = 0
+    this._lastActionWasDeselect = false
     this.currentTimePlayed = 0
     this.apm = 0
     return this
@@ -134,13 +138,13 @@ class Player {
   }
 
   handleHeroSkill(actionId: string): void {
-    if (this.heroes[abilityToHero[actionId]] === undefined) {
+    if (this.heroCollector[abilityToHero[actionId]] === undefined) {
       this.heroCount += 1
-      this.heroes[abilityToHero[actionId]] = { level: 0, abilities: {}, order: this.heroCount, id: abilityToHero[actionId] }
+      this.heroCollector[abilityToHero[actionId]] = { level: 0, abilities: {}, order: this.heroCount, id: abilityToHero[actionId] }
     }
-    this.heroes[abilityToHero[actionId]].level += 1
-    this.heroes[abilityToHero[actionId]].abilities[actionId] = this.heroes[abilityToHero[actionId]].abilities[actionId] || 0
-    this.heroes[abilityToHero[actionId]].abilities[actionId] += 1
+    this.heroCollector[abilityToHero[actionId]].level += 1
+    this.heroCollector[abilityToHero[actionId]].abilities[actionId] = this.heroCollector[abilityToHero[actionId]].abilities[actionId] || 0
+    this.heroCollector[abilityToHero[actionId]].abilities[actionId] += 1
   }
 
   handle0x10(actionId: string, gametime: number): void {
@@ -222,7 +226,7 @@ class Player {
     this._currentlyTrackedAPM ++
   }
 
-  handle0x16(selectMode: any, isAPM: any) {
+  handle0x16(selectMode: number, isAPM: boolean) {
     if (isAPM) {
       this.actions['select'] = this.actions['select'] + 1 || 1
       this._currentlyTrackedAPM ++
@@ -259,13 +263,11 @@ class Player {
   cleanup(): void {
     const apmSum = this.actions.timed.reduce((a: number, b: number): number => a + b)
     this.apm = Math.round(apmSum / this.actions.timed.length)
-    // @ts-ignore
-    this.heroes = Object.values(this.heroes).sort((h1, h2) => h1.order - h2.order).reduce((aggregator, hero) => {
+    this.heroes = Object.values(this.heroCollector).sort((h1, h2) => h1.order - h2.order).reduce((aggregator, hero) => {
       delete hero['order']
-      // @ts-ignore
       aggregator.push(hero)
       return aggregator
-    }, [])
+    }, <heroInfo[]>[])
 
     delete this._currentlyTrackedAPM
   }
