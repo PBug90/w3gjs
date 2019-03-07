@@ -32,7 +32,7 @@ of a W3GReplay instance or by listening for one of the five main events:
 
 ### Low Level API
 Low level API allows you to either implement your own logic on top of the ReplayParser class by extending it or 
-to listen for its callbacks for specific events.
+to register callbacks to listen for parser events as it encounters the different kinds of blocks in a replay.
 
 ```javascript
 const W3GReplay = require('w3gjs')
