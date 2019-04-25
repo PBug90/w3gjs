@@ -82,6 +82,14 @@ describe('Replay parsing tests', () => {
     validatorInstance.validate(test, schema, {throwError: true})
   })
 
+  it('resets elapsedMS instance property to 0 before parsing another replay', () => {
+    Parser.parse(`./replays/standard_130.w3g`)
+    const msElapsed = Parser.msElapsed
+    Parser.parse(`./replays/standard_130.w3g`)
+    const msElapsedTwo = Parser.msElapsed
+    expect(msElapsed).toEqual(msElapsedTwo)
+  })  
+
   it('parses a standard 1.30.2 replay properly', () => {
     const test = Parser.parse(`./replays/standard_1302.w3g`)
     expect(test.version).toBe('1.30.2+')
