@@ -1,7 +1,7 @@
 # w3gjs
-[![Build Status](https://travis-ci.org/PBug90/w3gjs.svg?branch=master)](https://travis-ci.org/anXieTyPB/w3gjs)
+[![Build Status](https://travis-ci.org/PBug90/w3gjs.svg?branch=master)](https://travis-ci.org/w3gjs/w3gjs)
 [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
-[![Maintainability](https://api.codeclimate.com/v1/badges/ebf0d0020d5dc9efba0e/maintainability)](https://codeclimate.com/github/anXieTyPB/w3gjs/maintainability)
+[![Maintainability](https://api.codeclimate.com/v1/badges/ebf0d0020d5dc9efba0e/maintainability)](https://codeclimate.com/github/PBug90/w3gjs/maintainability)
 ## Parser
 From scratch JavaScript implementation of a w3g parser for WarCraft 3 replay files.
 Uses the excellent https://github.com/keichi/binary-parser to parse the replay file.
