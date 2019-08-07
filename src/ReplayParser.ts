@@ -24,11 +24,15 @@ class ReplayParser extends EventEmitter{
   filename: string
   buffer: Buffer
   msElapsed: number = 0
+  header: any
+  decompressed: Buffer
+  gameMetaDataDecoded : any
   
   constructor() {
     super()
     this.buffer = Buffer.from('')
     this.filename= ''
+    this.decompressed = Buffer.from('')
   }
 
   parse($buffer: string) {
