@@ -1,9 +1,6 @@
-interface SortablePlayer {
-    teamid: number
-    id: number
-}
+import Player from './Player'
 
-export const sortPlayers = (player1 : SortablePlayer, player2: SortablePlayer) => {
+export const sortPlayers = (player1 : Player, player2: Player) => {
     if (player2.teamid > player1.teamid) return -1
     if (player2.teamid < player1.teamid) return 1
 

@@ -1,7 +1,7 @@
 const sorters = require('../src/sort')
 
 describe('sortPlayers', () => {
-    it('propery sorts a player list', () => {
+    it('sorts players primarily by teamid ascending and players with same teamid by playerid ascending', () => {
         const players = [
             {
                 id: 8,
