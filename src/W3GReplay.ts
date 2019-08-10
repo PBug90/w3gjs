@@ -12,20 +12,35 @@ import {
   ParserOutput, 
   PlayerChatMessageBlock 
 } from './types'
+import {sortPlayers} from './sort'
 
 // Cannot import node modules directly because error with rollup
 // https://rollupjs.org/guide/en#error-name-is-not-exported-by-module-
 const { createHash } = require('crypto')
 
 class W3GReplay extends ReplayParser{
-  players: { [key: string]: Player } = {}
-  observers: string[] = []
+  players: { [key: string]: Player }
+  observers: string[]
+  chatlog: any
+  id: string = ""
+  leaveEvents: any[]
+  w3mmd : any[]
+  slots: any[]
+  teams: any[]
+  meta: GameMetaDataDecoded
+  playerList:  any[]
+  totalTimeTracker: number = 0
+  timeSegmentTracker: number = 0
+  playerActionTrackInterval: number = 60000
+  gametype : string = ""
+  matchup : string = ""
 
   constructor() {
     super()
     this.on('gamemetadata', (metaData: GameMetaDataDecoded ) => this.handleMetaData(metaData))
     this.on('gamedatablock', (block: GameDataBlock ) => this.processGameDataBlock(block)) 
     this.on('timeslotblock', (block: TimeSlotBlock ) => this.handleTimeSlot(block))        
+  
   }
 
   // gamedatablock timeslotblock commandblock actionblock
@@ -59,7 +74,7 @@ class W3GReplay extends ReplayParser{
     this.playerList = [metaData.player, ...metaData.playerList]
     this.meta = metaData
     const tempPlayers: {[key: string]: GameMetaDataDecoded["player"]   } = {}
-    this.teams = {}
+    this.teams = []
     this.players = {}
 
     this.playerList.forEach((player: GameMetaDataDecoded["player"]): void => {
@@ -208,9 +223,9 @@ class W3GReplay extends ReplayParser{
     })
 
     if (this.header.version >= 29 && this.teams.hasOwnProperty('24')) {
-      delete this.teams['24']
+      delete this.teams[24]
     } else if (this.teams.hasOwnProperty('12')) {
-      delete this.teams['12']
+      delete this.teams[12]
     }
     delete this.slots
     delete this.playerList
@@ -236,13 +251,14 @@ class W3GReplay extends ReplayParser{
       randomRaces: !!this.meta.randomRaces,
       speed: this.meta.speed
     }
+
     const root = {
       id: this.id,
       gamename: this.meta.gameName,
       randomseed: this.meta.randomSeed,
       startSpots: this.meta.startSpotCount,
       observers: this.observers,
-      players: Object.values(this.players).sort((player1, player2) => player2.teamid >= player1.teamid && player2.id > player1.id ? -1 : 1),
+      players: Object.values(this.players).sort(sortPlayers),
       matchup: this.matchup,
       creator: this.meta.creator,
       type: this.gametype,
