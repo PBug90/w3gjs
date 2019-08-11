@@ -1,6 +1,7 @@
-const W3GReplay = require('../index')
+import W3GReplay from '../src/W3GReplay'
+import { Validator } from 'jsonschema'
+
 const Parser = new W3GReplay()
-const { Validator } = require('jsonschema')
 
 describe('Replay parsing tests', () => {
     it('parses a standard 1.29 replay with observers properly', () => {
