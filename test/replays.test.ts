@@ -123,4 +123,10 @@ describe('Replay parsing tests', () => {
         expect(test.version).toBe('1.30.2+')
         expect(test.players.length).toBe(4)
     })
+
+    it('parses a standard 1.30.4 1on1 tome of retraining', () => {
+        const test = Parser.parse(`./replays/standard_tomeofretraining_1.w3g`)
+        expect(test.version).toBe('1.31')
+        expect(test.players.length).toBe(2)
+    })
 })

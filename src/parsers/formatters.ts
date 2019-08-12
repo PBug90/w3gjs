@@ -1,12 +1,11 @@
 import { Parser } from 'binary-parser'
+import { ItemID } from '../types'
 
-const objectIdFormatter = (arr: any[]): any => {
-    let copy = arr
+const objectIdFormatter = (arr: any[]): ItemID => {
     if (arr[3] >= 0x41 && arr[3] <= 0x7A) {
-        copy = arr.slice()
-        return arr.map(e => String.fromCharCode(parseInt(e, 10))).join('')
+        return { type: 'stringencoded', value: arr.map(e => String.fromCharCode(parseInt(e, 10))).reverse().join('') }
     }
-    return copy
+    return { type: 'alphanumeric', value: arr.map(e => parseInt(e, 16)) }
 }
 
 const raceFlagFormatter = (flag: Parser.Data): string | Parser.Data => {

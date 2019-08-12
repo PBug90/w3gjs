@@ -113,6 +113,11 @@ export interface GameDataBlock {
     [key: string]: any;
 }
 
+export interface ItemID {
+    type: 'alphanumeric' | 'stringencoded';
+    value: any;
+}
+
 export interface ParserOutput {
     id: string;
     gamename: GameMetaDataDecoded['gameName'];

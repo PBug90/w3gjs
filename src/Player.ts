@@ -1,12 +1,10 @@
 import convert from './convert'
 import { items, units, buildings, upgrades, abilityToHero } from './mappings'
-import { Races } from './types'
+import { Races, ItemID } from './types'
 
 /**
  * Helpers
  */
-const reverseString = (input: string) => input.split('').reverse().join('')
-const isObjectId = (input: string) => ['u', 'e', 'h', 'o'].includes(input[0])
 const isRightclickAction = (input: number[]) => input[0] === 0x03 && input[1] === 0
 const isBasicAction = (input: number[]) => input[0] <= 0x19 && input[1] === 0
 
@@ -139,7 +137,7 @@ class Player {
         }
     }
 
-    handleActionId (actionId: string, gametime: number): void {
+    handleStringencodedItemID (actionId: string, gametime: number): void {
         if (units[actionId]) {
             this.units.summary[actionId] = this.units.summary[actionId] + 1 || 1
             this.units.order.push({ id: actionId, ms: gametime })
@@ -165,62 +163,52 @@ class Player {
         this.heroCollector[abilityToHero[actionId]].abilities[actionId] += 1
     }
 
-    handle0x10 (actionId: string, gametime: number): void {
-        if (typeof actionId === 'string') {
-            actionId = reverseString(actionId)
-        }
-
-        switch (actionId[0]) {
+    handle0x10 (itemid: ItemID, gametime: number): void {
+        switch (itemid.value[0]) {
             case 'A':
-                this.heroSkills[actionId] = this.heroSkills[actionId] + 1 || 1
-                this.handleHeroSkill(actionId)
+                this.heroSkills[itemid.value] = this.heroSkills[itemid.value] + 1 || 1
+                this.handleHeroSkill(itemid.value)
                 break
             case 'R':
-                this.handleActionId(actionId, gametime)
+                this.handleStringencodedItemID(itemid.value, gametime)
                 break
             case 'u':
             case 'e':
             case 'h':
             case 'o':
                 if (!this.raceDetected) {
-                    this.detectRaceByActionId(actionId)
+                    this.detectRaceByActionId(itemid.value)
                 }
-                this.handleActionId(actionId, gametime)
+                this.handleStringencodedItemID(itemid.value, gametime)
                 break
             default:
-                this.handleActionId(actionId, gametime)
+                this.handleStringencodedItemID(itemid.value, gametime)
         }
 
-        actionId[0] !== '0'
+        itemid.value[0] !== '0'
             ? this.actions['buildtrain'] = this.actions['buildtrain'] + 1 || 1
             : this.actions['ability'] = this.actions['ability'] + 1 || 1
 
         this._currentlyTrackedAPM++
     }
 
-    handle0x11 (actionId: string | number[], gametime: number): void {
+    handle0x11 (itemid: ItemID, gametime: number): void {
         this._currentlyTrackedAPM++
-
-        if (Array.isArray(actionId)) {
-            if (actionId[0] <= 0x19 && actionId[1] === 0) {
+        if (itemid.type === 'alphanumeric') {
+            if (itemid.value[0] <= 0x19 && itemid.value[1] === 0) {
                 this.actions['basic'] = this.actions['basic'] + 1 || 1
             } else {
                 this.actions['ability'] = this.actions['ability'] + 1 || 1
             }
-
-            return
-        }
-
-        actionId = reverseString(actionId)
-        if (isObjectId(actionId)) {
-            this.handleActionId(actionId, gametime)
+        } else {
+            this.handleStringencodedItemID(itemid.value, gametime)
         }
     }
 
-    handle0x12 (actionId: number[]): void {
-        if (isRightclickAction(actionId)) {
+    handle0x12 (itemid: ItemID): void {
+        if (isRightclickAction(itemid.value)) {
             this.actions['rightclick'] = this.actions['rightclick'] + 1 || 1
-        } else if (isBasicAction(actionId)) {
+        } else if (isBasicAction(itemid.value)) {
             this.actions['basic'] = this.actions['basic'] + 1 || 1
         } else {
             this.actions['ability'] = this.actions['ability'] + 1 || 1
@@ -228,15 +216,15 @@ class Player {
         this._currentlyTrackedAPM++
     }
 
-    handle0x13 (actionId: string): void {
+    handle0x13 (itemid: string): void {
         this.actions['item'] = this.actions['item'] + 1 || 1
         this._currentlyTrackedAPM++
     }
 
-    handle0x14 (actionId: number[]): void {
-        if (isRightclickAction(actionId)) {
+    handle0x14 (itemid: ItemID): void {
+        if (isRightclickAction(itemid.value)) {
             this.actions['rightclick'] = this.actions['rightclick'] + 1 || 1
-        } else if (isBasicAction(actionId)) {
+        } else if (isBasicAction(itemid.value)) {
             this.actions['basic'] = this.actions['basic'] + 1 || 1
         } else {
             this.actions['ability'] = this.actions['ability'] + 1 || 1

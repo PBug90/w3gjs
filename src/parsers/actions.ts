@@ -48,7 +48,7 @@ const UnitBuildingAbilityActionTargetPosition = new Parser()
 const UnitBuildingAbilityActionTargetPositionTargetObjectId = new Parser()
     .int16le('abilityFlags')
     .array('itemId', {
-        type: 'int8',
+        type: 'uint8',
         length: 4,
         // @ts-ignore
         formatter: objectIdFormatter
@@ -63,7 +63,7 @@ const UnitBuildingAbilityActionTargetPositionTargetObjectId = new Parser()
 const GiveItemToUnitAction = new Parser()
     .int16le('abilityFlags')
     .array('itemId', {
-        type: 'int8',
+        type: 'uint8',
         length: 4,
         // @ts-ignore
         formatter: objectIdFormatter
@@ -80,7 +80,7 @@ const GiveItemToUnitAction = new Parser()
 const UnitBuildingAbilityActionTwoTargetPositions = new Parser()
     .int16le('abilityFlags')
     .array('itemId1', {
-        type: 'int8',
+        type: 'uint8',
         length: 4,
         // @ts-ignore
         formatter: objectIdFormatter
@@ -90,7 +90,7 @@ const UnitBuildingAbilityActionTwoTargetPositions = new Parser()
     .floatle('targetAX')
     .floatle('targetAY')
     .array('itemId2', {
-        type: 'int8',
+        type: 'uint8',
         length: 4,
         formatter: objectIdFormatter
     })
@@ -100,13 +100,13 @@ const UnitBuildingAbilityActionTwoTargetPositions = new Parser()
 
 const SelectionUnit = new Parser()
     .array('itemId1', {
-        type: 'int8',
+        type: 'uint8',
         length: 4,
         // @ts-ignore
         formatter: objectIdFormatter
     })
     .array('itemId2', {
-        type: 'int8',
+        type: 'uint8',
         length: 4,
         formatter: objectIdFormatter
     })
@@ -133,7 +133,7 @@ const SelectGroupHotkeyAction = new Parser()
 
 const SelectSubgroupAction = new Parser()
     .array('itemId', {
-        type: 'int8',
+        type: 'uint8',
         length: 4,
         // @ts-ignore
         formatter: objectIdFormatter
@@ -149,26 +149,26 @@ const UnknownAction1B = new Parser()
 const SelectGroundItemAction = new Parser()
     .skip(1)
     .array('itemId1', {
-        type: 'int8',
+        type: 'uint8',
         length: 4,
         // @ts-ignore
         formatter: objectIdFormatter
     })
     .array('itemId2', {
-        type: 'int8',
+        type: 'uint8',
         length: 4,
         formatter: objectIdFormatter
     })
 
 const CancelHeroRevivalAction = new Parser()
     .array('itemId1', {
-        type: 'int8',
+        type: 'uint8',
         length: 4,
         // @ts-ignore
         formatter: objectIdFormatter
     })
     .array('itemId2', {
-        type: 'int8',
+        type: 'uint8',
         length: 4,
         formatter: objectIdFormatter
     })
@@ -176,7 +176,7 @@ const CancelHeroRevivalAction = new Parser()
 const RemoveUnitFromBuildingQueueAction = new Parser()
     .int8('slotNumber')
     .array('itemId', {
-        type: 'int8',
+        type: 'uint8',
         length: 4,
         // @ts-ignore
         formatter: objectIdFormatter

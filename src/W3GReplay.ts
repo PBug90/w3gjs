@@ -25,6 +25,8 @@ class W3GReplay extends ReplayParser {
 
     chatlog: any
 
+    playerActionTracker: {[key: string]: any[]} = {}
+
     id: string = ''
 
     leaveEvents: any[]
@@ -148,6 +150,13 @@ class W3GReplay extends ReplayParser {
     }
 
     handleActionBlock (action: ActionBlock, currentPlayer: Player) {
+        this.playerActionTracker[currentPlayer.id] = this.playerActionTracker[currentPlayer.id] || []
+        this.playerActionTracker[currentPlayer.id].push(action)
+
+        if (action.itemId && (action.itemId.value === 'tert' || action.itemId.value === 'tret')) {
+            console.log('retraining action detected!', action)
+            console.log(JSON.stringify(this.playerActionTracker[currentPlayer.id].slice(-5)))
+        }
         switch (action.actionId) {
             case 0x10:
                 currentPlayer.handle0x10(action.itemId, this.totalTimeTracker)
