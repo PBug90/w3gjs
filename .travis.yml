@@ -1,10 +1,16 @@
 language: node_js
 node_js:
-  - "8"
+  - "10"
+  - "9"
 install:
-  - yarn install
-  - yarn add standard
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+  - ./cc-test-reporter before-build  
+  - npm install
 script:
-  - yarn lint
-  - yarn build
-  - yarn test
+  - npm run lint
+  - npm run build
+  - npm run coverage
+
+after_script:
+  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
