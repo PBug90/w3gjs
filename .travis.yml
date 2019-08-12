@@ -10,7 +10,7 @@ install:
 script:
   - npm run lint
   - npm run build
-  - npm test
+  - npm run coverage
 
 after_script:
   - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
