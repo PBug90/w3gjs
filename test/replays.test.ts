@@ -6,13 +6,13 @@ const Parser = new W3GReplay()
 describe('Replay parsing tests', () => {
     it('parses a standard 1.29 replay with observers properly', () => {
         const test = Parser.parse(`./replays/standard_129_obs.w3g`)
-        
+
         expect(test.version).toBe('1.29')
         expect(test.players[1].name).toBe('S.o.K.o.L')
         expect(test.players[1].raceDetected).toBe('O')
         expect(test.players[1].id).toBe(4)
         expect(test.players[1].teamid).toBe(3)
-        expect(test.players[1].color).toBe('#50c878')    
+        expect(test.players[1].color).toBe('#50c878')
         expect(test.players[1].units.summary).toEqual({
             opeo: 10, ogru: 5, ostr: 1, orai: 6, ospm: 5, okod: 2
         })
@@ -29,7 +29,7 @@ describe('Replay parsing tests', () => {
             selecthotkey: 751,
             esc: 0,
             timed: expect.any(Array)
-        })              
+        })
 
         expect(test.players[0].name).toBe('Stormhoof')
         expect(test.players[0].raceDetected).toBe('O')
@@ -37,7 +37,7 @@ describe('Replay parsing tests', () => {
         expect(test.players[0].id).toBe(6)
         expect(test.players[0].teamid).toBe(0)
         expect(test.players[0].units.summary).toEqual({
-                 opeo: 11, ogru: 8, ostr: 2, orai: 8, ospm: 4, okod: 3 
+            opeo: 11, ogru: 8, ostr: 2, orai: 8, ospm: 4, okod: 3
         })
         expect(test.players[0].actions).toEqual({
             assigngroup: 111,
@@ -52,7 +52,7 @@ describe('Replay parsing tests', () => {
             selecthotkey: 1865,
             esc: 4,
             timed: expect.any(Array)
-        })            
+        })
 
         expect(test.observers.length).toBe(4)
         expect(test.chat.length).toBeGreaterThan(2)
