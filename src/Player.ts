@@ -13,6 +13,7 @@ interface HeroInfo {
     abilities: { [key: string]: number };
     order: number;
     id: string;
+    abilityOrder: {type: string, time: number}[]
 }
 
 class Player {
@@ -52,8 +53,6 @@ class Player {
 
     heroCollector: {[key: string]: HeroInfo}
 
-    heroSkills: { [key: string]: number }
-
     heroCount: number
 
     actions: {
@@ -92,7 +91,6 @@ class Player {
         this.buildings = { summary: {}, order: [] }
         this.heroes = []
         this.heroCollector = {}
-        this.heroSkills = {}
         this.heroCount = 0
         this.actions = {
             timed: [],
@@ -153,21 +151,27 @@ class Player {
         }
     }
 
-    handleHeroSkill (actionId: string): void {
+    handleHeroSkill (actionId: string, gametime: number): void {
         if (this.heroCollector[abilityToHero[actionId]] === undefined) {
             this.heroCount += 1
-            this.heroCollector[abilityToHero[actionId]] = { level: 0, abilities: {}, order: this.heroCount, id: abilityToHero[actionId] }
+            this.heroCollector[abilityToHero[actionId]] = { level: 0, abilities: {}, order: this.heroCount, id: abilityToHero[actionId], abilityOrder: [] }
         }
         this.heroCollector[abilityToHero[actionId]].level += 1
         this.heroCollector[abilityToHero[actionId]].abilities[actionId] = this.heroCollector[abilityToHero[actionId]].abilities[actionId] || 0
         this.heroCollector[abilityToHero[actionId]].abilities[actionId] += 1
+        this.heroCollector[abilityToHero[actionId]].abilityOrder.push({type: actionId, time: gametime})
+    }
+
+    handleRetraining(gametime: number){
+        Object.keys(this.heroCollector).forEach((key) => {
+            this.heroCollector[key].abilityOrder.push({type: "retraining", time: gametime})
+        })
     }
 
     handle0x10 (itemid: ItemID, gametime: number): void {
         switch (itemid.value[0]) {
             case 'A':
-                this.heroSkills[itemid.value] = this.heroSkills[itemid.value] + 1 || 1
-                this.handleHeroSkill(itemid.value)
+                this.handleHeroSkill(itemid.value, gametime)
                 break
             case 'R':
                 this.handleStringencodedItemID(itemid.value, gametime)
@@ -267,14 +271,30 @@ class Player {
     }
 
     cleanup (): void {
+
         const apmSum = this.actions.timed.reduce((a: number, b: number): number => a + b)
         this.apm = Math.round(apmSum / this.actions.timed.length)
         this.heroes = Object.values(this.heroCollector).sort((h1, h2) => h1.order - h2.order).reduce((aggregator, hero) => {
+            let lastDetectedRetrainTime = 0
+            hero.abilityOrder.forEach(entry => {
+                if (entry.type === 'retraining'){
+                    lastDetectedRetrainTime = entry.time
+                    hero.abilities = {}
+                }
+                // reduce hero level for every retrained ability. consider a 10 second time range
+                if (entry.type !== 'retraining' && entry.time <= lastDetectedRetrainTime + 10000){
+                    hero.level = hero.level -1;
+                }
+                if (lastDetectedRetrainTime > 0){
+                    hero.abilities[entry.type] = hero.abilities[entry.type]+1 || 1
+                }
+            })
+            delete hero['abilityOrder']
             delete hero['order']
             aggregator.push(hero)
             return aggregator
         }, <HeroInfo[]>[])
-
+        console.log(JSON.stringify(this.heroCollector,null,2))
         delete this._currentlyTrackedAPM
     }
 }

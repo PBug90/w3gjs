@@ -154,8 +154,7 @@ class W3GReplay extends ReplayParser {
         this.playerActionTracker[currentPlayer.id].push(action)
 
         if (action.itemId && (action.itemId.value === 'tert' || action.itemId.value === 'tret')) {
-            console.log('retraining action detected!', action)
-            console.log(JSON.stringify(this.playerActionTracker[currentPlayer.id].slice(-5)))
+            currentPlayer.handleRetraining(this.totalTimeTracker)
         }
         switch (action.actionId) {
             case 0x10:
