@@ -8,12 +8,33 @@ import { Races, ItemID } from './types'
 const isRightclickAction = (input: number[]) => input[0] === 0x03 && input[1] === 0
 const isBasicAction = (input: number[]) => input[0] <= 0x19 && input[1] === 0
 
-interface HeroInfo {
+export const reduceHeroes = (heroCollector: {[key: string]: HeroInfo}) => {
+    return Object.values(heroCollector).sort((h1, h2) => h1.order - h2.order).reduce((aggregator, hero) => {
+        hero.level = Object.values(hero.abilities).reduce((prev, curr) => prev + curr, 0)
+        delete hero['order']
+        aggregator.push(hero)
+        return aggregator
+    }, <HeroInfo[]>[])
+}
+
+interface Ability {
+    type: 'ability';
+    time: number;
+    value: string;
+}
+
+interface Retraining{
+    type: 'retraining';
+    time: number;
+}
+
+export interface HeroInfo {
     level: number;
     abilities: { [key: string]: number };
     order: number;
     id: string;
-    abilityOrder: {type: string; time: number}[];
+    retrainingHistory: {time: number; abilities: {[key: string]: number}}[];
+    abilityOrder: (Ability | Retraining) [];
 }
 
 class Player {
@@ -72,6 +93,10 @@ class Player {
 
     _currentlyTrackedAPM: number
 
+    _retrainingMetadata: {[key: string]: {start: number; end: number}}
+
+    _lastRetrainingTime: number
+
     _lastActionWasDeselect: boolean
 
     currentTimePlayed: number
@@ -108,6 +133,8 @@ class Player {
         }
         this._currentlyTrackedAPM = 0
         this._lastActionWasDeselect = false
+        this._retrainingMetadata = {}
+        this._lastRetrainingTime = 0
         this.currentTimePlayed = 0
         this.apm = 0
         return this
@@ -152,20 +179,25 @@ class Player {
     }
 
     handleHeroSkill (actionId: string, gametime: number): void {
-        if (this.heroCollector[abilityToHero[actionId]] === undefined) {
+        const heroId = abilityToHero[actionId]
+        if (this.heroCollector[heroId] === undefined) {
             this.heroCount += 1
-            this.heroCollector[abilityToHero[actionId]] = { level: 0, abilities: {}, order: this.heroCount, id: abilityToHero[actionId], abilityOrder: [] }
+            this.heroCollector[heroId] = { level: 0, abilities: {}, order: this.heroCount, id: heroId, abilityOrder: [], retrainingHistory: [] }
         }
-        this.heroCollector[abilityToHero[actionId]].level += 1
-        this.heroCollector[abilityToHero[actionId]].abilities[actionId] = this.heroCollector[abilityToHero[actionId]].abilities[actionId] || 0
-        this.heroCollector[abilityToHero[actionId]].abilities[actionId] += 1
-        this.heroCollector[abilityToHero[actionId]].abilityOrder.push({ type: actionId, time: gametime })
+
+        if (this._lastRetrainingTime > 0) {
+            this.heroCollector[heroId].retrainingHistory.push({ time: this._lastRetrainingTime, abilities: this.heroCollector[heroId].abilities })
+            this.heroCollector[heroId].abilities = {}
+            this.heroCollector[heroId].abilityOrder.push({ type: 'retraining', time: this._lastRetrainingTime })
+            this._lastRetrainingTime = 0
+        }
+        this.heroCollector[heroId].abilities[actionId] = this.heroCollector[heroId].abilities[actionId] || 0
+        this.heroCollector[heroId].abilities[actionId] += 1
+        this.heroCollector[heroId].abilityOrder.push({ type: 'ability', time: gametime, value: actionId })
     }
 
     handleRetraining (gametime: number) {
-        Object.keys(this.heroCollector).forEach((key) => {
-            this.heroCollector[key].abilityOrder.push({ type: 'retraining', time: gametime })
-        })
+        this._lastRetrainingTime = gametime
     }
 
     handle0x10 (itemid: ItemID, gametime: number): void {
@@ -273,27 +305,7 @@ class Player {
     cleanup (): void {
         const apmSum = this.actions.timed.reduce((a: number, b: number): number => a + b)
         this.apm = Math.round(apmSum / this.actions.timed.length)
-        this.heroes = Object.values(this.heroCollector).sort((h1, h2) => h1.order - h2.order).reduce((aggregator, hero) => {
-            let lastDetectedRetrainTime = 0
-            hero.abilityOrder.forEach(entry => {
-                if (entry.type === 'retraining') {
-                    lastDetectedRetrainTime = entry.time
-                    hero.abilities = {}
-                }
-                // reduce hero level for every retrained ability. consider a 10 second time range
-                if (entry.type !== 'retraining' && entry.time <= lastDetectedRetrainTime + 10000) {
-                    hero.level = hero.level - 1
-                }
-                if (lastDetectedRetrainTime > 0) {
-                    hero.abilities[entry.type] = hero.abilities[entry.type] + 1 || 1
-                }
-            })
-            delete hero['abilityOrder']
-            delete hero['order']
-            aggregator.push(hero)
-            return aggregator
-        }, <HeroInfo[]>[])
-        console.log(JSON.stringify(this.heroCollector, null, 2))
+        this.heroes = reduceHeroes(this.heroCollector)
         delete this._currentlyTrackedAPM
     }
 }

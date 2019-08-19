@@ -165,5 +165,68 @@ describe('Replay parsing tests', () => {
         const test = Parser.parse(`./replays/standard_tomeofretraining_1.w3g`)
         expect(test.version).toBe('1.31')
         expect(test.players.length).toBe(2)
+        expect(test.players[0].heroes[0]).toEqual({
+            id: 'Hamg',
+            abilities: {
+                AHab: 2,
+                AHbz: 2
+            },
+            retrainingHistory: [
+                {
+                    abilities: {
+                        AHab: 2,
+                        AHwe: 2
+                    },
+                    time: 1136022
+                }
+            ],
+            level: 4,
+            abilityOrder: [
+                {
+                    time: 124366,
+                    type: 'ability',
+                    value: 'AHwe'
+                },
+                {
+                    time: 234428,
+                    type: 'ability',
+                    value: 'AHab'
+                },
+                {
+                    time: 293007,
+                    type: 'ability',
+                    value: 'AHwe'
+                },
+                {
+                    time: 1060007,
+                    type: 'ability',
+                    value: 'AHab'
+                },
+                {
+                    time: 1136022,
+                    type: 'retraining'
+                },
+                {
+                    time: 1140944,
+                    type: 'ability',
+                    value: 'AHbz'
+                },
+                {
+                    time: 1141147,
+                    type: 'ability',
+                    value: 'AHbz'
+                },
+                {
+                    time: 1141460,
+                    type: 'ability',
+                    value: 'AHab'
+                },
+                {
+                    time: 1141569,
+                    type: 'ability',
+                    value: 'AHab'
+                }
+            ]
+        })
     })
 })
