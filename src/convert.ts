@@ -56,6 +56,9 @@ const playerColor = (color: number): string => {
 const gameVersion = (version: number): string => {
     if (version === 10030) {
         return `1.30.2+`
+    } else if (version > 10030) {
+        const str = String(version)
+        return `1.${str.substring(str.length - 2, str.length)}`
     }
     return `1.${version}`
 }

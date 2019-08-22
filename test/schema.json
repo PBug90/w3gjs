@@ -54,7 +54,8 @@
               "required": [
                 "level",
                 "abilities",
-                "id"
+                "id",
+                "retrainingHistory"
               ],
               "properties": {
                 "id": {
@@ -71,7 +72,17 @@
                   "$id": "#/properties/players/items/properties/heroes/items/properties/abilities",
                   "type": "object",
                   "title": "The hero abilities schema"
-                }                                                          
+                },
+                "retrainingHistory": {
+                  "$id": "#/properties/players/items/properties/heroes/items/properties/retrainHistory",
+                  "type": "array",
+                  "title": "If a tome of retraining was used, the old ability sets will be saved in here."
+                },
+                "abilityOrder": {
+                  "$id": "#/properties/players/items/properties/heroes/items/properties/retrainHistory",
+                  "type": "array",
+                  "title": "Tracks order of abilityies, their timestamp and tome of retraining timestamps."
+                }                                                                                                                     
               }
             }
           },

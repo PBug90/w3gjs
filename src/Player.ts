@@ -1,20 +1,40 @@
 import convert from './convert'
 import { items, units, buildings, upgrades, abilityToHero } from './mappings'
-import { Races } from './types'
+import { Races, ItemID } from './types'
 
 /**
  * Helpers
  */
-const reverseString = (input: string) => input.split('').reverse().join('')
-const isObjectId = (input: string) => ['u', 'e', 'h', 'o'].includes(input[0])
 const isRightclickAction = (input: number[]) => input[0] === 0x03 && input[1] === 0
 const isBasicAction = (input: number[]) => input[0] <= 0x19 && input[1] === 0
 
-interface HeroInfo {
+export const reduceHeroes = (heroCollector: {[key: string]: HeroInfo}) => {
+    return Object.values(heroCollector).sort((h1, h2) => h1.order - h2.order).reduce((aggregator, hero) => {
+        hero.level = Object.values(hero.abilities).reduce((prev, curr) => prev + curr, 0)
+        delete hero['order']
+        aggregator.push(hero)
+        return aggregator
+    }, <HeroInfo[]>[])
+}
+
+interface Ability {
+    type: 'ability';
+    time: number;
+    value: string;
+}
+
+interface Retraining{
+    type: 'retraining';
+    time: number;
+}
+
+export interface HeroInfo {
     level: number;
     abilities: { [key: string]: number };
     order: number;
     id: string;
+    retrainingHistory: {time: number; abilities: {[key: string]: number}}[];
+    abilityOrder: (Ability | Retraining) [];
 }
 
 class Player {
@@ -54,8 +74,6 @@ class Player {
 
     heroCollector: {[key: string]: HeroInfo}
 
-    heroSkills: { [key: string]: number }
-
     heroCount: number
 
     actions: {
@@ -74,6 +92,10 @@ class Player {
     }
 
     _currentlyTrackedAPM: number
+
+    _retrainingMetadata: {[key: string]: {start: number; end: number}}
+
+    _lastRetrainingTime: number
 
     _lastActionWasDeselect: boolean
 
@@ -94,7 +116,6 @@ class Player {
         this.buildings = { summary: {}, order: [] }
         this.heroes = []
         this.heroCollector = {}
-        this.heroSkills = {}
         this.heroCount = 0
         this.actions = {
             timed: [],
@@ -112,6 +133,8 @@ class Player {
         }
         this._currentlyTrackedAPM = 0
         this._lastActionWasDeselect = false
+        this._retrainingMetadata = {}
+        this._lastRetrainingTime = 0
         this.currentTimePlayed = 0
         this.apm = 0
         return this
@@ -139,7 +162,7 @@ class Player {
         }
     }
 
-    handleActionId (actionId: string, gametime: number): void {
+    handleStringencodedItemID (actionId: string, gametime: number): void {
         if (units[actionId]) {
             this.units.summary[actionId] = this.units.summary[actionId] + 1 || 1
             this.units.order.push({ id: actionId, ms: gametime })
@@ -155,72 +178,73 @@ class Player {
         }
     }
 
-    handleHeroSkill (actionId: string): void {
-        if (this.heroCollector[abilityToHero[actionId]] === undefined) {
+    handleHeroSkill (actionId: string, gametime: number): void {
+        const heroId = abilityToHero[actionId]
+        if (this.heroCollector[heroId] === undefined) {
             this.heroCount += 1
-            this.heroCollector[abilityToHero[actionId]] = { level: 0, abilities: {}, order: this.heroCount, id: abilityToHero[actionId] }
+            this.heroCollector[heroId] = { level: 0, abilities: {}, order: this.heroCount, id: heroId, abilityOrder: [], retrainingHistory: [] }
         }
-        this.heroCollector[abilityToHero[actionId]].level += 1
-        this.heroCollector[abilityToHero[actionId]].abilities[actionId] = this.heroCollector[abilityToHero[actionId]].abilities[actionId] || 0
-        this.heroCollector[abilityToHero[actionId]].abilities[actionId] += 1
+
+        if (this._lastRetrainingTime > 0) {
+            this.heroCollector[heroId].retrainingHistory.push({ time: this._lastRetrainingTime, abilities: this.heroCollector[heroId].abilities })
+            this.heroCollector[heroId].abilities = {}
+            this.heroCollector[heroId].abilityOrder.push({ type: 'retraining', time: this._lastRetrainingTime })
+            this._lastRetrainingTime = 0
+        }
+        this.heroCollector[heroId].abilities[actionId] = this.heroCollector[heroId].abilities[actionId] || 0
+        this.heroCollector[heroId].abilities[actionId] += 1
+        this.heroCollector[heroId].abilityOrder.push({ type: 'ability', time: gametime, value: actionId })
     }
 
-    handle0x10 (actionId: string, gametime: number): void {
-        if (typeof actionId === 'string') {
-            actionId = reverseString(actionId)
-        }
+    handleRetraining (gametime: number) {
+        this._lastRetrainingTime = gametime
+    }
 
-        switch (actionId[0]) {
+    handle0x10 (itemid: ItemID, gametime: number): void {
+        switch (itemid.value[0]) {
             case 'A':
-                this.heroSkills[actionId] = this.heroSkills[actionId] + 1 || 1
-                this.handleHeroSkill(actionId)
+                this.handleHeroSkill(itemid.value, gametime)
                 break
             case 'R':
-                this.handleActionId(actionId, gametime)
+                this.handleStringencodedItemID(itemid.value, gametime)
                 break
             case 'u':
             case 'e':
             case 'h':
             case 'o':
                 if (!this.raceDetected) {
-                    this.detectRaceByActionId(actionId)
+                    this.detectRaceByActionId(itemid.value)
                 }
-                this.handleActionId(actionId, gametime)
+                this.handleStringencodedItemID(itemid.value, gametime)
                 break
             default:
-                this.handleActionId(actionId, gametime)
+                this.handleStringencodedItemID(itemid.value, gametime)
         }
 
-        actionId[0] !== '0'
+        itemid.value[0] !== '0'
             ? this.actions['buildtrain'] = this.actions['buildtrain'] + 1 || 1
             : this.actions['ability'] = this.actions['ability'] + 1 || 1
 
         this._currentlyTrackedAPM++
     }
 
-    handle0x11 (actionId: string | number[], gametime: number): void {
+    handle0x11 (itemid: ItemID, gametime: number): void {
         this._currentlyTrackedAPM++
-
-        if (Array.isArray(actionId)) {
-            if (actionId[0] <= 0x19 && actionId[1] === 0) {
+        if (itemid.type === 'alphanumeric') {
+            if (itemid.value[0] <= 0x19 && itemid.value[1] === 0) {
                 this.actions['basic'] = this.actions['basic'] + 1 || 1
             } else {
                 this.actions['ability'] = this.actions['ability'] + 1 || 1
             }
-
-            return
-        }
-
-        actionId = reverseString(actionId)
-        if (isObjectId(actionId)) {
-            this.handleActionId(actionId, gametime)
+        } else {
+            this.handleStringencodedItemID(itemid.value, gametime)
         }
     }
 
-    handle0x12 (actionId: number[]): void {
-        if (isRightclickAction(actionId)) {
+    handle0x12 (itemid: ItemID): void {
+        if (isRightclickAction(itemid.value)) {
             this.actions['rightclick'] = this.actions['rightclick'] + 1 || 1
-        } else if (isBasicAction(actionId)) {
+        } else if (isBasicAction(itemid.value)) {
             this.actions['basic'] = this.actions['basic'] + 1 || 1
         } else {
             this.actions['ability'] = this.actions['ability'] + 1 || 1
@@ -228,15 +252,15 @@ class Player {
         this._currentlyTrackedAPM++
     }
 
-    handle0x13 (actionId: string): void {
+    handle0x13 (itemid: string): void {
         this.actions['item'] = this.actions['item'] + 1 || 1
         this._currentlyTrackedAPM++
     }
 
-    handle0x14 (actionId: number[]): void {
-        if (isRightclickAction(actionId)) {
+    handle0x14 (itemid: ItemID): void {
+        if (isRightclickAction(itemid.value)) {
             this.actions['rightclick'] = this.actions['rightclick'] + 1 || 1
-        } else if (isBasicAction(actionId)) {
+        } else if (isBasicAction(itemid.value)) {
             this.actions['basic'] = this.actions['basic'] + 1 || 1
         } else {
             this.actions['ability'] = this.actions['ability'] + 1 || 1
@@ -281,12 +305,7 @@ class Player {
     cleanup (): void {
         const apmSum = this.actions.timed.reduce((a: number, b: number): number => a + b)
         this.apm = Math.round(apmSum / this.actions.timed.length)
-        this.heroes = Object.values(this.heroCollector).sort((h1, h2) => h1.order - h2.order).reduce((aggregator, hero) => {
-            delete hero['order']
-            aggregator.push(hero)
-            return aggregator
-        }, <HeroInfo[]>[])
-
+        this.heroes = reduceHeroes(this.heroCollector)
         delete this._currentlyTrackedAPM
     }
 }
