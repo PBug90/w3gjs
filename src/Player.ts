@@ -11,7 +11,7 @@ const isBasicAction = (input: number[]) => input[0] <= 0x19 && input[1] === 0
 export const reduceHeroes = (heroCollector: {[key: string]: HeroInfo}) => {
     return Object.values(heroCollector).sort((h1, h2) => h1.order - h2.order).reduce((aggregator, hero) => {
         hero.level = Object.values(hero.abilities).reduce((prev, curr) => prev + curr, 0)
-        delete hero['order']
+        delete hero.order
         aggregator.push(hero)
         return aggregator
     }, <HeroInfo[]>[])
@@ -222,8 +222,8 @@ class Player {
         }
 
         itemid.value[0] !== '0'
-            ? this.actions['buildtrain'] = this.actions['buildtrain'] + 1 || 1
-            : this.actions['ability'] = this.actions['ability'] + 1 || 1
+            ? this.actions.buildtrain = this.actions.buildtrain + 1 || 1
+            : this.actions.ability = this.actions.ability + 1 || 1
 
         this._currentlyTrackedAPM++
     }
@@ -232,9 +232,9 @@ class Player {
         this._currentlyTrackedAPM++
         if (itemid.type === 'alphanumeric') {
             if (itemid.value[0] <= 0x19 && itemid.value[1] === 0) {
-                this.actions['basic'] = this.actions['basic'] + 1 || 1
+                this.actions.basic = this.actions.basic + 1 || 1
             } else {
-                this.actions['ability'] = this.actions['ability'] + 1 || 1
+                this.actions.ability = this.actions.ability + 1 || 1
             }
         } else {
             this.handleStringencodedItemID(itemid.value, gametime)
@@ -243,34 +243,34 @@ class Player {
 
     handle0x12 (itemid: ItemID): void {
         if (isRightclickAction(itemid.value)) {
-            this.actions['rightclick'] = this.actions['rightclick'] + 1 || 1
+            this.actions.rightclick = this.actions.rightclick + 1 || 1
         } else if (isBasicAction(itemid.value)) {
-            this.actions['basic'] = this.actions['basic'] + 1 || 1
+            this.actions.basic = this.actions.basic + 1 || 1
         } else {
-            this.actions['ability'] = this.actions['ability'] + 1 || 1
+            this.actions.ability = this.actions.ability + 1 || 1
         }
         this._currentlyTrackedAPM++
     }
 
     handle0x13 (itemid: string): void {
-        this.actions['item'] = this.actions['item'] + 1 || 1
+        this.actions.item = this.actions.item + 1 || 1
         this._currentlyTrackedAPM++
     }
 
     handle0x14 (itemid: ItemID): void {
         if (isRightclickAction(itemid.value)) {
-            this.actions['rightclick'] = this.actions['rightclick'] + 1 || 1
+            this.actions.rightclick = this.actions.rightclick + 1 || 1
         } else if (isBasicAction(itemid.value)) {
-            this.actions['basic'] = this.actions['basic'] + 1 || 1
+            this.actions.basic = this.actions.basic + 1 || 1
         } else {
-            this.actions['ability'] = this.actions['ability'] + 1 || 1
+            this.actions.ability = this.actions.ability + 1 || 1
         }
         this._currentlyTrackedAPM++
     }
 
     handle0x16 (selectMode: number, isAPM: boolean) {
         if (isAPM) {
-            this.actions['select'] = this.actions['select'] + 1 || 1
+            this.actions.select = this.actions.select + 1 || 1
             this._currentlyTrackedAPM++
         }
     }
@@ -278,11 +278,11 @@ class Player {
     handleOther (actionId: number) {
         switch (actionId) {
             case 0x17:
-                this.actions['assigngroup'] = this.actions['assigngroup'] + 1 || 1
+                this.actions.assigngroup = this.actions.assigngroup + 1 || 1
                 this._currentlyTrackedAPM++
                 break
             case 0x18:
-                this.actions['selecthotkey'] = this.actions['selecthotkey'] + 1 || 1
+                this.actions.selecthotkey = this.actions.selecthotkey + 1 || 1
                 this._currentlyTrackedAPM++
                 break
             case 0x1C:
@@ -292,11 +292,11 @@ class Player {
                 this._currentlyTrackedAPM++
                 break
             case 0x1E:
-                this.actions['removeunit'] = this.actions['removeunit'] + 1 || 1
+                this.actions.removeunit = this.actions.removeunit + 1 || 1
                 this._currentlyTrackedAPM++
                 break
             case 0x61:
-                this.actions['esc'] = this.actions['esc'] + 1 || 1
+                this.actions.esc = this.actions.esc + 1 || 1
                 this._currentlyTrackedAPM++
                 break
         }

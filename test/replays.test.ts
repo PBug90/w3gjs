@@ -5,7 +5,7 @@ const Parser = new W3GReplay()
 
 describe('Replay parsing tests', () => {
     it('parses a standard 1.29 replay with observers properly', () => {
-        const test = Parser.parse(`./replays/standard_129_obs.w3g`)
+        const test = Parser.parse('./replays/standard_129_obs.w3g')
 
         expect(test.version).toBe('1.29')
         expect(test.players[1].name).toBe('S.o.K.o.L')
@@ -62,7 +62,7 @@ describe('Replay parsing tests', () => {
     })
 
     it('parses a standard 1.26 replay properly', () => {
-        const test = Parser.parse(`./replays/standard_126.w3g`)
+        const test = Parser.parse('./replays/standard_126.w3g')
         expect(test.version).toBe('1.26')
         expect(test.observers.length).toBe(8)
         expect(test.players[1].name).toBe('Happy_')
@@ -77,7 +77,7 @@ describe('Replay parsing tests', () => {
     })
 
     it('parses a netease 1.29 replay properly', () => {
-        const test = Parser.parse(`./replays/netease_129_obs.nwg`)
+        const test = Parser.parse('./replays/netease_129_obs.nwg')
         expect(test.version).toBe('1.29')
 
         expect(test.players[1].name).toBe('rudan')
@@ -89,7 +89,7 @@ describe('Replay parsing tests', () => {
     })
 
     it('parses a 2on2standard 1.29 replay properly', () => {
-        const test = Parser.parse(`./replays/999.w3g`)
+        const test = Parser.parse('./replays/999.w3g')
         expect(test.version).toBe('1.26')
         expect(test.players[0].id).toBe(2)
         expect(test.players[0].teamid).toBe(0)
@@ -105,7 +105,7 @@ describe('Replay parsing tests', () => {
     })
 
     it('parses a standard 1.30 replay properly', () => {
-        const test = Parser.parse(`./replays/standard_130.w3g`)
+        const test = Parser.parse('./replays/standard_130.w3g')
         expect(test.version).toBe('1.30')
         expect(test.matchup).toBe('NvU')
         expect(test.type).toBe('1on1')
@@ -123,46 +123,46 @@ describe('Replay parsing tests', () => {
 
     it('parsing result has the correct schema', () => {
         const schema = require('./schema.json')
-        const test = Parser.parse(`./replays/standard_130.w3g`)
+        const test = Parser.parse('./replays/standard_130.w3g')
         const validatorInstance = new Validator()
         validatorInstance.validate(test, schema, { throwError: true })
     })
 
     it('resets elapsedMS instance property to 0 before parsing another replay', () => {
-        Parser.parse(`./replays/standard_130.w3g`)
+        Parser.parse('./replays/standard_130.w3g')
         const msElapsed = Parser.msElapsed
-        Parser.parse(`./replays/standard_130.w3g`)
+        Parser.parse('./replays/standard_130.w3g')
         const msElapsedTwo = Parser.msElapsed
         expect(msElapsed).toEqual(msElapsedTwo)
     })
 
     it('parses a standard 1.30.2 replay properly', () => {
-        const test = Parser.parse(`./replays/standard_1302.w3g`)
+        const test = Parser.parse('./replays/standard_1302.w3g')
         expect(test.version).toBe('1.30.2+')
         expect(test.matchup).toBe('NvU')
         expect(test.players.length).toBe(2)
     })
 
     it('parses a standard 1.30.3 replay properly', () => {
-        const test = Parser.parse(`./replays/standard_1303.w3g`)
+        const test = Parser.parse('./replays/standard_1303.w3g')
         expect(test.version).toBe('1.30.2+')
         expect(test.players.length).toBe(2)
     })
 
     it('parses a standard 1.30.4 replay properly', () => {
-        const test = Parser.parse(`./replays/standard_1304.w3g`)
+        const test = Parser.parse('./replays/standard_1304.w3g')
         expect(test.version).toBe('1.30.2+')
         expect(test.players.length).toBe(2)
     })
 
     it('parses a standard 1.30.4 2on2 replay properly', () => {
-        const test = Parser.parse(`./replays/standard_1304.2on2.w3g`)
+        const test = Parser.parse('./replays/standard_1304.2on2.w3g')
         expect(test.version).toBe('1.30.2+')
         expect(test.players.length).toBe(4)
     })
 
     it('parses a standard 1.30.4 1on1 tome of retraining', () => {
-        const test = Parser.parse(`./replays/standard_tomeofretraining_1.w3g`)
+        const test = Parser.parse('./replays/standard_tomeofretraining_1.w3g')
         expect(test.version).toBe('1.31')
         expect(test.players.length).toBe(2)
         expect(test.players[0].heroes[0]).toEqual({

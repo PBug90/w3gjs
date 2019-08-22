@@ -25,7 +25,7 @@ class ReplayParser extends EventEmitter {
 
     buffer: Buffer
 
-    msElapsed: number = 0
+    msElapsed = 0
 
     header: any
 

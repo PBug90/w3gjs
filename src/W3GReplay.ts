@@ -27,7 +27,7 @@ class W3GReplay extends ReplayParser {
 
     playerActionTracker: {[key: string]: any[]} = {}
 
-    id: string = ''
+    id = ''
 
     leaveEvents: any[]
 
@@ -41,15 +41,15 @@ class W3GReplay extends ReplayParser {
 
     playerList: any[]
 
-    totalTimeTracker: number = 0
+    totalTimeTracker = 0
 
-    timeSegmentTracker: number = 0
+    timeSegmentTracker = 0
 
-    playerActionTrackInterval: number = 60000
+    playerActionTrackInterval = 60000
 
-    gametype: string = ''
+    gametype = ''
 
-    matchup: string = ''
+    matchup = ''
 
     constructor () {
         super()
