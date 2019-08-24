@@ -59,6 +59,8 @@ describe('Replay parsing tests', () => {
         expect(test.matchup).toBe('OvO')
         expect(test.type).toBe('1on1')
         expect(test.players.length).toBe(2)
+        expect(test.parseTime).toBeLessThan(300)
+        expect(test.parseTime).toBe(Math.round(test.parseTime))
     })
 
     it('parses a standard 1.26 replay properly', () => {

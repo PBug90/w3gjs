@@ -17,6 +17,9 @@ import { sortPlayers } from './sort'
 // Cannot import node modules directly because error with rollup
 // https://rollupjs.org/guide/en#error-name-is-not-exported-by-module-
 const { createHash } = require('crypto')
+const {
+    performance
+  } = require('perf_hooks');
 
 class W3GReplay extends ReplayParser {
     players: { [key: string]: Player }
@@ -51,6 +54,8 @@ class W3GReplay extends ReplayParser {
 
     matchup = ''
 
+    parseStartTime : number
+
     constructor () {
         super()
         this.on('gamemetadata', (metaData: GameMetaDataDecoded) => this.handleMetaData(metaData))
@@ -60,6 +65,7 @@ class W3GReplay extends ReplayParser {
 
     // gamedatablock timeslotblock commandblock actionblock
     parse ($buffer: string): ParserOutput {
+        this.parseStartTime = performance.now()
         this.buffer = Buffer.from('')
         this.filename = ''
         this.id = ''
@@ -293,7 +299,8 @@ class W3GReplay extends ReplayParser {
             version: convert.gameVersion(this.header.version),
             duration: this.header.replayLengthMS,
             expansion: this.header.gameIdentifier === 'PX3W',
-            settings
+            settings,
+            parseTime: Math.round(performance.now() - this.parseStartTime)
         }
         return root
     }

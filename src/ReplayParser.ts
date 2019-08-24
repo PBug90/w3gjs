@@ -41,7 +41,6 @@ class ReplayParser extends EventEmitter {
     }
 
     parse ($buffer: string) {
-        console.time('parse')
         this.msElapsed = 0
         this.buffer = readFileSync($buffer)
         this.buffer = this.buffer.slice(this.buffer.indexOf('Warcraft III recorded game'))
@@ -71,7 +70,6 @@ class ReplayParser extends EventEmitter {
         delete newMeta.meta
         this.emit('gamemetadata', newMeta)
         this._parseGameDataBlocks()
-        console.timeEnd('parse')
     }
 
     _parseHeader () {

@@ -140,6 +140,7 @@ export interface ParserOutput {
     version: string;
     duration: number;
     expansion: boolean;
+    parseTime: number;
     settings: {
         referees: boolean;
         fixedTeams: boolean;

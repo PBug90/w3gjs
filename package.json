@@ -76,7 +76,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/anXieTyPB/w3gjs.git"
+    "url": "git+https://github.com/PBug90/w3gjs.git"
   },
   "keywords": [
     "w3g",
@@ -84,10 +84,10 @@
     "replay",
     "parser"
   ],
-  "author": "anXieTyPB",
+  "author": "PBug90",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/anXieTyPB/w3gjs/issues"
+    "url": "https://github.com/PBug90/w3gjs/issues"
   },
-  "homepage": "https://github.com/anXieTyPB/w3gjs#readme"
+  "homepage": "https://github.com/PBug90/w3gjs#readme"
 }

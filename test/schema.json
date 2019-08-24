@@ -604,6 +604,11 @@
         }
       }
     },
+    "parseTime": {
+      "$id": "#/properties/parseTime",
+      "type": "integer",
+      "title": "The amount of time it took to parse the replay, in ms."
+    },
     "observers": {
       "$id": "#/properties/observers",
       "type": "array",
