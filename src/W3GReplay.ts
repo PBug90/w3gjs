@@ -19,7 +19,7 @@ import { sortPlayers } from './sort'
 const { createHash } = require('crypto')
 const {
     performance
-  } = require('perf_hooks');
+} = require('perf_hooks')
 
 class W3GReplay extends ReplayParser {
     players: { [key: string]: Player }
@@ -54,7 +54,7 @@ class W3GReplay extends ReplayParser {
 
     matchup = ''
 
-    parseStartTime : number
+    parseStartTime: number
 
     constructor () {
         super()
