@@ -62,9 +62,9 @@ describe('Replay parsing tests', () => {
         expect(test.parseTime).toBeLessThan(300)
         expect(test.parseTime).toBe(Math.round(test.parseTime))
         expect(test.map).toEqual({
-            "checksum": "008ab7f1",
-            "file": "w3arena__twistedmeadows__v3.w3x",
-            "path": "Maps\\w3arena\\w3arena__twistedmeadows__v3.w3x"
+            checksum: '008ab7f1',
+            file: 'w3arena__twistedmeadows__v3.w3x',
+            path: 'Maps\\w3arena\\w3arena__twistedmeadows__v3.w3x'
         })
     })
 
@@ -82,9 +82,9 @@ describe('Replay parsing tests', () => {
         expect(test.type).toBe('1on1')
         expect(test.players.length).toBe(2)
         expect(test.map).toEqual({
-            "checksum": "51a1c63b",
-            "file": "w3arena__amazonia__v3.w3x",
-            "path": "Maps\\w3arena\\w3arena__amazonia__v3.w3x",
+            checksum: '51a1c63b',
+            file: 'w3arena__amazonia__v3.w3x',
+            path: 'Maps\\w3arena\\w3arena__amazonia__v3.w3x'
         })
     })
 
@@ -99,9 +99,9 @@ describe('Replay parsing tests', () => {
         expect(test.type).toBe('1on1')
         expect(test.players.length).toBe(2)
         expect(test.map).toEqual({
-            "checksum": "281f9d6a",
-            "file": "(4)TurtleRock.w3x",
-            "path": "Maps/1.29\\(4)TurtleRock.w3x",
+            checksum: '281f9d6a',
+            file: '(4)TurtleRock.w3x',
+            path: 'Maps/1.29\\(4)TurtleRock.w3x'
         })
     })
 
@@ -120,9 +120,9 @@ describe('Replay parsing tests', () => {
         expect(test.type).toBe('2on2')
         expect(test.players.length).toBe(4)
         expect(test.map).toEqual({
-            "checksum": "b4230d1e",
-            "file": "w3arena__maelstrom__v2.w3x",
-            "path": "Maps\\w3arena\\w3arena__maelstrom__v2.w3x",
+            checksum: 'b4230d1e',
+            file: 'w3arena__maelstrom__v2.w3x',
+            path: 'Maps\\w3arena\\w3arena__maelstrom__v2.w3x'
         })
     })
 
@@ -142,9 +142,9 @@ describe('Replay parsing tests', () => {
         expect(test.players[0].heroes[1]).toEqual(expect.objectContaining({ id: 'Ulic', level: 6 }))
         expect(test.players[0].heroes[2]).toEqual(expect.objectContaining({ id: 'Udre', level: 3 }))
         expect(test.map).toEqual({
-            "file": "(4)TwistedMeadows.w3x",
-            "checksum": "c3cae01d",
-            "path": "Maps\\FrozenThrone\\(4)TwistedMeadows.w3x",
+            file: '(4)TwistedMeadows.w3x',
+            checksum: 'c3cae01d',
+            path: 'Maps\\FrozenThrone\\(4)TwistedMeadows.w3x'
         })
     })
 

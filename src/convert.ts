@@ -65,10 +65,10 @@ const gameVersion = (version: number): string => {
 
 const mapFilename = (mapPath: string): string => {
     const fragment = mapPath.split('\\').pop()
-    if (fragment !== undefined){
+    if (fragment !== undefined) {
         return <string>fragment.split('//').pop()
     }
-    return  ''
+    return ''
 }
 
 export default {
