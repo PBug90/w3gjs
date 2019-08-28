@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.3.0"></a>
+# [1.3.0](https://github.com/PBug90/w3gjs/compare/v1.2.0...v1.3.0) (2019-08-28)
+
+
+### Bug Fixes
+
+* properly converts maps with backslash and/or forward slash ([a143318](https://github.com/PBug90/w3gjs/commit/a143318))
+
+
+### Features
+
+* track parse time and added it to parser output ([e06bfb2](https://github.com/PBug90/w3gjs/commit/e06bfb2))
+
+
+
 <a name="1.2.0"></a>
 # [1.2.0](https://github.com/anXieTyPB/w3gjs/compare/v1.1.3...v1.2.0) (2019-08-22)
 
