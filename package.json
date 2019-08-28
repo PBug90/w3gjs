@@ -56,8 +56,9 @@
     },
     "globals": {
       "ts-jest": {
-        "tsConfig": "tsconfig.json"
-      }
+        "tsConfig": "tsconfig.json",
+        "diagnostics": false
+      }   
     },
     "testEnvironment": "node",
     "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$",

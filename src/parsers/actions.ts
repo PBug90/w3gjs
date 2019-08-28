@@ -19,7 +19,7 @@ const SaveGameAction = new Parser()
 
 // @ts-ignore
 const SaveGameFinishedAction = new Parser()
-    .int16le()
+    .int16le("")
 
 const UnitBuildingAbilityActionNoParams = new Parser()
     .int16le('abilityFlags')

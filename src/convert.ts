@@ -63,7 +63,16 @@ const gameVersion = (version: number): string => {
     return `1.${version}`
 }
 
+const mapFilename = (mapPath: string): string => {
+    const fragment = mapPath.split('\\').pop()
+    if (fragment !== undefined){
+        return <string>fragment.split('//').pop()
+    }
+    return  ''
+}
+
 export default {
     playerColor,
-    gameVersion
+    gameVersion,
+    mapFilename
 }

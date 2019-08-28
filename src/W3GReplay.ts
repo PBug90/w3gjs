@@ -293,7 +293,7 @@ class W3GReplay extends ReplayParser {
             },
             map: {
                 path: this.meta.mapName,
-                file: this.meta.mapName.split('\\').pop() || '',
+                file: convert.mapFilename(this.meta.mapName),
                 checksum: this.meta.mapChecksum
             },
             version: convert.gameVersion(this.header.version),
