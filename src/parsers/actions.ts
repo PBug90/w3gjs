@@ -220,7 +220,7 @@ const W3MMDAction = new Parser()
 // @ts-ignore
 const ActionBlock = new Parser()
     .int8('actionId')
-    .choice({
+    .choice('', {
         tag: 'actionId',
         choices: {
             0x1: PauseGameAction,

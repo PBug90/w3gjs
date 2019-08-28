@@ -46,7 +46,7 @@ const PlayerChatMessageBlock = new Parser()
     .int8('playerId')
     .int16le('byteCount')
     .int8('flags')
-    .choice(
+    .choice('',
         {
             tag: 'flags',
             choices: {
@@ -74,7 +74,7 @@ const ForcedGameEndCountdown = new Parser()
 // @ts-ignore
 const GameData = new Parser()
     .uint8('type')
-    .choice({
+    .choice('', {
         tag: 'type',
         choices: {
             0x17: LeaveGameBlock,
