@@ -187,9 +187,13 @@ describe('Replay parsing tests', () => {
         expect(test.players.length).toBe(4)
     })
 
-    it('parses a reforged replay properly', () => {
-        const test = Parser.parse('./replays/LastReplay.w3g')
+    it('parses a reforged replay properly #1', () => {
+        const test = Parser.parse('./replays/reforged1.w3g')
     })
+
+    it('parses a reforged replay properly #2', () => {
+        const test = Parser.parse('./replays/reforged2.w3g')
+    })    
 
     it('parses a standard 1.30.4 1on1 tome of retraining', () => {
         const test = Parser.parse('./replays/standard_tomeofretraining_1.w3g')
