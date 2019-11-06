@@ -26,12 +26,19 @@ const SubHeaderV0 = new Parser()
   .int32le('replayLengthMS')
   .int32le('checksum')
 */
-
 const DataBlock = new Parser()
-    .int16le('blockSize')
-    .int16le('blockDecompressedSize')
+    .uint16le('blockSize', {formatter: (val) => {
+        console.log("blockSize", val)
+        return val
+    }})
+    .skip(2)
+    .uint16le('blockDecompressedSize', {formatter: (v) => {
+        console.log("blockDecompressedSize", v)
+        return v
+    }})
     .string('unknown', { encoding: 'hex', length: 4 })
     .buffer('compressed', { length: 'blockSize' })
+    .skip(2)
 
 const DataBlocks = new Parser()
     .array('blocks', { type: DataBlock, readUntil: 'eof' })
