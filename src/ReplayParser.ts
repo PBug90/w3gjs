@@ -69,7 +69,7 @@ class ReplayParser extends EventEmitter {
         const newMeta = meta
         delete newMeta.meta
         this.emit('gamemetadata', newMeta)
-        //this._parseGameDataBlocks()
+        this._parseGameDataBlocks()
     }
 
     _parseHeader () {
@@ -78,6 +78,7 @@ class ReplayParser extends EventEmitter {
 
     _parseGameDataBlocks () {
         this.gameMetaDataDecoded.blocks.forEach((block: GameDataBlock) => {
+            //console.log("dat block")
             this.emit('gamedatablock', block)
             this._processGameDataBlock(block)
         })
@@ -88,7 +89,7 @@ class ReplayParser extends EventEmitter {
             case 31:
             case 30:
                 this.msElapsed += block.timeIncrement
-                this.emit('timeslotblock', <TimeSlotBlock> <unknown> block)
+                //this.emit('timeslotblock', <TimeSlotBlock> <unknown> block)
                 this._processTimeSlot(<TimeSlotBlock> <unknown> block)
                 break
         }
