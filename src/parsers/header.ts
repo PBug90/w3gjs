@@ -37,8 +37,9 @@ const DataBlock = new Parser()
         return v
     }})
     .string('unknown', { encoding: 'hex', length: 4 })
-    .buffer('compressed', { length: 'blockSize' })
     .skip(2)
+    .buffer('compressed', { length: 'blockSize' })
+    
 
 const DataBlocks = new Parser()
     .array('blocks', { type: DataBlock, readUntil: 'eof' })
