@@ -69,7 +69,7 @@ class ReplayParser extends EventEmitter {
         const newMeta = meta
         delete newMeta.meta
         this.emit('gamemetadata', newMeta)
-        this._parseGameDataBlocks()
+        //this._parseGameDataBlocks()
     }
 
     _parseHeader () {

@@ -189,6 +189,7 @@ describe('Replay parsing tests', () => {
 
     it('parses a reforged replay properly #1', () => {
         const test = Parser.parse('./replays/reforged1.w3g')
+        console.log(test)
     })
 
     it('parses a reforged replay properly #2', () => {
