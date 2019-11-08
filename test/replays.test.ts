@@ -189,11 +189,12 @@ describe('Replay parsing tests', () => {
 
     it('parses a reforged replay properly #1', () => {
         const test = Parser.parse('./replays/reforged1.w3g')
-        console.log(test)
+        console.log(JSON.stringify(test,null,2))
     })
 
     it('parses a reforged replay properly #2', () => {
         const test = Parser.parse('./replays/reforged2.w3g')
+        console.log(JSON.stringify(test,null,2))
     })    
 
     it('parses a standard 1.30.4 1on1 tome of retraining', () => {

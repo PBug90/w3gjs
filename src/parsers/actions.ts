@@ -278,7 +278,8 @@ const ActionBlock = new Parser()
             0x6b: W3MMDAction,
             0x6c: new Parser(),
             0x6d: new Parser(),
-            0x75: UnknownAction75
+            0x75: UnknownAction75,
+            0x7B: new Parser().skip(16)
         }
     })
 
