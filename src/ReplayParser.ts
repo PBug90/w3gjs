@@ -40,11 +40,11 @@ class ReplayParser extends EventEmitter {
         this.decompressed = Buffer.from('')
     }
 
-    parse ($buffer: string) {
+    parse ($buffer: string | Buffer) {
         this.msElapsed = 0
-        this.buffer = readFileSync($buffer)
+        this.buffer = Buffer.isBuffer($buffer) ? $buffer : readFileSync($buffer)
         this.buffer = this.buffer.slice(this.buffer.indexOf('Warcraft III recorded game'))
-        this.filename = $buffer
+        this.filename = Buffer.isBuffer($buffer) ? 'buffer' : $buffer
         const decompressed: Buffer[] = []
 
         this._parseHeader()
