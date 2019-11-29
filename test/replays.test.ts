@@ -169,7 +169,7 @@ describe('Replay parsing tests', () => {
         expect(test.matchup).toBe('NvU')
         expect(test.players.length).toBe(2)
     })
-	
+
     it("parses a standard 1.30.4 replay properly as buffer", () => {
         const buffer: Buffer = readFileSync("./replays/standard_1304.w3g")
         const test = Parser.parse(buffer)
