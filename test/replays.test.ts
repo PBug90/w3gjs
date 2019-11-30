@@ -1,5 +1,6 @@
 import W3GReplay from '../src/W3GReplay'
 import { Validator } from 'jsonschema'
+import { readFileSync } from 'fs'
 
 const Parser = new W3GReplay()
 
@@ -177,6 +178,13 @@ describe('Replay parsing tests', () => {
 
     it('parses a standard 1.30.4 replay properly', () => {
         const test = Parser.parse('./replays/standard_1304.w3g')
+        expect(test.version).toBe('1.30.2+')
+        expect(test.players.length).toBe(2)
+    })
+
+    it('parses a standard 1.30.4 replay properly as buffer', () => {
+        const buffer: Buffer = readFileSync('./replays/standard_1304.w3g')
+        const test = Parser.parse(buffer)
         expect(test.version).toBe('1.30.2+')
         expect(test.players.length).toBe(2)
     })
