@@ -64,7 +64,7 @@ class W3GReplay extends ReplayParser {
     }
 
     // gamedatablock timeslotblock commandblock actionblock
-    parse ($buffer: string): ParserOutput {
+    parse ($buffer: string | Buffer): ParserOutput {
         this.parseStartTime = performance.now()
         this.buffer = Buffer.from('')
         this.filename = ''
