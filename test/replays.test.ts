@@ -263,4 +263,10 @@ describe('Replay parsing tests', () => {
             ]
         })
     })
+
+    it('parses a replay with action 0x7a successfully', () => {
+        const test = Parser.parse('./replays/action0x7a.w3g')
+        expect(test.version).toBe('1.31')
+        expect(test.players.length).toBe(1)
+    })
 })
