@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.5.0"></a>
+# [1.5.0](https://github.com/PBug90/w3gjs/compare/v1.4.1...v1.5.0) (2019-12-05)
+
+
+### Features
+
+* parse but skip 0x7a actions ([#34](https://github.com/PBug90/w3gjs/issues/34)) ([bfe1980](https://github.com/PBug90/w3gjs/commit/bfe1980))
+
+
+
 <a name="1.4.1"></a>
 ## [1.4.1](https://github.com/PBug90/w3gjs/compare/v1.4.0...v1.4.1) (2019-11-30)
 
