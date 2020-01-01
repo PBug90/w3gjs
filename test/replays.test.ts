@@ -93,7 +93,7 @@ describe('Replay parsing tests', () => {
         expect(test.version).toBe('1.29')
 
         expect(test.players[1].name).toBe('rudan')
-        expect(test.players[1].color).toBe('#3eb489')
+        expect(test.players[1].color).toBe('#282828')
         expect(test.observers.length).toBe(1)
         expect(test.matchup).toBe('NvN')
         expect(test.type).toBe('1on1')
