@@ -13,7 +13,7 @@ describe('Replay parsing tests', () => {
         expect(test.players[1].raceDetected).toBe('O')
         expect(test.players[1].id).toBe(4)
         expect(test.players[1].teamid).toBe(3)
-        expect(test.players[1].color).toBe('#50c878')
+        expect(test.players[1].color).toBe('#00781e')
         expect(test.players[1].units.summary).toEqual({
             opeo: 10, ogru: 5, ostr: 1, orai: 6, ospm: 5, okod: 2
         })
@@ -34,7 +34,7 @@ describe('Replay parsing tests', () => {
 
         expect(test.players[0].name).toBe('Stormhoof')
         expect(test.players[0].raceDetected).toBe('O')
-        expect(test.players[0].color).toBe('#800000')
+        expect(test.players[0].color).toBe('#9b0000')
         expect(test.players[0].id).toBe(6)
         expect(test.players[0].teamid).toBe(0)
         expect(test.players[0].units.summary).toEqual({
@@ -74,10 +74,10 @@ describe('Replay parsing tests', () => {
         expect(test.observers.length).toBe(8)
         expect(test.players[1].name).toBe('Happy_')
         expect(test.players[1].raceDetected).toBe('U')
-        expect(test.players[1].color).toBe('#0000FF')
+        expect(test.players[1].color).toBe('#0042ff')
         expect(test.players[0].name).toBe('u2.sok')
         expect(test.players[0].raceDetected).toBe('H')
-        expect(test.players[0].color).toBe('#ff0000')
+        expect(test.players[0].color).toBe('#ff0303')
         expect(test.matchup).toBe('HvU')
         expect(test.type).toBe('1on1')
         expect(test.players.length).toBe(2)
