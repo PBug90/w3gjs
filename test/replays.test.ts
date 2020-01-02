@@ -269,4 +269,11 @@ describe('Replay parsing tests', () => {
         expect(test.version).toBe('1.31')
         expect(test.players.length).toBe(1)
     })
+
+    it('evaluates APM correctly in a team game with an early leaver', () => {
+        const test = Parser.parse('./replays/standard_129_3on3_leaver.w3g')
+        expect(test.players[0].name).toBe('abmitdirpic')
+        expect(test.players[0].currentTimePlayed).toBeLessThan(Parser.msElapsed * 0.7)
+        expect(test.players[0].apm).toBeGreaterThan(80)
+    })
 })
