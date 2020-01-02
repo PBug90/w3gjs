@@ -304,7 +304,7 @@ class Player {
 
     cleanup (): void {
         const apmSum = this.actions.timed.reduce((a: number, b: number): number => a + b)
-        if (this.currentTimePlayed == 0) {
+        if (this.currentTimePlayed === 0) {
             this.apm = 0
         } else {
             this.apm = Math.round(apmSum / (this.currentTimePlayed / 1000 / 60))
