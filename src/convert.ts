@@ -1,53 +1,53 @@
 const playerColor = (color: number): string => {
     switch (color) {
         case 0:
-            return '#ff0000'
+            return '#ff0303'
         case 1:
-            return '#0000FF'
+            return '#0042ff'
         case 2:
-            return '#008080'
+            return '#1ce6b9'
         case 3:
-            return '#800080'
+            return '#540081'
         case 4:
-            return '#FFFF00'
+            return '#fffc00'
         case 5:
-            return '#FFA500'
+            return '#fe8a0e'
         case 6:
-            return '#008000'
+            return '#20c000'
         case 7:
-            return '#FFC0CB'
+            return '#e55bb0'
         case 8:
-            return '#808080'
+            return '#959697'
         case 9:
-            return '#ADD8E6'
+            return '#7ebff1'
         case 10:
-            return '#006400'
+            return '#106246'
         case 11:
-            return '#ADD8E6'
+            return '#4a2a04'
         case 12:
-            return '#800000'
+            return '#9b0000'
         case 13:
-            return '#000080'
+            return '#0000c3'
         case 14:
-            return '#40E0D0'
+            return '#00eaff'
         case 15:
-            return '#EE82EE'
+            return '#be00fe'
         case 16:
-            return '#F5DEB3'
+            return '#ebcd87'
         case 17:
-            return '#FFDAB9'
+            return '#f8a48b'
         case 18:
-            return '#F5FFFA'
+            return '#bfff80'
         case 19:
-            return '#E6E6FA'
+            return '#dcb9eb'
         case 20:
-            return '#3eb489'
+            return '#282828'
         case 21:
-            return '#FFFAFA'
+            return '#ebf0ff'
         case 22:
-            return '#50c878'
+            return '#00781e'
         case 23:
-            return '#D0B078'
+            return '#a46f33'
         default:
             return '000000'
     }
