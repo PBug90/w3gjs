@@ -272,8 +272,13 @@ describe('Replay parsing tests', () => {
 
     it('evaluates APM correctly in a team game with an early leaver', () => {
         const test = Parser.parse('./replays/standard_129_3on3_leaver.w3g')
+        const firstLeftMinute =  Math.ceil(test.players[0].currentTimePlayed / 1000 / 60)
+        const postLeaveBlocks = test.players[0].actions.timed.slice(firstLeftMinute)
+        const postLeaveApmSum = postLeaveBlocks.reduce((a, b) => a + b)
         expect(test.players[0].name).toBe('abmitdirpic')
-        expect(test.players[0].currentTimePlayed).toBeLessThan(Parser.msElapsed * 0.7)
-        expect(test.players[0].apm).toBeGreaterThan(80)
+        expect(postLeaveApmSum).toEqual(0)
+        expect(test.players[0].apm).toEqual(98)
+        expect(test.players[0].currentTimePlayed).toEqual(4371069)
+        expect(Parser.msElapsed).toEqual(6433136)
     })
 })
