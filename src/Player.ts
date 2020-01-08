@@ -304,7 +304,11 @@ class Player {
 
     cleanup (): void {
         const apmSum = this.actions.timed.reduce((a: number, b: number): number => a + b)
-        this.apm = Math.round(apmSum / this.actions.timed.length)
+        if (this.currentTimePlayed === 0) {
+            this.apm = 0
+        } else {
+            this.apm = Math.round(apmSum / (this.currentTimePlayed / 1000 / 60))
+        }
         this.heroes = reduceHeroes(this.heroCollector)
         delete this._currentlyTrackedAPM
     }
