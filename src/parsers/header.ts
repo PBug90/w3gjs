@@ -127,6 +127,62 @@ const GameMetaData = new Parser()
     .string('selectMode', { length: 1, encoding: 'hex' })
     .int8('startSpotCount')
 
+const GameMetaDataReforged = new Parser()
+    .skip(5)
+    .nest('player', { type: HostRecord })
+    .string('gameName', { zeroTerminated: true })
+    .skip(1)
+    .string('encodedString', { zeroTerminated: true, encoding: 'hex' })
+    .int32le('playerCount')
+    .string('gameType', { length: 4, encoding: 'hex' })
+    .string('languageId', { length: 4, encoding: 'hex' })
+    .array('playerList', {
+        type: new Parser()
+            .int8('hasRecord')
+        // @ts-ignore
+            .choice(null, {
+                tag: 'hasRecord',
+                choices: {
+                    22: PlayerRecordInList
+
+                },
+                defaultChoice: new Parser().skip(-1)
+            }),
+        readUntil (item, buffer) {
+            // @ts-ignore
+            const next = buffer.readInt8()
+            return next === 57
+        }
+    })
+    .skip(4) // GamestartRecord etc used to go here
+    .skip(8) // More stuff that happens before the next list of players
+    .array('extraPlayerList', {
+        type: new Parser()
+            .int8('preVars1')
+            .buffer('pre', { length: 4 })
+            .int8('nameLength')
+            .string('name', { length: 'nameLength' })
+            .skip(1)
+            .int8('clanLength')
+            .string('clan', { length: 'clanLength' })
+            .skip(1)
+            .int8('extraLength')
+            .buffer('extra', { length: 'extraLength' })
+            .buffer('post', { length: 2 }),
+        readUntil (item, buffer) {
+            // @ts-ignore
+            const next = buffer.readInt8()
+            return next === 25
+        }
+    })
+    .int8('gameStartRecord')
+    .int16('dataByteCount')
+    .int8('slotRecordCount')
+    .array('playerSlotRecords', { type: PlayerSlotRecord, length: 'slotRecordCount' })
+    .int32le('randomSeed')
+    .string('selectMode', { length: 1, encoding: 'hex' })
+    .int8('startSpotCount')
+
 const EncodedMapMetaString = new Parser()
     .uint8('speed')
     .bit1('hideTerrain')
@@ -152,5 +208,6 @@ export {
     ReplayHeader,
     EncodedMapMetaString,
     GameMetaData,
+    GameMetaDataReforged,
     DataBlock
 }

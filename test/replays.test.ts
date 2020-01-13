@@ -281,4 +281,10 @@ describe('Replay parsing tests', () => {
         expect(test.players[0].currentTimePlayed).toEqual(4371069)
         expect(Parser.msElapsed).toEqual(6433136)
     })
+
+    it('parses a replay with new reforged metadata successfully', () => {
+        const test = Parser.parse('./replays/reforged2010.w3g')
+        expect(test.version).toBe('1.31')
+        expect(test.players.length).toBe(2)
+    })
 })
