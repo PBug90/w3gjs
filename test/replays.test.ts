@@ -197,18 +197,18 @@ describe('Replay parsing tests', () => {
 
     it('parses a reforged replay properly #1', () => {
         Parser.on('actionblock', (block: any) => {
-            if (block.actionId == 0x7b){
-                console.log('7b'+block.data.toString('hex'))
+            if (block.actionId == 0x7b) {
+                console.log('7b' + block.data.toString('hex'))
             }
         })
         const test = Parser.parse('./replays/reforged1.w3g')
-        console.log(JSON.stringify(test,null,2))
+        console.log(JSON.stringify(test, null, 2))
     })
 
     it('parses a reforged replay properly #2', () => {
         const test = Parser.parse('./replays/reforged2.w3g')
-        console.log(JSON.stringify(test,null,2))
-    })    
+        console.log(JSON.stringify(test, null, 2))
+    })
 
     it('parses a standard 1.30.4 1on1 tome of retraining', () => {
         const test = Parser.parse('./replays/standard_tomeofretraining_1.w3g')
@@ -299,7 +299,8 @@ describe('Replay parsing tests', () => {
 
     it('parses a replay with new reforged metadata successfully', () => {
         const test = Parser.parse('./replays/reforged2010.w3g')
-        expect(test.version).toBe('1.31')
-        expect(test.players.length).toBe(2)
+        expect(test.version).toBe('1.32')
+        expect(test.players.length).toBe(6)
+        expect(test.players[0].name).toBe('BEARAND#1604')
     })
 })
