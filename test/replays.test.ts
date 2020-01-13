@@ -281,4 +281,30 @@ describe('Replay parsing tests', () => {
         expect(test.players[0].currentTimePlayed).toEqual(4371069)
         expect(Parser.msElapsed).toEqual(6433136)
     })
+
+    it('parses resource trades in a team game correctly', () => {
+        const parser = new W3GReplay()
+        const trades = []
+        parser.on('actionblock', block => {
+            if (block.actionId == 0x51) {
+                const recipientSlot = block.slotNumber;
+                trades.push({
+                    recipientSlot,
+                    gold: block.gold,
+                    lumber: block.lumber,
+                })
+            }
+        })
+        const test = parser.parse('./replays/standard_129_trades.w3g')
+
+        expect(test.version).toBe('1.29')
+        expect(test.players.length).toBe(6)  
+        expect(trades.length).toBe(32)
+        expect(trades[0].recipientSlot).toBe(0)
+        expect(trades[5].gold).toBe(0)
+        expect(trades[5].lumber).toBe(200)
+        expect(trades[8].gold).toBe(1023)
+        expect(trades[8].lumber).toBe(0)
+    })
 })
+
