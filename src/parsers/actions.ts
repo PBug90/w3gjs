@@ -189,7 +189,7 @@ const ChangeAllyOptionsAction = new Parser()
 const TransferResourcesAction = new Parser()
     .int8('slotNumber')
     .int32le('gold')
-    .int32le('lumber');
+    .int32le('lumber')
 
 const MapTriggerChatAction = new Parser()
     .skip(8)

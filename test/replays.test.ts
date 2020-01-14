@@ -286,19 +286,19 @@ describe('Replay parsing tests', () => {
         const parser = new W3GReplay()
         const trades = []
         parser.on('actionblock', block => {
-            if (block.actionId == 0x51) {
-                const recipientSlot = block.slotNumber;
+            if (block.actionId === 0x51) {
+                const recipientSlot = block.slotNumber
                 trades.push({
                     recipientSlot,
                     gold: block.gold,
-                    lumber: block.lumber,
+                    lumber: block.lumber
                 })
             }
         })
         const test = parser.parse('./replays/standard_129_trades.w3g')
 
         expect(test.version).toBe('1.29')
-        expect(test.players.length).toBe(6)  
+        expect(test.players.length).toBe(6)
         expect(trades.length).toBe(32)
         expect(trades[0].recipientSlot).toBe(0)
         expect(trades[5].gold).toBe(0)
@@ -307,4 +307,3 @@ describe('Replay parsing tests', () => {
         expect(trades[8].lumber).toBe(0)
     })
 })
-
