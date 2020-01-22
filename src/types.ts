@@ -137,6 +137,7 @@ export interface ParserOutput {
         file: string;
         checksum: GameMetaDataDecoded['mapChecksum'];
     };
+    buildNumber: number;
     version: string;
     duration: number;
     expansion: boolean;

@@ -28,8 +28,8 @@ const SubHeaderV0 = new Parser()
 */
 
 const DataBlockVanilla = new Parser()
-    .int16le('blockSize')
-    .int16le('blockDecompressedSize')
+    .uint16le('blockSize')
+    .uint16le('blockDecompressedSize')
     .string('unknown', { encoding: 'hex', length: 4 })
     .buffer('compressed', { length: 'blockSize' })
 
@@ -55,7 +55,7 @@ const ReplayHeader = new Parser()
     .nest(null, { type: SubHeaderV1 })
     .choice(null, {
         tag: function () {
-            return this.buildNo < 6102 ? 1 : 0
+            return this.buildNo < 6089 ? 1 : 0
         },
         choices: {
             1: DataBlocksVanilla
@@ -146,7 +146,7 @@ const GameMetaData = new Parser()
     .string('selectMode', { length: 1, encoding: 'hex' })
     .int8('startSpotCount')
 
-const GameMetaDataReforged = new Parser()
+const GameMetaDataReforged = (buildNo: number) => new Parser()
     .skip(5)
     .nest('player', { type: HostRecord })
     .string('gameName', { zeroTerminated: true })
@@ -187,7 +187,7 @@ const GameMetaDataReforged = new Parser()
             .skip(1)
             .int8('extraLength')
             .buffer('extra', { length: 'extraLength' })
-            .buffer('post', { length: 2 }),
+            .buffer('post', { length: buildNo >= 6103 ? 4 : 2 }),
         readUntil (item, buffer) {
             // @ts-ignore
             const next = buffer.readInt8()
@@ -223,10 +223,17 @@ const EncodedMapMetaString = new Parser()
     .string('mapName', { zeroTerminated: true })
     .string('creator', { zeroTerminated: true })
 
+const GameMetaDataParserFactory = (buildNo: number) => {
+    if (buildNo <= 6091) {
+        return GameMetaData
+    } else {
+        return GameMetaDataReforged(buildNo)
+    }
+}
+
 export {
     ReplayHeader,
     EncodedMapMetaString,
-    GameMetaData,
-    GameMetaDataReforged,
+    GameMetaDataParserFactory,
     DataBlock
 }

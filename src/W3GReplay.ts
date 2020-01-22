@@ -297,6 +297,7 @@ class W3GReplay extends ReplayParser {
                 checksum: this.meta.mapChecksum
             },
             version: convert.gameVersion(this.header.version),
+            buildNumber: this.header.buildNo,
             duration: this.header.replayLengthMS,
             expansion: this.header.gameIdentifier === 'PX3W',
             settings,

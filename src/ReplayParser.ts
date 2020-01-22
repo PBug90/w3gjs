@@ -1,6 +1,6 @@
 import { Parser } from 'binary-parser'
 import { ActionBlockList } from './parsers/actions'
-import { ReplayHeader, EncodedMapMetaString, GameMetaData, GameMetaDataReforged } from './parsers/header'
+import { ReplayHeader, EncodedMapMetaString, GameMetaDataParserFactory } from './parsers/header'
 import { GameDataParser } from './parsers/gamedata'
 
 import {
@@ -15,12 +15,13 @@ import {
 // https://rollupjs.org/guide/en#error-name-is-not-exported-by-module-
 const { readFileSync } = require('fs')
 const { inflateSync, constants } = require('zlib')
-const GameDataParserComposed = new Parser()
-    .nest('meta', { type: GameMetaData })
-    .nest('blocks', { type: GameDataParser })
-const GameDataReforgedParserComposed = new Parser()
-    .nest('meta', { type: GameMetaDataReforged })
-    .nest('blocks', { type: GameDataParser })
+
+const GameParserFactory = (buildNo: number): any => {
+    return new Parser()
+        .nest('meta', { type: GameMetaDataParserFactory(buildNo) })
+        .nest('blocks', { type: GameDataParser })
+}
+
 const EventEmitter = require('events')
 
 class ReplayParser extends EventEmitter {
@@ -43,7 +44,7 @@ class ReplayParser extends EventEmitter {
         this.decompressed = Buffer.from('')
     }
 
-    parse ($buffer: string | Buffer) {
+    parse ($buffer: string | Buffer): void {
         this.msElapsed = 0
         this.buffer = Buffer.isBuffer($buffer) ? $buffer : readFileSync($buffer)
         this.buffer = this.buffer.slice(this.buffer.indexOf('Warcraft III recorded game'))
@@ -66,9 +67,7 @@ class ReplayParser extends EventEmitter {
         })
         this.decompressed = Buffer.concat(decompressed)
 
-        this.gameMetaDataDecoded = this.header.buildNo >= 6102
-            ? GameDataReforgedParserComposed.parse(this.decompressed)
-            : GameDataParserComposed.parse(this.decompressed)
+        this.gameMetaDataDecoded = GameParserFactory(this.header.buildNo).parse(this.decompressed)
         const decodedMetaStringBuffer = this.decodeGameMetaString(this.gameMetaDataDecoded.meta.encodedString)
         const meta = { ...this.gameMetaDataDecoded, ...this.gameMetaDataDecoded.meta, ...EncodedMapMetaString.parse(decodedMetaStringBuffer) }
         const newMeta = meta
