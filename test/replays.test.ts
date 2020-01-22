@@ -197,8 +197,8 @@ describe('Replay parsing tests', () => {
 
     it('parses a reforged replay properly #1', () => {
         Parser.on('actionblock', (block: any) => {
-            if (block.actionId == 0x7b) {
-                console.log('7b' + block.data.toString('hex'))
+            if (block.actionId === 0x7b) {
+                // console.log('7b' + block.data.toString('hex'))
             }
         })
         const test = Parser.parse('./replays/reforged1.w3g')

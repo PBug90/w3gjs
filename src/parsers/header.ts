@@ -26,22 +26,25 @@ const SubHeaderV0 = new Parser()
   .int32le('replayLengthMS')
   .int32le('checksum')
 */
+
+const DataBlockVanilla = new Parser()
+    .int16le('blockSize')
+    .int16le('blockDecompressedSize')
+    .string('unknown', { encoding: 'hex', length: 4 })
+    .buffer('compressed', { length: 'blockSize' })
+
 const DataBlock = new Parser()
-    .uint16le('blockSize', {formatter: (val) => {
-        console.log("blockSize", val)
-        return val
-    }})
+    .uint16le('blockSize')
     .skip(2)
-    .uint16le('blockDecompressedSize', {formatter: (v) => {
-        console.log("blockDecompressedSize", v)
-        return v
-    }})
+    .uint16le('blockDecompressedSize')
     .string('unknown', { encoding: 'hex', length: 4 })
     .skip(2)
     .buffer('compressed', { length: 'blockSize' })
-    
 
-const DataBlocks = new Parser()
+const DataBlocksVanilla = new Parser()
+    .array('blocks', { type: DataBlockVanilla, readUntil: 'eof' })
+
+const DataBlocksReforged = new Parser()
     .array('blocks', { type: DataBlock, readUntil: 'eof' })
 
 const ReplayHeader = new Parser()
@@ -50,7 +53,15 @@ const ReplayHeader = new Parser()
         type: Header
     })
     .nest(null, { type: SubHeaderV1 })
-    .nest(null, { type: DataBlocks })
+    .choice(null, {
+        tag: function () {
+            return this.buildNo < 6102 ? 1 : 0
+        },
+        choices: {
+            1: DataBlocksVanilla
+        },
+        defaultChoice: DataBlocksReforged
+    })
 
 const PlayerRecordLadder = new Parser()
     .string('runtimeMS', { encoding: 'hex', length: 4 })
