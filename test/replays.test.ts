@@ -306,7 +306,7 @@ describe('Replay parsing tests', () => {
         expect(test.players[0].name).toBe('BEARAND#1604')
     })
 
-    it('parses a release replay successfully', () => {
+    it('parses a reforged replay of version 1.32, build 6105 successfully', () => {
         const test = Parser.parse('./replays/reforged_release.w3g')
         expect(test.version).toBe('1.32')
         expect(test.buildNumber).toBe(6105)
