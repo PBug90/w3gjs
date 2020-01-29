@@ -27,13 +27,24 @@ const SubHeaderV0 = new Parser()
   .int32le('checksum')
 */
 
-const DataBlock = new Parser()
-    .int16le('blockSize')
-    .int16le('blockDecompressedSize')
+const DataBlockVanilla = new Parser()
+    .uint16le('blockSize')
+    .uint16le('blockDecompressedSize')
     .string('unknown', { encoding: 'hex', length: 4 })
     .buffer('compressed', { length: 'blockSize' })
 
-const DataBlocks = new Parser()
+const DataBlock = new Parser()
+    .uint16le('blockSize')
+    .skip(2)
+    .uint16le('blockDecompressedSize')
+    .string('unknown', { encoding: 'hex', length: 4 })
+    .skip(2)
+    .buffer('compressed', { length: 'blockSize' })
+
+const DataBlocksVanilla = new Parser()
+    .array('blocks', { type: DataBlockVanilla, readUntil: 'eof' })
+
+const DataBlocksReforged = new Parser()
     .array('blocks', { type: DataBlock, readUntil: 'eof' })
 
 const ReplayHeader = new Parser()
@@ -42,7 +53,15 @@ const ReplayHeader = new Parser()
         type: Header
     })
     .nest(null, { type: SubHeaderV1 })
-    .nest(null, { type: DataBlocks })
+    .choice(null, {
+        tag: function () {
+            return this.buildNo < 6089 ? 1 : 0
+        },
+        choices: {
+            1: DataBlocksVanilla
+        },
+        defaultChoice: DataBlocksReforged
+    })
 
 const PlayerRecordLadder = new Parser()
     .string('runtimeMS', { encoding: 'hex', length: 4 })
@@ -127,6 +146,62 @@ const GameMetaData = new Parser()
     .string('selectMode', { length: 1, encoding: 'hex' })
     .int8('startSpotCount')
 
+const GameMetaDataReforged = (buildNo: number) => new Parser()
+    .skip(5)
+    .nest('player', { type: HostRecord })
+    .string('gameName', { zeroTerminated: true })
+    .skip(1)
+    .string('encodedString', { zeroTerminated: true, encoding: 'hex' })
+    .int32le('playerCount')
+    .string('gameType', { length: 4, encoding: 'hex' })
+    .string('languageId', { length: 4, encoding: 'hex' })
+    .array('playerList', {
+        type: new Parser()
+            .int8('hasRecord')
+        // @ts-ignore
+            .choice(null, {
+                tag: 'hasRecord',
+                choices: {
+                    22: PlayerRecordInList
+
+                },
+                defaultChoice: new Parser().skip(-1)
+            }),
+        readUntil (item, buffer) {
+            // @ts-ignore
+            const next = buffer.readInt8()
+            return next === 57
+        }
+    })
+    .skip(4) // GamestartRecord etc used to go here
+    .skip(8) // More stuff that happens before the next list of players
+    .array('extraPlayerList', {
+        type: new Parser()
+            .int8('preVars1')
+            .buffer('pre', { length: 4 })
+            .int8('nameLength')
+            .string('name', { length: 'nameLength' })
+            .skip(1)
+            .int8('clanLength')
+            .string('clan', { length: 'clanLength' })
+            .skip(1)
+            .int8('extraLength')
+            .buffer('extra', { length: 'extraLength' })
+            .buffer('post', { length: buildNo >= 6103 ? 4 : 2 }),
+        readUntil (item, buffer) {
+            // @ts-ignore
+            const next = buffer.readInt8()
+            return next === 25
+        }
+    })
+    .int8('gameStartRecord')
+    .int16('dataByteCount')
+    .int8('slotRecordCount')
+    .array('playerSlotRecords', { type: PlayerSlotRecord, length: 'slotRecordCount' })
+    .int32le('randomSeed')
+    .string('selectMode', { length: 1, encoding: 'hex' })
+    .int8('startSpotCount')
+
 const EncodedMapMetaString = new Parser()
     .uint8('speed')
     .bit1('hideTerrain')
@@ -148,9 +223,17 @@ const EncodedMapMetaString = new Parser()
     .string('mapName', { zeroTerminated: true })
     .string('creator', { zeroTerminated: true })
 
+const GameMetaDataParserFactory = (buildNo: number) => {
+    if (buildNo <= 6091) {
+        return GameMetaData
+    } else {
+        return GameMetaDataReforged(buildNo)
+    }
+}
+
 export {
     ReplayHeader,
     EncodedMapMetaString,
-    GameMetaData,
+    GameMetaDataParserFactory,
     DataBlock
 }

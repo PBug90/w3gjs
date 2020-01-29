@@ -192,12 +192,28 @@ describe('Replay parsing tests', () => {
     it('parses a standard 1.30.4 2on2 replay properly', () => {
         const test = Parser.parse('./replays/standard_1304.2on2.w3g')
         expect(test.version).toBe('1.30.2+')
+        expect(test.buildNumber).toBe(6061)
         expect(test.players.length).toBe(4)
+    })
+
+    it('parses a reforged replay properly #1', () => {
+        const test = Parser.parse('./replays/reforged1.w3g')
+        expect(test.version).toBe('1.32')
+        expect(test.buildNumber).toBe(6091)
+        expect(test.players.length).toBe(2)
+    })
+
+    it('parses a reforged replay properly #2', () => {
+        const test = Parser.parse('./replays/reforged2.w3g')
+        expect(test.version).toBe('1.32')
+        expect(test.buildNumber).toBe(6091)
+        expect(test.players.length).toBe(2)
     })
 
     it('parses a standard 1.30.4 1on1 tome of retraining', () => {
         const test = Parser.parse('./replays/standard_tomeofretraining_1.w3g')
         expect(test.version).toBe('1.31')
+        expect(test.buildNumber).toBe(6072)
         expect(test.players.length).toBe(2)
         expect(test.players[0].heroes[0]).toEqual({
             id: 'Hamg',
@@ -280,5 +296,22 @@ describe('Replay parsing tests', () => {
         expect(test.players[0].apm).toEqual(98)
         expect(test.players[0].currentTimePlayed).toEqual(4371069)
         expect(Parser.msElapsed).toEqual(6433136)
+    })
+
+    it('parses a replay with new reforged metadata successfully', () => {
+        const test = Parser.parse('./replays/reforged2010.w3g')
+        expect(test.version).toBe('1.32')
+        expect(test.buildNumber).toBe(6102)
+        expect(test.players.length).toBe(6)
+        expect(test.players[0].name).toBe('BEARAND#1604')
+    })
+
+    it('parses a reforged replay of version 1.32, build 6105 successfully', () => {
+        const test = Parser.parse('./replays/reforged_release.w3g')
+        expect(test.version).toBe('1.32')
+        expect(test.buildNumber).toBe(6105)
+        expect(test.players.length).toBe(2)
+        expect(test.players[0].name).toBe('anXieTy#2932')
+        expect(test.players[1].name).toBe('IroNSoul#22724')
     })
 })

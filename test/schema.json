@@ -14,11 +14,15 @@
     "creator",
     "map",
     "version",
+    "buildNumber",
     "settings",
     "observers",
     "chat"
   ],
   "properties": {
+    "buildNumber": {
+      "type":"number"
+    },
     "players": {
       "$id": "#/properties/players",
       "type": "array",
