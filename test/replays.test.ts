@@ -305,4 +305,13 @@ describe('Replay parsing tests', () => {
         expect(test.players.length).toBe(6)
         expect(test.players[0].name).toBe('BEARAND#1604')
     })
+
+    it('parses a release replay successfully', () => {
+        const test = Parser.parse('./replays/reforged_release.w3g')
+        expect(test.version).toBe('1.32')
+        expect(test.buildNumber).toBe(6105)
+        expect(test.players.length).toBe(2)
+        expect(test.players[0].name).toBe('anXieTy#2932')
+        expect(test.players[1].name).toBe('IroNSoul#22724')
+    })
 })
