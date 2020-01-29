@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.6.0"></a>
+# [1.6.0](https://github.com/PBug90/w3gjs/compare/v1.5.2...v1.6.0) (2020-01-29)
+
+
+### Features
+
+* parse reforged replays successfully ([#39](https://github.com/PBug90/w3gjs/issues/39)) ([2dfa447](https://github.com/PBug90/w3gjs/commit/2dfa447))
+
+
+
 <a name="1.5.2"></a>
 ## [1.5.2](https://github.com/PBug90/w3gjs/compare/v1.5.1...v1.5.2) (2020-01-08)
 
