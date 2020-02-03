@@ -314,4 +314,13 @@ describe('Replay parsing tests', () => {
         expect(test.players[0].name).toBe('anXieTy#2932')
         expect(test.players[1].name).toBe('IroNSoul#22724')
     })
+
+    it('parses a replay with hunter2 as privateString between game name and encoded string successfully', () => {
+        const test = Parser.parse('./replays/reforged_hunter2_privatestring.w3g')
+        expect(test.version).toBe('1.32')
+        expect(test.buildNumber).toBe(6105)
+        expect(test.players.length).toBe(2)
+        expect(test.players[0].name).toBe('pischner#2950')
+        expect(test.players[1].name).toBe('Wartoni#2638')
+    })
 })
