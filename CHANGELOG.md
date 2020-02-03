@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.6.1"></a>
+## [1.6.1](https://github.com/PBug90/w3gjs/compare/v1.6.0...v1.6.1) (2020-02-03)
+
+
+### Bug Fixes
+
+* handle string of length >=1 between gamename and encoded string ([#42](https://github.com/PBug90/w3gjs/issues/42)) ([612e443](https://github.com/PBug90/w3gjs/commit/612e443))
+
+
+
 <a name="1.6.0"></a>
 # [1.6.0](https://github.com/PBug90/w3gjs/compare/v1.5.2...v1.6.0) (2020-01-29)
 
