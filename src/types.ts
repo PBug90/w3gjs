@@ -31,6 +31,7 @@ export interface GameMetaDataDecoded {
         };
     };
     gameName: string;
+    privateString: string;
     encodedString: string;
     playerCount: number;
     gameType: string;
