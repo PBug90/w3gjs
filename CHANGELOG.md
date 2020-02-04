@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.6.2"></a>
+## [1.6.2](https://github.com/PBug90/w3gjs/compare/v1.6.1...v1.6.2) (2020-02-04)
+
+
+### Bug Fixes
+
+* convert alphanumeric action values with base 10 instead of 16 ([#44](https://github.com/PBug90/w3gjs/issues/44)) ([81c41c8](https://github.com/PBug90/w3gjs/commit/81c41c8))
+
+
+
 <a name="1.6.1"></a>
 ## [1.6.1](https://github.com/PBug90/w3gjs/compare/v1.6.0...v1.6.1) (2020-02-03)
 
