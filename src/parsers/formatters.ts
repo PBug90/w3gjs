@@ -5,7 +5,7 @@ const objectIdFormatter = (arr: any[]): ItemID => {
     if (arr[3] >= 0x41 && arr[3] <= 0x7A) {
         return { type: 'stringencoded', value: arr.map(e => String.fromCharCode(parseInt(e, 10))).reverse().join('') }
     }
-    return { type: 'alphanumeric', value: arr.map(e => parseInt(e, 16)) }
+    return { type: 'alphanumeric', value: arr }
 }
 
 const raceFlagFormatter = (flag: Parser.Data): string | Parser.Data => {
