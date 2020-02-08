@@ -32,6 +32,17 @@ of a W3GReplay instance or by listening for one of the five main events:
   console.log(replay)
 ```
 
+#### Netease 1.32 Replays
+Netease 1.32 replays do not contain reforged meta data, do have the same build number and version. Therefore, currently the user must
+determine whether the given replay should be treated like a netease replay. Use an optional second argument to the .parse function to 
+treat the replay as a netease replay.
+```javascript
+  const W3GReplay = require('w3gjs')
+  const Parser = new W3GReplay()
+  const replay = Parser.parse('./replays/sample1.w3g','netease')
+  console.log(replay)
+```
+
 ### Low Level API
 Low level API allows you to either implement your own logic on top of the ReplayParser class by extending it or 
 to register callbacks to listen for parser events as it encounters the different kinds of blocks in a replay.
