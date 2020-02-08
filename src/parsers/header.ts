@@ -169,7 +169,7 @@ const GameMetaDataReforged = (buildNo: number) => new Parser()
         readUntil (item, buffer) {
             // @ts-ignore
             const next = buffer.readInt8()
-            return next === 57
+            return next === 57 || next === 25
         }
     })
     .skip(4) // GamestartRecord etc used to go here
