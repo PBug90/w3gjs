@@ -111,6 +111,7 @@ class ReplayParser extends EventEmitter {
                 this.emit('actionblock', action, actionBlock.playerId)
             })
         } catch (ex) {
+            console.log(actionBlock.actions.toString('hex'))
             console.error(ex)
         }
     }
