@@ -127,10 +127,9 @@ const GameMetaData = new Parser()
             .choice(null, {
                 tag: 'hasRecord',
                 choices: {
-                    22: PlayerRecordInList
-
-                },
-                defaultChoice: new Parser().skip(-1)
+                    22: PlayerRecordInList,
+                    25: new Parser().skip(-1)
+                }
             }),
         readUntil (item, buffer) {
             // @ts-ignore
@@ -162,10 +161,9 @@ const GameMetaDataReforged = (buildNo: number) => new Parser()
             .choice(null, {
                 tag: 'hasRecord',
                 choices: {
-                    22: PlayerRecordInList
-
-                },
-                defaultChoice: new Parser().skip(-1)
+                    22: PlayerRecordInList,
+                    25: new Parser().skip(-1)
+                }
             }),
         readUntil (item, buffer) {
             // @ts-ignore
