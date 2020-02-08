@@ -8,7 +8,8 @@ import {
     CommandDataBlock,
     GameDataBlock,
     ActionBlock,
-    CompressedDataBlock
+    CompressedDataBlock,
+    Platform
 } from './types'
 
 // Cannot import node modules directly because error with rollup
@@ -16,7 +17,7 @@ import {
 const { readFileSync } = require('fs')
 const { inflateSync, constants } = require('zlib')
 
-const GameParserFactory = (buildNo: number, platform: string): any => {
+const GameParserFactory = (buildNo: number, platform: Platform): any => {
     return new Parser()
         .nest('meta', { type: GameMetaDataParserFactory(buildNo, platform) })
         .nest('blocks', { type: GameDataParser })
@@ -44,7 +45,7 @@ class ReplayParser extends EventEmitter {
         this.decompressed = Buffer.from('')
     }
 
-    parse ($buffer: string | Buffer, platform = 'battlenet'): void {
+    parse ($buffer: string | Buffer, platform: Platform = Platform.BattleNet): void {
         this.msElapsed = 0
         this.buffer = Buffer.isBuffer($buffer) ? $buffer : readFileSync($buffer)
         this.buffer = this.buffer.slice(this.buffer.indexOf('Warcraft III recorded game'))

@@ -7,6 +7,11 @@ export enum Races {
     undeads = 'U'
 }
 
+export enum Platform {
+    BattleNet ='battlenet',
+    NetEase = 'netease'
+}
+
 export interface SlotRecord {
     playerId: number;
     slotStatus: number;

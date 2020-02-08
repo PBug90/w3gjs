@@ -1,5 +1,6 @@
 import { Parser } from 'binary-parser'
 import { raceFlagFormatter } from './formatters'
+import { Platform } from '../types'
 
 const Header = new Parser()
     .string('magic', { zeroTerminated: true })
@@ -221,7 +222,7 @@ const EncodedMapMetaString = new Parser()
     .string('mapName', { zeroTerminated: true })
     .string('creator', { zeroTerminated: true })
 
-const GameMetaDataParserFactory = (buildNo: number, platform = 'battlenet') => {
+const GameMetaDataParserFactory = (buildNo: number, platform: Platform = Platform.BattleNet) => {
     if (platform === 'netease') {
         return GameMetaData
     } else if (buildNo <= 6091) {
