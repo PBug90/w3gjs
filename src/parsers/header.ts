@@ -224,6 +224,7 @@ const EncodedMapMetaString = new Parser()
     .string('creator', { zeroTerminated: true })
 
 const GameMetaDataParserFactory = (buildNo: number) => {
+    return GameMetaData
     if (buildNo <= 6091) {
         return GameMetaData
     } else {
