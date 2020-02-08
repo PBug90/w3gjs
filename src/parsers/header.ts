@@ -223,9 +223,10 @@ const EncodedMapMetaString = new Parser()
     .string('mapName', { zeroTerminated: true })
     .string('creator', { zeroTerminated: true })
 
-const GameMetaDataParserFactory = (buildNo: number) => {
-    return GameMetaData
-    if (buildNo <= 6091) {
+const GameMetaDataParserFactory = (buildNo: number, platform = 'battlenet') => {
+    if (platform === 'netease') {
+        return GameMetaData
+    } else if (buildNo <= 6091) {
         return GameMetaData
     } else {
         return GameMetaDataReforged(buildNo)

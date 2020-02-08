@@ -325,7 +325,7 @@ describe('Replay parsing tests', () => {
     })
 
     it('parses a netease 1.32 replay successfully', () => {
-        const test = Parser.parse('./replays/netease_132.nwg')
+        const test = Parser.parse('./replays/netease_132.nwg', 'netease')
         expect(test.version).toBe('1.32')
         expect(test.buildNumber).toBe(6105)
         expect(test.players.length).toBe(2)

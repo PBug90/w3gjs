@@ -16,9 +16,9 @@ import {
 const { readFileSync } = require('fs')
 const { inflateSync, constants } = require('zlib')
 
-const GameParserFactory = (buildNo: number): any => {
+const GameParserFactory = (buildNo: number, platform: string): any => {
     return new Parser()
-        .nest('meta', { type: GameMetaDataParserFactory(buildNo) })
+        .nest('meta', { type: GameMetaDataParserFactory(buildNo, platform) })
         .nest('blocks', { type: GameDataParser })
 }
 
@@ -44,7 +44,7 @@ class ReplayParser extends EventEmitter {
         this.decompressed = Buffer.from('')
     }
 
-    parse ($buffer: string | Buffer): void {
+    parse ($buffer: string | Buffer, platform = 'battlenet'): void {
         this.msElapsed = 0
         this.buffer = Buffer.isBuffer($buffer) ? $buffer : readFileSync($buffer)
         this.buffer = this.buffer.slice(this.buffer.indexOf('Warcraft III recorded game'))
@@ -67,7 +67,7 @@ class ReplayParser extends EventEmitter {
         })
         this.decompressed = Buffer.concat(decompressed)
 
-        this.gameMetaDataDecoded = GameParserFactory(this.header.buildNo).parse(this.decompressed)
+        this.gameMetaDataDecoded = GameParserFactory(this.header.buildNo, platform).parse(this.decompressed)
         const decodedMetaStringBuffer = this.decodeGameMetaString(this.gameMetaDataDecoded.meta.encodedString)
         const meta = { ...this.gameMetaDataDecoded, ...this.gameMetaDataDecoded.meta, ...EncodedMapMetaString.parse(decodedMetaStringBuffer) }
         const newMeta = meta
