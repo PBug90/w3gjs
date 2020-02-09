@@ -1,4 +1,5 @@
 import W3GReplay from '../src/W3GReplay'
+import AsyncReplayParser from '../src/AsyncReplayParser'
 import { Validator } from 'jsonschema'
 import { readFileSync } from 'fs'
 import { Platform } from '../src/types'
@@ -332,5 +333,22 @@ describe('Replay parsing tests', () => {
         expect(test.players.length).toBe(2)
         expect(test.players[0].name).toBe('HurricaneBo')
         expect(test.players[1].name).toBe('SimplyHunteR')
+    })
+})
+describe('AsyncReplayParser', () => {
+    it('parse is a promise that resolves with parser output', async () => {
+        const Parser = new AsyncReplayParser()
+        const timeslotBlocks = []
+        let completedAsyncDummyTask = false
+        Parser.on('timeslotblock', (TimeSlotBlock) => {
+            timeslotBlocks.push(TimeSlotBlock)
+        })
+        setTimeout(() => {
+            completedAsyncDummyTask = true
+        }, 0)
+        const test = await Parser.parse('./replays/netease_132.nwg', Platform.NetEase)
+        expect(timeslotBlocks.length).toBeGreaterThan(50)
+        expect(completedAsyncDummyTask).toBe(true)
+        expect(test).toEqual({})
     })
 })
