@@ -1,5 +1,6 @@
 import { Parser } from 'binary-parser'
 import { raceFlagFormatter } from './formatters'
+import { Platform } from '../types'
 
 const Header = new Parser()
     .string('magic', { zeroTerminated: true })
@@ -127,10 +128,9 @@ const GameMetaData = new Parser()
             .choice(null, {
                 tag: 'hasRecord',
                 choices: {
-                    22: PlayerRecordInList
-
-                },
-                defaultChoice: new Parser().skip(-1)
+                    22: PlayerRecordInList,
+                    25: new Parser().skip(-1)
+                }
             }),
         readUntil (item, buffer) {
             // @ts-ignore
@@ -162,15 +162,14 @@ const GameMetaDataReforged = (buildNo: number) => new Parser()
             .choice(null, {
                 tag: 'hasRecord',
                 choices: {
-                    22: PlayerRecordInList
-
-                },
-                defaultChoice: new Parser().skip(-1)
+                    22: PlayerRecordInList,
+                    25: new Parser().skip(-1)
+                }
             }),
         readUntil (item, buffer) {
             // @ts-ignore
             const next = buffer.readInt8()
-            return next === 57
+            return next === 57 || next === 25
         }
     })
     .skip(4) // GamestartRecord etc used to go here
@@ -223,8 +222,10 @@ const EncodedMapMetaString = new Parser()
     .string('mapName', { zeroTerminated: true })
     .string('creator', { zeroTerminated: true })
 
-const GameMetaDataParserFactory = (buildNo: number) => {
-    if (buildNo <= 6091) {
+const GameMetaDataParserFactory = (buildNo: number, platform: Platform = Platform.BattleNet) => {
+    if (platform === 'netease') {
+        return GameMetaData
+    } else if (buildNo <= 6091) {
         return GameMetaData
     } else {
         return GameMetaDataReforged(buildNo)

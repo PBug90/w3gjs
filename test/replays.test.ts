@@ -1,6 +1,7 @@
 import W3GReplay from '../src/W3GReplay'
 import { Validator } from 'jsonschema'
 import { readFileSync } from 'fs'
+import { Platform } from '../src/types'
 
 const Parser = new W3GReplay()
 
@@ -322,5 +323,14 @@ describe('Replay parsing tests', () => {
         expect(test.players.length).toBe(2)
         expect(test.players[0].name).toBe('pischner#2950')
         expect(test.players[1].name).toBe('Wartoni#2638')
+    })
+
+    it('parses a netease 1.32 replay successfully', () => {
+        const test = Parser.parse('./replays/netease_132.nwg', Platform.NetEase)
+        expect(test.version).toBe('1.32')
+        expect(test.buildNumber).toBe(6105)
+        expect(test.players.length).toBe(2)
+        expect(test.players[0].name).toBe('HurricaneBo')
+        expect(test.players[1].name).toBe('SimplyHunteR')
     })
 })

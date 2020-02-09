@@ -10,7 +10,8 @@ import {
     TimeSlotBlock,
     CommandDataBlock,
     ParserOutput,
-    PlayerChatMessageBlock
+    PlayerChatMessageBlock,
+    Platform
 } from './types'
 import { sortPlayers } from './sort'
 
@@ -64,7 +65,7 @@ class W3GReplay extends ReplayParser {
     }
 
     // gamedatablock timeslotblock commandblock actionblock
-    parse ($buffer: string | Buffer): ParserOutput {
+    parse ($buffer: string | Buffer, platform: Platform = Platform.BattleNet): ParserOutput {
         this.parseStartTime = performance.now()
         this.buffer = Buffer.from('')
         this.filename = ''
@@ -77,7 +78,7 @@ class W3GReplay extends ReplayParser {
         this.timeSegmentTracker = 0
         this.playerActionTrackInterval = 60000
 
-        super.parse($buffer)
+        super.parse($buffer, platform)
 
         this.chatlog = this.chatlog.map((elem: PlayerChatMessageBlock) => {
             return ({ ...elem, player: this.players[elem.playerId].name })
