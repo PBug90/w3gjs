@@ -62,11 +62,11 @@ const gameVersion = (version: number): string => {
     }
     return `1.${version}`
 }
-
+const mapFilenameRegex = /(\([1-9]+\))?[a-zA-Z_0-9]+\.(w3x|w3m)/
 const mapFilename = (mapPath: string): string => {
-    const fragment = mapPath.split('\\').pop()
-    if (fragment !== undefined) {
-        return <string>fragment.split('//').pop()
+    const match = mapFilenameRegex.exec(mapPath)
+    if (match) {
+        return match[0]
     }
     return ''
 }
