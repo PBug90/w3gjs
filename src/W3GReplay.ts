@@ -14,6 +14,8 @@ import {
     Platform
 } from './types'
 import { sortPlayers } from './sort'
+import AsyncReplayParser from './AsyncReplayParser'
+import { EventEmitter } from 'events'
 
 // Cannot import node modules directly because error with rollup
 // https://rollupjs.org/guide/en#error-name-is-not-exported-by-module-
@@ -22,7 +24,7 @@ const {
     performance
 } = require('perf_hooks')
 
-class W3GReplay extends ReplayParser {
+class W3GReplay extends EventEmitter {
     players: { [key: string]: Player }
 
     observers: string[]
@@ -57,15 +59,40 @@ class W3GReplay extends ReplayParser {
 
     parseStartTime: number
 
+    syncParser: ReplayParser
+
+    asyncParser: AsyncReplayParser
+
+    currentlyUsedParser: ReplayParser
+
+    filename: string
+
+    buffer: Buffer
+
+    msElapsed: number
+
     constructor () {
         super()
-        this.on('gamemetadata', (metaData: GameMetaDataDecoded) => this.handleMetaData(metaData))
-        this.on('gamedatablock', (block: GameDataBlock) => this.processGameDataBlock(block))
-        this.on('timeslotblock', (block: TimeSlotBlock) => this.handleTimeSlot(block))
+        this.syncParser = new ReplayParser()
+        this.asyncParser = new AsyncReplayParser()
+
+        this.syncParser.on('gamemetadata', (metaData: GameMetaDataDecoded) => this.handleMetaData(metaData))
+        this.syncParser.on('gamemetadata', (metaData: GameMetaDataDecoded) => this.emit('gamemetadata', metaData))
+        this.syncParser.on('gamedatablock', (block: GameDataBlock) => this.processGameDataBlock(block))
+        this.syncParser.on('gamedatablock', (block: GameDataBlock) => this.emit('gamedatablock', block))
+        this.syncParser.on('timeslotblock', (block: TimeSlotBlock) => this.handleTimeSlot(block))
+        this.syncParser.on('timeslotblock', (block: TimeSlotBlock) => this.emit('timeslotblock', block))
+
+        this.asyncParser.on('gamemetadata', (metaData: GameMetaDataDecoded) => this.handleMetaData(metaData))
+        this.asyncParser.on('gamemetadata', (metaData: GameMetaDataDecoded) => this.emit('gamemetadata', metaData))
+        this.asyncParser.on('gamedatablock', (block: GameDataBlock) => this.processGameDataBlock(block))
+        this.asyncParser.on('gamedatablock', (block: GameDataBlock) => this.emit('gamedatablock', block))
+        this.asyncParser.on('timeslotblock', (block: TimeSlotBlock) => this.handleTimeSlot(block))
+        this.asyncParser.on('timeslotblock', (block: TimeSlotBlock) => this.emit('timeslotblock', block))
     }
 
-    // gamedatablock timeslotblock commandblock actionblock
     parse ($buffer: string | Buffer, platform: Platform = Platform.BattleNet): ParserOutput {
+        this.currentlyUsedParser = this.syncParser
         this.parseStartTime = performance.now()
         this.buffer = Buffer.from('')
         this.filename = ''
@@ -78,8 +105,33 @@ class W3GReplay extends ReplayParser {
         this.timeSegmentTracker = 0
         this.playerActionTrackInterval = 60000
 
-        super.parse($buffer, platform)
+        this.syncParser.parse($buffer, platform)
+        this.chatlog = this.chatlog.map((elem: PlayerChatMessageBlock) => {
+            return ({ ...elem, player: this.players[elem.playerId].name })
+        })
 
+        this.generateID()
+        this.determineMatchup()
+        this.cleanup()
+
+        return this.finalize()
+    }
+
+    async parseAsync ($buffer: string | Buffer, platform: Platform = Platform.BattleNet): Promise<ParserOutput> {
+        this.currentlyUsedParser = this.asyncParser
+        this.parseStartTime = performance.now()
+        this.buffer = Buffer.from('')
+        this.filename = ''
+        this.id = ''
+        this.chatlog = []
+        this.leaveEvents = []
+        this.w3mmd = []
+        this.players = {}
+        this.totalTimeTracker = 0
+        this.timeSegmentTracker = 0
+        this.playerActionTrackInterval = 60000
+
+        await this.asyncParser.parse($buffer, platform)
         this.chatlog = this.chatlog.map((elem: PlayerChatMessageBlock) => {
             return ({ ...elem, player: this.players[elem.playerId].name })
         })
@@ -138,6 +190,7 @@ class W3GReplay extends ReplayParser {
     }
 
     handleTimeSlot (block: TimeSlotBlock): void {
+        this.msElapsed = this.currentlyUsedParser.msElapsed
         block.actions.forEach((commandBlock: CommandDataBlock): void => {
             this.processCommandDataBlock(commandBlock)
         })
@@ -208,7 +261,7 @@ class W3GReplay extends ReplayParser {
     }
 
     isObserver (player: Player): boolean {
-        return (player.teamid === 24 && this.header.version >= 29) || (player.teamid === 12 && this.header.version < 29)
+        return (player.teamid === 24 && this.currentlyUsedParser.header.version >= 29) || (player.teamid === 12 && this.currentlyUsedParser.header.version < 29)
     }
 
     determineMatchup (): void {
@@ -250,7 +303,7 @@ class W3GReplay extends ReplayParser {
             }
         })
 
-        if (this.header.version >= 29 && Object.prototype.hasOwnProperty.call(this.teams, '24')) {
+        if (this.currentlyUsedParser.header.version >= 29 && Object.prototype.hasOwnProperty.call(this.teams, '24')) {
             delete this.teams[24]
         } else if (Object.prototype.hasOwnProperty.call(this.teams, '12')) {
             delete this.teams[12]
@@ -258,10 +311,6 @@ class W3GReplay extends ReplayParser {
         delete this.slots
         delete this.playerList
         delete this.buffer
-        delete this.decompressed
-        delete this.gameMetaDataDecoded
-        delete this.header.blocks
-        delete this.apmTimeSeries
     }
 
     finalize (): ParserOutput {
@@ -297,10 +346,10 @@ class W3GReplay extends ReplayParser {
                 file: convert.mapFilename(this.meta.mapName),
                 checksum: this.meta.mapChecksum
             },
-            version: convert.gameVersion(this.header.version),
-            buildNumber: this.header.buildNo,
-            duration: this.header.replayLengthMS,
-            expansion: this.header.gameIdentifier === 'PX3W',
+            version: convert.gameVersion(this.currentlyUsedParser.header.version),
+            buildNumber: this.currentlyUsedParser.header.buildNo,
+            duration: this.currentlyUsedParser.header.replayLengthMS,
+            expansion: this.currentlyUsedParser.header.gameIdentifier === 'PX3W',
             settings,
             parseTime: Math.round(performance.now() - this.parseStartTime)
         }

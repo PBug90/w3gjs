@@ -337,7 +337,7 @@ describe('Replay parsing tests', () => {
 })
 describe('AsyncReplayParser', () => {
     it('parse is a promise that resolves with parser output', async () => {
-        const Parser = new AsyncReplayParser()
+        const Parser = new W3GReplay()
         const timeslotBlocks = []
         let completedAsyncDummyTask = false
         Parser.on('timeslotblock', (TimeSlotBlock) => {
@@ -346,9 +346,13 @@ describe('AsyncReplayParser', () => {
         setTimeout(() => {
             completedAsyncDummyTask = true
         }, 0)
-        const test = await Parser.parse('./replays/netease_132.nwg', Platform.NetEase)
+        const test = await Parser.parseAsync('./replays/netease_132.nwg', Platform.NetEase)
         expect(timeslotBlocks.length).toBeGreaterThan(50)
         expect(completedAsyncDummyTask).toBe(true)
-        expect(test).toEqual({})
+        expect(test.version).toBe('1.32')
+        expect(test.buildNumber).toBe(6105)
+        expect(test.players.length).toBe(2)
+        expect(test.players[0].name).toBe('HurricaneBo')
+        expect(test.players[1].name).toBe('SimplyHunteR')
     })
 })
