@@ -23,6 +23,12 @@ export interface SlotRecord {
     handicapFlag: number;
 }
 
+export interface ExtraPlayerListEntry{
+    nameLength: number;
+    name: string;
+    playerId: number;
+}
+
 export interface GameMetaDataDecoded {
     player: {
         hasRecord?: number;
@@ -65,6 +71,7 @@ export interface GameMetaDataDecoded {
     mapChecksum: string;
     mapName: string;
     creator: string;
+    extraPlayerList?: ExtraPlayerListEntry[];
 }
 
 export interface ActionBlock{

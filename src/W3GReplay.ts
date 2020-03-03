@@ -11,7 +11,8 @@ import {
     CommandDataBlock,
     ParserOutput,
     PlayerChatMessageBlock,
-    Platform
+    Platform,
+    ExtraPlayerListEntry
 } from './types'
 import { sortPlayers } from './sort'
 
@@ -91,17 +92,22 @@ class W3GReplay extends ReplayParser {
         return this.finalize()
     }
 
-    handleMetaData (metaData: GameMetaDataDecoded) {
+    handleMetaData (metaData: GameMetaDataDecoded): void {
         this.slots = metaData.playerSlotRecords
         this.playerList = [metaData.player, ...metaData.playerList]
         this.meta = metaData
         const tempPlayers: {[key: string]: GameMetaDataDecoded['player'] } = {}
         this.teams = []
         this.players = {}
-
         this.playerList.forEach((player: GameMetaDataDecoded['player']): void => {
             tempPlayers[player.playerId] = player
         })
+
+        if (metaData.extraPlayerList) {
+            metaData.extraPlayerList.forEach((extraPlayer: ExtraPlayerListEntry) => {
+                tempPlayers[extraPlayer.playerId].playerName = extraPlayer.name
+            })
+        }
 
         this.slots.forEach((slot: SlotRecord) => {
             if (slot.slotStatus > 1) {
@@ -115,7 +121,7 @@ class W3GReplay extends ReplayParser {
         })
     }
 
-    processGameDataBlock (block: GameDataBlock) {
+    processGameDataBlock (block: GameDataBlock): void {
         switch (block.type) {
             case 31:
             case 30:
@@ -143,7 +149,7 @@ class W3GReplay extends ReplayParser {
         })
     }
 
-    processCommandDataBlock (block: CommandDataBlock) {
+    processCommandDataBlock (block: CommandDataBlock): void {
         const currentPlayer = this.players[block.playerId]
         currentPlayer.currentTimePlayed = this.totalTimeTracker
         currentPlayer._lastActionWasDeselect = false
@@ -156,7 +162,7 @@ class W3GReplay extends ReplayParser {
         }
     }
 
-    handleActionBlock (action: ActionBlock, currentPlayer: Player) {
+    handleActionBlock (action: ActionBlock, currentPlayer: Player): void {
         this.playerActionTracker[currentPlayer.id] = this.playerActionTracker[currentPlayer.id] || []
         this.playerActionTracker[currentPlayer.id].push(action)
 
