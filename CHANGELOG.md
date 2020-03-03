@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.7.0"></a>
+# [1.7.0](https://github.com/PBug90/w3gjs/compare/v1.6.2...v1.7.0) (2020-03-03)
+
+
+### Bug Fixes
+
+* replace classic player names with reforged metadata names ([#49](https://github.com/PBug90/w3gjs/issues/49)) ([36a6d0c](https://github.com/PBug90/w3gjs/commit/36a6d0c))
+
+
+### Features
+
+* parse netease 1.32 replays ([#46](https://github.com/PBug90/w3gjs/issues/46)) ([e436f32](https://github.com/PBug90/w3gjs/commit/e436f32))
+
+
+
 <a name="1.6.2"></a>
 ## [1.6.2](https://github.com/PBug90/w3gjs/compare/v1.6.1...v1.6.2) (2020-02-04)
 
