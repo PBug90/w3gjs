@@ -10,6 +10,7 @@
       "dom"
     ],
     "strict": true,
+    "strictNullChecks": true,
     "sourceMap": true,
     "declaration": true,
     "allowSyntheticDefaultImports": true,
