@@ -342,4 +342,9 @@ describe('Replay parsing tests', () => {
         expect(test.players[0].name).toBe('WaN#1734')
         expect(test.players[1].name).toBe('РозовыйПони#228941')
     })
+
+    it('ignores a player entry in reforged extraPlayerList that misses in playerList', () => {
+        const test = Parser.parse('./replays/reforged_metadata_ghostplayer.w3g')
+        expect(test.players).toMatchSnapshot()
+    })
 })
