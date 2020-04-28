@@ -105,10 +105,11 @@ class W3GReplay extends ReplayParser {
 
         if (metaData.extraPlayerList) {
             metaData.extraPlayerList.forEach((extraPlayer: ExtraPlayerListEntry) => {
-                tempPlayers[extraPlayer.playerId].playerName = extraPlayer.name
+                if (tempPlayers[extraPlayer.playerId]) {
+                    tempPlayers[extraPlayer.playerId].playerName = extraPlayer.name
+                }
             })
         }
-
         this.slots.forEach((slot: SlotRecord) => {
             if (slot.slotStatus > 1) {
                 this.teams[slot.teamId] = this.teams[slot.teamId] || []
