@@ -1,7 +1,5 @@
-const formatters = require("../src/parsers/formatters");
-
+import { chatModeFormatter } from "../src/parsers/formatters";
 describe("chatModeFormatter", () => {
-  const { chatModeFormatter } = formatters;
   it("correctly handles 0 as ALL", () => {
     expect(chatModeFormatter(0)).toBe("ALL");
   });

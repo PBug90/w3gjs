@@ -1,9 +1,9 @@
 import W3GReplay from "../src/W3GReplay";
-import AsyncReplayParser from "../src/AsyncReplayParser";
 import { Validator } from "jsonschema";
 import { readFileSync } from "fs";
 import { Platform } from "../src/types";
 
+import schema from "./schema.json";
 const Parser = new W3GReplay();
 
 describe("Replay parsing tests", () => {
@@ -167,7 +167,6 @@ describe("Replay parsing tests", () => {
   });
 
   it("parsing result has the correct schema", () => {
-    const schema = require("./schema.json");
     const test = Parser.parse("./replays/standard_130.w3g");
     const validatorInstance = new Validator();
     validatorInstance.validate(test, schema, { throwError: true });

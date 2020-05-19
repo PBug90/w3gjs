@@ -11,9 +11,10 @@ import { readFile } from "fs";
 import { inflate, constants } from "zlib";
 
 const readFilePromise = promisify(readFile);
-const inflatePromise = <(file: string, options: object) => Promise<any>>(
-  promisify(inflate)
-);
+const inflatePromise = promisify(inflate) as (
+  file: string,
+  options: object
+) => Promise<any>;
 const setImmediatePromise = promisify(setImmediate);
 
 const GameParserFactory = (buildNo: number, platform: Platform): any => {

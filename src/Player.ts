@@ -17,7 +17,7 @@ export const reduceHeroes = (heroCollector: { [key: string]: HeroInfo }) => {
       delete hero.order;
       aggregator.push(hero);
       return aggregator;
-    }, <HeroInfo[]>[]);
+    }, [] as HeroInfo[]);
 };
 
 interface Ability {

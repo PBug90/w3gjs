@@ -1,4 +1,4 @@
-const sorters = require("../src/sort");
+import { sortPlayers } from "../src/sort";
 
 describe("sortPlayers", () => {
   it("sorts players primarily by teamid ascending and players with same teamid by playerid ascending", () => {
@@ -21,7 +21,7 @@ describe("sortPlayers", () => {
       },
     ];
 
-    expect(players.sort(sorters.sortPlayers)).toEqual([
+    expect(players.sort(sortPlayers)).toEqual([
       {
         id: 1,
         teamid: 0,

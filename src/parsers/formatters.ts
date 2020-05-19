@@ -1,7 +1,7 @@
 import { Parser } from "binary-parser";
 import { ItemID } from "../types";
 
-const objectIdFormatter = (arr: Parser.Data): ItemID => {
+export const objectIdFormatter = (arr: Parser.Data): ItemID => {
   if (Array.isArray(arr)) {
     if (arr[3] >= 0x41 && arr[3] <= 0x7a) {
       return {
@@ -16,7 +16,7 @@ const objectIdFormatter = (arr: Parser.Data): ItemID => {
   return { type: "alphanumeric", value: arr };
 };
 
-const raceFlagFormatter = (flag: Parser.Data): string | Parser.Data => {
+export const raceFlagFormatter = (flag: Parser.Data): string | Parser.Data => {
   switch (flag) {
     case 0x01:
     case 0x41:
@@ -37,7 +37,7 @@ const raceFlagFormatter = (flag: Parser.Data): string | Parser.Data => {
   return flag;
 };
 
-const chatModeFormatter = (flag: Parser.Data): string | Parser.Data => {
+export const chatModeFormatter = (flag: Parser.Data): string | Parser.Data => {
   switch (flag) {
     case 0x00:
       return "ALL";
@@ -53,5 +53,3 @@ const chatModeFormatter = (flag: Parser.Data): string | Parser.Data => {
 
   return flag;
 };
-
-export { objectIdFormatter, raceFlagFormatter, chatModeFormatter };

@@ -18,6 +18,8 @@
     "strictPropertyInitialization": false,
     "declarationDir": "dist/types",
     "outDir": "dist/lib",
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
     "typeRoots": [
       "node_modules/@types"
     ]
