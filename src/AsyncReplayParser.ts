@@ -10,6 +10,12 @@ import {
 import { readFile } from "fs";
 import { inflate, constants } from "zlib";
 
+const GameParserFactory = (buildNo: number, platform: Platform): any => {
+  return new Parser()
+    .nest("meta", { type: GameMetaDataParserFactory(buildNo, platform) })
+    .nest("blocks", { type: GameDataParser });
+};
+
 const readFilePromise = promisify(readFile);
 const inflatePromise = promisify(inflate) as (
   file: string,
@@ -17,26 +23,23 @@ const inflatePromise = promisify(inflate) as (
 ) => Promise<any>;
 const setImmediatePromise = promisify(setImmediate);
 
-const GameParserFactory = (buildNo: number, platform: Platform): any => {
-  return new Parser()
-    .nest("meta", { type: GameMetaDataParserFactory(buildNo, platform) })
-    .nest("blocks", { type: GameDataParser });
-};
-
 class AsyncReplayParser extends ReplayParser {
   async parse(
-    $buffer: string | Buffer,
+    input: string | Buffer,
     platform: Platform = Platform.BattleNet
   ): Promise<any> {
     this.msElapsed = 0;
-    this.buffer = Buffer.isBuffer($buffer)
-      ? $buffer
-      : await readFilePromise($buffer);
+    if (Buffer.isBuffer(input)) {
+      this.buffer = input;
+      this.filename = "buffer";
+    } else {
+      this.buffer = await readFilePromise(input);
+      this.filename = input;
+    }
     this.buffer = this.buffer.slice(
       this.buffer.indexOf("Warcraft III recorded game")
     );
-    this.filename = Buffer.isBuffer($buffer) ? "buffer" : $buffer;
-    const decompressed: Buffer[] = [];
+    const decompressedCommandBlocks: Buffer[] = [];
 
     this.parseHeader();
 
@@ -47,14 +50,14 @@ class AsyncReplayParser extends ReplayParser {
             finishFlush: constants.Z_SYNC_FLUSH,
           });
           if (r.byteLength > 0 && block.compressed.byteLength > 0) {
-            decompressed.push(r);
+            decompressedCommandBlocks.push(r);
           }
         } catch (ex) {
           console.log(ex);
         }
       }
     }
-    this.decompressed = Buffer.concat(decompressed);
+    this.decompressed = Buffer.concat(decompressedCommandBlocks);
 
     this.gameMetaDataDecoded = GameParserFactory(
       this.header.buildNo,

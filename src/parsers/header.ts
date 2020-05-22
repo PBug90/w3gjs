@@ -149,64 +149,87 @@ const GameMetaData = new Parser()
   .string("selectMode", { length: 1, encoding: "hex" })
   .int8("startSpotCount");
 
-const GameMetaDataReforged = (buildNo: number) =>
-  new Parser()
-    .skip(5)
-    .nest("player", { type: HostRecord })
-    .string("gameName", { zeroTerminated: true })
-    .string("privateString", { zeroTerminated: true })
-    .string("encodedString", { zeroTerminated: true, encoding: "hex" })
-    .int32le("playerCount")
-    .string("gameType", { length: 4, encoding: "hex" })
-    .string("languageId", { length: 4, encoding: "hex" })
-    .array("playerList", {
-      type: new Parser()
-        .int8("hasRecord")
-        // @ts-ignore
-        .choice(null, {
-          tag: "hasRecord",
-          choices: {
-            22: PlayerRecordInList,
-            25: new Parser().skip(-1),
-          },
-        }),
-      readUntil(item, buffer) {
-        // @ts-ignore
-        const next = buffer.readInt8();
-        return next === 57 || next === 25;
-      },
-    })
-    .skip(4) // GamestartRecord etc used to go here
-    .skip(8) // More stuff that happens before the next list of players
-    .array("extraPlayerList", {
-      type: new Parser()
-        .int8("preVars1")
-        .buffer("pre", { length: 4 })
-        .int8("nameLength")
-        .string("name", { length: "nameLength" })
-        .skip(1)
-        .int8("clanLength")
-        .string("clan", { length: "clanLength" })
-        .skip(1)
-        .int8("extraLength")
-        .buffer("extra", { length: "extraLength" })
-        .buffer("post", { length: buildNo >= 6103 ? 4 : 2 }),
-      readUntil(item, buffer) {
-        // @ts-ignore
-        const next = buffer.readInt8();
-        return next === 25;
-      },
-    })
-    .int8("gameStartRecord")
-    .int16("dataByteCount")
-    .int8("slotRecordCount")
-    .array("playerSlotRecords", {
-      type: PlayerSlotRecord,
-      length: "slotRecordCount",
-    })
-    .int32le("randomSeed")
-    .string("selectMode", { length: 1, encoding: "hex" })
-    .int8("startSpotCount");
+const GameMetaDataReforged = new Parser()
+  .skip(5)
+  .nest("player", { type: HostRecord })
+  .string("gameName", { zeroTerminated: true })
+  .string("privateString", { zeroTerminated: true })
+  .string("encodedString", { zeroTerminated: true, encoding: "hex" })
+  .int32le("playerCount")
+  .string("gameType", { length: 4, encoding: "hex" })
+  .string("languageId", { length: 4, encoding: "hex" })
+  .array("playerList", {
+    type: new Parser()
+      .int8("hasRecord")
+      // @ts-ignore
+      .choice(null, {
+        tag: "hasRecord",
+        choices: {
+          22: PlayerRecordInList,
+          25: new Parser().skip(-1),
+        },
+      }),
+    readUntil(item, buffer) {
+      // @ts-ignore
+      const next = buffer.readInt8();
+      return next === 57 || next === 25;
+    },
+  })
+  .int8("checkGameStartRecord")
+  .choice("", {
+    tag: "checkGameStartRecord",
+    defaultChoice: new Parser()
+      .skip(-1)
+      .buffer("test", { length: 6 })
+      .buffer("test2", { length: 6 })
+      .array("extraPlayerList", {
+        type: new Parser()
+          .int8("preVars1")
+          .int8("recordLength")
+          // @ts-ignore
+          .saveOffset("recordParseStartOffset")
+          .skip(3)
+          .int8("nameLength")
+          .string("name", { length: "nameLength" })
+          .skip(1)
+          .int8("clanLength")
+          .string("clan", { length: "clanLength" })
+          .skip(1)
+          .int8("extraLength")
+          .buffer("extra", { length: "extraLength" })
+          .saveOffset("recordParseEndOffset")
+          .seek(function () {
+            return (
+              this.recordLength -
+              (this.recordParseEndOffset - this.recordParseStartOffset)
+            );
+          }),
+        readUntil(item, buffer) {
+          // @ts-ignore
+          this.attempts = this.attempts === undefined ? 0 : this.attempts + 1;
+          // @ts-ignore
+          const next = buffer.readInt8();
+          // @ts-ignore
+          if (this.attempts > 30) {
+            throw new Error("DANG");
+          }
+          return next === 25;
+        },
+      }),
+    choices: {
+      25: new Parser().skip(-1),
+    },
+  })
+  .int8("gameStartRecord")
+  .int16("dataByteCount")
+  .int8("slotRecordCount")
+  .array("playerSlotRecords", {
+    type: PlayerSlotRecord,
+    length: "slotRecordCount",
+  })
+  .int32le("randomSeed")
+  .string("selectMode", { length: 1, encoding: "hex" })
+  .int8("startSpotCount");
 
 const EncodedMapMetaString = new Parser()
   .uint8("speed")
@@ -229,17 +252,8 @@ const EncodedMapMetaString = new Parser()
   .string("mapName", { zeroTerminated: true })
   .string("creator", { zeroTerminated: true });
 
-const GameMetaDataParserFactory = (
-  buildNo: number,
-  platform: Platform = Platform.BattleNet
-) => {
-  if (platform === "netease") {
-    return GameMetaData;
-  } else if (buildNo <= 6091) {
-    return GameMetaData;
-  } else {
-    return GameMetaDataReforged(buildNo);
-  }
+const GameMetaDataParserFactory = (buildNo: number) => {
+  return GameMetaDataReforged;
 };
 
 export {
