@@ -78,3 +78,21 @@ it("parse is a promise that resolves with parser output", async () => {
   expect(test.players[0].name).toBe("HurricaneBo");
   expect(test.players[1].name).toBe("SimplyHunteR");
 });
+
+it("handles truncated player names in reforged replays", () => {
+  const test = Parser.parse(
+    path.resolve(__dirname, "reforged_truncated_playernames.w3g")
+  );
+  expect(test.version).toBe("1.32");
+  expect(test.buildNumber).toBe(6105);
+  expect(test.players.length).toBe(2);
+  expect(test.players[0].name).toBe("WaN#1734");
+  expect(test.players[1].name).toBe("РозовыйПони#228941");
+});
+
+it("ignores a player entry in reforged extraPlayerList that misses in playerList", () => {
+  const test = Parser.parse(
+    path.resolve(__dirname, "reforged_metadata_ghostplayer.w3g")
+  );
+  expect(test.players).toMatchSnapshot();
+});

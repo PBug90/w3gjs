@@ -12,6 +12,7 @@ import {
   ParserOutput,
   PlayerChatMessageBlock,
   Platform,
+  ExtraPlayerListEntry,
 } from "./types";
 import { sortPlayers } from "./sort";
 import AsyncReplayParser from "./AsyncReplayParser";
@@ -157,6 +158,13 @@ class W3GReplay extends EventEmitter {
     this.playerList.forEach((player: GameMetaDataDecoded["player"]): void => {
       tempPlayers[player.playerId] = player;
     });
+    if (metaData.extraPlayerList) {
+      metaData.extraPlayerList.forEach((extraPlayer: ExtraPlayerListEntry) => {
+        if (tempPlayers[extraPlayer.playerId]) {
+          tempPlayers[extraPlayer.playerId].playerName = extraPlayer.name;
+        }
+      });
+    }
 
     this.slots.forEach((slot: SlotRecord) => {
       if (slot.slotStatus > 1) {
@@ -207,7 +215,7 @@ class W3GReplay extends EventEmitter {
     });
   }
 
-  processCommandDataBlock(block: CommandDataBlock) {
+  processCommandDataBlock(block: CommandDataBlock): void {
     const currentPlayer = this.players[block.playerId];
     currentPlayer.currentTimePlayed = this.totalTimeTracker;
     currentPlayer._lastActionWasDeselect = false;

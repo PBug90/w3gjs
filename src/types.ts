@@ -23,6 +23,12 @@ export interface SlotRecord {
   handicapFlag: number;
 }
 
+export interface ExtraPlayerListEntry {
+  nameLength: number;
+  name: string;
+  playerId: number;
+}
+
 export interface GameMetaDataDecoded {
   player: {
     hasRecord?: number;
@@ -34,37 +40,38 @@ export interface GameMetaDataDecoded {
       runtimeMs?: string;
       raceFlags?: Races;
     };
+    gameName: string;
+    privateString: string;
+    encodedString: string;
+    playerCount: number;
+    gameType: string;
+    languageId: string;
+    playerList: GameMetaDataDecoded["player"][];
+    gameStartRecord: number;
+    dataByteCount: number;
+    slotRecordCount: number;
+    playerSlotRecords: SlotRecord[];
+    randomSeed: number;
+    selectMode: string;
+    startSpotCount: number;
+    speed: number;
+    hideTerrain: number;
+    mapExplored: number;
+    alwaysVisible: number;
+    default: number;
+    observerMode: number;
+    teamsTogether: number;
+    empty: number;
+    fixedTeams: number;
+    fullSharedUnitControl: number;
+    randomHero: number;
+    randomRaces: number;
+    referees: number;
+    mapChecksum: string;
+    mapName: string;
+    creator: string;
+    extraPlayerList?: ExtraPlayerListEntry[];
   };
-  gameName: string;
-  privateString: string;
-  encodedString: string;
-  playerCount: number;
-  gameType: string;
-  languageId: string;
-  playerList: GameMetaDataDecoded["player"][];
-  gameStartRecord: number;
-  dataByteCount: number;
-  slotRecordCount: number;
-  playerSlotRecords: SlotRecord[];
-  randomSeed: number;
-  selectMode: string;
-  startSpotCount: number;
-  speed: number;
-  hideTerrain: number;
-  mapExplored: number;
-  alwaysVisible: number;
-  default: number;
-  observerMode: number;
-  teamsTogether: number;
-  empty: number;
-  fixedTeams: number;
-  fullSharedUnitControl: number;
-  randomHero: number;
-  randomRaces: number;
-  referees: number;
-  mapChecksum: string;
-  mapName: string;
-  creator: string;
 }
 
 export interface ActionBlock {
