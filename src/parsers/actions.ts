@@ -193,7 +193,7 @@ const UnknownAction75 = new Parser().skip(1);
 
 const ScenarioTriggerAction = new Parser().skip(12);
 
-const W3MMDAction = new Parser()
+export const W3MMDAction = new Parser()
   .string("filename", { zeroTerminated: true })
   .string("missionKey", { zeroTerminated: true })
   .string("key", { zeroTerminated: true })

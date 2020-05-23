@@ -11,7 +11,6 @@ import {
   CommandDataBlock,
   ParserOutput,
   PlayerChatMessageBlock,
-  Platform,
   ExtraPlayerListEntry,
 } from "./types";
 import { sortPlayers } from "./sort";
@@ -19,7 +18,9 @@ import AsyncReplayParser from "./AsyncReplayParser";
 import { EventEmitter } from "events";
 import { createHash } from "crypto";
 import { performance } from "perf_hooks";
+import { W3MMDAction } from "./parsers/actions";
 
+interface ChatlogEntry {}
 class W3GReplay extends EventEmitter {
   players: { [key: string]: Player };
   observers: string[];
@@ -27,7 +28,7 @@ class W3GReplay extends EventEmitter {
   playerActionTracker: { [key: string]: any[] } = {};
   id = "";
   leaveEvents: any[];
-  w3mmd: any[];
+  w3mmd: typeof W3MMDAction[];
   slots: any[];
   teams: any[];
   meta: GameMetaDataDecoded;
@@ -89,10 +90,7 @@ class W3GReplay extends EventEmitter {
     );
   }
 
-  parse(
-    $buffer: string | Buffer,
-    platform: Platform = Platform.BattleNet
-  ): ParserOutput {
+  parse($buffer: string | Buffer): ParserOutput {
     this.currentlyUsedParser = this.syncParser;
     this.parseStartTime = performance.now();
     this.buffer = Buffer.from("");
@@ -106,7 +104,7 @@ class W3GReplay extends EventEmitter {
     this.timeSegmentTracker = 0;
     this.playerActionTrackInterval = 60000;
 
-    this.syncParser.parse($buffer, platform);
+    this.syncParser.parse($buffer);
     this.chatlog = this.chatlog.map((elem: PlayerChatMessageBlock) => {
       return { ...elem, player: this.players[elem.playerId].name };
     });
@@ -118,10 +116,7 @@ class W3GReplay extends EventEmitter {
     return this.finalize();
   }
 
-  async parseAsync(
-    $buffer: string | Buffer,
-    platform: Platform = Platform.BattleNet
-  ): Promise<ParserOutput> {
+  async parseAsync($buffer: string | Buffer): Promise<ParserOutput> {
     this.currentlyUsedParser = this.asyncParser;
     this.parseStartTime = performance.now();
     this.buffer = Buffer.from("");
@@ -135,7 +130,7 @@ class W3GReplay extends EventEmitter {
     this.timeSegmentTracker = 0;
     this.playerActionTrackInterval = 60000;
 
-    await this.asyncParser.parse($buffer, platform);
+    await this.asyncParser.parse($buffer);
     this.chatlog = this.chatlog.map((elem: PlayerChatMessageBlock) => {
       return { ...elem, player: this.players[elem.playerId].name };
     });
@@ -231,7 +226,7 @@ class W3GReplay extends EventEmitter {
     }
   }
 
-  handleActionBlock(action: ActionBlock, currentPlayer: Player) {
+  handleActionBlock(action: ActionBlock, currentPlayer: Player): void {
     this.playerActionTracker[currentPlayer.id] =
       this.playerActionTracker[currentPlayer.id] || [];
     this.playerActionTracker[currentPlayer.id].push(action);

@@ -125,40 +125,6 @@ const GameMetaData = new Parser()
   .string("gameType", { length: 4, encoding: "hex" })
   .string("languageId", { length: 4, encoding: "hex" })
   .array("playerList", {
-    type: new Parser().int8("hasRecord").choice("", {
-      tag: "hasRecord",
-      choices: {
-        22: PlayerRecordInList,
-        25: new Parser().skip(-1),
-      },
-    }),
-    readUntil(item, buffer) {
-      // @ts-ignore
-      const next = buffer.readInt8();
-      return next === 25;
-    },
-  })
-  .int8("gameStartRecord")
-  .int16("dataByteCount")
-  .int8("slotRecordCount")
-  .array("playerSlotRecords", {
-    type: PlayerSlotRecord,
-    length: "slotRecordCount",
-  })
-  .int32le("randomSeed")
-  .string("selectMode", { length: 1, encoding: "hex" })
-  .int8("startSpotCount");
-
-const GameMetaDataReforged = new Parser()
-  .skip(5)
-  .nest("player", { type: HostRecord })
-  .string("gameName", { zeroTerminated: true })
-  .string("privateString", { zeroTerminated: true })
-  .string("encodedString", { zeroTerminated: true, encoding: "hex" })
-  .int32le("playerCount")
-  .string("gameType", { length: 4, encoding: "hex" })
-  .string("languageId", { length: 4, encoding: "hex" })
-  .array("playerList", {
     type: new Parser()
       .int8("hasRecord")
       // @ts-ignore
@@ -213,7 +179,7 @@ const GameMetaDataReforged = new Parser()
           const next = buffer.readInt8();
           // @ts-ignore
           if (this.attempts > 30) {
-            throw new Error("DANG");
+            throw new Error("Could not parse extraPlayerList.");
           }
           return next === 25;
         },
@@ -254,13 +220,4 @@ const EncodedMapMetaString = new Parser()
   .string("mapName", { zeroTerminated: true })
   .string("creator", { zeroTerminated: true });
 
-const GameMetaDataParserFactory = (buildNo: number) => {
-  return GameMetaDataReforged;
-};
-
-export {
-  ReplayHeader,
-  EncodedMapMetaString,
-  GameMetaDataParserFactory,
-  DataBlock,
-};
+export { ReplayHeader, EncodedMapMetaString, GameMetaData, DataBlock };

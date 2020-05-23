@@ -3,7 +3,7 @@ import { ActionBlockList } from "./parsers/actions";
 import {
   ReplayHeader,
   EncodedMapMetaString,
-  GameMetaDataParserFactory,
+  GameMetaData,
 } from "./parsers/header";
 import { GameDataParser } from "./parsers/gamedata";
 
@@ -13,18 +13,11 @@ import {
   GameDataBlock,
   ActionBlock,
   CompressedDataBlock,
-  Platform,
 } from "./types";
 
 import { readFileSync } from "fs";
 import { inflateSync, constants } from "zlib";
 import { EventEmitter } from "events";
-
-const GameParserFactory = (buildNo: number, platform: Platform): any => {
-  return new Parser()
-    .nest("meta", { type: GameMetaDataParserFactory(buildNo, platform) })
-    .nest("blocks", { type: GameDataParser });
-};
 
 class ReplayParser extends EventEmitter {
   filename: string;
@@ -41,10 +34,7 @@ class ReplayParser extends EventEmitter {
     this.decompressed = Buffer.from("");
   }
 
-  parse(
-    $buffer: string | Buffer,
-    platform: Platform = Platform.BattleNet
-  ): void {
+  parse($buffer: string | Buffer): void {
     this.msElapsed = 0;
     this.buffer = Buffer.isBuffer($buffer) ? $buffer : readFileSync($buffer);
     this.buffer = this.buffer.slice(
@@ -71,10 +61,10 @@ class ReplayParser extends EventEmitter {
     });
     this.decompressed = Buffer.concat(decompressed);
 
-    this.gameMetaDataDecoded = GameParserFactory(
-      this.header.buildNo,
-      platform
-    ).parse(this.decompressed);
+    this.gameMetaDataDecoded = new Parser()
+      .nest("meta", { type: GameMetaData })
+      .nest("blocks", { type: GameDataParser })
+      .parse(this.decompressed);
     const decodedMetaStringBuffer = this.decodeGameMetaString(
       this.gameMetaDataDecoded.meta.encodedString
     );
@@ -133,19 +123,19 @@ class ReplayParser extends EventEmitter {
   }
 
   protected decodeGameMetaString(str: string): Buffer {
-    const test = Buffer.from(str, "hex");
-    const decoded = Buffer.alloc(test.length);
+    const hexRepresentation = Buffer.from(str, "hex");
+    const decoded = Buffer.alloc(hexRepresentation.length);
     let mask = 0;
     let dpos = 0;
 
-    for (let i = 0; i < test.length; i++) {
+    for (let i = 0; i < hexRepresentation.length; i++) {
       if (i % 8 === 0) {
-        mask = test[i];
+        mask = hexRepresentation[i];
       } else {
         if ((mask & (0x1 << i % 8)) === 0) {
-          decoded.writeUInt8(test[i] - 1, dpos++);
+          decoded.writeUInt8(hexRepresentation[i] - 1, dpos++);
         } else {
-          decoded.writeUInt8(test[i], dpos++);
+          decoded.writeUInt8(hexRepresentation[i], dpos++);
         }
       }
     }

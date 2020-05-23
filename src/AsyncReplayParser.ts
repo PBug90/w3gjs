@@ -2,19 +2,9 @@ import ReplayParser from "./ReplayParser";
 import { Parser } from "binary-parser";
 import { GameDataParser } from "./parsers/gamedata";
 import { promisify } from "util";
-import { Platform } from "./types";
-import {
-  EncodedMapMetaString,
-  GameMetaDataParserFactory,
-} from "./parsers/header";
+import { EncodedMapMetaString, GameMetaData } from "./parsers/header";
 import { readFile } from "fs";
 import { inflate, constants } from "zlib";
-
-const GameParserFactory = (buildNo: number, platform: Platform): any => {
-  return new Parser()
-    .nest("meta", { type: GameMetaDataParserFactory(buildNo, platform) })
-    .nest("blocks", { type: GameDataParser });
-};
 
 const readFilePromise = promisify(readFile);
 const inflatePromise = promisify(inflate) as (
@@ -24,10 +14,7 @@ const inflatePromise = promisify(inflate) as (
 const setImmediatePromise = promisify(setImmediate);
 
 class AsyncReplayParser extends ReplayParser {
-  async parse(
-    input: string | Buffer,
-    platform: Platform = Platform.BattleNet
-  ): Promise<any> {
+  async parse(input: string | Buffer): Promise<any> {
     this.msElapsed = 0;
     if (Buffer.isBuffer(input)) {
       this.buffer = input;
@@ -59,10 +46,10 @@ class AsyncReplayParser extends ReplayParser {
     }
     this.decompressed = Buffer.concat(decompressedCommandBlocks);
 
-    this.gameMetaDataDecoded = GameParserFactory(
-      this.header.buildNo,
-      platform
-    ).parse(this.decompressed);
+    this.gameMetaDataDecoded = new Parser()
+      .nest("meta", { type: GameMetaData })
+      .nest("blocks", { type: GameDataParser })
+      .parse(this.decompressed);
     const decodedMetaStringBuffer = this.decodeGameMetaString(
       this.gameMetaDataDecoded.meta.encodedString
     );
