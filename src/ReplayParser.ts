@@ -65,6 +65,7 @@ class ReplayParser extends EventEmitter {
       .nest("meta", { type: GameMetaData })
       .nest("blocks", { type: GameDataParser })
       .parse(this.decompressed);
+      
     const decodedMetaStringBuffer = this.decodeGameMetaString(
       this.gameMetaDataDecoded.meta.encodedString
     );
