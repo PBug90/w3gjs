@@ -3,7 +3,6 @@
 */
 
 import { Parser } from "binary-parser";
-import { objectIdFormatter } from "./formatters";
 
 const PauseGameAction = new Parser();
 const ResumeGameAction = new Parser();
@@ -24,7 +23,6 @@ const UnitBuildingAbilityActionNoParams = new Parser()
   .array("itemId", {
     type: "uint8",
     length: 4,
-    formatter: objectIdFormatter,
   })
   .int32le("unknownA")
   .int32le("unknownB");
@@ -34,7 +32,6 @@ const UnitBuildingAbilityActionTargetPosition = new Parser()
   .array("itemId", {
     type: "uint8",
     length: 4,
-    formatter: objectIdFormatter,
   })
   .int32le("unknownA")
   .int32le("unknownB")
@@ -46,7 +43,6 @@ const UnitBuildingAbilityActionTargetPositionTargetObjectId = new Parser()
   .array("itemId", {
     type: "uint8",
     length: 4,
-    formatter: objectIdFormatter,
   })
   .int32le("unknownA")
   .int32le("unknownB")
@@ -60,7 +56,6 @@ const GiveItemToUnitAction = new Parser()
   .array("itemId", {
     type: "uint8",
     length: 4,
-    formatter: objectIdFormatter,
   })
   .int32le("unknownA")
   .int32le("unknownB")
@@ -76,7 +71,6 @@ const UnitBuildingAbilityActionTwoTargetPositions = new Parser()
   .array("itemId1", {
     type: "uint8",
     length: 4,
-    formatter: objectIdFormatter,
   })
   .int32le("unknownA")
   .int32le("unknownB")
@@ -85,7 +79,6 @@ const UnitBuildingAbilityActionTwoTargetPositions = new Parser()
   .array("itemId2", {
     type: "uint8",
     length: 4,
-    formatter: objectIdFormatter,
   })
   .skip(9)
   .floatle("targetBX")
@@ -95,12 +88,10 @@ const SelectionUnit = new Parser()
   .array("itemId1", {
     type: "uint8",
     length: 4,
-    formatter: objectIdFormatter,
   })
   .array("itemId2", {
     type: "uint8",
     length: 4,
-    formatter: objectIdFormatter,
   });
 
 const ChangeSelectionAction = new Parser()
@@ -127,7 +118,6 @@ const SelectSubgroupAction = new Parser()
   .array("itemId", {
     type: "uint8",
     length: 4,
-    formatter: objectIdFormatter,
   })
   .int32le("objectId1")
   .int32le("objectId2");
@@ -141,24 +131,20 @@ const SelectGroundItemAction = new Parser()
   .array("itemId1", {
     type: "uint8",
     length: 4,
-    formatter: objectIdFormatter,
   })
   .array("itemId2", {
     type: "uint8",
     length: 4,
-    formatter: objectIdFormatter,
   });
 
 const CancelHeroRevivalAction = new Parser()
   .array("itemId1", {
     type: "uint8",
     length: 4,
-    formatter: objectIdFormatter,
   })
   .array("itemId2", {
     type: "uint8",
     length: 4,
-    formatter: objectIdFormatter,
   });
 
 const RemoveUnitFromBuildingQueueAction = new Parser()
@@ -166,7 +152,6 @@ const RemoveUnitFromBuildingQueueAction = new Parser()
   .array("itemId", {
     type: "uint8",
     length: 4,
-    formatter: objectIdFormatter,
   });
 
 const ChangeAllyOptionsAction = new Parser()
@@ -193,14 +178,14 @@ const UnknownAction75 = new Parser().skip(1);
 
 const ScenarioTriggerAction = new Parser().skip(12);
 
-export const W3MMDAction = new Parser()
+const W3MMDAction = new Parser()
   .string("filename", { zeroTerminated: true })
   .string("missionKey", { zeroTerminated: true })
   .string("key", { zeroTerminated: true })
   .int32le("value");
 
-const ActionBlock = new Parser().int8("actionId").choice("", {
-  tag: "actionId",
+const ActionBlock = new Parser().int8("id").choice("", {
+  tag: "id",
   choices: {
     0x1: PauseGameAction,
     0x2: ResumeGameAction,
@@ -274,4 +259,97 @@ const CommandDataBlock = new Parser()
   .int16le("actionBlockLength")
   .buffer("actions", { length: "actionBlockLength" });
 
+export type CommandDataBlockType = ReturnType<typeof CommandDataBlock.parse>;
+
 export { CommandDataBlock, ActionBlockList };
+
+export type W3MMDActionType = ReturnType<typeof W3MMDAction.parse> & {
+  id: 0x6b;
+};
+
+export type UnitBuildingAbilityActionNoParamsType = ReturnType<
+  typeof UnitBuildingAbilityActionNoParams.parse
+> & { id: 0x10 };
+
+export type UnitBuildingAbilityActionTargetPositionType = ReturnType<
+  typeof UnitBuildingAbilityActionTargetPosition.parse
+> & { id: 0x11 };
+
+export type UnitBuildingAbilityActionTwoTargetPositionsType = ReturnType<
+  typeof UnitBuildingAbilityActionTwoTargetPositions.parse
+> & { id: 0x14 };
+
+export type UnitBuildingAbilityActionTargetPositionTargetObjectIdType = ReturnType<
+  typeof UnitBuildingAbilityActionTargetPositionTargetObjectId.parse
+> & { id: 0x12 };
+
+export type GiveItemToUnitActionType = ReturnType<
+  typeof UnitBuildingAbilityActionTargetPositionTargetObjectId.parse
+> & { id: 0x13 };
+
+export type ChangeSelectionActionType = ReturnType<
+  typeof ChangeSelectionAction.parse
+> & { id: 0x16 };
+
+export type AssignGroupHotkeyActionType = ReturnType<
+  typeof AssignGroupHotkeyAction.parse
+> & { id: 0x17 };
+
+export type SelectGroupHotkeyActionType = ReturnType<
+  typeof SelectGroupHotkeyAction.parse
+> & { id: 0x18 };
+
+export type SelectSubgroupActionType = ReturnType<
+  typeof SelectSubgroupAction.parse
+> & { id: 0x19 };
+
+export type PreSubselectionActionType = ReturnType<
+  typeof PreSubselectionAction.parse
+> & { id: 0x1a };
+
+export type SelectGroundItemActionType = ReturnType<
+  typeof SelectGroundItemAction.parse
+> & { id: 0x1c };
+
+export type RemoveUnitFromBuildingQueueActionType = ReturnType<
+  typeof RemoveUnitFromBuildingQueueAction.parse
+> & { id: 0x1e | 0x1f };
+
+export type CancelHeroRevivalActionType = ReturnType<
+  typeof CancelHeroRevivalAction.parse
+> & { id: 0x1d };
+
+export type ESCPressedActionType = ReturnType<typeof ESCPressedAction.parse> & {
+  id: 0x61;
+};
+
+export type ChooseHeroSkillSubmenuType = ReturnType<
+  typeof ChooseHeroSkillSubmenu.parse
+> & {
+  id: 0x66 | 0x65;
+};
+
+export type EnterBuildingSubmenuType = ReturnType<
+  typeof EnterBuildingSubmenu.parse
+> & {
+  id: 0x67;
+};
+
+export type Action =
+  | UnitBuildingAbilityActionNoParamsType
+  | UnitBuildingAbilityActionTargetPositionTargetObjectIdType
+  | UnitBuildingAbilityActionTargetPositionType
+  | ChangeSelectionActionType
+  | AssignGroupHotkeyActionType
+  | SelectGroupHotkeyActionType
+  | SelectSubgroupActionType
+  | PreSubselectionActionType
+  | SelectGroundItemActionType
+  | RemoveUnitFromBuildingQueueActionType
+  | CancelHeroRevivalActionType
+  | ESCPressedActionType
+  | ChooseHeroSkillSubmenuType
+  | EnterBuildingSubmenuType
+  | GiveItemToUnitActionType
+  | W3MMDActionType
+  | UnitBuildingAbilityActionTwoTargetPositionsType;

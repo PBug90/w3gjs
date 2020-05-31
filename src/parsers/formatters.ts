@@ -1,19 +1,29 @@
 import { Parser } from "binary-parser";
-import { ItemID } from "../types";
 
-export const objectIdFormatter = (arr: Parser.Data): ItemID => {
-  if (Array.isArray(arr)) {
-    if (arr[3] >= 0x41 && arr[3] <= 0x7a) {
-      return {
-        type: "stringencoded",
-        value: arr
-          .map((e) => String.fromCharCode(e as number))
-          .reverse()
-          .join(""),
-      };
-    }
+type ObjectIdStringencoded = {
+  type: "stringencoded";
+  value: string;
+};
+
+type ObjectIdAlphanumeric = {
+  type: "alphanumeric";
+  value: number[];
+};
+
+export type ItemId = ObjectIdAlphanumeric | ObjectIdStringencoded;
+
+export const objectIdFormatter = (arr: Parser.Data): ItemId => {
+  const bla = arr as number[];
+  if (bla[3] >= 0x41 && bla[3] <= 0x7a) {
+    return {
+      type: "stringencoded",
+      value: bla
+        .map((e) => String.fromCharCode(e as number))
+        .reverse()
+        .join(""),
+    };
   }
-  return { type: "alphanumeric", value: arr };
+  return { type: "alphanumeric", value: bla };
 };
 
 export const raceFlagFormatter = (flag: Parser.Data): string | Parser.Data => {

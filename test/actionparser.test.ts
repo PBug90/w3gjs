@@ -6,8 +6,5 @@ it("converts alphanumeric action ids using base 10", () => {
     "hex"
   );
   const result = ActionBlockList.parse(buff);
-  expect(result[0].itemId).toEqual({
-    type: "alphanumeric",
-    value: [3, 0, 13, 0],
-  });
+  expect(result[0].itemId).toEqual([3, 0, 13, 0]);
 });

@@ -208,7 +208,7 @@ class Player {
     });
   }
 
-  handleRetraining(gametime: number) {
+  handleRetraining(gametime: number): void {
     this._lastRetrainingTime = gametime;
   }
 
@@ -264,7 +264,7 @@ class Player {
     this._currentlyTrackedAPM++;
   }
 
-  handle0x13(itemid: string): void {
+  handle0x13(): void {
     this.actions.item = this.actions.item + 1 || 1;
     this._currentlyTrackedAPM++;
   }

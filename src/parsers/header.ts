@@ -1,6 +1,5 @@
 import { Parser } from "binary-parser";
 import { raceFlagFormatter } from "./formatters";
-import { Platform } from "../types";
 
 const Header = new Parser()
   .string("magic", { zeroTerminated: true })
@@ -168,7 +167,9 @@ const GameMetaData = new Parser()
           .saveOffset("recordParseEndOffset")
           .seek(function () {
             return (
+              // @ts-ignore
               this.recordLength -
+              // @ts-ignore
               (this.recordParseEndOffset - this.recordParseStartOffset)
             );
           }),

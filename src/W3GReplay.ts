@@ -1,12 +1,12 @@
-import { ActionBlockList } from "./parsers/actions";
+import { ActionBlockList, Action, W3MMDActionType } from "./parsers/actions";
 import Player from "./Player";
 import convert from "./convert";
+import { objectIdFormatter } from "./parsers/formatters";
 import ReplayParser from "./ReplayParser";
 import {
   GameMetaDataDecoded,
   SlotRecord,
   GameDataBlock,
-  ActionBlock,
   TimeSlotBlock,
   CommandDataBlock,
   ParserOutput,
@@ -18,9 +18,7 @@ import AsyncReplayParser from "./AsyncReplayParser";
 import { EventEmitter } from "events";
 import { createHash } from "crypto";
 import { performance } from "perf_hooks";
-import { W3MMDAction } from "./parsers/actions";
 
-interface ChatlogEntry {}
 class W3GReplay extends EventEmitter {
   players: { [key: string]: Player };
   observers: string[];
@@ -28,7 +26,7 @@ class W3GReplay extends EventEmitter {
   playerActionTracker: { [key: string]: any[] } = {};
   id = "";
   leaveEvents: any[];
-  w3mmd: typeof W3MMDAction[];
+  w3mmd: W3MMDActionType[];
   slots: any[];
   teams: any[];
   meta: GameMetaDataDecoded;
@@ -217,7 +215,7 @@ class W3GReplay extends EventEmitter {
     try {
       const blocks = ActionBlockList.parse(block.actions);
       if (Array.isArray(blocks)) {
-        blocks.forEach((action: ActionBlock): void => {
+        blocks.forEach((action: Action): void => {
           this.handleActionBlock(action, currentPlayer);
         });
       }
@@ -226,32 +224,37 @@ class W3GReplay extends EventEmitter {
     }
   }
 
-  handleActionBlock(action: ActionBlock, currentPlayer: Player): void {
+  handleActionBlock(action: Action, currentPlayer: Player): void {
     this.playerActionTracker[currentPlayer.id] =
       this.playerActionTracker[currentPlayer.id] || [];
     this.playerActionTracker[currentPlayer.id].push(action);
-
-    if (
-      action.itemId &&
-      (action.itemId.value === "tert" || action.itemId.value === "tret")
-    ) {
-      currentPlayer.handleRetraining(this.totalTimeTracker);
-    }
-    switch (action.actionId) {
+    switch (action.id) {
       case 0x10:
-        currentPlayer.handle0x10(action.itemId, this.totalTimeTracker);
+        if (
+          objectIdFormatter(action.itemId).value === "tert" ||
+          objectIdFormatter(action.itemId).value === "tret"
+        ) {
+          currentPlayer.handleRetraining(this.totalTimeTracker);
+        }
+        currentPlayer.handle0x10(
+          objectIdFormatter(action.itemId),
+          this.totalTimeTracker
+        );
         break;
       case 0x11:
-        currentPlayer.handle0x11(action.itemId, this.totalTimeTracker);
+        currentPlayer.handle0x11(
+          objectIdFormatter(action.itemId),
+          this.totalTimeTracker
+        );
         break;
       case 0x12:
-        currentPlayer.handle0x12(action.itemId);
+        currentPlayer.handle0x12(objectIdFormatter(action.itemId));
         break;
       case 0x13:
-        currentPlayer.handle0x13(action.itemId);
+        currentPlayer.handle0x13();
         break;
       case 0x14:
-        currentPlayer.handle0x14(action.itemId1);
+        currentPlayer.handle0x14(objectIdFormatter(action.itemId1));
         break;
       case 0x16:
         if (action.selectMode === 0x02) {
@@ -273,7 +276,7 @@ class W3GReplay extends EventEmitter {
       case 0x65:
       case 0x66:
       case 0x67:
-        currentPlayer.handleOther(action.actionId);
+        currentPlayer.handleOther(action.id);
         break;
       case 0x6b:
         this.w3mmd.push(action);
