@@ -4,17 +4,17 @@ import { GameDataParser } from "./parsers/gamedata";
 import { promisify } from "util";
 import { EncodedMapMetaString, GameMetaData } from "./parsers/header";
 import { readFile } from "fs";
-import { inflate, constants } from "zlib";
+import { inflate, constants, ZlibOptions } from "zlib";
 
 const readFilePromise = promisify(readFile);
 const inflatePromise = promisify(inflate) as (
-  file: string,
-  options: object
-) => Promise<any>;
+  input: Buffer,
+  options: ZlibOptions
+) => Promise<Buffer>;
 const setImmediatePromise = promisify(setImmediate);
 
 class AsyncReplayParser extends ReplayParser {
-  async parse(input: string | Buffer): Promise<any> {
+  async parse(input: string | Buffer): Promise<void> {
     this.msElapsed = 0;
     if (Buffer.isBuffer(input)) {
       this.buffer = input;
@@ -30,7 +30,7 @@ class AsyncReplayParser extends ReplayParser {
 
     this.parseHeader();
 
-    for (const block of this.header.blocks) {
+    for (const block of this.header.blocks.blocks) {
       if (block.blockSize > 0 && block.blockDecompressedSize === 8192) {
         try {
           const r = await inflatePromise(block.compressed, {
@@ -45,7 +45,6 @@ class AsyncReplayParser extends ReplayParser {
       }
     }
     this.decompressed = Buffer.concat(decompressedCommandBlocks);
-
     this.gameMetaDataDecoded = new Parser()
       .nest("meta", { type: GameMetaData })
       .nest("blocks", { type: GameDataParser })
@@ -64,7 +63,7 @@ class AsyncReplayParser extends ReplayParser {
     await this._parseGameDataBlocks();
   }
 
-  async _parseGameDataBlocks(): Promise<any> {
+  async _parseGameDataBlocks(): Promise<void> {
     for (const block of this.gameMetaDataDecoded.blocks) {
       this.emit("gamedatablock", block);
       this.processGameDataBlock(block);

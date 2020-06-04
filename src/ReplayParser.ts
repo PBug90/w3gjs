@@ -4,9 +4,10 @@ import {
   ReplayHeader,
   EncodedMapMetaString,
   GameMetaData,
+  GameMetaDataDecodedType,
 } from "./parsers/header";
 import { GameDataParser } from "./parsers/gamedata";
-
+import { ReplayHeaderType } from "./parsers/header";
 import {
   TimeSlotBlock,
   CommandDataBlock,
@@ -23,9 +24,12 @@ class ReplayParser extends EventEmitter {
   filename: string;
   buffer: Buffer;
   msElapsed = 0;
-  header: any;
+  header: ReplayHeaderType;
   decompressed: Buffer;
-  gameMetaDataDecoded: any;
+  gameMetaDataDecoded: {
+    meta: GameMetaDataDecodedType;
+    blocks: any;
+  };
 
   constructor() {
     super();
@@ -42,10 +46,9 @@ class ReplayParser extends EventEmitter {
     );
     this.filename = Buffer.isBuffer($buffer) ? "buffer" : $buffer;
     const decompressed: Buffer[] = [];
-
     this.parseHeader();
 
-    this.header.blocks.forEach((block: CompressedDataBlock) => {
+    this.header.blocks.blocks.forEach((block: CompressedDataBlock) => {
       if (block.blockSize > 0 && block.blockDecompressedSize === 8192) {
         try {
           const r = inflateSync(block.compressed, {
@@ -60,12 +63,10 @@ class ReplayParser extends EventEmitter {
       }
     });
     this.decompressed = Buffer.concat(decompressed);
-
     this.gameMetaDataDecoded = new Parser()
       .nest("meta", { type: GameMetaData })
       .nest("blocks", { type: GameDataParser })
       .parse(this.decompressed);
-      
     const decodedMetaStringBuffer = this.decodeGameMetaString(
       this.gameMetaDataDecoded.meta.encodedString
     );

@@ -6,7 +6,9 @@ const isRightclickAction = (input: number[]) =>
   input[0] === 0x03 && input[1] === 0;
 const isBasicAction = (input: number[]) => input[0] <= 0x19 && input[1] === 0;
 
-export const reduceHeroes = (heroCollector: { [key: string]: HeroInfo }) => {
+export const reduceHeroes = (heroCollector: {
+  [key: string]: HeroInfo;
+}): HeroInfo[] => {
   return Object.values(heroCollector)
     .sort((h1, h2) => h1.order - h2.order)
     .reduce((aggregator, hero) => {
@@ -67,7 +69,7 @@ class Player {
   heroCollector: { [key: string]: HeroInfo };
   heroCount: number;
   actions: {
-    timed: any[];
+    timed: number[];
     assigngroup: number;
     rightclick: number;
     basic: number;
@@ -280,14 +282,14 @@ class Player {
     this._currentlyTrackedAPM++;
   }
 
-  handle0x16(selectMode: number, isAPM: boolean) {
+  handle0x16(selectMode: number, isAPM: boolean): void {
     if (isAPM) {
       this.actions.select = this.actions.select + 1 || 1;
       this._currentlyTrackedAPM++;
     }
   }
 
-  handleOther(actionId: number) {
+  handleOther(actionId: number): void {
     switch (actionId) {
       case 0x17:
         this.actions.assigngroup = this.actions.assigngroup + 1 || 1;

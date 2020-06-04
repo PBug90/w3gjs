@@ -52,14 +52,14 @@ const DataBlocksReforged = new Parser().array("blocks", {
 });
 
 const ReplayHeader = new Parser()
-  .nest("", {
+  .nest("header", {
     type: Header,
   })
-  .nest("", { type: SubHeaderV1 })
-  .choice("", {
+  .nest("subheader", { type: SubHeaderV1 })
+  .choice("blocks", {
     tag: function () {
-      // @ts-ignore
-      return this.buildNo < 6089 ? 1 : 0;
+      //@ts-ignore
+      return this.subheader.buildNo < 6089 ? 1 : 0;
     },
     choices: {
       1: DataBlocksVanilla,
@@ -220,5 +220,13 @@ const EncodedMapMetaString = new Parser()
   .string("mapChecksum", { length: 4, encoding: "hex" })
   .string("mapName", { zeroTerminated: true })
   .string("creator", { zeroTerminated: true });
+
+export type ReplayHeaderType = ReturnType<typeof ReplayHeader.parse>;
+export type GameMetaDataDecodedType = ReturnType<typeof GameMetaData.parse>;
+
+export type DataBlocksReforgedType = ReturnType<
+  typeof DataBlocksReforged.parse
+>;
+export type DataBlocksType = ReturnType<typeof DataBlocksVanilla.parse>;
 
 export { ReplayHeader, EncodedMapMetaString, GameMetaData, DataBlock };

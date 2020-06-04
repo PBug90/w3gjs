@@ -286,8 +286,10 @@ class W3GReplay extends EventEmitter {
 
   isObserver(player: Player): boolean {
     return (
-      (player.teamid === 24 && this.currentlyUsedParser.header.version >= 29) ||
-      (player.teamid === 12 && this.currentlyUsedParser.header.version < 29)
+      (player.teamid === 24 &&
+        this.currentlyUsedParser.header.subheader.version >= 29) ||
+      (player.teamid === 12 &&
+        this.currentlyUsedParser.header.subheader.version < 29)
     );
   }
 
@@ -340,7 +342,7 @@ class W3GReplay extends EventEmitter {
     });
 
     if (
-      this.currentlyUsedParser.header.version >= 29 &&
+      this.currentlyUsedParser.header.subheader.version >= 29 &&
       Object.prototype.hasOwnProperty.call(this.teams, "24")
     ) {
       delete this.teams[24];
@@ -385,10 +387,13 @@ class W3GReplay extends EventEmitter {
         file: convert.mapFilename(this.meta.mapName),
         checksum: this.meta.mapChecksum,
       },
-      version: convert.gameVersion(this.currentlyUsedParser.header.version),
-      buildNumber: this.currentlyUsedParser.header.buildNo,
-      duration: this.currentlyUsedParser.header.replayLengthMS,
-      expansion: this.currentlyUsedParser.header.gameIdentifier === "PX3W",
+      version: convert.gameVersion(
+        this.currentlyUsedParser.header.subheader.version
+      ),
+      buildNumber: this.currentlyUsedParser.header.subheader.buildNo,
+      duration: this.currentlyUsedParser.header.subheader.replayLengthMS,
+      expansion:
+        this.currentlyUsedParser.header.subheader.gameIdentifier === "PX3W",
       settings,
       parseTime: Math.round(performance.now() - this.parseStartTime),
     };
