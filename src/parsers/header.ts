@@ -214,7 +214,7 @@ const GameMetaDataReforged = (buildNo: number) => new Parser()
                     // @ts-ignore
                     const next = buffer.readInt8()
                     // @ts-ignore
-                    if (this.attempts > 30) {
+                    if (this.attempts > 24) {
                         throw new Error('Could not parse extraPlayerList.')
                     }
                     return next === 25
