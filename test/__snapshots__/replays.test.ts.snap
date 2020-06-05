@@ -664,3 +664,116 @@ Array [
   },
 ]
 `;
+
+exports[`Replay parsing tests parses single player replay twistedmeadows.w3g 1`] = `
+Array [
+  Player {
+    "_lastActionWasDeselect": false,
+    "_lastRetrainingTime": 0,
+    "_retrainingMetadata": Object {},
+    "actions": Object {
+      "ability": 0,
+      "assigngroup": 0,
+      "basic": 0,
+      "buildtrain": 0,
+      "esc": 0,
+      "item": 0,
+      "removeunit": 0,
+      "rightclick": 4,
+      "select": 3,
+      "selecthotkey": 0,
+      "subgroup": 0,
+      "timed": Array [
+        11,
+      ],
+    },
+    "apm": 34,
+    "buildings": Object {
+      "order": Array [
+        Object {
+          "id": "uaod",
+          "ms": 1202,
+        },
+        Object {
+          "id": "uzig",
+          "ms": 4810,
+        },
+      ],
+      "summary": Object {
+        "uaod": 1,
+        "uzig": 1,
+      },
+    },
+    "color": "#0042ff",
+    "currentTimePlayed": 19262,
+    "heroCollector": Object {},
+    "heroCount": 0,
+    "heroes": Array [],
+    "id": 1,
+    "items": Object {
+      "order": Array [],
+      "summary": Object {},
+    },
+    "name": "Jeef#1496",
+    "race": "U",
+    "raceDetected": "",
+    "teamid": 0,
+    "units": Object {
+      "order": Array [],
+      "summary": Object {},
+    },
+    "upgrades": Object {
+      "order": Array [],
+      "summary": Object {},
+    },
+  },
+  Player {
+    "_lastActionWasDeselect": false,
+    "_lastRetrainingTime": 0,
+    "_retrainingMetadata": Object {},
+    "actions": Object {
+      "ability": 0,
+      "assigngroup": 0,
+      "basic": 0,
+      "buildtrain": 0,
+      "esc": 0,
+      "item": 0,
+      "removeunit": 0,
+      "rightclick": 0,
+      "select": 0,
+      "selecthotkey": 0,
+      "subgroup": 0,
+      "timed": Array [
+        0,
+      ],
+    },
+    "apm": 0,
+    "buildings": Object {
+      "order": Array [],
+      "summary": Object {},
+    },
+    "color": "#ff0303",
+    "currentTimePlayed": 0,
+    "heroCollector": Object {},
+    "heroCount": 0,
+    "heroes": Array [],
+    "id": 0,
+    "items": Object {
+      "order": Array [],
+      "summary": Object {},
+    },
+    "name": "Computer",
+    "race": "R",
+    "raceDetected": "",
+    "teamid": 1,
+    "units": Object {
+      "order": Array [],
+      "summary": Object {},
+    },
+    "upgrades": Object {
+      "order": Array [],
+      "summary": Object {},
+    },
+  },
+]
+`;

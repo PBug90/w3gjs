@@ -347,4 +347,9 @@ describe('Replay parsing tests', () => {
         const test = Parser.parse('./replays/reforged_metadata_ghostplayer.w3g')
         expect(test.players).toMatchSnapshot()
     })
+
+    it('parses single player replay twistedmeadows.w3g', () => {
+        const test = Parser.parse('./replays/twistedmeadows.w3g')
+        expect(test.players).toMatchSnapshot()
+    })
 })
