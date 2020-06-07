@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.7.2"></a>
+## [1.7.2](https://github.com/PBug90/w3gjs/compare/v1.7.1...v1.7.2) (2020-06-07)
+
+
+### Bug Fixes
+
+* make extraPlayerList optional in reforged metadata ([#54](https://github.com/PBug90/w3gjs/issues/54)) ([c07cfd3](https://github.com/PBug90/w3gjs/commit/c07cfd3))
+
+
+
 <a name="1.7.1"></a>
 ## [1.7.1](https://github.com/PBug90/w3gjs/compare/v1.7.0...v1.7.1) (2020-04-28)
 
