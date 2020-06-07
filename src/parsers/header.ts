@@ -154,7 +154,10 @@ const GameMetaDataReforged = (buildNo: number) => new Parser()
     .string('encodedString', { zeroTerminated: true, encoding: 'hex' })
     .int32le('playerCount')
     .string('gameType', { length: 4, encoding: 'hex' })
-    .string('languageId', { length: 4, encoding: 'hex' })
+    .string('languageId', {
+        length: 4,
+        encoding: 'hex'
+    })
     .array('playerList', {
         type: new Parser()
             .int8('hasRecord')
@@ -172,28 +175,53 @@ const GameMetaDataReforged = (buildNo: number) => new Parser()
             return next === 57 || next === 25
         }
     })
-    .skip(4) // GamestartRecord etc used to go here
-    .skip(8) // More stuff that happens before the next list of players
-    .array('extraPlayerList', {
-        type: new Parser()
-            .int8('preVars1')
-            .int8('pre1')
-            .int8('pre2')
-            .int8('playerId')
-            .int8('pre4')
-            .int8('nameLength')
-            .string('name', { length: 'nameLength' })
-            .skip(1)
-            .int8('clanLength')
-            .string('clan', { length: 'clanLength' })
-            .skip(1)
-            .int8('extraLength')
-            .buffer('extra', { length: 'extraLength' })
-            .buffer('post', { length: buildNo >= 6103 ? 4 : 2 }),
-        readUntil (item, buffer) {
-            // @ts-ignore
-            const next = buffer.readInt8()
-            return next === 25
+    .int8('checkGameStartRecord')
+    .choice('', {
+        tag: 'checkGameStartRecord',
+        defaultChoice: new Parser()
+            .skip(-1)
+            .buffer('test', { length: 6 })
+            .buffer('test2', { length: 6 })
+            .array('extraPlayerList', {
+                type: new Parser()
+                    .int8('preVars1')
+                    .int8('recordLength')
+                // @ts-ignore
+                    .saveOffset('recordParseStartOffset')
+                    .int8('unknown1')
+                    .int8('playerId')
+                    .int8('unknown2')
+                    .int8('nameLength')
+                    .string('name', { length: 'nameLength' })
+                    .skip(1)
+                    .int8('clanLength')
+                    .string('clan', { length: 'clanLength' })
+                    .skip(1)
+                    .int8('extraLength')
+                    .buffer('extra', { length: 'extraLength' })
+                    .saveOffset('recordParseEndOffset')
+                    .seek(function () {
+                        return (
+                        // @ts-ignore
+                            this.recordLength -
+                // @ts-ignore
+                (this.recordParseEndOffset - this.recordParseStartOffset)
+                        )
+                    }),
+                readUntil (item, buffer) {
+                    // @ts-ignore
+                    this.attempts = this.attempts === undefined ? 0 : this.attempts + 1
+                    // @ts-ignore
+                    const next = buffer.readInt8()
+                    // @ts-ignore
+                    if (this.attempts > 24) {
+                        throw new Error('Could not parse extraPlayerList.')
+                    }
+                    return next === 25
+                }
+            }),
+        choices: {
+            25: new Parser().skip(-1)
         }
     })
     .int8('gameStartRecord')

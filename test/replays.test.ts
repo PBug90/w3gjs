@@ -346,5 +346,24 @@ describe('Replay parsing tests', () => {
     it('ignores a player entry in reforged extraPlayerList that misses in playerList', () => {
         const test = Parser.parse('./replays/reforged_metadata_ghostplayer.w3g')
         expect(test.players).toMatchSnapshot()
+        Parser.parse('./replays/reforged_metadata_ghostplayer.w3g')
+    })
+
+    it('parses single player replay twistedmeadows.w3g', () => {
+        const test = Parser.parse('./replays/twistedmeadows.w3g')
+        expect(test.players).toMatchSnapshot()
+    })
+
+    it('extraPlayerList exhaustion counter does reset between parser executions', () => {
+        Parser.parse('./replays/reforged2010.w3g')
+        Parser.parse('./replays/reforged2010.w3g')
+        Parser.parse('./replays/reforged2010.w3g')
+        Parser.parse('./replays/reforged2010.w3g')
+        Parser.parse('./replays/reforged2010.w3g')
+        Parser.parse('./replays/reforged2010.w3g')
+        Parser.parse('./replays/reforged2010.w3g')
+        Parser.parse('./replays/reforged2010.w3g')
+        Parser.parse('./replays/reforged2010.w3g')
+        Parser.parse('./replays/reforged2010.w3g')
     })
 })
