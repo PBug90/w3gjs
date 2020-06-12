@@ -1,6 +1,5 @@
 import W3GReplay from "../../../src/W3GReplay";
 import path from "path";
-import { Platform } from "../../../src/types";
 const Parser = new W3GReplay();
 it("parses a reforged replay properly #1", () => {
   const test = Parser.parse(path.resolve(__dirname, "reforged1.w3g"));
@@ -45,10 +44,7 @@ it("parses a replay with hunter2 as privateString between game name and encoded 
 });
 
 it("parses a netease 1.32 replay successfully", () => {
-  const test = Parser.parse(
-    path.resolve(__dirname, "netease_132.nwg"),
-    Platform.BattleNet
-  );
+  const test = Parser.parse(path.resolve(__dirname, "netease_132.nwg"));
   expect(test.version).toBe("1.32");
   expect(test.buildNumber).toBe(6105);
   expect(test.players.length).toBe(2);
@@ -67,8 +63,7 @@ it("parse is a promise that resolves with parser output", async () => {
     completedAsyncDummyTask = true;
   }, 0);
   const test = await Parser.parseAsync(
-    path.resolve(__dirname, "netease_132.nwg"),
-    Platform.NetEase
+    path.resolve(__dirname, "netease_132.nwg")
   );
   expect(timeslotBlocks.length).toBeGreaterThan(50);
   expect(completedAsyncDummyTask).toBe(true);

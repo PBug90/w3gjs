@@ -1,6 +1,6 @@
 import ReplayParser from "./ReplayParser";
 import { Parser } from "binary-parser";
-import { GameDataParser } from "./parsers/gamedata";
+import { GameDataParser, GameDataBlockType } from "./parsers/gamedata";
 import { promisify } from "util";
 import { EncodedMapMetaString, GameMetaData } from "./parsers/header";
 import { readFile } from "fs";
@@ -12,6 +12,10 @@ const inflatePromise = promisify(inflate) as (
   options: ZlibOptions
 ) => Promise<Buffer>;
 const setImmediatePromise = promisify(setImmediate);
+
+const ReplayDataParser = new Parser()
+  .nest("meta", { type: GameMetaData })
+  .nest("blocks", { type: GameDataParser });
 
 class AsyncReplayParser extends ReplayParser {
   async parse(input: string | Buffer): Promise<void> {
@@ -45,26 +49,22 @@ class AsyncReplayParser extends ReplayParser {
       }
     }
     this.decompressed = Buffer.concat(decompressedCommandBlocks);
-    this.gameMetaDataDecoded = new Parser()
-      .nest("meta", { type: GameMetaData })
-      .nest("blocks", { type: GameDataParser })
-      .parse(this.decompressed);
+    const result = ReplayDataParser.parse(this.decompressed);
     const decodedMetaStringBuffer = this.decodeGameMetaString(
-      this.gameMetaDataDecoded.meta.encodedString
+      result.meta.encodedString
     );
-    const meta = {
-      ...this.gameMetaDataDecoded,
-      ...this.gameMetaDataDecoded.meta,
+    const meta2 = {
+      ...result.meta,
       ...EncodedMapMetaString.parse(decodedMetaStringBuffer),
     };
-    const newMeta = meta;
-    delete newMeta.meta;
-    this.emit("gamemetadata", newMeta);
-    await this._parseGameDataBlocks();
+    this.emit("gamemetadata", meta2);
+    await this._parseGameDataBlocks(
+      result.blocks.blocks as GameDataBlockType[]
+    );
   }
 
-  async _parseGameDataBlocks(): Promise<void> {
-    for (const block of this.gameMetaDataDecoded.blocks) {
+  async _parseGameDataBlocks(blocks: GameDataBlockType[]): Promise<void> {
+    for (const block of blocks) {
       this.emit("gamedatablock", block);
       this.processGameDataBlock(block);
       await setImmediatePromise();

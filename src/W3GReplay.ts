@@ -178,7 +178,7 @@ class W3GReplay extends EventEmitter {
   }
 
   processGameDataBlock(block: GameDataBlock) {
-    switch (block.type) {
+    switch (block.id) {
       case 31:
       case 30:
         this.totalTimeTracker += block.timeIncrement;

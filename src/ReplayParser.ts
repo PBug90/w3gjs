@@ -1,24 +1,26 @@
 import { Parser } from "binary-parser";
-import { ActionBlockList } from "./parsers/actions";
+import { ActionBlockList, Action } from "./parsers/actions";
 import {
   ReplayHeader,
   EncodedMapMetaString,
   GameMetaData,
-  GameMetaDataDecodedType,
 } from "./parsers/header";
-import { GameDataParser } from "./parsers/gamedata";
+import { GameDataParser, GameDataBlockType } from "./parsers/gamedata";
 import { ReplayHeaderType } from "./parsers/header";
 import {
   TimeSlotBlock,
   CommandDataBlock,
-  GameDataBlock,
-  ActionBlock,
   CompressedDataBlock,
+  GameMetaDataDecoded,
 } from "./types";
 
 import { readFileSync } from "fs";
 import { inflateSync, constants } from "zlib";
 import { EventEmitter } from "events";
+
+const ReplayDataParser = new Parser()
+  .nest("meta", { type: GameMetaData })
+  .nest("blocks", { type: GameDataParser });
 
 class ReplayParser extends EventEmitter {
   filename: string;
@@ -26,10 +28,7 @@ class ReplayParser extends EventEmitter {
   msElapsed = 0;
   header: ReplayHeaderType;
   decompressed: Buffer;
-  gameMetaDataDecoded: {
-    meta: GameMetaDataDecodedType;
-    blocks: any;
-  };
+  metadata: GameMetaDataDecoded;
 
   constructor() {
     super();
@@ -63,42 +62,36 @@ class ReplayParser extends EventEmitter {
       }
     });
     this.decompressed = Buffer.concat(decompressed);
-    this.gameMetaDataDecoded = new Parser()
-      .nest("meta", { type: GameMetaData })
-      .nest("blocks", { type: GameDataParser })
-      .parse(this.decompressed);
+    const result = ReplayDataParser.parse(this.decompressed);
     const decodedMetaStringBuffer = this.decodeGameMetaString(
-      this.gameMetaDataDecoded.meta.encodedString
+      result.meta.encodedString
     );
-    const meta = {
-      ...this.gameMetaDataDecoded,
-      ...this.gameMetaDataDecoded.meta,
+    const meta2 = {
+      ...result.meta,
       ...EncodedMapMetaString.parse(decodedMetaStringBuffer),
     };
-    const newMeta = meta;
-    delete newMeta.meta;
-    this.emit("gamemetadata", newMeta);
-    this.parseGameDataBlocks();
+    this.emit("gamemetadata", meta2);
+    this.parseGameDataBlocks(result.blocks.blocks as GameDataBlockType[]);
   }
 
   protected parseHeader(): void {
     this.header = ReplayHeader.parse(this.buffer);
   }
 
-  private parseGameDataBlocks(): void {
-    this.gameMetaDataDecoded.blocks.forEach((block: GameDataBlock) => {
+  private parseGameDataBlocks(blocks: GameDataBlockType[]): void {
+    blocks.forEach((block: GameDataBlockType) => {
       this.emit("gamedatablock", block);
       this.processGameDataBlock(block);
     });
   }
 
-  protected processGameDataBlock(block: GameDataBlock): void {
-    switch (block.type) {
+  protected processGameDataBlock(block: GameDataBlockType): void {
+    switch (block.id) {
       case 31:
       case 30:
         this.msElapsed += block.timeIncrement;
-        this.emit("timeslotblock", (block as unknown) as TimeSlotBlock);
-        this.processTimeslotBlock((block as unknown) as TimeSlotBlock);
+        this.emit("timeslotblock", block as TimeSlotBlock);
+        this.processTimeslotBlock(block as TimeSlotBlock);
         break;
     }
   }
@@ -114,7 +107,7 @@ class ReplayParser extends EventEmitter {
     try {
       const blocks = ActionBlockList.parse(actionBlock.actions);
       if (Array.isArray(blocks)) {
-        blocks.forEach((action: ActionBlock): void => {
+        blocks.forEach((action: Action): void => {
           this.emit("actionblock", action, actionBlock.playerId);
         });
       }

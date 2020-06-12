@@ -74,11 +74,6 @@ export interface GameMetaDataDecoded {
   extraPlayerList?: ExtraPlayerListEntry[];
 }
 
-export interface ActionBlock {
-  actionId: number;
-  [key: string]: any;
-}
-
 export interface TimeSlotBlock {
   byteCount: number;
   timeIncrement: number;

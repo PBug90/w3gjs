@@ -66,8 +66,8 @@ const Unknown0x23 = new Parser().skip(10);
 // 0x2F
 const ForcedGameEndCountdown = new Parser().skip(8);
 
-const GameData = new Parser().uint8("type").choice("", {
-  tag: "type",
+const GameData = new Parser().uint8("id").choice("", {
+  tag: "id",
   choices: {
     0x17: LeaveGameBlock,
     0x1a: FirstStartBlock,
@@ -83,9 +83,61 @@ const GameData = new Parser().uint8("type").choice("", {
   },
 });
 
-const GameDataParser = new Parser().array("", {
+const GameDataParser = new Parser().array("blocks", {
   type: GameData,
   readUntil: "eof",
 });
+
+export type LeaveGameBlockType = ReturnType<typeof LeaveGameBlock.parse> & {
+  id: 0x17;
+};
+
+export type FirstStartBlockType = ReturnType<typeof FirstStartBlock.parse> & {
+  id: 0x1a;
+};
+
+export type SecondStartBlockType = ReturnType<typeof SecondStartBlock.parse> & {
+  id: 0x1b;
+};
+
+export type ThirdStartBlockType = ReturnType<typeof ThirdStartBlock.parse> & {
+  id: 0x1c;
+};
+
+export type TimeSlotBlockOldType = ReturnType<typeof TimeSlotBlock.parse> & {
+  id: 0x1f;
+};
+
+export type TimeSlotBlockNewType = ReturnType<typeof TimeSlotBlock.parse> & {
+  id: 0x1e;
+};
+
+export type PlayerChatMessageBlockType = ReturnType<
+  typeof PlayerChatMessageBlock.parse
+> & { id: 0x20 };
+
+export type Unknown0x22Type = ReturnType<typeof Unknown0x22.parse> & {
+  id: 0x22;
+};
+
+export type Unknown0x23Type = ReturnType<typeof Unknown0x23.parse> & {
+  id: 0x23;
+};
+
+export type ForcedGameEndCountdownType = ReturnType<
+  typeof ForcedGameEndCountdown.parse
+> & { id: 0x2f };
+
+export type GameDataBlockType =
+  | LeaveGameBlockType
+  | FirstStartBlockType
+  | SecondStartBlockType
+  | ThirdStartBlockType
+  | TimeSlotBlockOldType
+  | TimeSlotBlockNewType
+  | PlayerChatMessageBlockType
+  | Unknown0x22Type
+  | Unknown0x23Type
+  | ForcedGameEndCountdownType;
 
 export { GameDataParser };
