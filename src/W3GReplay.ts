@@ -1,4 +1,9 @@
-import { ActionBlockList, Action, W3MMDActionType } from "./parsers/actions";
+import {
+  ActionBlockList,
+  Action,
+  W3MMDActionType,
+  CommandDataBlockType,
+} from "./parsers/actions";
 import Player from "./Player";
 import convert from "./convert";
 import { objectIdFormatter } from "./parsers/formatters";
@@ -18,11 +23,31 @@ import AsyncReplayParser from "./AsyncReplayParser";
 import { EventEmitter } from "events";
 import { createHash } from "crypto";
 import { performance } from "perf_hooks";
+import {
+  PlayerChatMessageBlockType,
+  GameDataBlockType,
+  TimeSlotBlockNewType,
+  TimeSlotBlockOldType,
+} from "./parsers/gamedata";
+
+enum ChatMessageVisibility {
+  All,
+  Private,
+  Team,
+}
+
+type ChatMessage = {
+  playerName: string;
+  playerId: number;
+  visibility: ChatMessageVisibility;
+  timeMS: number;
+  message: string;
+};
 
 class W3GReplay extends EventEmitter {
   players: { [key: string]: Player };
   observers: string[];
-  chatlog: any;
+  chatlog: ChatMessage[];
   playerActionTracker: { [key: string]: any[] } = {};
   id = "";
   leaveEvents: any[];
@@ -55,14 +80,16 @@ class W3GReplay extends EventEmitter {
     this.syncParser.on("gamemetadata", (metaData: GameMetaDataDecoded) =>
       this.emit("gamemetadata", metaData)
     );
-    this.syncParser.on("gamedatablock", (block: GameDataBlock) =>
+    this.syncParser.on("gamedatablock", (block: GameDataBlockType) =>
       this.processGameDataBlock(block)
     );
     this.syncParser.on("gamedatablock", (block: GameDataBlock) =>
       this.emit("gamedatablock", block)
     );
-    this.syncParser.on("timeslotblock", (block: TimeSlotBlock) =>
-      this.handleTimeSlot(block)
+    this.syncParser.on(
+      "timeslotblock",
+      (block: TimeSlotBlockNewType | TimeSlotBlockOldType) =>
+        this.handleTimeSlot(block)
     );
     this.syncParser.on("timeslotblock", (block: TimeSlotBlock) =>
       this.emit("timeslotblock", block)
@@ -74,14 +101,16 @@ class W3GReplay extends EventEmitter {
     this.asyncParser.on("gamemetadata", (metaData: GameMetaDataDecoded) =>
       this.emit("gamemetadata", metaData)
     );
-    this.asyncParser.on("gamedatablock", (block: GameDataBlock) =>
+    this.asyncParser.on("gamedatablock", (block: GameDataBlockType) =>
       this.processGameDataBlock(block)
     );
     this.asyncParser.on("gamedatablock", (block: GameDataBlock) =>
       this.emit("gamedatablock", block)
     );
-    this.asyncParser.on("timeslotblock", (block: TimeSlotBlock) =>
-      this.handleTimeSlot(block)
+    this.asyncParser.on(
+      "timeslotblock",
+      (block: TimeSlotBlockNewType | TimeSlotBlockOldType) =>
+        this.handleTimeSlot(block)
     );
     this.asyncParser.on("timeslotblock", (block: TimeSlotBlock) =>
       this.emit("timeslotblock", block)
@@ -103,9 +132,6 @@ class W3GReplay extends EventEmitter {
     this.playerActionTrackInterval = 60000;
 
     this.syncParser.parse($buffer);
-    this.chatlog = this.chatlog.map((elem: PlayerChatMessageBlock) => {
-      return { ...elem, player: this.players[elem.playerId].name };
-    });
 
     this.generateID();
     this.determineMatchup();
@@ -129,9 +155,6 @@ class W3GReplay extends EventEmitter {
     this.playerActionTrackInterval = 60000;
 
     await this.asyncParser.parse($buffer);
-    this.chatlog = this.chatlog.map((elem: PlayerChatMessageBlock) => {
-      return { ...elem, player: this.players[elem.playerId].name };
-    });
 
     this.generateID();
     this.determineMatchup();
@@ -140,7 +163,7 @@ class W3GReplay extends EventEmitter {
     return this.finalize();
   }
 
-  handleMetaData(metaData: GameMetaDataDecoded) {
+  handleMetaData(metaData: GameMetaDataDecoded): void {
     this.slots = metaData.playerSlotRecords;
     this.playerList = [metaData.player, ...metaData.playerList];
     this.meta = metaData;
@@ -177,7 +200,7 @@ class W3GReplay extends EventEmitter {
     });
   }
 
-  processGameDataBlock(block: GameDataBlock) {
+  processGameDataBlock(block: GameDataBlockType): void {
     switch (block.id) {
       case 31:
       case 30:
@@ -191,9 +214,8 @@ class W3GReplay extends EventEmitter {
           this.timeSegmentTracker = 0;
         }
         break;
-      case 32:
-        block.timeMS = this.totalTimeTracker;
-        this.chatlog.push(block);
+      case 0x20:
+        this.handleChatMessage(block, this.totalTimeTracker);
         break;
       case 23:
         this.leaveEvents.push(block);
@@ -201,14 +223,25 @@ class W3GReplay extends EventEmitter {
     }
   }
 
-  handleTimeSlot(block: TimeSlotBlock): void {
+  handleChatMessage(block: PlayerChatMessageBlockType, timeMS: number): void {
+    const message: ChatMessage = {
+      playerName: this.players[block.playerId].name,
+      playerId: block.playerId,
+      message: block.message,
+      visibility: ChatMessageVisibility.Team,
+      timeMS,
+    };
+    this.chatlog.push(message);
+  }
+
+  handleTimeSlot(block: TimeSlotBlockNewType | TimeSlotBlockOldType): void {
     this.msElapsed = this.currentlyUsedParser.msElapsed;
-    block.actions.forEach((commandBlock: CommandDataBlock): void => {
+    block.actions.forEach((commandBlock: CommandDataBlockType): void => {
       this.processCommandDataBlock(commandBlock);
     });
   }
 
-  processCommandDataBlock(block: CommandDataBlock): void {
+  processCommandDataBlock(block: CommandDataBlockType): void {
     const currentPlayer = this.players[block.playerId];
     currentPlayer.currentTimePlayed = this.totalTimeTracker;
     currentPlayer._lastActionWasDeselect = false;
