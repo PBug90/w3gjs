@@ -223,6 +223,7 @@ const EncodedMapMetaString = new Parser()
 
 export type ReplayHeaderType = ReturnType<typeof ReplayHeader.parse>;
 export type GameMetaDataDecodedType = ReturnType<typeof GameMetaData.parse>;
+export type SlotRecordType = ReturnType<typeof PlayerSlotRecord.parse>;
 
 export type DataBlocksReforgedType = ReturnType<
   typeof DataBlocksReforged.parse

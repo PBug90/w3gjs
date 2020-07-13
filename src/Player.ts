@@ -1,6 +1,6 @@
 import convert from "./convert";
 import { items, units, buildings, upgrades, abilityToHero } from "./mappings";
-import { Races, ItemID } from "./types";
+import { Race, ItemID } from "./types";
 
 const isRightclickAction = (input: number[]) =>
   input[0] === 0x03 && input[1] === 0;
@@ -47,7 +47,7 @@ class Player {
   name: string;
   teamid: number;
   color: string;
-  race: Races;
+  race: Race;
   raceDetected: string;
   units: {
     summary: { [key: string]: number };
@@ -94,7 +94,7 @@ class Player {
     name: string,
     teamid: number,
     color: number,
-    race: Races
+    race: Race
   ) {
     this.id = id;
     this.name = name;

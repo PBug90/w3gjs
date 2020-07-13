@@ -7,13 +7,6 @@ import {
 } from "./parsers/header";
 import { GameDataParser, GameDataBlockType } from "./parsers/gamedata";
 import { ReplayHeaderType } from "./parsers/header";
-import {
-  TimeSlotBlock,
-  CommandDataBlock,
-  CompressedDataBlock,
-  GameMetaDataDecoded,
-} from "./types";
-
 import { readFileSync } from "fs";
 import { inflateSync, constants } from "zlib";
 import { EventEmitter } from "events";

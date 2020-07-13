@@ -8,16 +8,7 @@ import Player from "./Player";
 import convert from "./convert";
 import { objectIdFormatter } from "./parsers/formatters";
 import ReplayParser from "./ReplayParser";
-import {
-  GameMetaDataDecoded,
-  SlotRecord,
-  GameDataBlock,
-  TimeSlotBlock,
-  CommandDataBlock,
-  ParserOutput,
-  PlayerChatMessageBlock,
-  ExtraPlayerListEntry,
-} from "./types";
+import { ParserOutput } from "./types";
 import { sortPlayers } from "./sort";
 import AsyncReplayParser from "./AsyncReplayParser";
 import { EventEmitter } from "events";
@@ -28,9 +19,11 @@ import {
   GameDataBlockType,
   TimeSlotBlockNewType,
   TimeSlotBlockOldType,
+  LeaveGameBlockType,
 } from "./parsers/gamedata";
+import { GameMetaDataDecodedType, SlotRecordType } from "./parsers/header";
 
-enum ChatMessageVisibility {
+enum ChatMessageMode {
   All,
   Private,
   Team,
@@ -39,23 +32,29 @@ enum ChatMessageVisibility {
 type ChatMessage = {
   playerName: string;
   playerId: number;
-  visibility: ChatMessageVisibility;
+  mode: ChatMessageMode;
   timeMS: number;
   message: string;
 };
+
+type Team = {
+  [key: number]: number[];
+};
+
+type PlayerActions = {};
 
 class W3GReplay extends EventEmitter {
   players: { [key: string]: Player };
   observers: string[];
   chatlog: ChatMessage[];
-  playerActionTracker: { [key: string]: any[] } = {};
+  playerActionTracker: { [key: number]: Action[] } = {};
   id = "";
-  leaveEvents: any[];
+  leaveEvents: LeaveGameBlockType[];
   w3mmd: W3MMDActionType[];
-  slots: any[];
-  teams: any[];
-  meta: GameMetaDataDecoded;
-  playerList: any[];
+  slots: SlotRecordType[];
+  teams: Team;
+  meta: GameMetaDataDecodedType;
+  playerList: GameMetaDataDecodedType["player"][];
   totalTimeTracker = 0;
   timeSegmentTracker = 0;
   playerActionTrackInterval = 60000;
@@ -74,16 +73,16 @@ class W3GReplay extends EventEmitter {
     this.syncParser = new ReplayParser();
     this.asyncParser = new AsyncReplayParser();
 
-    this.syncParser.on("gamemetadata", (metaData: GameMetaDataDecoded) =>
+    this.syncParser.on("gamemetadata", (metaData: GameMetaDataDecodedType) =>
       this.handleMetaData(metaData)
     );
-    this.syncParser.on("gamemetadata", (metaData: GameMetaDataDecoded) =>
+    this.syncParser.on("gamemetadata", (metaData: GameMetaDataDecodedType) =>
       this.emit("gamemetadata", metaData)
     );
     this.syncParser.on("gamedatablock", (block: GameDataBlockType) =>
       this.processGameDataBlock(block)
     );
-    this.syncParser.on("gamedatablock", (block: GameDataBlock) =>
+    this.syncParser.on("gamedatablock", (block: GameDataBlockType) =>
       this.emit("gamedatablock", block)
     );
     this.syncParser.on(
@@ -91,29 +90,23 @@ class W3GReplay extends EventEmitter {
       (block: TimeSlotBlockNewType | TimeSlotBlockOldType) =>
         this.handleTimeSlot(block)
     );
-    this.syncParser.on("timeslotblock", (block: TimeSlotBlock) =>
-      this.emit("timeslotblock", block)
-    );
 
-    this.asyncParser.on("gamemetadata", (metaData: GameMetaDataDecoded) =>
+    this.asyncParser.on("gamemetadata", (metaData: GameMetaDataDecodedType) =>
       this.handleMetaData(metaData)
     );
-    this.asyncParser.on("gamemetadata", (metaData: GameMetaDataDecoded) =>
+    this.asyncParser.on("gamemetadata", (metaData: GameMetaDataDecodedType) =>
       this.emit("gamemetadata", metaData)
     );
     this.asyncParser.on("gamedatablock", (block: GameDataBlockType) =>
       this.processGameDataBlock(block)
     );
-    this.asyncParser.on("gamedatablock", (block: GameDataBlock) =>
+    this.asyncParser.on("gamedatablock", (block: GameDataBlockType) =>
       this.emit("gamedatablock", block)
     );
     this.asyncParser.on(
       "timeslotblock",
       (block: TimeSlotBlockNewType | TimeSlotBlockOldType) =>
         this.handleTimeSlot(block)
-    );
-    this.asyncParser.on("timeslotblock", (block: TimeSlotBlock) =>
-      this.emit("timeslotblock", block)
     );
   }
 
@@ -163,11 +156,13 @@ class W3GReplay extends EventEmitter {
     return this.finalize();
   }
 
-  handleMetaData(metaData: GameMetaDataDecoded): void {
+  handleMetaData(metaData: GameMetaDataDecodedType): void {
     this.slots = metaData.playerSlotRecords;
     this.playerList = [metaData.player, ...metaData.playerList];
     this.meta = metaData;
-    const tempPlayers: { [key: string]: GameMetaDataDecoded["player"] } = {};
+    const tempPlayers: {
+      [key: string]: GameMetaDataDecodedType["player"];
+    } = {};
     this.teams = [];
     this.players = {};
 
@@ -228,7 +223,7 @@ class W3GReplay extends EventEmitter {
       playerName: this.players[block.playerId].name,
       playerId: block.playerId,
       message: block.message,
-      visibility: ChatMessageVisibility.Team,
+      mode: ChatMessageMode.Team,
       timeMS,
     };
     this.chatlog.push(message);
@@ -358,7 +353,7 @@ class W3GReplay extends EventEmitter {
         return accumulator;
       }, "");
 
-    const idBase = this.meta.randomSeed + players + this.meta.mapName;
+    const idBase = this.meta.randomSeed + players + this.meta.gameName;
     this.id = createHash("sha256").update(idBase).digest("hex");
   }
 
@@ -375,7 +370,7 @@ class W3GReplay extends EventEmitter {
     });
 
     if (
-      this.currentlyUsedParser.header.subheader.version >= 29 &&
+      this.currentlyUsedParser.header.subheader.version >= 2 &&
       Object.prototype.hasOwnProperty.call(this.teams, "24")
     ) {
       delete this.teams[24];
