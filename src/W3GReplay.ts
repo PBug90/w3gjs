@@ -1,16 +1,14 @@
 import {
   ActionBlockList,
-  Action,
+  ActionType,
   W3MMDActionType,
   CommandDataBlockType,
 } from "./parsers/actions";
 import Player from "./Player";
 import convert from "./convert";
-import { objectIdFormatter } from "./parsers/formatters";
-import ReplayParser from "./ReplayParser";
+import { objectIdFormatter, raceFlagFormatter } from "./parsers/formatters";
 import { ParserOutput } from "./types";
 import { sortPlayers } from "./sort";
-import AsyncReplayParser from "./AsyncReplayParser";
 import { EventEmitter } from "events";
 import { createHash } from "crypto";
 import { performance } from "perf_hooks";
@@ -21,12 +19,19 @@ import {
   TimeSlotBlockOldType,
   LeaveGameBlockType,
 } from "./parsers/gamedata";
-import { GameMetaDataDecodedType, SlotRecordType } from "./parsers/header";
+import ReplayParser, {
+  ParserOutput as ReplayParserOutput,
+  BasicReplayInformation,
+} from "./newParsing/ReplayParser";
+import { readFile } from "fs";
+import { promisify } from "util";
+
+const readFilePromise = promisify(readFile);
 
 enum ChatMessageMode {
-  All,
-  Private,
-  Team,
+  All = "All",
+  Private = "Private",
+  Team = "Team",
 }
 
 type ChatMessage = {
@@ -41,61 +46,38 @@ type Team = {
   [key: number]: number[];
 };
 
-type PlayerActions = {};
-
 class W3GReplay extends EventEmitter {
+  info: BasicReplayInformation;
   players: { [key: string]: Player };
   observers: string[];
   chatlog: ChatMessage[];
-  playerActionTracker: { [key: number]: Action[] } = {};
   id = "";
   leaveEvents: LeaveGameBlockType[];
   w3mmd: W3MMDActionType[];
-  slots: SlotRecordType[];
+  slots: ReplayParserOutput["metadata"]["slotRecords"];
   teams: Team;
-  meta: GameMetaDataDecodedType;
-  playerList: GameMetaDataDecodedType["player"][];
+  meta: ReplayParserOutput["metadata"];
+  playerList: ReplayParserOutput["metadata"]["playerRecords"];
   totalTimeTracker = 0;
   timeSegmentTracker = 0;
   playerActionTrackInterval = 60000;
   gametype = "";
   matchup = "";
   parseStartTime: number;
-  syncParser: ReplayParser;
-  asyncParser: AsyncReplayParser;
+  asyncParser: ReplayParser;
   currentlyUsedParser: ReplayParser;
   filename: string;
   buffer: Buffer;
-  msElapsed: number;
+  msElapsed = 0;
 
   constructor() {
     super();
-    this.syncParser = new ReplayParser();
-    this.asyncParser = new AsyncReplayParser();
+    this.asyncParser = new ReplayParser();
 
-    this.syncParser.on("gamemetadata", (metaData: GameMetaDataDecodedType) =>
-      this.handleMetaData(metaData)
-    );
-    this.syncParser.on("gamemetadata", (metaData: GameMetaDataDecodedType) =>
-      this.emit("gamemetadata", metaData)
-    );
-    this.syncParser.on("gamedatablock", (block: GameDataBlockType) =>
-      this.processGameDataBlock(block)
-    );
-    this.syncParser.on("gamedatablock", (block: GameDataBlockType) =>
-      this.emit("gamedatablock", block)
-    );
-    this.syncParser.on(
-      "timeslotblock",
-      (block: TimeSlotBlockNewType | TimeSlotBlockOldType) =>
-        this.handleTimeSlot(block)
-    );
-
-    this.asyncParser.on("gamemetadata", (metaData: GameMetaDataDecodedType) =>
-      this.handleMetaData(metaData)
-    );
-    this.asyncParser.on("gamemetadata", (metaData: GameMetaDataDecodedType) =>
-      this.emit("gamemetadata", metaData)
+    this.asyncParser.on(
+      "basic_replay_information",
+      (information: BasicReplayInformation) =>
+        this.handleBasicReplayInformation(information)
     );
     this.asyncParser.on("gamedatablock", (block: GameDataBlockType) =>
       this.processGameDataBlock(block)
@@ -110,30 +92,8 @@ class W3GReplay extends EventEmitter {
     );
   }
 
-  parse($buffer: string | Buffer): ParserOutput {
-    this.currentlyUsedParser = this.syncParser;
-    this.parseStartTime = performance.now();
-    this.buffer = Buffer.from("");
-    this.filename = "";
-    this.id = "";
-    this.chatlog = [];
-    this.leaveEvents = [];
-    this.w3mmd = [];
-    this.players = {};
-    this.totalTimeTracker = 0;
-    this.timeSegmentTracker = 0;
-    this.playerActionTrackInterval = 60000;
-
-    this.syncParser.parse($buffer);
-
-    this.generateID();
-    this.determineMatchup();
-    this.cleanup();
-
-    return this.finalize();
-  }
-
   async parseAsync($buffer: string | Buffer): Promise<ParserOutput> {
+    this.msElapsed = 0;
     this.currentlyUsedParser = this.asyncParser;
     this.parseStartTime = performance.now();
     this.buffer = Buffer.from("");
@@ -146,7 +106,9 @@ class W3GReplay extends EventEmitter {
     this.totalTimeTracker = 0;
     this.timeSegmentTracker = 0;
     this.playerActionTrackInterval = 60000;
-
+    if (typeof $buffer === "string") {
+      $buffer = await readFilePromise($buffer);
+    }
     await this.asyncParser.parse($buffer);
 
     this.generateID();
@@ -156,28 +118,30 @@ class W3GReplay extends EventEmitter {
     return this.finalize();
   }
 
-  handleMetaData(metaData: GameMetaDataDecodedType): void {
-    this.slots = metaData.playerSlotRecords;
-    this.playerList = [metaData.player, ...metaData.playerList];
-    this.meta = metaData;
+  handleBasicReplayInformation(info: BasicReplayInformation): void {
+    this.info = info;
+    this.slots = info.metadata.slotRecords;
+    this.playerList = info.metadata.playerRecords;
+    this.meta = info.metadata;
     const tempPlayers: {
-      [key: string]: GameMetaDataDecodedType["player"];
+      [key: string]: BasicReplayInformation["metadata"]["playerRecords"][0];
     } = {};
     this.teams = [];
     this.players = {};
 
-    this.playerList.forEach((player: GameMetaDataDecoded["player"]): void => {
+    this.playerList.forEach((player): void => {
       tempPlayers[player.playerId] = player;
     });
-    if (metaData.extraPlayerList) {
-      metaData.extraPlayerList.forEach((extraPlayer: ExtraPlayerListEntry) => {
+    if (info.metadata.reforgedPlayerMetadata.length > 0) {
+      const extraPlayerList = info.metadata.reforgedPlayerMetadata;
+      extraPlayerList.forEach((extraPlayer) => {
         if (tempPlayers[extraPlayer.playerId]) {
           tempPlayers[extraPlayer.playerId].playerName = extraPlayer.name;
         }
       });
     }
 
-    this.slots.forEach((slot: SlotRecord) => {
+    this.slots.forEach((slot) => {
       if (slot.slotStatus > 1) {
         this.teams[slot.teamId] = this.teams[slot.teamId] || [];
         this.teams[slot.teamId].push(slot.playerId);
@@ -189,7 +153,7 @@ class W3GReplay extends EventEmitter {
             : "Computer",
           slot.teamId,
           slot.color,
-          slot.raceFlag
+          raceFlagFormatter(slot.raceFlag)
         );
       }
     });
@@ -202,7 +166,6 @@ class W3GReplay extends EventEmitter {
         this.totalTimeTracker += block.timeIncrement;
         this.timeSegmentTracker += block.timeIncrement;
         if (this.timeSegmentTracker > this.playerActionTrackInterval) {
-          // @ts-ignore
           Object.values(this.players).forEach((p) =>
             p.newActionTrackingSegment()
           );
@@ -230,7 +193,8 @@ class W3GReplay extends EventEmitter {
   }
 
   handleTimeSlot(block: TimeSlotBlockNewType | TimeSlotBlockOldType): void {
-    this.msElapsed = this.currentlyUsedParser.msElapsed;
+    this.emit("timeslotblock", block);
+    this.msElapsed += block.timeIncrement;
     block.actions.forEach((commandBlock: CommandDataBlockType): void => {
       this.processCommandDataBlock(commandBlock);
     });
@@ -243,7 +207,7 @@ class W3GReplay extends EventEmitter {
     try {
       const blocks = ActionBlockList.parse(block.actions);
       if (Array.isArray(blocks)) {
-        blocks.forEach((action: Action): void => {
+        blocks.forEach((action: ActionType): void => {
           this.handleActionBlock(action, currentPlayer);
         });
       }
@@ -252,10 +216,7 @@ class W3GReplay extends EventEmitter {
     }
   }
 
-  handleActionBlock(action: Action, currentPlayer: Player): void {
-    this.playerActionTracker[currentPlayer.id] =
-      this.playerActionTracker[currentPlayer.id] || [];
-    this.playerActionTracker[currentPlayer.id].push(action);
+  handleActionBlock(action: ActionType, currentPlayer: Player): void {
     switch (action.id) {
       case 0x10:
         if (
@@ -314,10 +275,8 @@ class W3GReplay extends EventEmitter {
 
   isObserver(player: Player): boolean {
     return (
-      (player.teamid === 24 &&
-        this.currentlyUsedParser.header.subheader.version >= 29) ||
-      (player.teamid === 12 &&
-        this.currentlyUsedParser.header.subheader.version < 29)
+      (player.teamid === 24 && this.info.subheader.version >= 29) ||
+      (player.teamid === 12 && this.info.subheader.version < 29)
     );
   }
 
@@ -353,7 +312,7 @@ class W3GReplay extends EventEmitter {
         return accumulator;
       }, "");
 
-    const idBase = this.meta.randomSeed + players + this.meta.gameName;
+    const idBase = this.info.metadata.randomSeed + players + this.meta.gameName;
     this.id = createHash("sha256").update(idBase).digest("hex");
   }
 
@@ -370,7 +329,7 @@ class W3GReplay extends EventEmitter {
     });
 
     if (
-      this.currentlyUsedParser.header.subheader.version >= 2 &&
+      this.info.subheader.version >= 2 &&
       Object.prototype.hasOwnProperty.call(this.teams, "24")
     ) {
       delete this.teams[24];
@@ -384,16 +343,16 @@ class W3GReplay extends EventEmitter {
 
   finalize(): ParserOutput {
     const settings = {
-      referees: !!this.meta.referees,
-      fixedTeams: !!this.meta.fixedTeams,
-      fullSharedUnitControl: !!this.meta.fullSharedUnitControl,
-      alwaysVisible: !!this.meta.alwaysVisible,
-      hideTerrain: !!this.meta.hideTerrain,
-      mapExplored: !!this.meta.mapExplored,
-      teamsTogether: !!this.meta.teamsTogether,
-      randomHero: !!this.meta.randomHero,
-      randomRaces: !!this.meta.randomRaces,
-      speed: this.meta.speed,
+      referees: this.meta.map.referees,
+      fixedTeams: this.meta.map.fixedTeams,
+      fullSharedUnitControl: this.meta.map.fullSharedUnitControl,
+      alwaysVisible: this.meta.map.alwaysVisible,
+      hideTerrain: this.meta.map.hideTerrain,
+      mapExplored: this.meta.map.mapExplored,
+      teamsTogether: this.meta.map.teamsTogether,
+      randomHero: this.meta.map.randomHero,
+      randomRaces: this.meta.map.randomRaces,
+      speed: this.meta.map.speed,
     };
 
     const root = {
@@ -404,24 +363,21 @@ class W3GReplay extends EventEmitter {
       observers: this.observers,
       players: Object.values(this.players).sort(sortPlayers),
       matchup: this.matchup,
-      creator: this.meta.creator,
+      creator: this.meta.map.creator,
       type: this.gametype,
       chat: this.chatlog,
       apm: {
         trackingInterval: this.playerActionTrackInterval,
       },
       map: {
-        path: this.meta.mapName,
-        file: convert.mapFilename(this.meta.mapName),
-        checksum: this.meta.mapChecksum,
+        path: this.meta.map.mapName,
+        file: convert.mapFilename(this.meta.map.mapName),
+        checksum: this.meta.map.mapChecksum,
       },
-      version: convert.gameVersion(
-        this.currentlyUsedParser.header.subheader.version
-      ),
-      buildNumber: this.currentlyUsedParser.header.subheader.buildNo,
-      duration: this.currentlyUsedParser.header.subheader.replayLengthMS,
-      expansion:
-        this.currentlyUsedParser.header.subheader.gameIdentifier === "PX3W",
+      version: convert.gameVersion(this.info.subheader.version),
+      buildNumber: this.info.subheader.buildNo,
+      duration: this.info.subheader.replayLengthMS,
+      expansion: this.info.subheader.gameIdentifier === "PX3W",
       settings,
       parseTime: Math.round(performance.now() - this.parseStartTime),
     };

@@ -5,43 +5,53 @@ import { Validator } from "jsonschema";
 import schema from "../../schema.json";
 
 const Parser = new W3GReplay();
-it("parses a standard 1.30.2 replay properly", () => {
-  const test = Parser.parse(path.resolve(__dirname, "standard_1302.w3g"));
+it("parses a standard 1.30.2 replay properly", async () => {
+  const test = await Parser.parseAsync(
+    path.resolve(__dirname, "standard_1302.w3g")
+  );
   expect(test.version).toBe("1.30.2+");
   expect(test.matchup).toBe("NvU");
   expect(test.players.length).toBe(2);
 });
 
-it("parses a standard 1.30.3 replay properly", () => {
-  const test = Parser.parse(path.resolve(__dirname, "standard_1303.w3g"));
+it("parses a standard 1.30.3 replay properly", async () => {
+  const test = await Parser.parseAsync(
+    path.resolve(__dirname, "standard_1303.w3g")
+  );
   expect(test.version).toBe("1.30.2+");
   expect(test.players.length).toBe(2);
 });
 
-it("parses a standard 1.30.4 replay properly", () => {
-  const test = Parser.parse(path.resolve(__dirname, "standard_1304.w3g"));
+it("parses a standard 1.30.4 replay properly", async () => {
+  const test = await Parser.parseAsync(
+    path.resolve(__dirname, "standard_1304.w3g")
+  );
   expect(test.version).toBe("1.30.2+");
   expect(test.players.length).toBe(2);
 });
 
-it("parses a standard 1.30.4 replay properly as buffer", () => {
+it("parses a standard 1.30.4 replay properly as buffer", async () => {
   const buffer: Buffer = readFileSync(
     path.resolve(__dirname, "standard_1304.w3g")
   );
-  const test = Parser.parse(buffer);
+  const test = await Parser.parseAsync(buffer);
   expect(test.version).toBe("1.30.2+");
   expect(test.players.length).toBe(2);
 });
 
-it("parses a standard 1.30.4 2on2 replay properly", () => {
-  const test = Parser.parse(path.resolve(__dirname, "standard_1304.2on2.w3g"));
+it("parses a standard 1.30.4 2on2 replay properly", async () => {
+  const test = await Parser.parseAsync(
+    path.resolve(__dirname, "standard_1304.2on2.w3g")
+  );
   expect(test.version).toBe("1.30.2+");
   expect(test.buildNumber).toBe(6061);
   expect(test.players.length).toBe(4);
 });
 
-it("parses a standard 1.30 replay properly", () => {
-  const test = Parser.parse(path.resolve(__dirname, "standard_130.w3g"));
+it("parses a standard 1.30 replay properly", async () => {
+  const test = await Parser.parseAsync(
+    path.resolve(__dirname, "standard_130.w3g")
+  );
   expect(test.version).toBe("1.30");
   expect(test.matchup).toBe("NvU");
   expect(test.type).toBe("1on1");
@@ -68,16 +78,18 @@ it("parses a standard 1.30 replay properly", () => {
   });
 });
 
-it("parsing result has the correct schema", () => {
-  const test = Parser.parse(path.resolve(__dirname, "standard_130.w3g"));
+it("parsing result has the correct schema", async () => {
+  const test = await Parser.parseAsync(
+    path.resolve(__dirname, "standard_130.w3g")
+  );
   const validatorInstance = new Validator();
   validatorInstance.validate(test, schema, { throwError: true });
 });
 
-it("resets elapsedMS instance property to 0 before parsing another replay", () => {
-  Parser.parse(path.resolve(__dirname, "standard_130.w3g"));
+it("resets elapsedMS instance property to 0 before parsing another replay", async () => {
+  await Parser.parseAsync(path.resolve(__dirname, "standard_130.w3g"));
   const msElapsed = Parser.msElapsed;
-  Parser.parse(path.resolve(__dirname, "standard_130.w3g"));
+  await Parser.parseAsync(path.resolve(__dirname, "standard_130.w3g"));
   const msElapsedTwo = Parser.msElapsed;
   expect(msElapsed).toEqual(msElapsedTwo);
 });

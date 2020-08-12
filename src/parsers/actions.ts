@@ -335,7 +335,7 @@ export type EnterBuildingSubmenuType = ReturnType<
   id: 0x67;
 };
 
-export type Action =
+export type ActionType =
   | UnitBuildingAbilityActionNoParamsType
   | UnitBuildingAbilityActionTargetPositionTargetObjectIdType
   | UnitBuildingAbilityActionTargetPositionType

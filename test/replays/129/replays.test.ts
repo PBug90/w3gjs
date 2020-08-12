@@ -2,8 +2,10 @@ import W3GReplay from "../../../src/W3GReplay";
 import path from "path";
 
 const Parser = new W3GReplay();
-it("parses a netease 1.29 replay properly", () => {
-  const test = Parser.parse(path.resolve(__dirname, "netease_129_obs.nwg"));
+it("parses a netease 1.29 replay properly", async () => {
+  const test = await Parser.parseAsync(
+    path.resolve(__dirname, "netease_129_obs.nwg")
+  );
   expect(test.version).toBe("1.29");
 
   expect(test.players[1].name).toBe("rudan");
@@ -19,8 +21,10 @@ it("parses a netease 1.29 replay properly", () => {
   });
 });
 
-it("parses a standard 1.29 replay with observers properly", () => {
-  const test = Parser.parse(path.resolve(__dirname, "standard_129_obs.w3g"));
+it("parses a standard 1.29 replay with observers properly", async () => {
+  const test = await Parser.parseAsync(
+    path.resolve(__dirname, "standard_129_obs.w3g")
+  );
 
   expect(test.version).toBe("1.29");
   expect(test.players[1].name).toBe("S.o.K.o.L");
@@ -92,8 +96,8 @@ it("parses a standard 1.29 replay with observers properly", () => {
   });
 });
 
-it("evaluates APM correctly in a team game with an early leaver", () => {
-  const test = Parser.parse(
+it("evaluates APM correctly in a team game with an early leaver", async () => {
+  const test = await Parser.parseAsync(
     path.resolve(__dirname, "standard_129_3on3_leaver.w3g")
   );
   const firstLeftMinute = Math.ceil(

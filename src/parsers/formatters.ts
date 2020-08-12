@@ -1,4 +1,5 @@
 import { Parser } from "binary-parser";
+import { Race } from "../types";
 
 type ObjectIdStringencoded = {
   type: "stringencoded";
@@ -26,25 +27,25 @@ export const objectIdFormatter = (arr: Parser.Data): ItemId => {
   return { type: "alphanumeric", value: bla };
 };
 
-export const raceFlagFormatter = (flag: Parser.Data): string | Parser.Data => {
+export const raceFlagFormatter = (flag: number): Race => {
   switch (flag) {
     case 0x01:
     case 0x41:
-      return "H";
+      return Race.Human;
     case 0x02:
     case 0x42:
-      return "O";
+      return Race.Orc;
     case 0x04:
     case 0x44:
-      return "N";
+      return Race.NightElf;
     case 0x08:
     case 0x48:
-      return "U";
+      return Race.Undead;
     case 0x20:
     case 0x60:
-      return "R";
+      return Race.Random;
   }
-  return flag;
+  return Race.Random;
 };
 
 export const chatModeFormatter = (flag: Parser.Data): string | Parser.Data => {

@@ -5,6 +5,7 @@ export enum Race {
   NightElf = "N",
   Orc = "O",
   Undead = "U",
+  Random = "R",
 }
 
 export interface ItemID {
@@ -15,8 +16,8 @@ export interface ItemID {
 export interface ParserOutput {
   id: string;
   gamename: string;
-  randomseed: string;
-  startSpots: string;
+  randomseed: number;
+  startSpots: number;
   observers: string[];
   players: Player[];
   matchup: string;

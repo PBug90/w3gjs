@@ -114,6 +114,22 @@ const PlayerSlotRecord = new Parser()
   .int8("aiStrength")
   .int8("handicapFlag");
 
+const ExtraPlayerListEntry = new Parser()
+  .int8("preVars1")
+  .int8("recordLength")
+  .saveOffset("recordParseStartOffset")
+  .int8("unknown1")
+  .int8("playerId")
+  .int8("unknown2")
+  .int8("nameLength")
+  .string("name", { length: "nameLength" })
+  .skip(1)
+  .int8("clanLength")
+  .string("clan", { length: "clanLength" })
+  .skip(1)
+  .int8("extraLength")
+  .buffer("extra", { length: "extraLength" });
+
 const GameMetaData = new Parser()
   .skip(5)
   .nest("player", { type: HostRecord })
@@ -124,16 +140,13 @@ const GameMetaData = new Parser()
   .string("gameType", { length: 4, encoding: "hex" })
   .string("languageId", { length: 4, encoding: "hex" })
   .array("playerList", {
-    type: new Parser()
-      .int8("hasRecord")
-      // @ts-ignore
-      .choice(null, {
-        tag: "hasRecord",
-        choices: {
-          22: PlayerRecordInList,
-          25: new Parser().skip(-1),
-        },
-      }),
+    type: new Parser().int8("hasRecord").choice("PlayerListEntry", {
+      tag: "hasRecord",
+      choices: {
+        22: PlayerRecordInList,
+        25: new Parser().skip(-1),
+      },
+    }),
     readUntil(item, buffer) {
       // @ts-ignore
       const next = buffer.readInt8();
@@ -141,38 +154,24 @@ const GameMetaData = new Parser()
     },
   })
   .int8("checkGameStartRecord")
-  .choice("", {
+  .choice("optionalExtraReforgedData", {
     tag: "checkGameStartRecord",
     defaultChoice: new Parser()
       .skip(-1)
       .buffer("test", { length: 6 })
       .buffer("test2", { length: 6 })
       .array("extraPlayerList", {
-        type: new Parser()
-          .int8("preVars1")
-          .int8("recordLength")
-          // @ts-ignore
-          .saveOffset("recordParseStartOffset")
-          .int8("unknown1")
-          .int8("playerId")
-          .int8("unknown2")
-          .int8("nameLength")
-          .string("name", { length: "nameLength" })
-          .skip(1)
-          .int8("clanLength")
-          .string("clan", { length: "clanLength" })
-          .skip(1)
-          .int8("extraLength")
-          .buffer("extra", { length: "extraLength" })
-          .saveOffset("recordParseEndOffset")
-          .seek(function () {
+        type: ExtraPlayerListEntry.saveOffset("recordParseEndOffset").seek(
+          //@ts-ignore
+          function () {
             return (
               // @ts-ignore
               this.recordLength -
               // @ts-ignore
               (this.recordParseEndOffset - this.recordParseStartOffset)
             );
-          }),
+          }
+        ),
         readUntil(item, buffer) {
           // @ts-ignore
           this.attempts = this.attempts === undefined ? 0 : this.attempts + 1;
@@ -211,7 +210,7 @@ const EncodedMapMetaString = new Parser()
   .bit2("empty")
   .bit2("fixedTeams")
   .bit5("empty")
-  .bit1("fullSharedUnitControl")
+  .bit1("fullSharedUnitControl") //17.bit
   .bit1("randomHero")
   .bit1("randomRaces")
   .bit3("empty")
@@ -222,7 +221,9 @@ const EncodedMapMetaString = new Parser()
   .string("creator", { zeroTerminated: true });
 
 export type ReplayHeaderType = ReturnType<typeof ReplayHeader.parse>;
-export type GameMetaDataDecodedType = ReturnType<typeof GameMetaData.parse>;
+export type GameMetaDataDecodedType = ReturnType<typeof GameMetaData.parse> & {
+  optionalExtraReforgedData?: { extraPlayerList: ExtraPlayerListEntryType[] };
+};
 export type SlotRecordType = ReturnType<typeof PlayerSlotRecord.parse>;
 
 export type DataBlocksReforgedType = ReturnType<
@@ -231,3 +232,7 @@ export type DataBlocksReforgedType = ReturnType<
 export type DataBlocksType = ReturnType<typeof DataBlocksVanilla.parse>;
 
 export { ReplayHeader, EncodedMapMetaString, GameMetaData, DataBlock };
+
+export type ExtraPlayerListEntryType = ReturnType<
+  typeof ExtraPlayerListEntry.parse
+>;

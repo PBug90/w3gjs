@@ -129,7 +129,6 @@ class Player {
     this._lastRetrainingTime = 0;
     this.currentTimePlayed = 0;
     this.apm = 0;
-    return this;
   }
 
   newActionTrackingSegment(timeTrackingInterval = 60000): void {
