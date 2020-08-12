@@ -1,5 +1,5 @@
 import Player from "./Player";
-
+import { ChatMessage } from "./W3GReplay";
 export enum Race {
   Human = "H",
   NightElf = "N",
@@ -10,7 +10,7 @@ export enum Race {
 
 export interface ItemID {
   type: "alphanumeric" | "stringencoded";
-  value: any;
+  value: string | number[];
 }
 
 export interface ParserOutput {
@@ -23,7 +23,7 @@ export interface ParserOutput {
   matchup: string;
   creator: string;
   type: string;
-  chat: any[];
+  chat: ChatMessage[];
   apm: {
     trackingInterval: number;
   };

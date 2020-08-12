@@ -216,22 +216,22 @@ class Player {
   handle0x10(itemid: ItemID, gametime: number): void {
     switch (itemid.value[0]) {
       case "A":
-        this.handleHeroSkill(itemid.value, gametime);
+        this.handleHeroSkill(itemid.value as string, gametime);
         break;
       case "R":
-        this.handleStringencodedItemID(itemid.value, gametime);
+        this.handleStringencodedItemID(itemid.value as string, gametime);
         break;
       case "u":
       case "e":
       case "h":
       case "o":
         if (!this.raceDetected) {
-          this.detectRaceByActionId(itemid.value);
+          this.detectRaceByActionId(itemid.value as string);
         }
-        this.handleStringencodedItemID(itemid.value, gametime);
+        this.handleStringencodedItemID(itemid.value as string, gametime);
         break;
       default:
-        this.handleStringencodedItemID(itemid.value, gametime);
+        this.handleStringencodedItemID(itemid.value as string, gametime);
     }
 
     itemid.value[0] !== "0"
@@ -250,14 +250,14 @@ class Player {
         this.actions.ability = this.actions.ability + 1 || 1;
       }
     } else {
-      this.handleStringencodedItemID(itemid.value, gametime);
+      this.handleStringencodedItemID(itemid.value as string, gametime);
     }
   }
 
   handle0x12(itemid: ItemID): void {
-    if (isRightclickAction(itemid.value)) {
+    if (isRightclickAction(itemid.value as number[])) {
       this.actions.rightclick = this.actions.rightclick + 1 || 1;
-    } else if (isBasicAction(itemid.value)) {
+    } else if (isBasicAction(itemid.value as number[])) {
       this.actions.basic = this.actions.basic + 1 || 1;
     } else {
       this.actions.ability = this.actions.ability + 1 || 1;
@@ -271,9 +271,9 @@ class Player {
   }
 
   handle0x14(itemid: ItemID): void {
-    if (isRightclickAction(itemid.value)) {
+    if (isRightclickAction(itemid.value as number[])) {
       this.actions.rightclick = this.actions.rightclick + 1 || 1;
-    } else if (isBasicAction(itemid.value)) {
+    } else if (isBasicAction(itemid.value as number[])) {
       this.actions.basic = this.actions.basic + 1 || 1;
     } else {
       this.actions.ability = this.actions.ability + 1 || 1;

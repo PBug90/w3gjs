@@ -34,7 +34,7 @@ enum ChatMessageMode {
   Team = "Team",
 }
 
-type ChatMessage = {
+export type ChatMessage = {
   playerName: string;
   playerId: number;
   mode: ChatMessageMode;

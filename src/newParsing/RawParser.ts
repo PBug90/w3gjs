@@ -1,5 +1,4 @@
 import StatefulBufferParser from "./StatefulBufferParser";
-import fs from "fs";
 export type Header = {
   compressedSize: number;
   headerVersion: string;

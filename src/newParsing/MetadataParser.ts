@@ -76,7 +76,7 @@ export default class MetadataParser extends StatefulBufferParser {
     const playerRecords = [];
     playerRecords.push(this.parseHostRecord());
     const gameName = this.readZeroTermString("utf-8");
-    const privateString = this.readZeroTermString("utf-8");
+    this.readZeroTermString("utf-8"); // privateString
     const encodedString = this.readZeroTermString("hex");
     const mapMetadata = this.parseEncodedMapMetaString(
       this.decodeGameMetaString(encodedString)
