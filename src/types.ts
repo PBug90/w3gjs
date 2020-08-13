@@ -1,5 +1,6 @@
 import Player from "./Player";
 import { ChatMessage } from "./W3GReplay";
+
 export enum Race {
   Human = "H",
   NightElf = "N",

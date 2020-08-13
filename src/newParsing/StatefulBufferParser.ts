@@ -77,4 +77,10 @@ export default class StatefulBufferParser {
     this.offset += 1;
     return val;
   }
+
+  public readFloatLE(): number {
+    const val = this.buffer.readFloatLE(this.offset);
+    this.offset += 4;
+    return val;
+  }
 }
