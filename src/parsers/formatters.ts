@@ -1,4 +1,3 @@
-import { Parser } from "binary-parser";
 import { Race } from "../types";
 
 type ObjectIdStringencoded = {
@@ -13,18 +12,17 @@ type ObjectIdAlphanumeric = {
 
 export type ItemId = ObjectIdAlphanumeric | ObjectIdStringencoded;
 
-export const objectIdFormatter = (arr: Parser.Data): ItemId => {
-  const bla = arr as number[];
-  if (bla[3] >= 0x41 && bla[3] <= 0x7a) {
+export const objectIdFormatter = (arr: number[]): ItemId => {
+  if (arr[3] >= 0x41 && arr[3] <= 0x7a) {
     return {
       type: "stringencoded",
-      value: bla
+      value: arr
         .map((e) => String.fromCharCode(e as number))
         .reverse()
         .join(""),
     };
   }
-  return { type: "alphanumeric", value: bla };
+  return { type: "alphanumeric", value: arr };
 };
 
 export const raceFlagFormatter = (flag: number): Race => {
@@ -48,7 +46,7 @@ export const raceFlagFormatter = (flag: number): Race => {
   return Race.Random;
 };
 
-export const chatModeFormatter = (flag: Parser.Data): string | Parser.Data => {
+export const chatModeFormatter = (flag: number): string => {
   switch (flag) {
     case 0x00:
       return "ALL";
@@ -62,5 +60,5 @@ export const chatModeFormatter = (flag: Parser.Data): string | Parser.Data => {
     return `PRIVATE${flag}`;
   }
 
-  return flag;
+  return "UNKNOWN";
 };
