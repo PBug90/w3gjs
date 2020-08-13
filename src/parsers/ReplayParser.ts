@@ -1,9 +1,7 @@
 import RawParser, { Header, SubHeader } from "./RawParser";
 import MetadataParser, { ReplayMetadata } from "./MetadataParser";
-import GameDataParser from "./GameDataParser";
+import GameDataParser, { GameDataBlock } from "./GameDataParser";
 import { EventEmitter } from "events";
-import { GameDataBlockType, TimeSlotBlockNewType } from "../parsers/gamedata";
-import { CommandDataBlockType, ActionType } from "../parsers/actions";
 
 export type ParserOutput = {
   header: Header;
@@ -14,22 +12,7 @@ export type ParserOutput = {
 export type BasicReplayInformation = ParserOutput;
 
 export default interface ReplayParser {
-  on(
-    event: "gamedatablock",
-    listener: (block: GameDataBlockType) => void
-  ): this;
-  on(
-    event: "timeslotblock",
-    listener: (block: TimeSlotBlockNewType) => void
-  ): this;
-  on(
-    event: "commandblock",
-    listener: (block: CommandDataBlockType) => void
-  ): this;
-  on(
-    event: "actionblock",
-    listener: (block: ActionType, playerId: number) => void
-  ): this;
+  on(event: "gamedatablock", listener: (block: GameDataBlock) => void): this;
   on(
     event: "basic_replay_information",
     listener: (data: BasicReplayInformation) => void
@@ -43,20 +26,8 @@ export default class ReplayParser extends EventEmitter {
 
   constructor() {
     super();
-    this.gameDataParser.on("gamedatablock", (block: GameDataBlockType) =>
+    this.gameDataParser.on("gamedatablock", (block: GameDataBlock) =>
       this.emit("gamedatablock", block)
-    );
-    this.gameDataParser.on("timeslotblock", (block: TimeSlotBlockNewType) =>
-      this.emit("timeslotblock", block)
-    );
-    this.gameDataParser.on("commandblock", (block: CommandDataBlockType) =>
-      this.emit("commandblock", block)
-    );
-
-    this.gameDataParser.on(
-      "actionblock",
-      (block: ActionType, playerId: number) =>
-        this.emit("actionblock", block, playerId)
     );
   }
 

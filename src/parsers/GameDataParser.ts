@@ -1,31 +1,36 @@
-import {
-  GameDataParser,
-  GameDataBlockType,
-  TimeSlotBlockNewType,
-} from "../parsers/gamedata";
-import {
-  CommandDataBlockType,
-  ActionBlockList,
-  ActionType,
-} from "../parsers/actions";
 import { EventEmitter } from "events";
 import StatefulBufferParserMixin from "./StatefulBufferParserMixin";
 import ActionParser from "./ActionParser";
+import { Action } from "./ActionParser";
 
-type LeaveGameBlock = {
+export type LeaveGameBlock = {
+  id: 0x17;
   playerId: number;
   reason: string;
   result: string;
 };
 
-type TimeslotBlock = {
+export type TimeslotBlock = {
+  id: 0x1f | 0x1e;
   timeIncrement: number;
+  commandBlocks: CommandBlock[];
 };
 
-type PlayerChatMessageBlock = {
+export type CommandBlock = {
+  playerId: number;
+  actions: Action[];
+};
+
+export type PlayerChatMessageBlock = {
+  id: 0x20;
   playerId: number;
   message: string;
 };
+
+export type GameDataBlock =
+  | LeaveGameBlock
+  | TimeslotBlock
+  | PlayerChatMessageBlock;
 
 export default class GameDataParserc extends StatefulBufferParserMixin(
   EventEmitter
@@ -37,20 +42,20 @@ export default class GameDataParserc extends StatefulBufferParserMixin(
   }
 
   async parse(data: Buffer): Promise<void> {
-    const result = GameDataParser.parse(data);
     this.initialize(data);
-    this.parseGameDataBlocks(result.blocks as GameDataBlockType[]);
     while (this.offset < data.length) {
-      this.parseBlock();
+      const block = this.parseBlock();
+      if (block !== null) {
+        this.emit("gamedatablock", block);
+      }
     }
   }
 
-  private parseBlock() {
+  private parseBlock(): GameDataBlock | null {
     const id = this.readUInt8();
     switch (id) {
       case 0x17:
-        this.parseLeaveGameBlock();
-        break;
+        return this.parseLeaveGameBlock();
       case 0x1a:
         this.skip(4);
         break;
@@ -61,14 +66,11 @@ export default class GameDataParserc extends StatefulBufferParserMixin(
         this.skip(4);
         break;
       case 0x1f:
-        this.parseTimeslotBlock();
-        break;
+        return this.parseTimeslotBlock();
       case 0x1e:
-        this.parseTimeslotBlock();
-        break;
+        return this.parseTimeslotBlock();
       case 0x20:
-        this.parseChatMessage();
-        break;
+        return this.parseChatMessage();
       case 0x22:
         this.parseUnknown0x22();
         break;
@@ -79,6 +81,7 @@ export default class GameDataParserc extends StatefulBufferParserMixin(
         this.skip(8);
         break;
     }
+    return null;
   }
 
   private parseUnknown0x22(): void {
@@ -95,6 +98,7 @@ export default class GameDataParserc extends StatefulBufferParserMixin(
     }
     const message = this.readZeroTermString("utf-8");
     return {
+      id: 0x20,
       playerId,
       message,
     };
@@ -106,6 +110,7 @@ export default class GameDataParserc extends StatefulBufferParserMixin(
     const result = this.readStringOfLength(4, "hex");
     this.skip(4);
     return {
+      id: 0x17,
       reason,
       playerId,
       result,
@@ -116,53 +121,19 @@ export default class GameDataParserc extends StatefulBufferParserMixin(
     const byteCount = this.readUInt16LE();
     const timeIncrement = this.readUInt16LE();
     const actionBlockLastOffset = this.offset + byteCount - 2;
+    const commandBlocks: CommandBlock[] = [];
     while (this.offset < actionBlockLastOffset) {
-      const playerId = this.readUInt8();
+      const commandBlock: Partial<CommandBlock> = {};
+      commandBlock.playerId = this.readUInt8();
       const actionBlockLength = this.readUInt16LE();
       const actions = this.buffer.slice(
         this.offset,
         this.offset + actionBlockLength
       );
-      this.actionParser.parse(actions);
+      commandBlock.actions = this.actionParser.parse(actions);
       this.skip(actionBlockLength);
+      commandBlocks.push(commandBlock as CommandBlock);
     }
-    return { timeIncrement };
-  }
-
-  private parseGameDataBlocks(blocks: GameDataBlockType[]): void {
-    blocks.forEach((block: GameDataBlockType) => {
-      this.emit("gamedatablock", block);
-      this.processGameDataBlock(block);
-    });
-  }
-
-  protected processGameDataBlock(block: GameDataBlockType): void {
-    switch (block.id) {
-      case 31:
-      case 30:
-        this.emit("timeslotblock", block as TimeSlotBlockNewType);
-        this.processTimeslotBlock(block as TimeSlotBlockNewType);
-        break;
-    }
-  }
-
-  protected processTimeslotBlock(timeSlotBlock: TimeSlotBlockNewType): void {
-    timeSlotBlock.actions.forEach((block: CommandDataBlockType): void => {
-      this.processCommandDataBlock(block);
-      this.emit("commandblock", block);
-    });
-  }
-
-  private processCommandDataBlock(actionBlock: CommandDataBlockType): void {
-    try {
-      const blocks = ActionBlockList.parse(actionBlock.actions);
-      if (Array.isArray(blocks)) {
-        blocks.forEach((action: ActionType): void => {
-          this.emit("actionblock", action, actionBlock.playerId);
-        });
-      }
-    } catch (ex) {
-      console.error(ex);
-    }
+    return { id: 0x1f, timeIncrement, commandBlocks };
   }
 }

@@ -1,9 +1,3 @@
-import {
-  ActionBlockList,
-  ActionType,
-  W3MMDActionType,
-  CommandDataBlockType,
-} from "./parsers/actions";
 import Player from "./Player";
 import convert from "./convert";
 import { objectIdFormatter, raceFlagFormatter } from "./parsers/formatters";
@@ -12,19 +6,20 @@ import { sortPlayers } from "./sort";
 import { EventEmitter } from "events";
 import { createHash } from "crypto";
 import { performance } from "perf_hooks";
-import {
-  PlayerChatMessageBlockType,
-  GameDataBlockType,
-  TimeSlotBlockNewType,
-  TimeSlotBlockOldType,
-  LeaveGameBlockType,
-} from "./parsers/gamedata";
 import ReplayParser, {
   ParserOutput as ReplayParserOutput,
   BasicReplayInformation,
-} from "./newParsing/ReplayParser";
+} from "./parsers/ReplayParser";
 import { readFile } from "fs";
 import { promisify } from "util";
+import {
+  GameDataBlock,
+  PlayerChatMessageBlock,
+  TimeslotBlock,
+  CommandBlock,
+  LeaveGameBlock,
+} from "./parsers/GameDataParser";
+import { Action, W3MMDAction } from "./parsers/ActionParser";
 
 const readFilePromise = promisify(readFile);
 
@@ -52,8 +47,8 @@ class W3GReplay extends EventEmitter {
   observers: string[];
   chatlog: ChatMessage[];
   id = "";
-  leaveEvents: LeaveGameBlockType[];
-  w3mmd: W3MMDActionType[];
+  leaveEvents: LeaveGameBlock[];
+  w3mmd: W3MMDAction[];
   slots: ReplayParserOutput["metadata"]["slotRecords"];
   teams: Team;
   meta: ReplayParserOutput["metadata"];
@@ -76,20 +71,15 @@ class W3GReplay extends EventEmitter {
 
     this.asyncParser.on(
       "basic_replay_information",
-      (information: BasicReplayInformation) =>
-        this.handleBasicReplayInformation(information)
+      (information: BasicReplayInformation) => {
+        this.handleBasicReplayInformation(information);
+        this.emit("basic_replay_inforamtion", information);
+      }
     );
-    this.asyncParser.on("gamedatablock", (block: GameDataBlockType) =>
-      this.processGameDataBlock(block)
-    );
-    this.asyncParser.on("gamedatablock", (block: GameDataBlockType) =>
-      this.emit("gamedatablock", block)
-    );
-    this.asyncParser.on(
-      "timeslotblock",
-      (block: TimeSlotBlockNewType | TimeSlotBlockOldType) =>
-        this.handleTimeSlot(block)
-    );
+    this.asyncParser.on("gamedatablock", (block) => {
+      this.emit("gamedatablock", block);
+      this.processGameDataBlock(block);
+    });
   }
 
   async parseAsync($buffer: string | Buffer): Promise<ParserOutput> {
@@ -159,7 +149,7 @@ class W3GReplay extends EventEmitter {
     });
   }
 
-  processGameDataBlock(block: GameDataBlockType): void {
+  processGameDataBlock(block: GameDataBlock): void {
     switch (block.id) {
       case 31:
       case 30:
@@ -171,6 +161,7 @@ class W3GReplay extends EventEmitter {
           );
           this.timeSegmentTracker = 0;
         }
+        this.handleTimeSlot(block);
         break;
       case 0x20:
         this.handleChatMessage(block, this.totalTimeTracker);
@@ -181,7 +172,7 @@ class W3GReplay extends EventEmitter {
     }
   }
 
-  handleChatMessage(block: PlayerChatMessageBlockType, timeMS: number): void {
+  handleChatMessage(block: PlayerChatMessageBlock, timeMS: number): void {
     const message: ChatMessage = {
       playerName: this.players[block.playerId].name,
       playerId: block.playerId,
@@ -192,31 +183,27 @@ class W3GReplay extends EventEmitter {
     this.chatlog.push(message);
   }
 
-  handleTimeSlot(block: TimeSlotBlockNewType | TimeSlotBlockOldType): void {
-    this.emit("timeslotblock", block);
+  handleTimeSlot(block: TimeslotBlock): void {
     this.msElapsed += block.timeIncrement;
-    block.actions.forEach((commandBlock: CommandDataBlockType): void => {
+    block.commandBlocks.forEach((commandBlock): void => {
       this.processCommandDataBlock(commandBlock);
     });
   }
 
-  processCommandDataBlock(block: CommandDataBlockType): void {
+  processCommandDataBlock(block: CommandBlock): void {
     const currentPlayer = this.players[block.playerId];
     currentPlayer.currentTimePlayed = this.totalTimeTracker;
     currentPlayer._lastActionWasDeselect = false;
     try {
-      const blocks = ActionBlockList.parse(block.actions);
-      if (Array.isArray(blocks)) {
-        blocks.forEach((action: ActionType): void => {
-          this.handleActionBlock(action, currentPlayer);
-        });
-      }
+      block.actions.forEach((action: Action): void => {
+        this.handleActionBlock(action, currentPlayer);
+      });
     } catch (ex) {
       console.error(ex);
     }
   }
 
-  handleActionBlock(action: ActionType, currentPlayer: Player): void {
+  handleActionBlock(action: Action, currentPlayer: Player): void {
     switch (action.id) {
       case 0x10:
         if (

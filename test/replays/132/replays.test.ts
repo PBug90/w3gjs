@@ -1,5 +1,6 @@
 import W3GReplay from "../../../src/W3GReplay";
 import path from "path";
+import { GameDataBlock } from "../../../src/parsers/GameDataParser";
 const Parser = new W3GReplay();
 it("parses a reforged replay properly #1", async () => {
   const test = await Parser.parseAsync(
@@ -66,8 +67,10 @@ it("parse is a promise that resolves with parser output", async () => {
   const Parser = new W3GReplay();
   const timeslotBlocks = [];
   let completedAsyncDummyTask = false;
-  Parser.on("timeslotblock", (TimeSlotBlock) => {
-    timeslotBlocks.push(TimeSlotBlock);
+  Parser.on("gamedatablock", (block: GameDataBlock) => {
+    if (block.id === 0x1f) {
+      timeslotBlocks.push(block);
+    }
   });
   setTimeout(() => {
     completedAsyncDummyTask = true;
