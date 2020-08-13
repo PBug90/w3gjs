@@ -59,32 +59,30 @@ class W3GReplay extends EventEmitter {
   gametype = "";
   matchup = "";
   parseStartTime: number;
-  asyncParser: ReplayParser;
-  currentlyUsedParser: ReplayParser;
+  parser: ReplayParser;
   filename: string;
   buffer: Buffer;
   msElapsed = 0;
 
   constructor() {
     super();
-    this.asyncParser = new ReplayParser();
+    this.parser = new ReplayParser();
 
-    this.asyncParser.on(
+    this.parser.on(
       "basic_replay_information",
       (information: BasicReplayInformation) => {
         this.handleBasicReplayInformation(information);
         this.emit("basic_replay_inforamtion", information);
       }
     );
-    this.asyncParser.on("gamedatablock", (block) => {
+    this.parser.on("gamedatablock", (block) => {
       this.emit("gamedatablock", block);
       this.processGameDataBlock(block);
     });
   }
 
-  async parseAsync($buffer: string | Buffer): Promise<ParserOutput> {
+  async parse($buffer: string | Buffer): Promise<ParserOutput> {
     this.msElapsed = 0;
-    this.currentlyUsedParser = this.asyncParser;
     this.parseStartTime = performance.now();
     this.buffer = Buffer.from("");
     this.filename = "";
@@ -99,7 +97,7 @@ class W3GReplay extends EventEmitter {
     if (typeof $buffer === "string") {
       $buffer = await readFilePromise($buffer);
     }
-    await this.asyncParser.parse($buffer);
+    await this.parser.parse($buffer);
 
     this.generateID();
     this.determineMatchup();
@@ -194,13 +192,10 @@ class W3GReplay extends EventEmitter {
     const currentPlayer = this.players[block.playerId];
     currentPlayer.currentTimePlayed = this.totalTimeTracker;
     currentPlayer._lastActionWasDeselect = false;
-    try {
-      block.actions.forEach((action: Action): void => {
-        this.handleActionBlock(action, currentPlayer);
-      });
-    } catch (ex) {
-      console.error(ex);
-    }
+
+    block.actions.forEach((action: Action): void => {
+      this.handleActionBlock(action, currentPlayer);
+    });
   }
 
   handleActionBlock(action: Action, currentPlayer: Player): void {

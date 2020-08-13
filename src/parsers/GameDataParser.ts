@@ -1,5 +1,5 @@
 import { EventEmitter } from "events";
-import StatefulBufferParserMixin from "./StatefulBufferParserMixin";
+import StatefulBufferParser from "./StatefulBufferParser";
 import ActionParser from "./ActionParser";
 import { Action } from "./ActionParser";
 
@@ -32,18 +32,18 @@ export type GameDataBlock =
   | TimeslotBlock
   | PlayerChatMessageBlock;
 
-export default class GameDataParserc extends StatefulBufferParserMixin(
-  EventEmitter
-) {
+export default class GameDataParserc extends EventEmitter {
   private actionParser: ActionParser;
+  private parser: StatefulBufferParser;
   constructor() {
     super();
     this.actionParser = new ActionParser();
+    this.parser = new StatefulBufferParser();
   }
 
   async parse(data: Buffer): Promise<void> {
-    this.initialize(data);
-    while (this.offset < data.length) {
+    this.parser.initialize(data);
+    while (this.parser.offset < data.length) {
       const block = this.parseBlock();
       if (block !== null) {
         this.emit("gamedatablock", block);
@@ -52,18 +52,18 @@ export default class GameDataParserc extends StatefulBufferParserMixin(
   }
 
   private parseBlock(): GameDataBlock | null {
-    const id = this.readUInt8();
+    const id = this.parser.readUInt8();
     switch (id) {
       case 0x17:
         return this.parseLeaveGameBlock();
       case 0x1a:
-        this.skip(4);
+        this.parser.skip(4);
         break;
       case 0x1b:
-        this.skip(4);
+        this.parser.skip(4);
         break;
       case 0x1c:
-        this.skip(4);
+        this.parser.skip(4);
         break;
       case 0x1f:
         return this.parseTimeslotBlock();
@@ -75,28 +75,28 @@ export default class GameDataParserc extends StatefulBufferParserMixin(
         this.parseUnknown0x22();
         break;
       case 0x23:
-        this.skip(10);
+        this.parser.skip(10);
         break;
       case 0x2f:
-        this.skip(8);
+        this.parser.skip(8);
         break;
     }
     return null;
   }
 
   private parseUnknown0x22(): void {
-    const length = this.readUInt8();
-    this.skip(length);
+    const length = this.parser.readUInt8();
+    this.parser.skip(length);
   }
 
   private parseChatMessage(): PlayerChatMessageBlock {
-    const playerId = this.readUInt8();
-    const byteCount = this.readUInt16LE();
-    const flags = this.readUInt8();
+    const playerId = this.parser.readUInt8();
+    const byteCount = this.parser.readUInt16LE();
+    const flags = this.parser.readUInt8();
     if (flags === 0x20) {
-      this.skip(4);
+      this.parser.skip(4);
     }
-    const message = this.readZeroTermString("utf-8");
+    const message = this.parser.readZeroTermString("utf-8");
     return {
       id: 0x20,
       playerId,
@@ -105,10 +105,10 @@ export default class GameDataParserc extends StatefulBufferParserMixin(
   }
 
   private parseLeaveGameBlock(): LeaveGameBlock {
-    const reason = this.readStringOfLength(4, "hex");
-    const playerId = this.readUInt8();
-    const result = this.readStringOfLength(4, "hex");
-    this.skip(4);
+    const reason = this.parser.readStringOfLength(4, "hex");
+    const playerId = this.parser.readUInt8();
+    const result = this.parser.readStringOfLength(4, "hex");
+    this.parser.skip(4);
     return {
       id: 0x17,
       reason,
@@ -118,20 +118,20 @@ export default class GameDataParserc extends StatefulBufferParserMixin(
   }
 
   private parseTimeslotBlock(): TimeslotBlock {
-    const byteCount = this.readUInt16LE();
-    const timeIncrement = this.readUInt16LE();
-    const actionBlockLastOffset = this.offset + byteCount - 2;
+    const byteCount = this.parser.readUInt16LE();
+    const timeIncrement = this.parser.readUInt16LE();
+    const actionBlockLastOffset = this.parser.offset + byteCount - 2;
     const commandBlocks: CommandBlock[] = [];
-    while (this.offset < actionBlockLastOffset) {
+    while (this.parser.offset < actionBlockLastOffset) {
       const commandBlock: Partial<CommandBlock> = {};
-      commandBlock.playerId = this.readUInt8();
-      const actionBlockLength = this.readUInt16LE();
-      const actions = this.buffer.slice(
-        this.offset,
-        this.offset + actionBlockLength
+      commandBlock.playerId = this.parser.readUInt8();
+      const actionBlockLength = this.parser.readUInt16LE();
+      const actions = this.parser.buffer.slice(
+        this.parser.offset,
+        this.parser.offset + actionBlockLength
       );
       commandBlock.actions = this.actionParser.parse(actions);
-      this.skip(actionBlockLength);
+      this.parser.skip(actionBlockLength);
       commandBlocks.push(commandBlock as CommandBlock);
     }
     return { id: 0x1f, timeIncrement, commandBlocks };

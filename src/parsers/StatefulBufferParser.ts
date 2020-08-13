@@ -21,10 +21,9 @@ const readStringOfLength = (
 ): string => {
   return input.slice(startAt, startAt + length).toString(encoding);
 };
-
 export default class StatefulBufferParser {
-  protected buffer: Buffer;
-  private offset = 0;
+  buffer: Buffer;
+  offset = 0;
 
   public initialize(buffer: Buffer): void {
     this.buffer = buffer;

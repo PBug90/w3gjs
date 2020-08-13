@@ -61,6 +61,7 @@ type MapMetadata = {
 };
 
 export default class MetadataParser extends StatefulBufferParser {
+  private mapmetaParser: StatefulBufferParser = new StatefulBufferParser();
   async parse(blocks: DataBlock[]): Promise<ReplayMetadata> {
     const buffs: Buffer[] = [];
     for (const block of blocks) {
@@ -159,7 +160,7 @@ export default class MetadataParser extends StatefulBufferParser {
   }
 
   private parseEncodedMapMetaString(buffer: Buffer): MapMetadata {
-    const parser = new StatefulBufferParser();
+    const parser = this.mapmetaParser;
     parser.initialize(buffer);
 
     const speed = parser.readUInt8();

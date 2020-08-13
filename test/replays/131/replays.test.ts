@@ -4,15 +4,13 @@ import path from "path";
 const Parser = new W3GReplay();
 
 it("parses a replay with action 0x7a successfully", async () => {
-  const test = await Parser.parseAsync(
-    path.resolve(__dirname, "action0x7a.w3g")
-  );
+  const test = await Parser.parse(path.resolve(__dirname, "action0x7a.w3g"));
   expect(test.version).toBe("1.31");
   expect(test.players.length).toBe(1);
 });
 
 it("parses a standard 1.30.4 1on1 tome of retraining", async () => {
-  const test = await Parser.parseAsync(
+  const test = await Parser.parse(
     path.resolve(__dirname, "standard_tomeofretraining_1.w3g")
   );
   expect(test.version).toBe("1.31");

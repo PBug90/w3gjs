@@ -29,6 +29,10 @@ export default class CustomReplayParser extends StatefulBufferParser {
   private header: Header;
   private subheader: SubHeader;
 
+  constructor() {
+    super();
+  }
+
   public async parse(input: Buffer): Promise<RawReplayData> {
     this.initialize(input);
     this.header = this.parseHeader();

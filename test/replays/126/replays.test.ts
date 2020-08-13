@@ -3,7 +3,7 @@ import path from "path";
 
 const Parser = new W3GReplay();
 it("parses a 2on2standard 1.29 replay properly", async () => {
-  const test = await Parser.parseAsync(path.resolve(__dirname, "999.w3g"));
+  const test = await Parser.parse(path.resolve(__dirname, "999.w3g"));
   expect(test.version).toBe("1.26");
   expect(test.players[0].id).toBe(2);
   expect(test.players[0].teamid).toBe(0);
@@ -24,9 +24,7 @@ it("parses a 2on2standard 1.29 replay properly", async () => {
 });
 
 it("parses a standard 1.26 replay properly", async () => {
-  const test = await Parser.parseAsync(
-    path.resolve(__dirname, "standard_126.w3g")
-  );
+  const test = await Parser.parse(path.resolve(__dirname, "standard_126.w3g"));
   expect(test.version).toBe("1.26");
   expect(test.observers.length).toBe(8);
   expect(test.players[1].name).toBe("Happy_");
