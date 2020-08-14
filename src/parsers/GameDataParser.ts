@@ -35,7 +35,7 @@ export type GameDataBlock =
   | TimeslotBlock
   | PlayerChatMessageBlock;
 
-export default class GameDataParserc extends EventEmitter {
+export default class GameDataParser extends EventEmitter {
   private actionParser: ActionParser;
   private parser: StatefulBufferParser;
   constructor() {
@@ -51,7 +51,7 @@ export default class GameDataParserc extends EventEmitter {
       if (block !== null) {
         this.emit("gamedatablock", block);
       }
-      //await setImmediatePromise();
+      await setImmediatePromise();
     }
   }
 
