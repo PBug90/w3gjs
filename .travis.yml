@@ -13,6 +13,17 @@ script:
   - npm run lint
   - npm run build
   - npm run coverage
+  - npm i -g typescript typedoc
+  - typedoc --out doc src
 
 after_script:
   - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
+
+deploy:
+  provider: pages
+  local_dir: ./doc
+  skip_cleanup: true
+  github_token: $GITHUB_TOKEN
+  keep_history: true
+  on:
+    branch: async-replay-parser

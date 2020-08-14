@@ -3,6 +3,9 @@ import StatefulBufferParser from "./StatefulBufferParser";
 import ActionParser from "./ActionParser";
 import { Action } from "./ActionParser";
 
+const setImmediatePromise = () =>
+  new Promise((resolve) => setImmediate(resolve));
+
 export type LeaveGameBlock = {
   id: 0x17;
   playerId: number;
@@ -48,6 +51,7 @@ export default class GameDataParserc extends EventEmitter {
       if (block !== null) {
         this.emit("gamedatablock", block);
       }
+      //await setImmediatePromise();
     }
   }
 

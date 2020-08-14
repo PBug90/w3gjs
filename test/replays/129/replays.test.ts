@@ -1,4 +1,4 @@
-import W3GReplay from "../../../src/W3GReplay";
+import W3GReplay from "../../../src/";
 import path from "path";
 
 const Parser = new W3GReplay();
