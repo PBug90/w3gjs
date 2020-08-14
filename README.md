@@ -24,6 +24,7 @@ standard game mode game analysis.
 
 For detailed API documentation check out https://pbug90.github.io/w3gjs
 Please keep in mind that as of now, parallel parsing with the same W3GReplay instance is not yet supported. Instantiate multiple instances or parse replays sequentially.
+
 ### High Level API
 
 High level API is best suited to parse standard melee replays. 
@@ -43,9 +44,12 @@ const parser = new W3GReplay();
 Low level API allows you to either implement your own logic on top of the ReplayParser class by extending it or 
 to register callbacks to listen for parser events as it encounters the different kinds of blocks in a replay.
 
-In previous versions, multiple events were emitted. In version 2 there are exactly two events. basic_replay_information provides you with metadata about the replay
+In previous versions, multiple events were emitted. In version 2 there are exactly two events. 
+
+**basic_replay_information** provides you with metadata about the replay
 that was parsed from the header information. 
-The gamedatablock event provides you with all blocks that make up the actual game data, fully parsed and in correct order. You can check their "id" property to distinguish the blocks from each other. For more information, consult the auto-generated docs for properties of specific blocks.
+
+The **gamedatablock** event provides you with all blocks that make up the actual game data, fully parsed and in correct order. You can check their *id* property to distinguish the blocks from each other. For more information, consult the auto-generated docs for properties of specific blocks.
 
 ```javascript
 const ReplayParser = require('w3gjs/dist/lib/parsers/ReplayParser').default;
