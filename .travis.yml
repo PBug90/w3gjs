@@ -15,6 +15,7 @@ script:
   - npm run coverage
   - npm i -g typescript typedoc
   - typedoc --out doc src
+  - touch ./doc/.nojekyll
 
 after_script:
   - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
