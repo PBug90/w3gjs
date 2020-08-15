@@ -13,18 +13,24 @@ script:
   - npm run lint
   - npm run build
   - npm run coverage
-  - npm i -g typescript typedoc
-  - typedoc --out doc src
-  - touch ./doc/.nojekyll
 
 after_script:
   - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
 
-deploy:
-  provider: pages
-  local_dir: ./doc
-  skip_cleanup: true
-  github_token: $GITHUB_TOKEN
-  keep_history: true
-  on:
-    branch: async-replay-parser
+
+jobs:
+  include:
+    - stage: build docs
+      node_js: "12"
+      script:   
+        - npm i -g typescript typedoc
+        - typedoc --out doc src
+        - touch ./doc/.nojekyll
+      deploy:
+        provider: pages
+        local_dir: ./doc
+        skip_cleanup: true
+        github_token: $GITHUB_TOKEN
+        keep_history: true
+        on:
+          branch: async-replay-parser
