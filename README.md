@@ -22,6 +22,8 @@ standard game mode game analysis.
 
 ## Usage
 
+Check out the examples folder of this repository to find usage examples for both typescript and javascript.
+
 For detailed API documentation check out https://pbug90.github.io/w3gjs
 Please keep in mind that as of now, parallel parsing with the same W3GReplay instance is not yet supported. Instantiate multiple instances or parse replays sequentially.
 
