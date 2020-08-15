@@ -94,3 +94,10 @@ it("ignores a player entry in reforged extraPlayerList that misses in playerList
   );
   expect(test.players).toMatchSnapshot();
 });
+
+it("parses single player replay twistedmeadows.w3g", async () => {
+  const test = await Parser.parse(
+    path.resolve(__dirname, "reforged_metadata_ghostplayer.w3g")
+  );
+  expect(test.players).toMatchSnapshot();
+});
