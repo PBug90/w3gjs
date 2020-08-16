@@ -42,9 +42,45 @@
           "buildings",
           "upgrades",
           "items",
-          "heroes"
+          "heroes",
+          "resourceTransfers"
         ],
         "properties": {
+          "resourceTransfers": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "slot",
+                "gold",
+                "lumber",
+                "playerName",
+                "playerId",
+                "msElapsed"
+              ],
+              "properties": {
+                "slot": {
+                  "type": "number"
+                },
+                "gold": {
+                  "type": "number"
+                },
+                "lumber": {
+                  "type": "number"
+                },
+                "playerName": {
+                  "type": "string"
+                },
+                "playerId": {
+                  "type": "string"
+                },
+                "msElapsed": {
+                  "type": "number"
+                }
+              }
+            }
+          },
           "heroes": {
             "$id": "#/properties/players/items/properties/heroes",
             "type": "array",

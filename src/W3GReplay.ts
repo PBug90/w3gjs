@@ -19,7 +19,16 @@ import {
   CommandBlock,
   LeaveGameBlock,
 } from "./parsers/GameDataParser";
-import { Action, W3MMDAction } from "./parsers/ActionParser";
+import {
+  Action,
+  W3MMDAction,
+  TransferResourcesAction,
+} from "./parsers/ActionParser";
+
+export type TransferResourcesActionWithPlayer = {
+  playerName: string;
+  playerId: number;
+} & TransferResourcesAction;
 
 const readFilePromise = promisify(readFile);
 
@@ -63,6 +72,7 @@ class W3GReplay extends EventEmitter {
   filename: string;
   buffer: Buffer;
   msElapsed = 0;
+  slotToPlayerId = new Map<number, number>();
 
   constructor() {
     super();
@@ -91,6 +101,7 @@ class W3GReplay extends EventEmitter {
     this.leaveEvents = [];
     this.w3mmd = [];
     this.players = {};
+    this.slotToPlayerId = new Map<>();
     this.totalTimeTracker = 0;
     this.timeSegmentTracker = 0;
     this.playerActionTrackInterval = 60000;
@@ -129,8 +140,9 @@ class W3GReplay extends EventEmitter {
       });
     }
 
-    this.slots.forEach((slot) => {
+    this.slots.forEach((slot, index) => {
       if (slot.slotStatus > 1) {
+        this.slotToPlayerId.set(index, slot.playerId);
         this.teams[slot.teamId] = this.teams[slot.teamId] || [];
         this.teams[slot.teamId].push(slot.playerId);
 
@@ -168,6 +180,10 @@ class W3GReplay extends EventEmitter {
         this.leaveEvents.push(block);
         break;
     }
+  }
+
+  private getPlayerBySlotId(slotId: number) {
+    return this.slotToPlayerId.get(slotId);
   }
 
   handleChatMessage(block: PlayerChatMessageBlock, timeMS: number): void {
@@ -249,6 +265,17 @@ class W3GReplay extends EventEmitter {
       case 0x67:
         currentPlayer.handleOther(action.id);
         break;
+      case 0x51: {
+        const playerId = this.getPlayerBySlotId(action.slot);
+        if (playerId) {
+          currentPlayer.handle0x51({
+            ...action,
+            playerId,
+            playerName: this.players[playerId].name,
+          });
+        }
+        break;
+      }
       case 0x6b:
         this.w3mmd.push(action);
         break;
