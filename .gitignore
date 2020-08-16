@@ -2,7 +2,6 @@ node_modules
 .npmignore
 replays_batch/
 yarn.lock
-package-lock.json
 .nyc_output
 coverage
 yarn-error.log
@@ -10,3 +9,4 @@ dist
 .vscode
 .rpt2_cache
 playground.js
+doc

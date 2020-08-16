@@ -21,7 +21,7 @@
   ],
   "properties": {
     "buildNumber": {
-      "type":"number"
+      "type": "number"
     },
     "players": {
       "$id": "#/properties/players",
@@ -49,12 +49,11 @@
             "$id": "#/properties/players/items/properties/heroes",
             "type": "array",
             "title": "The Heroes Schema",
-
             "items": {
               "$id": "#/properties/players/items/properties/heroes/items",
               "type": "object",
               "title": "The Items Schema",
-              "additionalProperties": false,              
+              "additionalProperties": false,
               "required": [
                 "level",
                 "abilities",
@@ -86,7 +85,7 @@
                   "$id": "#/properties/players/items/properties/heroes/items/properties/retrainHistory",
                   "type": "array",
                   "title": "Tracks order of abilityies, their timestamp and tome of retraining timestamps."
-                }                                                                                                                     
+                }
               }
             }
           },
@@ -109,7 +108,7 @@
               180
             ],
             "pattern": "^(.*)$"
-          },          
+          },
           "race": {
             "$id": "#/properties/players/items/properties/race",
             "type": "string",
@@ -371,12 +370,14 @@
       "type": "integer",
       "title": "The randomseed Schema",
       "default": ""
-    },    
+    },
     "apm": {
       "$id": "#/properties/apm",
       "type": "object",
       "title": "The apm information Schema",
-      "required": ["trackingInterval"],
+      "required": [
+        "trackingInterval"
+      ],
       "properties": {
         "trackingInterval": {
           "$id": "#/properties/apm/properties/trackingInterval",
@@ -384,13 +385,13 @@
           "title": "apm tracking interval in ms"
         }
       }
-    },   
+    },
     "expansion": {
       "$id": "#/properties/expansion",
       "type": "boolean",
       "title": "The expansion Schema",
       "default": false
-    },           
+    },
     "startSpots": {
       "$id": "#/properties/startSpots",
       "type": "integer",
@@ -400,14 +401,14 @@
         4
       ],
       "pattern": "^(.*)$"
-    },       
+    },
     "duration": {
       "$id": "#/properties/duration",
       "type": "integer",
       "title": "The duration schema",
       "default": "",
       "pattern": "^(.*)$"
-    },     
+    },
     "gamename": {
       "$id": "#/properties/gamename",
       "type": "string",
@@ -639,7 +640,7 @@
         "title": "The Items Schema",
         "required": [
           "mode",
-          "player",
+          "playerName",
           "message"
         ],
         "properties": {
