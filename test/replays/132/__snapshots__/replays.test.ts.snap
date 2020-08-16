@@ -52,6 +52,7 @@ Array [
     "name": "Tallah#2192",
     "race": "H",
     "raceDetected": "H",
+    "resourceTransfers": Array [],
     "teamid": 0,
     "units": Object {
       "order": Array [],
@@ -112,6 +113,7 @@ Array [
     "name": "RaNgeR#2873",
     "race": "H",
     "raceDetected": "H",
+    "resourceTransfers": Array [],
     "teamid": 0,
     "units": Object {
       "order": Array [],
@@ -172,6 +174,7 @@ Array [
     "name": "Banjo#12494",
     "race": "H",
     "raceDetected": "H",
+    "resourceTransfers": Array [],
     "teamid": 0,
     "units": Object {
       "order": Array [],
@@ -232,6 +235,7 @@ Array [
     "name": "TrencH#11363",
     "race": "H",
     "raceDetected": "H",
+    "resourceTransfers": Array [],
     "teamid": 0,
     "units": Object {
       "order": Array [],
@@ -292,6 +296,7 @@ Array [
     "name": "second536#1404",
     "race": "H",
     "raceDetected": "H",
+    "resourceTransfers": Array [],
     "teamid": 0,
     "units": Object {
       "order": Array [],
@@ -352,6 +357,7 @@ Array [
     "name": "Gravedigger#11445",
     "race": "H",
     "raceDetected": "H",
+    "resourceTransfers": Array [],
     "teamid": 1,
     "units": Object {
       "order": Array [],
@@ -412,6 +418,7 @@ Array [
     "name": "Niko#25549",
     "race": "H",
     "raceDetected": "H",
+    "resourceTransfers": Array [],
     "teamid": 1,
     "units": Object {
       "order": Array [],
@@ -472,6 +479,7 @@ Array [
     "name": "Enclop#21668",
     "race": "H",
     "raceDetected": "H",
+    "resourceTransfers": Array [],
     "teamid": 1,
     "units": Object {
       "order": Array [],
@@ -532,6 +540,7 @@ Array [
     "name": "Ziggs#11403",
     "race": "H",
     "raceDetected": "H",
+    "resourceTransfers": Array [],
     "teamid": 1,
     "units": Object {
       "order": Array [],
@@ -592,6 +601,7 @@ Array [
     "name": "BunsInHotDog#1757",
     "race": "H",
     "raceDetected": "H",
+    "resourceTransfers": Array [],
     "teamid": 1,
     "units": Object {
       "order": Array [],
@@ -657,6 +667,7 @@ Array [
     "name": "Tallah#2192",
     "race": "H",
     "raceDetected": "H",
+    "resourceTransfers": Array [],
     "teamid": 0,
     "units": Object {
       "order": Array [],
@@ -717,6 +728,7 @@ Array [
     "name": "RaNgeR#2873",
     "race": "H",
     "raceDetected": "H",
+    "resourceTransfers": Array [],
     "teamid": 0,
     "units": Object {
       "order": Array [],
@@ -777,6 +789,7 @@ Array [
     "name": "Banjo#12494",
     "race": "H",
     "raceDetected": "H",
+    "resourceTransfers": Array [],
     "teamid": 0,
     "units": Object {
       "order": Array [],
@@ -837,6 +850,7 @@ Array [
     "name": "TrencH#11363",
     "race": "H",
     "raceDetected": "H",
+    "resourceTransfers": Array [],
     "teamid": 0,
     "units": Object {
       "order": Array [],
@@ -897,6 +911,7 @@ Array [
     "name": "second536#1404",
     "race": "H",
     "raceDetected": "H",
+    "resourceTransfers": Array [],
     "teamid": 0,
     "units": Object {
       "order": Array [],
@@ -957,6 +972,7 @@ Array [
     "name": "Gravedigger#11445",
     "race": "H",
     "raceDetected": "H",
+    "resourceTransfers": Array [],
     "teamid": 1,
     "units": Object {
       "order": Array [],
@@ -1017,6 +1033,7 @@ Array [
     "name": "Niko#25549",
     "race": "H",
     "raceDetected": "H",
+    "resourceTransfers": Array [],
     "teamid": 1,
     "units": Object {
       "order": Array [],
@@ -1077,6 +1094,7 @@ Array [
     "name": "Enclop#21668",
     "race": "H",
     "raceDetected": "H",
+    "resourceTransfers": Array [],
     "teamid": 1,
     "units": Object {
       "order": Array [],
@@ -1137,6 +1155,7 @@ Array [
     "name": "Ziggs#11403",
     "race": "H",
     "raceDetected": "H",
+    "resourceTransfers": Array [],
     "teamid": 1,
     "units": Object {
       "order": Array [],
@@ -1197,6 +1216,7 @@ Array [
     "name": "BunsInHotDog#1757",
     "race": "H",
     "raceDetected": "H",
+    "resourceTransfers": Array [],
     "teamid": 1,
     "units": Object {
       "order": Array [],

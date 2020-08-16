@@ -28,7 +28,7 @@ import {
 export type TransferResourcesActionWithPlayer = {
   playerName: string;
   playerId: number;
-} & TransferResourcesAction;
+} & Omit<TransferResourcesAction, "id">;
 
 const readFilePromise = promisify(readFile);
 
@@ -101,7 +101,7 @@ class W3GReplay extends EventEmitter {
     this.leaveEvents = [];
     this.w3mmd = [];
     this.players = {};
-    this.slotToPlayerId = new Map<>();
+    this.slotToPlayerId = new Map();
     this.totalTimeTracker = 0;
     this.timeSegmentTracker = 0;
     this.playerActionTrackInterval = 60000;
@@ -267,6 +267,7 @@ class W3GReplay extends EventEmitter {
         break;
       case 0x51: {
         const playerId = this.getPlayerBySlotId(action.slot);
+        delete action.id;
         if (playerId) {
           currentPlayer.handle0x51({
             ...action,
