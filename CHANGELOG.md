@@ -2,6 +2,85 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="2.0.0"></a>
+# [2.0.0](https://github.com/PBug90/w3gjs/compare/v1.7.2...v2.0.0) (2020-08-16)
+
+
+### Features
+
+* version 2.0 with new parser and async interface ([4eedbff](https://github.com/PBug90/w3gjs/commit/4eedbff))
+
+
+### BREAKING CHANGES
+
+* introduce version 2.0
+
+* feat: async replay parser interface
+
+* refactor: use composition instead of inheritance, working async parser
+
+* improvement: prepare 2.0, use prettier, remove rollupjs
+
+* style: formatting
+
+* improvement: proper tsconfig, fix linting errors
+
+* cicd: remove nodejs 9 from build pipeline
+
+* test: change testfile layout, use one parser for Reforged and Netease
+
+* improvement: remove Platform parameter requirement
+
+* improvement: better action typings, remove formatters from parsers
+
+* style: remove CR as suggested by prettier
+
+* improvement: code formatting
+
+* improvement: use package.lockfile
+
+* improvement: better parser typings
+
+* improvement: typings for GameDataBlocks
+
+* improvement: some more typescript refactoring
+
+* improvement: remove the custom types for binary-parser
+
+* improvement: only use async replay parsing interface, new parser classes
+
+* refactor: remove obsolete files
+
+* refactor: make typings comply with linter
+
+* improvement: non-binary parser action parsing
+
+* refactor: implement action parsing, connect with W3GReplay
+
+* chore: remove unused dependencies, update remaining
+
+* refactor: use composition if where mixin was used
+
+* chore: set up github pages with typedoc
+
+* docs: .nojekyll to enable proper typedoc serving
+
+* chore: configuration for transpilation to commonjs
+
+* improvement: remove redundant examples directory
+
+* docs: README update
+
+* docs: add examples folder
+
+* docs: update README
+
+* chore: deploy github pages after all test jobs passed
+
+* improvement: player class toJSON, generate sample output from test
+
+
+
 <a name="1.7.2"></a>
 ## [1.7.2](https://github.com/PBug90/w3gjs/compare/v1.7.1...v1.7.2) (2020-06-07)
 
