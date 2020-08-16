@@ -1,5 +1,6 @@
 import W3GReplay from "../../../src/";
 import path from "path";
+import fs from "fs";
 
 const Parser = new W3GReplay();
 it("parses a 2on2standard 1.29 replay properly", async () => {
@@ -21,6 +22,10 @@ it("parses a 2on2standard 1.29 replay properly", async () => {
     file: "w3arena__maelstrom__v2.w3x",
     path: "Maps\\w3arena\\w3arena__maelstrom__v2.w3x",
   });
+  fs.writeFileSync(
+    path.resolve(__dirname + "../../../../examples/output.json"),
+    JSON.stringify(test)
+  );
 });
 
 it("parses a standard 1.26 replay properly", async () => {

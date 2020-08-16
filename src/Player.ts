@@ -327,6 +327,24 @@ class Player {
     this.heroes = reduceHeroes(this.heroCollector);
     delete this._currentlyTrackedAPM;
   }
+
+  toJSON(): Partial<Player> {
+    return {
+      actions: this.actions,
+      buildings: this.buildings,
+      items: this.items,
+      units: this.units,
+      upgrades: this.upgrades,
+      color: this.color,
+      heroes: this.heroes,
+      name: this.name,
+      race: this.race,
+      raceDetected: this.raceDetected,
+      teamid: this.teamid,
+      apm: this.apm,
+      id: this.id,
+    };
+  }
 }
 
 export default Player;

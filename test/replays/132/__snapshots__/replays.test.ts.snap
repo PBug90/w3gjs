@@ -2,10 +2,7 @@
 
 exports[`ignores a player entry in reforged extraPlayerList that misses in playerList 1`] = `
 Array [
-  Player {
-    "_lastActionWasDeselect": false,
-    "_lastRetrainingTime": 0,
-    "_retrainingMetadata": Object {},
+  Object {
     "actions": Object {
       "ability": 54,
       "assigngroup": 87,
@@ -46,9 +43,6 @@ Array [
       "summary": Object {},
     },
     "color": "#ff0303",
-    "currentTimePlayed": 1100717,
-    "heroCollector": Object {},
-    "heroCount": 0,
     "heroes": Array [],
     "id": 1,
     "items": Object {
@@ -68,10 +62,7 @@ Array [
       "summary": Object {},
     },
   },
-  Player {
-    "_lastActionWasDeselect": false,
-    "_lastRetrainingTime": 0,
-    "_retrainingMetadata": Object {},
+  Object {
     "actions": Object {
       "ability": 21,
       "assigngroup": 0,
@@ -112,9 +103,6 @@ Array [
       "summary": Object {},
     },
     "color": "#0042ff",
-    "currentTimePlayed": 1092528,
-    "heroCollector": Object {},
-    "heroCount": 0,
     "heroes": Array [],
     "id": 2,
     "items": Object {
@@ -134,10 +122,7 @@ Array [
       "summary": Object {},
     },
   },
-  Player {
-    "_lastActionWasDeselect": false,
-    "_lastRetrainingTime": 0,
-    "_retrainingMetadata": Object {},
+  Object {
     "actions": Object {
       "ability": 74,
       "assigngroup": 94,
@@ -178,9 +163,6 @@ Array [
       "summary": Object {},
     },
     "color": "#1ce6b9",
-    "currentTimePlayed": 1108860,
-    "heroCollector": Object {},
-    "heroCount": 0,
     "heroes": Array [],
     "id": 3,
     "items": Object {
@@ -200,10 +182,7 @@ Array [
       "summary": Object {},
     },
   },
-  Player {
-    "_lastActionWasDeselect": false,
-    "_lastRetrainingTime": 0,
-    "_retrainingMetadata": Object {},
+  Object {
     "actions": Object {
       "ability": 0,
       "assigngroup": 0,
@@ -244,9 +223,6 @@ Array [
       "summary": Object {},
     },
     "color": "#fe8a0e",
-    "currentTimePlayed": 1108860,
-    "heroCollector": Object {},
-    "heroCount": 0,
     "heroes": Array [],
     "id": 4,
     "items": Object {
@@ -266,10 +242,7 @@ Array [
       "summary": Object {},
     },
   },
-  Player {
-    "_lastActionWasDeselect": false,
-    "_lastRetrainingTime": 0,
-    "_retrainingMetadata": Object {},
+  Object {
     "actions": Object {
       "ability": 47,
       "assigngroup": 0,
@@ -310,9 +283,6 @@ Array [
       "summary": Object {},
     },
     "color": "#fffc00",
-    "currentTimePlayed": 1108907,
-    "heroCollector": Object {},
-    "heroCount": 0,
     "heroes": Array [],
     "id": 11,
     "items": Object {
@@ -332,10 +302,7 @@ Array [
       "summary": Object {},
     },
   },
-  Player {
-    "_lastActionWasDeselect": false,
-    "_lastRetrainingTime": 0,
-    "_retrainingMetadata": Object {},
+  Object {
     "actions": Object {
       "ability": 40,
       "assigngroup": 1535,
@@ -376,9 +343,6 @@ Array [
       "summary": Object {},
     },
     "color": "#20c000",
-    "currentTimePlayed": 1108860,
-    "heroCollector": Object {},
-    "heroCount": 0,
     "heroes": Array [],
     "id": 5,
     "items": Object {
@@ -398,10 +362,7 @@ Array [
       "summary": Object {},
     },
   },
-  Player {
-    "_lastActionWasDeselect": false,
-    "_lastRetrainingTime": 0,
-    "_retrainingMetadata": Object {},
+  Object {
     "actions": Object {
       "ability": 37,
       "assigngroup": 12,
@@ -442,9 +403,6 @@ Array [
       "summary": Object {},
     },
     "color": "#4a2a04",
-    "currentTimePlayed": 1104098,
-    "heroCollector": Object {},
-    "heroCount": 0,
     "heroes": Array [],
     "id": 6,
     "items": Object {
@@ -464,10 +422,7 @@ Array [
       "summary": Object {},
     },
   },
-  Player {
-    "_lastActionWasDeselect": false,
-    "_lastRetrainingTime": 0,
-    "_retrainingMetadata": Object {},
+  Object {
     "actions": Object {
       "ability": 33,
       "assigngroup": 269,
@@ -508,9 +463,6 @@ Array [
       "summary": Object {},
     },
     "color": "#959697",
-    "currentTimePlayed": 1089940,
-    "heroCollector": Object {},
-    "heroCount": 0,
     "heroes": Array [],
     "id": 7,
     "items": Object {
@@ -530,10 +482,7 @@ Array [
       "summary": Object {},
     },
   },
-  Player {
-    "_lastActionWasDeselect": false,
-    "_lastRetrainingTime": 0,
-    "_retrainingMetadata": Object {},
+  Object {
     "actions": Object {
       "ability": 0,
       "assigngroup": 0,
@@ -574,9 +523,6 @@ Array [
       "summary": Object {},
     },
     "color": "#e55bb0",
-    "currentTimePlayed": 1099704,
-    "heroCollector": Object {},
-    "heroCount": 0,
     "heroes": Array [],
     "id": 8,
     "items": Object {
@@ -596,10 +542,7 @@ Array [
       "summary": Object {},
     },
   },
-  Player {
-    "_lastActionWasDeselect": false,
-    "_lastRetrainingTime": 0,
-    "_retrainingMetadata": Object {},
+  Object {
     "actions": Object {
       "ability": 24,
       "assigngroup": 0,
@@ -640,9 +583,6 @@ Array [
       "summary": Object {},
     },
     "color": "#106246",
-    "currentTimePlayed": 1109001,
-    "heroCollector": Object {},
-    "heroCount": 0,
     "heroes": Array [],
     "id": 10,
     "items": Object {
@@ -667,10 +607,7 @@ Array [
 
 exports[`parses single player replay twistedmeadows.w3g 1`] = `
 Array [
-  Player {
-    "_lastActionWasDeselect": false,
-    "_lastRetrainingTime": 0,
-    "_retrainingMetadata": Object {},
+  Object {
     "actions": Object {
       "ability": 54,
       "assigngroup": 87,
@@ -711,9 +648,6 @@ Array [
       "summary": Object {},
     },
     "color": "#ff0303",
-    "currentTimePlayed": 1100717,
-    "heroCollector": Object {},
-    "heroCount": 0,
     "heroes": Array [],
     "id": 1,
     "items": Object {
@@ -733,10 +667,7 @@ Array [
       "summary": Object {},
     },
   },
-  Player {
-    "_lastActionWasDeselect": false,
-    "_lastRetrainingTime": 0,
-    "_retrainingMetadata": Object {},
+  Object {
     "actions": Object {
       "ability": 21,
       "assigngroup": 0,
@@ -777,9 +708,6 @@ Array [
       "summary": Object {},
     },
     "color": "#0042ff",
-    "currentTimePlayed": 1092528,
-    "heroCollector": Object {},
-    "heroCount": 0,
     "heroes": Array [],
     "id": 2,
     "items": Object {
@@ -799,10 +727,7 @@ Array [
       "summary": Object {},
     },
   },
-  Player {
-    "_lastActionWasDeselect": false,
-    "_lastRetrainingTime": 0,
-    "_retrainingMetadata": Object {},
+  Object {
     "actions": Object {
       "ability": 74,
       "assigngroup": 94,
@@ -843,9 +768,6 @@ Array [
       "summary": Object {},
     },
     "color": "#1ce6b9",
-    "currentTimePlayed": 1108860,
-    "heroCollector": Object {},
-    "heroCount": 0,
     "heroes": Array [],
     "id": 3,
     "items": Object {
@@ -865,10 +787,7 @@ Array [
       "summary": Object {},
     },
   },
-  Player {
-    "_lastActionWasDeselect": false,
-    "_lastRetrainingTime": 0,
-    "_retrainingMetadata": Object {},
+  Object {
     "actions": Object {
       "ability": 0,
       "assigngroup": 0,
@@ -909,9 +828,6 @@ Array [
       "summary": Object {},
     },
     "color": "#fe8a0e",
-    "currentTimePlayed": 1108860,
-    "heroCollector": Object {},
-    "heroCount": 0,
     "heroes": Array [],
     "id": 4,
     "items": Object {
@@ -931,10 +847,7 @@ Array [
       "summary": Object {},
     },
   },
-  Player {
-    "_lastActionWasDeselect": false,
-    "_lastRetrainingTime": 0,
-    "_retrainingMetadata": Object {},
+  Object {
     "actions": Object {
       "ability": 47,
       "assigngroup": 0,
@@ -975,9 +888,6 @@ Array [
       "summary": Object {},
     },
     "color": "#fffc00",
-    "currentTimePlayed": 1108907,
-    "heroCollector": Object {},
-    "heroCount": 0,
     "heroes": Array [],
     "id": 11,
     "items": Object {
@@ -997,10 +907,7 @@ Array [
       "summary": Object {},
     },
   },
-  Player {
-    "_lastActionWasDeselect": false,
-    "_lastRetrainingTime": 0,
-    "_retrainingMetadata": Object {},
+  Object {
     "actions": Object {
       "ability": 40,
       "assigngroup": 1535,
@@ -1041,9 +948,6 @@ Array [
       "summary": Object {},
     },
     "color": "#20c000",
-    "currentTimePlayed": 1108860,
-    "heroCollector": Object {},
-    "heroCount": 0,
     "heroes": Array [],
     "id": 5,
     "items": Object {
@@ -1063,10 +967,7 @@ Array [
       "summary": Object {},
     },
   },
-  Player {
-    "_lastActionWasDeselect": false,
-    "_lastRetrainingTime": 0,
-    "_retrainingMetadata": Object {},
+  Object {
     "actions": Object {
       "ability": 37,
       "assigngroup": 12,
@@ -1107,9 +1008,6 @@ Array [
       "summary": Object {},
     },
     "color": "#4a2a04",
-    "currentTimePlayed": 1104098,
-    "heroCollector": Object {},
-    "heroCount": 0,
     "heroes": Array [],
     "id": 6,
     "items": Object {
@@ -1129,10 +1027,7 @@ Array [
       "summary": Object {},
     },
   },
-  Player {
-    "_lastActionWasDeselect": false,
-    "_lastRetrainingTime": 0,
-    "_retrainingMetadata": Object {},
+  Object {
     "actions": Object {
       "ability": 33,
       "assigngroup": 269,
@@ -1173,9 +1068,6 @@ Array [
       "summary": Object {},
     },
     "color": "#959697",
-    "currentTimePlayed": 1089940,
-    "heroCollector": Object {},
-    "heroCount": 0,
     "heroes": Array [],
     "id": 7,
     "items": Object {
@@ -1195,10 +1087,7 @@ Array [
       "summary": Object {},
     },
   },
-  Player {
-    "_lastActionWasDeselect": false,
-    "_lastRetrainingTime": 0,
-    "_retrainingMetadata": Object {},
+  Object {
     "actions": Object {
       "ability": 0,
       "assigngroup": 0,
@@ -1239,9 +1128,6 @@ Array [
       "summary": Object {},
     },
     "color": "#e55bb0",
-    "currentTimePlayed": 1099704,
-    "heroCollector": Object {},
-    "heroCount": 0,
     "heroes": Array [],
     "id": 8,
     "items": Object {
@@ -1261,10 +1147,7 @@ Array [
       "summary": Object {},
     },
   },
-  Player {
-    "_lastActionWasDeselect": false,
-    "_lastRetrainingTime": 0,
-    "_retrainingMetadata": Object {},
+  Object {
     "actions": Object {
       "ability": 24,
       "assigngroup": 0,
@@ -1305,9 +1188,6 @@ Array [
       "summary": Object {},
     },
     "color": "#106246",
-    "currentTimePlayed": 1109001,
-    "heroCollector": Object {},
-    "heroCount": 0,
     "heroes": Array [],
     "id": 10,
     "items": Object {
