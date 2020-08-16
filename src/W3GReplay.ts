@@ -20,6 +20,7 @@ import {
   LeaveGameBlock,
 } from "./parsers/GameDataParser";
 import { Action, W3MMDAction } from "./parsers/ActionParser";
+import W3MMDHandler from "./W3MMDHandler";
 
 const readFilePromise = promisify(readFile);
 
@@ -63,6 +64,7 @@ class W3GReplay extends EventEmitter {
   filename: string;
   buffer: Buffer;
   msElapsed = 0;
+  w3mmdHandler: W3MMDHandler;
 
   constructor() {
     super();
@@ -83,6 +85,7 @@ class W3GReplay extends EventEmitter {
 
   async parse($buffer: string | Buffer): Promise<ParserOutput> {
     this.msElapsed = 0;
+    this.w3mmdHandler = new W3MMDHandler();
     this.parseStartTime = performance.now();
     this.buffer = Buffer.from("");
     this.filename = "";
@@ -251,6 +254,7 @@ class W3GReplay extends EventEmitter {
         break;
       case 0x6b:
         this.w3mmd.push(action);
+        this.w3mmdHandler.handleAction(action, currentPlayer.id);
         break;
     }
   }
