@@ -24,7 +24,7 @@ it("parses a 2on2standard 1.29 replay properly", async () => {
   });
   fs.writeFileSync(
     path.resolve(__dirname + "../../../../examples/output.json"),
-    JSON.stringify(test)
+    JSON.stringify(test, undefined, 2)
   );
 });
 
