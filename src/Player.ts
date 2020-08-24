@@ -8,7 +8,7 @@ const isBasicAction = (input: number[]) => input[0] <= 0x19 && input[1] === 0;
 
 export const reduceHeroes = (heroCollector: {
   [key: string]: HeroInfo;
-}): HeroInfo[] => {
+}): Omit<HeroInfo, "order">[] => {
   return Object.values(heroCollector)
     .sort((h1, h2) => h1.order - h2.order)
     .reduce((aggregator, hero) => {
@@ -16,10 +16,10 @@ export const reduceHeroes = (heroCollector: {
         (prev, curr) => prev + curr,
         0
       );
-      delete hero.order;
-      aggregator.push(hero);
+      const { order, ...heroWithoutOrder } = hero;
+      aggregator.push(heroWithoutOrder);
       return aggregator;
-    }, [] as HeroInfo[]);
+    }, [] as Omit<HeroInfo, "order">[]);
 };
 
 interface Ability {
@@ -65,7 +65,7 @@ class Player {
     summary: { [key: string]: number };
     order: { id: string; ms: number }[];
   };
-  heroes: HeroInfo[];
+  heroes: Omit<HeroInfo, "order">[];
   heroCollector: { [key: string]: HeroInfo };
   heroCount: number;
   actions: {
@@ -325,7 +325,6 @@ class Player {
       this.apm = Math.round(apmSum / (this.currentTimePlayed / 1000 / 60));
     }
     this.heroes = reduceHeroes(this.heroCollector);
-    delete this._currentlyTrackedAPM;
   }
 
   toJSON(): Partial<Player> {

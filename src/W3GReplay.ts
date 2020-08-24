@@ -93,6 +93,8 @@ class W3GReplay extends EventEmitter {
     this.players = {};
     this.totalTimeTracker = 0;
     this.timeSegmentTracker = 0;
+    this.slots = [];
+    this.playerList = [];
     this.playerActionTrackInterval = 60000;
     if (typeof $buffer === "string") {
       $buffer = await readFilePromise($buffer);
@@ -318,9 +320,7 @@ class W3GReplay extends EventEmitter {
     } else if (Object.prototype.hasOwnProperty.call(this.teams, "12")) {
       delete this.teams[12];
     }
-    delete this.slots;
-    delete this.playerList;
-    delete this.buffer;
+
   }
 
   finalize(): ParserOutput {
