@@ -269,10 +269,10 @@ class W3GReplay extends EventEmitter {
         break;
       case 0x51: {
         const playerId = this.getPlayerBySlotId(action.slot);
-        delete action.id;
         if (playerId) {
+          const { id, ...actionWithoutId } = action;
           currentPlayer.handle0x51({
-            ...action,
+            ...actionWithoutId,
             playerId,
             playerName: this.players[playerId].name,
           });
