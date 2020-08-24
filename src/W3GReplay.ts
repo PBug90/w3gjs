@@ -320,7 +320,6 @@ class W3GReplay extends EventEmitter {
     } else if (Object.prototype.hasOwnProperty.call(this.teams, "12")) {
       delete this.teams[12];
     }
-
   }
 
   finalize(): ParserOutput {
