@@ -1,10 +1,15 @@
 import convert from "./convert";
 import { items, units, buildings, upgrades, abilityToHero } from "./mappings";
 import { Race, ItemID } from "./types";
+import { TransferResourcesActionWithPlayer } from "./W3GReplay";
 
 const isRightclickAction = (input: number[]) =>
   input[0] === 0x03 && input[1] === 0;
 const isBasicAction = (input: number[]) => input[0] <= 0x19 && input[1] === 0;
+
+type TransferResourcesActionWithPlayerAndTimestamp = {
+  msElapsed: number;
+} & TransferResourcesActionWithPlayer;
 
 export const reduceHeroes = (heroCollector: {
   [key: string]: HeroInfo;
@@ -82,6 +87,7 @@ class Player {
     selecthotkey: number;
     esc: number;
   };
+  resourceTransfers: TransferResourcesActionWithPlayerAndTimestamp[] = [];
   _currentlyTrackedAPM: number;
   _retrainingMetadata: { [key: string]: { start: number; end: number } };
   _lastRetrainingTime: number;
@@ -108,6 +114,7 @@ class Player {
     this.buildings = { summary: {}, order: [] };
     this.heroes = [];
     this.heroCollector = {};
+    this.resourceTransfers = [];
     this.heroCount = 0;
     this.actions = {
       timed: [],
@@ -288,6 +295,13 @@ class Player {
     }
   }
 
+  handle0x51(action: TransferResourcesActionWithPlayer): void {
+    this.resourceTransfers.push({
+      ...action,
+      msElapsed: this.currentTimePlayed,
+    });
+  }
+
   handleOther(actionId: number): void {
     switch (actionId) {
       case 0x17:
@@ -342,6 +356,7 @@ class Player {
       teamid: this.teamid,
       apm: this.apm,
       id: this.id,
+      resourceTransfers: this.resourceTransfers,
     };
   }
 }

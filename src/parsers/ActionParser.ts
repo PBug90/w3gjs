@@ -24,6 +24,13 @@ type UnitBuildingAbilityActionTargetPositionTargetObjectId = {
   objectId2: number;
 };
 
+export type TransferResourcesAction = {
+  id: 0x51;
+  slot: number;
+  gold: number;
+  lumber: number;
+};
+
 type GiveItemToUnitAciton = {
   id: 0x13;
   abilityFlags: number;
@@ -127,6 +134,7 @@ export type Action =
   | ESCPressedAction
   | ChooseHeroSkillSubmenu
   | EnterBuildingSubmenu
+  | TransferResourcesAction
   | UnitBuildingAbilityActionTargetPosition;
 
 export default class ActionParser extends StatefulBufferParser {
@@ -365,8 +373,15 @@ export default class ActionParser extends StatefulBufferParser {
         const flags = this.readUInt32LE();
         return null;
       case 0x51:
-        this.skip(9);
-        return null;
+        const slot = this.readUInt8();
+        const gold = this.readUInt32LE();
+        const lumber = this.readUInt32LE();
+        return {
+          id: 0x51,
+          slot: slot,
+          gold: gold,
+          lumber,
+        };
       case 0x60:
         this.skip(8);
         this.readZeroTermString("utf-8");

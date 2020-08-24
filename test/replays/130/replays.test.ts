@@ -40,6 +40,7 @@ it("parses a standard 1.30.4 2on2 replay properly", async () => {
   expect(test.version).toBe("1.30.2+");
   expect(test.buildNumber).toBe(6061);
   expect(test.players.length).toBe(4);
+  expect(test.players[2]).toMatchSnapshot();
 });
 
 it("parses a standard 1.30 replay properly", async () => {
