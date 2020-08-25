@@ -125,12 +125,12 @@ it("parses 1.32.8 replay with full observers", async () => {
   const test = await Parser.parse(
     path.resolve(__dirname, "replay_fullobs.w3g")
   );
-  expect(test.settings.referees).toBe(false);
+  expect(test.settings.observerMode).toBe("FULL");
 });
 
 it("parses 1.32.8 replay with referee setting", async () => {
   const test = await Parser.parse(
     path.resolve(__dirname, "replay_referee.w3g")
   );
-  expect(test.settings.referees).toBe(true);
+  expect(test.settings.observerMode).toBe("REFEREES");
 });

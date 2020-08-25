@@ -39,7 +39,7 @@ enum ChatMessageMode {
   Team = "Team",
 }
 
-enum ObserverMode {
+export enum ObserverMode {
   ON_DEFEAT = "ON_DEFEAT",
   FULL = "FULL",
   REFEREES = "REFEREES",
