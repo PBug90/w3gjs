@@ -362,9 +362,7 @@ class W3GReplay extends EventEmitter {
     refereeFlag: boolean,
     observerMode: number
   ): ObserverMode {
-    if (observerMode === 3 && refereeFlag === true) {
-      return ObserverMode.REFEREES;
-    } else if (observerMode === 0 && refereeFlag === true) {
+    if ((observerMode === 3 || observerMode === 0) && refereeFlag === true) {
       return ObserverMode.REFEREES;
     } else if (observerMode === 2) {
       return ObserverMode.ON_DEFEAT;

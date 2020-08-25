@@ -134,3 +134,10 @@ it("parses 1.32.8 replay with referee setting", async () => {
   );
   expect(test.settings.observerMode).toBe("REFEREES");
 });
+
+it("parses 1.32.8 replay with observer on defeat setting", async () => {
+  const test = await Parser.parse(
+    path.resolve(__dirname, "replay_obs_on_defeat.w3g")
+  );
+  expect(test.settings.observerMode).toBe("ON_DEFEAT");
+});
