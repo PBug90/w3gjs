@@ -547,7 +547,7 @@
         "teamsTogether",
         "randomHero",
         "randomRaces",
-        "referees",
+        "observerMode",
         "fixedTeams",
         "fullSharedUnitControl",
         "speed"
@@ -607,14 +607,12 @@
             false
           ]
         },
-        "referees": {
+        "observerMode": {
           "$id": "#/properties/settings/properties/referees",
-          "type": "boolean",
+          "type": "string",
+          "enum":["FULL", "NONE","ON_DEFEAT","REFEREES"],
           "title": "The Referees Schema",
-          "default": false,
-          "examples": [
-            false
-          ]
+          "default": false
         },
         "fixedTeams": {
           "$id": "#/properties/settings/properties/fixedTeams",

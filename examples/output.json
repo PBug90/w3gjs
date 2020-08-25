@@ -892,6 +892,7 @@
   "expansion": true,
   "settings": {
     "referees": false,
+    "observerMode": "NONE",
     "fixedTeams": true,
     "fullSharedUnitControl": false,
     "alwaysVisible": false,
@@ -902,5 +903,5 @@
     "randomRaces": false,
     "speed": 2
   },
-  "parseTime": 101
+  "parseTime": 136
 }

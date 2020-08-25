@@ -24,6 +24,7 @@ import {
   W3MMDAction,
   TransferResourcesAction,
 } from "./parsers/ActionParser";
+import { runInThisContext } from "vm";
 
 export type TransferResourcesActionWithPlayer = {
   playerName: string;
@@ -36,6 +37,13 @@ enum ChatMessageMode {
   All = "All",
   Private = "Private",
   Team = "Team",
+}
+
+enum ObserverMode {
+  ON_DEFEAT = "ON_DEFEAT",
+  FULL = "FULL",
+  REFEREES = "REFEREES",
+  NONE = "NONE",
 }
 
 export type ChatMessage = {
@@ -350,9 +358,30 @@ class W3GReplay extends EventEmitter {
     }
   }
 
+  private getObserverMode(
+    refereeFlag: boolean,
+    observerMode: number
+  ): ObserverMode {
+    if (observerMode === 3 && refereeFlag === true) {
+      return ObserverMode.REFEREES;
+    } else if (observerMode === 0 && refereeFlag === true) {
+      return ObserverMode.REFEREES;
+    } else if (observerMode === 2) {
+      return ObserverMode.ON_DEFEAT;
+    } else if (observerMode === 3) {
+      return ObserverMode.FULL;
+    }
+    return ObserverMode.NONE;
+  }
+
   finalize(): ParserOutput {
+    console.log(this.meta.map.observerMode);
     const settings = {
       referees: this.meta.map.referees,
+      observerMode: this.getObserverMode(
+        this.meta.map.referees,
+        this.meta.map.observerMode
+      ),
       fixedTeams: this.meta.map.fixedTeams,
       fullSharedUnitControl: this.meta.map.fullSharedUnitControl,
       alwaysVisible: this.meta.map.alwaysVisible,

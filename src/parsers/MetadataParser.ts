@@ -178,7 +178,7 @@ export default class MetadataParser extends StatefulBufferParser {
       mapExplored: !!(secondByte & 0b00000010),
       alwaysVisible: !!(secondByte & 0b00000100),
       default: !!(secondByte & 0b00001000),
-      observerMode: secondByte & 0b00110000,
+      observerMode: (secondByte & 0b00110000) >>> 4,
       teamsTogether: !!(secondByte & 0b01000000),
       fixedTeams: !!(thirdByte & 0b00000110),
       fullSharedUnitControl: !!(fourthByte & 0b00000001),
