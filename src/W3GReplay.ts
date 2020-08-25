@@ -375,7 +375,6 @@ class W3GReplay extends EventEmitter {
   }
 
   finalize(): ParserOutput {
-    console.log(this.meta.map.observerMode);
     const settings = {
       referees: this.meta.map.referees,
       observerMode: this.getObserverMode(
