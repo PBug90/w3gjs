@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="2.1.0"></a>
+# [2.1.0](https://github.com/PBug90/w3gjs/compare/v2.0.0...v2.1.0) (2020-08-26)
+
+
+### Bug Fixes
+
+* use correct bit positions for map settings ([#60](https://github.com/PBug90/w3gjs/issues/60)) ([9ebdbc4](https://github.com/PBug90/w3gjs/commit/9ebdbc4))
+
+
+### Features
+
+* parse player resource trading actions ([#58](https://github.com/PBug90/w3gjs/issues/58)) ([4568cb6](https://github.com/PBug90/w3gjs/commit/4568cb6))
+
+
+
 <a name="2.0.0"></a>
 # [2.0.0](https://github.com/PBug90/w3gjs/compare/v1.7.2...v2.0.0) (2020-08-16)
 
