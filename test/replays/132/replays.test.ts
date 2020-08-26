@@ -101,3 +101,43 @@ it("parses single player replay twistedmeadows.w3g", async () => {
   );
   expect(test.players).toMatchSnapshot();
 });
+
+it("parses 1.32.8 replay with randomhero and randomraces", async () => {
+  const test = await Parser.parse(
+    path.resolve(__dirname, "replay_randomhero_randomraces.w3g")
+  );
+  expect(test.settings.randomHero).toBe(true);
+  expect(test.settings.randomRaces).toBe(true);
+});
+
+it("parses 1.32.8 replay with fullsharedunitcontrol, teams together and lock teams", async () => {
+  const test = await Parser.parse(
+    path.resolve(__dirname, "replay_teamstogether.w3g")
+  );
+  expect(test.settings.fullSharedUnitControl).toBe(true);
+  expect(test.settings.teamsTogether).toBe(true);
+  expect(test.settings.fixedTeams).toBe(true);
+  expect(test.settings.randomHero).toBe(false);
+  expect(test.settings.randomRaces).toBe(false);
+});
+
+it("parses 1.32.8 replay with full observers", async () => {
+  const test = await Parser.parse(
+    path.resolve(__dirname, "replay_fullobs.w3g")
+  );
+  expect(test.settings.observerMode).toBe("FULL");
+});
+
+it("parses 1.32.8 replay with referee setting", async () => {
+  const test = await Parser.parse(
+    path.resolve(__dirname, "replay_referee.w3g")
+  );
+  expect(test.settings.observerMode).toBe("REFEREES");
+});
+
+it("parses 1.32.8 replay with observer on defeat setting", async () => {
+  const test = await Parser.parse(
+    path.resolve(__dirname, "replay_obs_on_defeat.w3g")
+  );
+  expect(test.settings.observerMode).toBe("ON_DEFEAT");
+});

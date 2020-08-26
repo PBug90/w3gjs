@@ -1,5 +1,5 @@
 import Player from "./Player";
-import { ChatMessage } from "./W3GReplay";
+import { ChatMessage, ObserverMode } from "./W3GReplay";
 
 export enum Race {
   Human = "H",
@@ -39,7 +39,7 @@ export interface ParserOutput {
   expansion: boolean;
   parseTime: number;
   settings: {
-    referees: boolean;
+    observerMode: ObserverMode;
     fixedTeams: boolean;
     fullSharedUnitControl: boolean;
     alwaysVisible: boolean;

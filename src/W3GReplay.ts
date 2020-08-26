@@ -24,6 +24,7 @@ import {
   W3MMDAction,
   TransferResourcesAction,
 } from "./parsers/ActionParser";
+import { runInThisContext } from "vm";
 
 export type TransferResourcesActionWithPlayer = {
   playerName: string;
@@ -36,6 +37,13 @@ enum ChatMessageMode {
   All = "All",
   Private = "Private",
   Team = "Team",
+}
+
+export enum ObserverMode {
+  ON_DEFEAT = "ON_DEFEAT",
+  FULL = "FULL",
+  REFEREES = "REFEREES",
+  NONE = "NONE",
 }
 
 export type ChatMessage = {
@@ -104,6 +112,8 @@ class W3GReplay extends EventEmitter {
     this.slotToPlayerId = new Map();
     this.totalTimeTracker = 0;
     this.timeSegmentTracker = 0;
+    this.slots = [];
+    this.playerList = [];
     this.playerActionTrackInterval = 60000;
     if (typeof $buffer === "string") {
       $buffer = await readFilePromise($buffer);
@@ -267,10 +277,10 @@ class W3GReplay extends EventEmitter {
         break;
       case 0x51: {
         const playerId = this.getPlayerBySlotId(action.slot);
-        delete action.id;
         if (playerId) {
+          const { id, ...actionWithoutId } = action;
           currentPlayer.handle0x51({
-            ...action,
+            ...actionWithoutId,
             playerId,
             playerName: this.players[playerId].name,
           });
@@ -346,14 +356,29 @@ class W3GReplay extends EventEmitter {
     } else if (Object.prototype.hasOwnProperty.call(this.teams, "12")) {
       delete this.teams[12];
     }
-    delete this.slots;
-    delete this.playerList;
-    delete this.buffer;
+  }
+
+  private getObserverMode(
+    refereeFlag: boolean,
+    observerMode: number
+  ): ObserverMode {
+    if ((observerMode === 3 || observerMode === 0) && refereeFlag === true) {
+      return ObserverMode.REFEREES;
+    } else if (observerMode === 2) {
+      return ObserverMode.ON_DEFEAT;
+    } else if (observerMode === 3) {
+      return ObserverMode.FULL;
+    }
+    return ObserverMode.NONE;
   }
 
   finalize(): ParserOutput {
     const settings = {
       referees: this.meta.map.referees,
+      observerMode: this.getObserverMode(
+        this.meta.map.referees,
+        this.meta.map.observerMode
+      ),
       fixedTeams: this.meta.map.fixedTeams,
       fullSharedUnitControl: this.meta.map.fullSharedUnitControl,
       alwaysVisible: this.meta.map.alwaysVisible,

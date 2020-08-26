@@ -892,15 +892,16 @@
   "expansion": true,
   "settings": {
     "referees": false,
-    "fixedTeams": false,
+    "observerMode": "NONE",
+    "fixedTeams": true,
     "fullSharedUnitControl": false,
     "alwaysVisible": false,
     "hideTerrain": false,
-    "mapExplored": true,
-    "teamsTogether": false,
+    "mapExplored": false,
+    "teamsTogether": true,
     "randomHero": false,
     "randomRaces": false,
     "speed": 2
   },
-  "parseTime": 175
+  "parseTime": 136
 }
