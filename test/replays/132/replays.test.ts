@@ -141,3 +141,11 @@ it("parses 1.32.8 replay with observer on defeat setting", async () => {
   );
   expect(test.settings.observerMode).toBe("ON_DEFEAT");
 });
+
+it("should parse hotkeys correctly", async () => {
+  const test = await Parser.parse(path.resolve(__dirname, "reforged1.w3g"));
+  expect(test.players[0].hotkeys[1]).toEqual({ assigned: 1, used: 29 });
+  expect(test.players[0].hotkeys[2]).toEqual({ assigned: 1, used: 60 });
+  expect(test.players[1].hotkeys[1]).toEqual({ assigned: 21, used: 106 });
+  expect(test.players[1].hotkeys[2]).toEqual({ assigned: 4, used: 64 });
+});

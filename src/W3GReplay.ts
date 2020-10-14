@@ -273,7 +273,7 @@ class W3GReplay extends EventEmitter {
       case 0x65:
       case 0x66:
       case 0x67:
-        currentPlayer.handleOther(action.id);
+        currentPlayer.handleOther(action);
         break;
       case 0x51: {
         const playerId = this.getPlayerBySlotId(action.slot);
