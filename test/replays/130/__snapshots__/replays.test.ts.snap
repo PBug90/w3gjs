@@ -64,12 +64,20 @@ Object {
         "ms": 122755,
       },
       Object {
+        "id": "hkee",
+        "ms": 190494,
+      },
+      Object {
         "id": "hhou",
         "ms": 210930,
       },
       Object {
         "id": "hwtw",
         "ms": 216711,
+      },
+      Object {
+        "id": "hatw",
+        "ms": 248942,
       },
       Object {
         "id": "hhou",
@@ -104,15 +112,21 @@ Object {
         "ms": 673657,
       },
       Object {
+        "id": "hatw",
+        "ms": 933869,
+      },
+      Object {
         "id": "htow",
         "ms": 1065471,
       },
     ],
     "summary": Object {
       "halt": 1,
+      "hatw": 2,
       "hbar": 1,
       "hbla": 1,
       "hhou": 9,
+      "hkee": 1,
       "hlum": 1,
       "htow": 2,
       "hvlt": 1,
@@ -330,16 +344,8 @@ Object {
         "ms": 160527,
       },
       Object {
-        "id": "hkee",
-        "ms": 190494,
-      },
-      Object {
         "id": "hrif",
         "ms": 202902,
-      },
-      Object {
-        "id": "hatw",
-        "ms": 248942,
       },
       Object {
         "id": "hrif",
@@ -498,10 +504,6 @@ Object {
         "ms": 916553,
       },
       Object {
-        "id": "hatw",
-        "ms": 933869,
-      },
-      Object {
         "id": "hrif",
         "ms": 959420,
       },
@@ -531,8 +533,6 @@ Object {
       },
     ],
     "summary": Object {
-      "hatw": 2,
-      "hkee": 1,
       "hpea": 20,
       "hrif": 38,
     },

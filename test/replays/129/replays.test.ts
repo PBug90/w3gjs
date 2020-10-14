@@ -35,7 +35,6 @@ it("parses a standard 1.29 replay with observers properly", async () => {
   expect(test.players[1].units.summary).toEqual({
     opeo: 10,
     ogru: 5,
-    ostr: 1,
     orai: 6,
     ospm: 5,
     okod: 2,
@@ -63,7 +62,6 @@ it("parses a standard 1.29 replay with observers properly", async () => {
   expect(test.players[0].units.summary).toEqual({
     opeo: 11,
     ogru: 8,
-    ostr: 2,
     orai: 8,
     ospm: 4,
     okod: 3,
