@@ -88,7 +88,7 @@ class Player {
     selecthotkey: number;
     esc: number;
   };
-  hotkeys: {
+  groupHotkeys: {
     [key: number]: { assigned: number; used: number };
   };
   resourceTransfers: TransferResourcesActionWithPlayerAndTimestamp[] = [];
@@ -134,7 +134,7 @@ class Player {
       selecthotkey: 0,
       esc: 0,
     };
-    this.hotkeys = {
+    this.groupHotkeys = {
       1: { assigned: 0, used: 0 },
       2: { assigned: 0, used: 0 },
       3: { assigned: 0, used: 0 },
@@ -323,12 +323,12 @@ class Player {
       case 0x17:
         this.actions.assigngroup++;
         this._currentlyTrackedAPM++;
-        this.hotkeys[(action.groupNumber + 1) % 10].assigned++;
+        this.groupHotkeys[(action.groupNumber + 1) % 10].assigned++;
         break;
       case 0x18:
         this.actions.selecthotkey++;
         this._currentlyTrackedAPM++;
-        this.hotkeys[(action.groupNumber + 1) % 10].used++;
+        this.groupHotkeys[(action.groupNumber + 1) % 10].used++;
         break;
       case 0x1c:
       case 0x1d:
