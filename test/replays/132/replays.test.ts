@@ -59,6 +59,8 @@ it("parse is a promise that resolves with parser output", async () => {
   const Parser = new W3GReplay();
   const timeslotBlocks = [];
   let completedAsyncDummyTask = false;
+  const metadataCallback = jest.fn();
+  Parser.on("basic_replay_information", metadataCallback);
   Parser.on("gamedatablock", (block: GameDataBlock) => {
     if (block.id === 0x1f) {
       timeslotBlocks.push(block);
@@ -75,6 +77,7 @@ it("parse is a promise that resolves with parser output", async () => {
   expect(test.players.length).toBe(2);
   expect(test.players[0].name).toBe("HurricaneBo");
   expect(test.players[1].name).toBe("SimplyHunteR");
+  expect(metadataCallback).toHaveBeenCalledTimes(1);
 });
 
 it("handles truncated player names in reforged replays", async () => {
