@@ -57,8 +57,14 @@ export type ChatMessage = {
 type Team = {
   [key: number]: number[];
 };
-
-class W3GReplay extends EventEmitter {
+export default interface W3GReplay {
+  on(event: "gamedatablock", listener: (block: GameDataBlock) => void): this;
+  on(
+    event: "basic_replay_information",
+    listener: (data: BasicReplayInformation) => void
+  ): this;
+}
+export default class W3GReplay extends EventEmitter {
   info: BasicReplayInformation;
   players: { [key: string]: Player };
   observers: string[];
@@ -90,7 +96,7 @@ class W3GReplay extends EventEmitter {
       "basic_replay_information",
       (information: BasicReplayInformation) => {
         this.handleBasicReplayInformation(information);
-        this.emit("basic_replay_inforamtion", information);
+        this.emit("basic_replay_information", information);
       }
     );
     this.parser.on("gamedatablock", (block) => {
@@ -419,5 +425,3 @@ class W3GReplay extends EventEmitter {
     return root;
   }
 }
-
-export default W3GReplay;
