@@ -397,6 +397,11 @@
                 }
               }
             }
+          },
+          "groupHotkeys": {
+            "$id": "#/properties/players/items/properties/groupHotkeys",
+            "type": "object",
+            "title": "The group hotkeys schema"
           }
         }
       }

@@ -2,6 +2,7 @@ import convert from "./convert";
 import { items, units, buildings, upgrades, abilityToHero } from "./mappings";
 import { Race, ItemID } from "./types";
 import { TransferResourcesActionWithPlayer } from "./W3GReplay";
+import { Action } from "./parsers/ActionParser";
 
 const isRightclickAction = (input: number[]) =>
   input[0] === 0x03 && input[1] === 0;
@@ -87,6 +88,9 @@ class Player {
     selecthotkey: number;
     esc: number;
   };
+  groupHotkeys: {
+    [key: number]: { assigned: number; used: number };
+  };
   resourceTransfers: TransferResourcesActionWithPlayerAndTimestamp[] = [];
   _currentlyTrackedAPM: number;
   _retrainingMetadata: { [key: string]: { start: number; end: number } };
@@ -129,6 +133,18 @@ class Player {
       subgroup: 0,
       selecthotkey: 0,
       esc: 0,
+    };
+    this.groupHotkeys = {
+      1: { assigned: 0, used: 0 },
+      2: { assigned: 0, used: 0 },
+      3: { assigned: 0, used: 0 },
+      4: { assigned: 0, used: 0 },
+      5: { assigned: 0, used: 0 },
+      6: { assigned: 0, used: 0 },
+      7: { assigned: 0, used: 0 },
+      8: { assigned: 0, used: 0 },
+      9: { assigned: 0, used: 0 },
+      0: { assigned: 0, used: 0 },
     };
     this._currentlyTrackedAPM = 0;
     this._lastActionWasDeselect = false;
@@ -302,15 +318,17 @@ class Player {
     });
   }
 
-  handleOther(actionId: number): void {
-    switch (actionId) {
+  handleOther(action: Action): void {
+    switch (action.id) {
       case 0x17:
         this.actions.assigngroup++;
         this._currentlyTrackedAPM++;
+        this.groupHotkeys[(action.groupNumber + 1) % 10].assigned++;
         break;
       case 0x18:
         this.actions.selecthotkey++;
         this._currentlyTrackedAPM++;
+        this.groupHotkeys[(action.groupNumber + 1) % 10].used++;
         break;
       case 0x1c:
       case 0x1d:
