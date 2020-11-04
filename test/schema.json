@@ -1,5 +1,22 @@
 {
-  "definitions": {},
+  "definitions": {
+    "groupHotkeyContent": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "assigned": {
+          "type": "integer"
+        },
+        "used": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "assigned",
+        "used"
+      ]
+    }
+  },
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "http://example.com/root.json",
   "type": "object",
@@ -401,7 +418,40 @@
           "groupHotkeys": {
             "$id": "#/properties/players/items/properties/groupHotkeys",
             "type": "object",
-            "title": "The group hotkeys schema"
+            "title": "The group hotkeys schema",
+            "additionalProperties": false,
+            "properties": {
+              "0": {
+                "$ref": "#/definitions/groupHotkeyContent"
+              },
+              "1": {
+                "$ref": "#/definitions/groupHotkeyContent"
+              },
+              "2": {
+                "$ref": "#/definitions/groupHotkeyContent"
+              },
+              "3": {
+                "$ref": "#/definitions/groupHotkeyContent"
+              },
+              "4": {
+                "$ref": "#/definitions/groupHotkeyContent"
+              },
+              "5": {
+                "$ref": "#/definitions/groupHotkeyContent"
+              },
+              "6": {
+                "$ref": "#/definitions/groupHotkeyContent"
+              },
+              "7": {
+                "$ref": "#/definitions/groupHotkeyContent"
+              },
+              "8": {
+                "$ref": "#/definitions/groupHotkeyContent"
+              },
+              "9": {
+                "$ref": "#/definitions/groupHotkeyContent"
+              }
+            }
           }
         }
       }
@@ -615,7 +665,12 @@
         "observerMode": {
           "$id": "#/properties/settings/properties/referees",
           "type": "string",
-          "enum":["FULL", "NONE","ON_DEFEAT","REFEREES"],
+          "enum": [
+            "FULL",
+            "NONE",
+            "ON_DEFEAT",
+            "REFEREES"
+          ],
           "title": "The Referees Schema",
           "default": false
         },
