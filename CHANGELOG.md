@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="2.2.0"></a>
+# [2.2.0](https://github.com/PBug90/w3gjs/compare/v2.1.0...v2.2.0) (2020-11-04)
+
+
+### Bug Fixes
+
+* corrected typo of basic_replay_information event  in W3GReplay ([#64](https://github.com/PBug90/w3gjs/issues/64)) ([39515ab](https://github.com/PBug90/w3gjs/commit/39515ab))
+
+
+### Features
+
+* calculate group hotkeys for players and add to parser output([#63](https://github.com/PBug90/w3gjs/issues/63)) ([0fdb560](https://github.com/PBug90/w3gjs/commit/0fdb560))
+* move building upgradesfrom units to buildings in parser output ([#61](https://github.com/PBug90/w3gjs/issues/61)) ([de29d08](https://github.com/PBug90/w3gjs/commit/de29d08))
+
+
+
 <a name="2.1.0"></a>
 # [2.1.0](https://github.com/PBug90/w3gjs/compare/v2.0.0...v2.1.0) (2020-08-26)
 
