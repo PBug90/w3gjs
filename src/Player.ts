@@ -362,6 +362,7 @@ class Player {
   toJSON(): Partial<Player> {
     return {
       actions: this.actions,
+      groupHotkeys: this.groupHotkeys,
       buildings: this.buildings,
       items: this.items,
       units: this.units,

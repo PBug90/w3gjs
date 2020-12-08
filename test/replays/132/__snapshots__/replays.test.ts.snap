@@ -43,6 +43,48 @@ Array [
       "summary": Object {},
     },
     "color": "#ff0303",
+    "groupHotkeys": Object {
+      "0": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "1": Object {
+        "assigned": 87,
+        "used": 1,
+      },
+      "2": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "3": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "4": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "5": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "6": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "7": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "8": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "9": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+    },
     "heroes": Array [],
     "id": 1,
     "items": Object {
@@ -104,6 +146,48 @@ Array [
       "summary": Object {},
     },
     "color": "#0042ff",
+    "groupHotkeys": Object {
+      "0": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "1": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "2": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "3": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "4": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "5": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "6": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "7": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "8": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "9": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+    },
     "heroes": Array [],
     "id": 2,
     "items": Object {
@@ -165,6 +249,48 @@ Array [
       "summary": Object {},
     },
     "color": "#1ce6b9",
+    "groupHotkeys": Object {
+      "0": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "1": Object {
+        "assigned": 94,
+        "used": 0,
+      },
+      "2": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "3": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "4": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "5": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "6": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "7": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "8": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "9": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+    },
     "heroes": Array [],
     "id": 3,
     "items": Object {
@@ -226,6 +352,48 @@ Array [
       "summary": Object {},
     },
     "color": "#fe8a0e",
+    "groupHotkeys": Object {
+      "0": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "1": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "2": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "3": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "4": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "5": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "6": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "7": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "8": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "9": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+    },
     "heroes": Array [],
     "id": 4,
     "items": Object {
@@ -287,6 +455,48 @@ Array [
       "summary": Object {},
     },
     "color": "#fffc00",
+    "groupHotkeys": Object {
+      "0": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "1": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "2": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "3": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "4": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "5": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "6": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "7": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "8": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "9": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+    },
     "heroes": Array [],
     "id": 11,
     "items": Object {
@@ -348,6 +558,48 @@ Array [
       "summary": Object {},
     },
     "color": "#20c000",
+    "groupHotkeys": Object {
+      "0": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "1": Object {
+        "assigned": 410,
+        "used": 0,
+      },
+      "2": Object {
+        "assigned": 434,
+        "used": 0,
+      },
+      "3": Object {
+        "assigned": 691,
+        "used": 0,
+      },
+      "4": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "5": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "6": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "7": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "8": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "9": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+    },
     "heroes": Array [],
     "id": 5,
     "items": Object {
@@ -409,6 +661,48 @@ Array [
       "summary": Object {},
     },
     "color": "#4a2a04",
+    "groupHotkeys": Object {
+      "0": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "1": Object {
+        "assigned": 12,
+        "used": 20,
+      },
+      "2": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "3": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "4": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "5": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "6": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "7": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "8": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "9": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+    },
     "heroes": Array [],
     "id": 6,
     "items": Object {
@@ -470,6 +764,48 @@ Array [
       "summary": Object {},
     },
     "color": "#959697",
+    "groupHotkeys": Object {
+      "0": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "1": Object {
+        "assigned": 269,
+        "used": 9,
+      },
+      "2": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "3": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "4": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "5": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "6": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "7": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "8": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "9": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+    },
     "heroes": Array [],
     "id": 7,
     "items": Object {
@@ -531,6 +867,48 @@ Array [
       "summary": Object {},
     },
     "color": "#e55bb0",
+    "groupHotkeys": Object {
+      "0": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "1": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "2": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "3": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "4": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "5": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "6": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "7": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "8": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "9": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+    },
     "heroes": Array [],
     "id": 8,
     "items": Object {
@@ -592,6 +970,48 @@ Array [
       "summary": Object {},
     },
     "color": "#106246",
+    "groupHotkeys": Object {
+      "0": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "1": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "2": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "3": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "4": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "5": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "6": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "7": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "8": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "9": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+    },
     "heroes": Array [],
     "id": 10,
     "items": Object {
@@ -658,6 +1078,48 @@ Array [
       "summary": Object {},
     },
     "color": "#ff0303",
+    "groupHotkeys": Object {
+      "0": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "1": Object {
+        "assigned": 87,
+        "used": 1,
+      },
+      "2": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "3": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "4": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "5": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "6": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "7": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "8": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "9": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+    },
     "heroes": Array [],
     "id": 1,
     "items": Object {
@@ -719,6 +1181,48 @@ Array [
       "summary": Object {},
     },
     "color": "#0042ff",
+    "groupHotkeys": Object {
+      "0": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "1": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "2": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "3": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "4": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "5": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "6": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "7": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "8": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "9": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+    },
     "heroes": Array [],
     "id": 2,
     "items": Object {
@@ -780,6 +1284,48 @@ Array [
       "summary": Object {},
     },
     "color": "#1ce6b9",
+    "groupHotkeys": Object {
+      "0": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "1": Object {
+        "assigned": 94,
+        "used": 0,
+      },
+      "2": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "3": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "4": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "5": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "6": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "7": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "8": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "9": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+    },
     "heroes": Array [],
     "id": 3,
     "items": Object {
@@ -841,6 +1387,48 @@ Array [
       "summary": Object {},
     },
     "color": "#fe8a0e",
+    "groupHotkeys": Object {
+      "0": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "1": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "2": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "3": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "4": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "5": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "6": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "7": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "8": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "9": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+    },
     "heroes": Array [],
     "id": 4,
     "items": Object {
@@ -902,6 +1490,48 @@ Array [
       "summary": Object {},
     },
     "color": "#fffc00",
+    "groupHotkeys": Object {
+      "0": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "1": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "2": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "3": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "4": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "5": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "6": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "7": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "8": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "9": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+    },
     "heroes": Array [],
     "id": 11,
     "items": Object {
@@ -963,6 +1593,48 @@ Array [
       "summary": Object {},
     },
     "color": "#20c000",
+    "groupHotkeys": Object {
+      "0": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "1": Object {
+        "assigned": 410,
+        "used": 0,
+      },
+      "2": Object {
+        "assigned": 434,
+        "used": 0,
+      },
+      "3": Object {
+        "assigned": 691,
+        "used": 0,
+      },
+      "4": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "5": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "6": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "7": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "8": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "9": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+    },
     "heroes": Array [],
     "id": 5,
     "items": Object {
@@ -1024,6 +1696,48 @@ Array [
       "summary": Object {},
     },
     "color": "#4a2a04",
+    "groupHotkeys": Object {
+      "0": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "1": Object {
+        "assigned": 12,
+        "used": 20,
+      },
+      "2": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "3": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "4": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "5": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "6": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "7": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "8": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "9": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+    },
     "heroes": Array [],
     "id": 6,
     "items": Object {
@@ -1085,6 +1799,48 @@ Array [
       "summary": Object {},
     },
     "color": "#959697",
+    "groupHotkeys": Object {
+      "0": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "1": Object {
+        "assigned": 269,
+        "used": 9,
+      },
+      "2": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "3": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "4": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "5": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "6": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "7": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "8": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "9": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+    },
     "heroes": Array [],
     "id": 7,
     "items": Object {
@@ -1146,6 +1902,48 @@ Array [
       "summary": Object {},
     },
     "color": "#e55bb0",
+    "groupHotkeys": Object {
+      "0": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "1": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "2": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "3": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "4": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "5": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "6": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "7": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "8": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "9": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+    },
     "heroes": Array [],
     "id": 8,
     "items": Object {
@@ -1207,6 +2005,48 @@ Array [
       "summary": Object {},
     },
     "color": "#106246",
+    "groupHotkeys": Object {
+      "0": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "1": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "2": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "3": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "4": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "5": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "6": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "7": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "8": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+      "9": Object {
+        "assigned": 0,
+        "used": 0,
+      },
+    },
     "heroes": Array [],
     "id": 10,
     "items": Object {
