@@ -134,6 +134,48 @@ Object {
     },
   },
   "color": "#ff0303",
+  "groupHotkeys": Object {
+    "0": Object {
+      "assigned": 1,
+      "used": 128,
+    },
+    "1": Object {
+      "assigned": 47,
+      "used": 283,
+    },
+    "2": Object {
+      "assigned": 7,
+      "used": 45,
+    },
+    "3": Object {
+      "assigned": 0,
+      "used": 0,
+    },
+    "4": Object {
+      "assigned": 1,
+      "used": 211,
+    },
+    "5": Object {
+      "assigned": 0,
+      "used": 0,
+    },
+    "6": Object {
+      "assigned": 0,
+      "used": 0,
+    },
+    "7": Object {
+      "assigned": 0,
+      "used": 0,
+    },
+    "8": Object {
+      "assigned": 2,
+      "used": 2,
+    },
+    "9": Object {
+      "assigned": 2,
+      "used": 83,
+    },
+  },
   "heroes": Array [
     Object {
       "abilities": Object {
