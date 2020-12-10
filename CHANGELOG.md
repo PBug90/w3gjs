@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="2.2.1"></a>
+## [2.2.1](https://github.com/PBug90/w3gjs/compare/v2.2.0...v2.2.1) (2020-12-10)
+
+
+### Bug Fixes
+
+* adds groupHotkeys to player json serialization ([#66](https://github.com/PBug90/w3gjs/issues/66)) ([9b3988f](https://github.com/PBug90/w3gjs/commit/9b3988f))
+
+
+
 <a name="2.2.0"></a>
 # [2.2.0](https://github.com/PBug90/w3gjs/compare/v2.1.0...v2.2.0) (2020-11-04)
 
