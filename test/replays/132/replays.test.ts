@@ -1,6 +1,7 @@
 import W3GReplay from "../../../src/";
 import path from "path";
 import { GameDataBlock } from "../../../src/parsers/GameDataParser";
+
 const Parser = new W3GReplay();
 it("parses a reforged replay properly #1", async () => {
   const test = await Parser.parse(path.resolve(__dirname, "reforged1.w3g"));
@@ -151,4 +152,9 @@ it("should parse hotkeys correctly", async () => {
   expect(test.players[0].groupHotkeys[2]).toEqual({ assigned: 1, used: 60 });
   expect(test.players[1].groupHotkeys[1]).toEqual({ assigned: 21, used: 106 });
   expect(test.players[1].groupHotkeys[2]).toEqual({ assigned: 4, used: 64 });
+});
+
+it("should parse a flo w3c hostbot game correctly", async () => {
+  const test = await Parser.parse(path.resolve(__dirname, "ced_vs_lyn.w3g"));
+  expect(test.players).toMatchSnapshot();
 });

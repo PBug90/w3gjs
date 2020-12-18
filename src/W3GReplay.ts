@@ -24,7 +24,6 @@ import {
   W3MMDAction,
   TransferResourcesAction,
 } from "./parsers/ActionParser";
-import { runInThisContext } from "vm";
 
 export type TransferResourcesActionWithPlayer = {
   playerName: string;
