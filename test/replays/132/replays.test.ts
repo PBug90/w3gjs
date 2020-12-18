@@ -1,7 +1,7 @@
 import W3GReplay from "../../../src/";
 import path from "path";
 import { GameDataBlock } from "../../../src/parsers/GameDataParser";
-import { writeFileSync } from "fs";
+
 const Parser = new W3GReplay();
 it("parses a reforged replay properly #1", async () => {
   const test = await Parser.parse(path.resolve(__dirname, "reforged1.w3g"));
