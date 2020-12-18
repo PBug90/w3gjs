@@ -1,6 +1,7 @@
 import W3GReplay from "../../../src/";
 import path from "path";
 import { GameDataBlock } from "../../../src/parsers/GameDataParser";
+import { writeFileSync } from "fs";
 const Parser = new W3GReplay();
 it("parses a reforged replay properly #1", async () => {
   const test = await Parser.parse(path.resolve(__dirname, "reforged1.w3g"));
@@ -147,6 +148,17 @@ it("parses 1.32.8 replay with observer on defeat setting", async () => {
 
 it("should parse hotkeys correctly", async () => {
   const test = await Parser.parse(path.resolve(__dirname, "reforged1.w3g"));
+  expect(test.players[0].groupHotkeys[1]).toEqual({ assigned: 1, used: 29 });
+  expect(test.players[0].groupHotkeys[2]).toEqual({ assigned: 1, used: 60 });
+  expect(test.players[1].groupHotkeys[1]).toEqual({ assigned: 21, used: 106 });
+  expect(test.players[1].groupHotkeys[2]).toEqual({ assigned: 4, used: 64 });
+});
+
+it("should parse a flo w3c hostbot game correctly", async () => {
+  Parser.on("basic_replay_information", (meta) => {
+    writeFileSync(__dirname + "/dump.json", JSON.stringify(meta));
+  });
+  const test = await Parser.parse(path.resolve(__dirname, "ced_vs_lyn.w3g"));
   expect(test.players[0].groupHotkeys[1]).toEqual({ assigned: 1, used: 29 });
   expect(test.players[0].groupHotkeys[2]).toEqual({ assigned: 1, used: 60 });
   expect(test.players[1].groupHotkeys[1]).toEqual({ assigned: 21, used: 106 });
