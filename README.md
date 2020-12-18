@@ -6,7 +6,6 @@
 
 ## Parser
 From scratch asynchronous, fully typed and tested TypeScript implementation of a w3g parser for WarCraft 3 replay files.
-Zero external dependencies.
 
 You can use the subcomponents to create your own parser that suits your requirements or just use the high-level parser output that is best suited for 
 standard game mode game analysis.
