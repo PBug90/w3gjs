@@ -158,3 +158,18 @@ it("should parse a flo w3c hostbot game correctly", async () => {
   const test = await Parser.parse(path.resolve(__dirname, "ced_vs_lyn.w3g"));
   expect(test.players).toMatchSnapshot();
 });
+
+it("should handle a netease replay with rogue playerId 3 CommandDataBlocks correctly", async () => {
+  const test = await Parser.parse(path.resolve(__dirname, "moju_vs_fly.nwg"));
+  expect(test.players).toMatchSnapshot();
+});
+
+it("should handle a netease replay with rogue playerId 3 CommandDataBlocks correctly #2", async () => {
+  const test = await Parser.parse(path.resolve(__dirname, "1582161008.nwg"));
+  expect(test.players).toMatchSnapshot();
+});
+
+it("should handle a netease replay with rogue playerId 3 CommandDataBlocks correctly #3", async () => {
+  const test = await Parser.parse(path.resolve(__dirname, "1582070968.nwg"));
+  expect(test.players).toMatchSnapshot();
+});
