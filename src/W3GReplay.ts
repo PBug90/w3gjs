@@ -413,6 +413,7 @@ export default class W3GReplay extends EventEmitter {
         path: this.meta.map.mapName,
         file: convert.mapFilename(this.meta.map.mapName),
         checksum: this.meta.map.mapChecksum,
+        checksumSha1: this.meta.map.mapChecksumSha1,
       },
       version: convert.gameVersion(this.info.subheader.version),
       buildNumber: this.info.subheader.buildNo,

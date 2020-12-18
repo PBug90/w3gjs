@@ -65,6 +65,7 @@ type MapMetadata = {
   randomRaces: boolean;
   referees: boolean;
   mapChecksum: string;
+  mapChecksumSha1: string;
   mapName: string;
   creator: string;
 };
@@ -177,6 +178,8 @@ export default class MetadataParser extends StatefulBufferParser {
     parser.skip(0);
     const mapName = parser.readZeroTermString("utf-8");
     const creator = parser.readZeroTermString("utf-8");
+    parser.skip(1);
+    const checksumSha1 = parser.readStringOfLength(20, "hex");
     return {
       speed,
       hideTerrain: !!(secondByte & 0b00000001),
@@ -193,6 +196,7 @@ export default class MetadataParser extends StatefulBufferParser {
       mapName: mapName,
       creator: creator,
       mapChecksum: checksum,
+      mapChecksumSha1: checksumSha1,
     };
   }
 

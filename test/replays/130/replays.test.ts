@@ -67,6 +67,7 @@ it("parses a standard 1.30 replay properly", async () => {
   expect(test.map).toEqual({
     file: "(4)TwistedMeadows.w3x",
     checksum: "c3cae01d",
+    checksumSha1: "23dc614cca6fd7ec232fbba4898d318a90b95bc6",
     path: "Maps\\FrozenThrone\\(4)TwistedMeadows.w3x",
   });
 });

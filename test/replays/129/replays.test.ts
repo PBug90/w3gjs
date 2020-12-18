@@ -16,6 +16,7 @@ it("parses a netease 1.29 replay properly", async () => {
   expect(test.players.length).toBe(2);
   expect(test.map).toEqual({
     checksum: "281f9d6a",
+    checksumSha1: "c232d68286eb4604cc66db42d45e28017b78e3c4",
     file: "(4)TurtleRock.w3x",
     path: "Maps/1.29\\(4)TurtleRock.w3x",
   });
@@ -89,6 +90,7 @@ it("parses a standard 1.29 replay with observers properly", async () => {
   expect(test.parseTime).toBe(Math.round(test.parseTime));
   expect(test.map).toEqual({
     checksum: "008ab7f1",
+    checksumSha1: "79ba7579f28e5ccfd741a1ebfbff95a56813086e",
     file: "w3arena__twistedmeadows__v3.w3x",
     path: "Maps\\w3arena\\w3arena__twistedmeadows__v3.w3x",
   });

@@ -578,6 +578,26 @@
             "(4)TwistedMeadows.w3x"
           ],
           "pattern": "^(.*)$"
+        },
+        "checksum": {
+          "$id": "#/properties/map/properties/checksum",
+          "type": "string",
+          "title": "The Checksum Schema",
+          "default": "",
+          "examples": [
+            "b4230d1e"
+          ],
+          "pattern": "^(.*)$"
+        },
+        "checksumSha1": {
+          "$id": "#/properties/map/properties/checksumSha1",
+          "type": "string",
+          "title": "The ChecksumSha1 Schema",
+          "default": "",
+          "examples": [
+            "1f75e2a24fd995a6d7b123bb44d8afae7b5c6222"
+          ],
+          "pattern": "^(.*)$"
         }
       }
     },
