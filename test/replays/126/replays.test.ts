@@ -19,6 +19,7 @@ it("parses a 2on2standard 1.29 replay properly", async () => {
   expect(test.players.length).toBe(4);
   expect(test.map).toEqual({
     checksum: "b4230d1e",
+    checksumSha1: "1f75e2a24fd995a6d7b123bb44d8afae7b5c6222",
     file: "w3arena__maelstrom__v2.w3x",
     path: "Maps\\w3arena\\w3arena__maelstrom__v2.w3x",
   });
@@ -43,6 +44,7 @@ it("parses a standard 1.26 replay properly", async () => {
   expect(test.players.length).toBe(2);
   expect(test.map).toEqual({
     checksum: "51a1c63b",
+    checksumSha1: "0b4f05ca7dcc23b9501422b4fa26a86c7d2a0ee0",
     file: "w3arena__amazonia__v3.w3x",
     path: "Maps\\w3arena\\w3arena__amazonia__v3.w3x",
   });

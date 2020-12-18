@@ -32,6 +32,7 @@ export interface ParserOutput {
     path: string;
     file: string;
     checksum: string;
+    checksumSha1: string;
   };
   buildNumber: number;
   version: string;
