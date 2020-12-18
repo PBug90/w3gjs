@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="2.2.2"></a>
+## [2.2.2](https://github.com/PBug90/w3gjs/compare/v2.2.1...v2.2.2) (2020-12-18)
+
+
+### Bug Fixes
+
+* correctly handle protobuf metadata ([#68](https://github.com/PBug90/w3gjs/issues/68)) ([3104fc0](https://github.com/PBug90/w3gjs/commit/3104fc0))
+
+
+
 <a name="2.2.1"></a>
 ## [2.2.1](https://github.com/PBug90/w3gjs/compare/v2.2.0...v2.2.1) (2020-12-10)
 
