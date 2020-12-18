@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="2.3.0"></a>
+# [2.3.0](https://github.com/PBug90/w3gjs/compare/v2.2.2...v2.3.0) (2020-12-18)
+
+
+### Bug Fixes
+
+* ignore and log encountered CommandDataBlocks for unknown players (nwg) ([#72](https://github.com/PBug90/w3gjs/issues/72)) ([7a09b79](https://github.com/PBug90/w3gjs/commit/7a09b79))
+
+
+### Features
+
+* read and add checksumSha1 of map to parser output ([#70](https://github.com/PBug90/w3gjs/issues/70)) ([cd4994d](https://github.com/PBug90/w3gjs/commit/cd4994d))
+
+
+
 <a name="2.2.2"></a>
 ## [2.2.2](https://github.com/PBug90/w3gjs/compare/v2.2.1...v2.2.2) (2020-12-18)
 
