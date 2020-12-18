@@ -155,12 +155,6 @@ it("should parse hotkeys correctly", async () => {
 });
 
 it("should parse a flo w3c hostbot game correctly", async () => {
-  Parser.on("basic_replay_information", (meta) => {
-    writeFileSync(__dirname + "/dump.json", JSON.stringify(meta));
-  });
   const test = await Parser.parse(path.resolve(__dirname, "ced_vs_lyn.w3g"));
-  expect(test.players[0].groupHotkeys[1]).toEqual({ assigned: 1, used: 29 });
-  expect(test.players[0].groupHotkeys[2]).toEqual({ assigned: 1, used: 60 });
-  expect(test.players[1].groupHotkeys[1]).toEqual({ assigned: 21, used: 106 });
-  expect(test.players[1].groupHotkeys[2]).toEqual({ assigned: 4, used: 64 });
+  expect(test.players).toMatchSnapshot();
 });
