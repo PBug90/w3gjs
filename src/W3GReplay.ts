@@ -86,6 +86,7 @@ export default class W3GReplay extends EventEmitter {
   buffer: Buffer;
   msElapsed = 0;
   slotToPlayerId = new Map<number, number>();
+  knownPlayerIds: Set<string>;
 
   constructor() {
     super();
@@ -172,6 +173,8 @@ export default class W3GReplay extends EventEmitter {
         );
       }
     });
+
+    this.knownPlayerIds = new Set(Object.keys(this.players));
   }
 
   processGameDataBlock(block: GameDataBlock): void {
@@ -220,6 +223,12 @@ export default class W3GReplay extends EventEmitter {
   }
 
   processCommandDataBlock(block: CommandBlock): void {
+    if (this.knownPlayerIds.has(String(block.playerId)) === false) {
+      console.log(
+        `detected unknown playerId in CommandBlock: ${block.playerId} - time elapsed: ${this.totalTimeTracker}`
+      );
+      return;
+    }
     const currentPlayer = this.players[block.playerId];
     currentPlayer.currentTimePlayed = this.totalTimeTracker;
     currentPlayer._lastActionWasDeselect = false;
