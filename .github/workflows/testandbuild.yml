@@ -18,3 +18,18 @@ jobs:
     - run: npm run build
       env:
         CI: true
+  coverage:
+    needs: [ testandbuild ]
+    name: coverage
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - uses: actions/setup-node@master
+      with:
+        node-version: '14'
+    - run: npm install
+    - uses: paambaati/codeclimate-action@v2.2.4
+      env:
+        CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+      with:
+        coverageCommand: npm run coverage         
