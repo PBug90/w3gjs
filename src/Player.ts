@@ -37,6 +37,7 @@ interface Ability {
 interface Retraining {
   type: "retraining";
   time: number;
+  number?: number;
 }
 
 export interface HeroInfo {
