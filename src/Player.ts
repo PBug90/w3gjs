@@ -48,6 +48,10 @@ export interface HeroInfo {
   abilityOrder: (Ability | Retraining)[];
 }
 
+export function HeroAbilityCalculator(): void {
+  return undefined;
+}
+
 class Player {
   id: number;
   name: string;
