@@ -28,16 +28,15 @@ export const reduceHeroes = (heroCollector: {
     }, [] as Omit<HeroInfo, "order">[]);
 };
 
-interface Ability {
+export interface Ability {
   type: "ability";
   time: number;
   value: string;
 }
 
-interface Retraining {
+export interface Retraining {
   type: "retraining";
   time: number;
-  number?: number;
 }
 
 export interface HeroInfo {
@@ -47,10 +46,6 @@ export interface HeroInfo {
   id: string;
   retrainingHistory: { time: number; abilities: { [key: string]: number } }[];
   abilityOrder: (Ability | Retraining)[];
-}
-
-export function HeroAbilityCalculator(): void {
-  return undefined;
 }
 
 class Player {
@@ -72,6 +67,7 @@ class Player {
     summary: { [key: string]: number };
     order: { id: string; ms: number }[];
   };
+
   buildings: {
     summary: { [key: string]: number };
     order: { id: string; ms: number }[];
