@@ -11,10 +11,7 @@
           "type": "integer"
         }
       },
-      "required": [
-        "assigned",
-        "used"
-      ]
+      "required": ["assigned", "used"]
     }
   },
   "$schema": "http://json-schema.org/draft-07/schema#",
@@ -107,12 +104,7 @@
               "type": "object",
               "title": "The Items Schema",
               "additionalProperties": false,
-              "required": [
-                "level",
-                "abilities",
-                "id",
-                "retrainingHistory"
-              ],
+              "required": ["level", "abilities", "id", "retrainingHistory"],
               "properties": {
                 "id": {
                   "$id": "#/properties/players/items/properties/heroes/items/properties/id",
@@ -147,9 +139,7 @@
             "type": "string",
             "title": "The Name Schema",
             "default": "",
-            "examples": [
-              ""
-            ],
+            "examples": [""],
             "pattern": "^(.*)$"
           },
           "apm": {
@@ -157,9 +147,7 @@
             "type": "integer",
             "title": "Average APM of the player",
             "default": "",
-            "examples": [
-              180
-            ],
+            "examples": [180],
             "pattern": "^(.*)$"
           },
           "race": {
@@ -167,9 +155,7 @@
             "type": "string",
             "title": "The Race Schema",
             "default": "",
-            "examples": [
-              ""
-            ],
+            "examples": [""],
             "pattern": "^(.*)$"
           },
           "raceDetected": {
@@ -177,9 +163,7 @@
             "type": "string",
             "title": "The Racedetected Schema",
             "default": "",
-            "examples": [
-              ""
-            ],
+            "examples": [""],
             "pattern": "^(.*)$"
           },
           "color": {
@@ -187,19 +171,14 @@
             "type": "string",
             "title": "The Color Schema",
             "default": "",
-            "examples": [
-              ""
-            ],
+            "examples": [""],
             "pattern": "^(.*)$"
           },
           "units": {
             "$id": "#/properties/players/items/properties/units",
             "type": "object",
             "title": "The Units Schema",
-            "required": [
-              "summary",
-              "order"
-            ],
+            "required": ["summary", "order"],
             "properties": {
               "summary": {
                 "$id": "#/properties/players/items/properties/units/properties/summary",
@@ -215,28 +194,21 @@
                   "$id": "#/properties/players/items/properties/units/properties/order/items",
                   "type": "object",
                   "title": "The Items Schema",
-                  "required": [
-                    "ms",
-                    "id"
-                  ],
+                  "required": ["ms", "id"],
                   "properties": {
                     "ms": {
                       "$id": "#/properties/players/items/properties/units/properties/order/items/properties/ms",
                       "type": "integer",
                       "title": "The Ms Schema",
                       "default": 0,
-                      "examples": [
-                        1500
-                      ]
+                      "examples": [1500]
                     },
                     "id": {
                       "$id": "#/properties/players/items/properties/units/properties/order/items/properties/id",
                       "type": "string",
                       "title": "The Id Schema",
                       "default": "",
-                      "examples": [
-                        "hfoo"
-                      ],
+                      "examples": ["hfoo"],
                       "pattern": "^(.*)$"
                     }
                   }
@@ -249,27 +221,20 @@
             "type": "integer",
             "title": "The Teamid Schema",
             "default": 0,
-            "examples": [
-              2
-            ]
+            "examples": [2]
           },
           "id": {
             "$id": "#/properties/players/items/properties/id",
             "type": "integer",
             "title": "The Id Schema",
             "default": 0,
-            "examples": [
-              0
-            ]
+            "examples": [0]
           },
           "buildings": {
             "$id": "#/properties/players/items/properties/buildings",
             "type": "object",
             "title": "The Buildings Schema",
-            "required": [
-              "summary",
-              "order"
-            ],
+            "required": ["summary", "order"],
             "properties": {
               "summary": {
                 "$id": "#/properties/players/items/properties/buildings/properties/summary",
@@ -284,28 +249,21 @@
                   "$id": "#/properties/players/items/properties/buildings/properties/order/items",
                   "type": "object",
                   "title": "The Items Schema",
-                  "required": [
-                    "ms",
-                    "id"
-                  ],
+                  "required": ["ms", "id"],
                   "properties": {
                     "ms": {
                       "$id": "#/properties/players/items/properties/buildings/properties/order/items/properties/ms",
                       "type": "integer",
                       "title": "The Ms Schema",
                       "default": 0,
-                      "examples": [
-                        1500
-                      ]
+                      "examples": [1500]
                     },
                     "id": {
                       "$id": "#/properties/players/items/properties/buildings/properties/order/items/properties/id",
                       "type": "string",
                       "title": "The Id Schema",
                       "default": "",
-                      "examples": [
-                        "hfoo"
-                      ],
+                      "examples": ["hfoo"],
                       "pattern": "^(.*)$"
                     }
                   }
@@ -317,10 +275,7 @@
             "$id": "#/properties/players/items/properties/upgrades",
             "type": "object",
             "title": "The Upgrades Schema",
-            "required": [
-              "summary",
-              "order"
-            ],
+            "required": ["summary", "order"],
             "properties": {
               "summary": {
                 "$id": "#/properties/players/items/properties/upgrades/properties/summary",
@@ -335,28 +290,21 @@
                   "$id": "#/properties/players/items/properties/upgrades/properties/order/items",
                   "type": "object",
                   "title": "The Items Schema",
-                  "required": [
-                    "ms",
-                    "id"
-                  ],
+                  "required": ["ms", "id"],
                   "properties": {
                     "ms": {
                       "$id": "#/properties/players/items/properties/upgrades/properties/order/items/properties/ms",
                       "type": "integer",
                       "title": "The Ms Schema",
                       "default": 0,
-                      "examples": [
-                        1500
-                      ]
+                      "examples": [1500]
                     },
                     "id": {
                       "$id": "#/properties/players/items/properties/upgrades/properties/order/items/properties/id",
                       "type": "string",
                       "title": "The Id Schema",
                       "default": "",
-                      "examples": [
-                        "hfoo"
-                      ],
+                      "examples": ["hfoo"],
                       "pattern": "^(.*)$"
                     }
                   }
@@ -368,10 +316,7 @@
             "$id": "#/properties/players/items/properties/items",
             "type": "object",
             "title": "The Items Schema",
-            "required": [
-              "summary",
-              "order"
-            ],
+            "required": ["summary", "order"],
             "properties": {
               "summary": {
                 "$id": "#/properties/players/items/properties/items/properties/summary",
@@ -386,28 +331,21 @@
                   "$id": "#/properties/players/items/properties/items/properties/order/items",
                   "type": "object",
                   "title": "The Items Schema",
-                  "required": [
-                    "ms",
-                    "id"
-                  ],
+                  "required": ["ms", "id"],
                   "properties": {
                     "ms": {
                       "$id": "#/properties/players/items/properties/items/properties/order/items/properties/ms",
                       "type": "integer",
                       "title": "The Ms Schema",
                       "default": 0,
-                      "examples": [
-                        1500
-                      ]
+                      "examples": [1500]
                     },
                     "id": {
                       "$id": "#/properties/players/items/properties/items/properties/order/items/properties/id",
                       "type": "string",
                       "title": "The Id Schema",
                       "default": "",
-                      "examples": [
-                        "hfoo"
-                      ],
+                      "examples": ["hfoo"],
                       "pattern": "^(.*)$"
                     }
                   }
@@ -466,9 +404,7 @@
       "$id": "#/properties/apm",
       "type": "object",
       "title": "The apm information Schema",
-      "required": [
-        "trackingInterval"
-      ],
+      "required": ["trackingInterval"],
       "properties": {
         "trackingInterval": {
           "$id": "#/properties/apm/properties/trackingInterval",
@@ -488,9 +424,7 @@
       "type": "integer",
       "title": "The startSpots Schema",
       "default": "",
-      "examples": [
-        4
-      ],
+      "examples": [4],
       "pattern": "^(.*)$"
     },
     "duration": {
@@ -505,9 +439,7 @@
       "type": "string",
       "title": "The Gamename Schema",
       "default": "",
-      "examples": [
-        ""
-      ],
+      "examples": [""],
       "pattern": "^(.*)$"
     },
     "matchup": {
@@ -515,9 +447,7 @@
       "type": "string",
       "title": "The Matchup Schema",
       "default": "",
-      "examples": [
-        "a well defined, universal matchup string"
-      ],
+      "examples": ["a well defined, universal matchup string"],
       "pattern": "^(.*)$"
     },
     "id": {
@@ -535,9 +465,7 @@
       "type": "string",
       "title": "The Type Schema",
       "default": "",
-      "examples": [
-        "1vs1"
-      ],
+      "examples": ["1vs1"],
       "pattern": "^(.*)$"
     },
     "creator": {
@@ -545,28 +473,21 @@
       "type": "string",
       "title": "The Creator Schema",
       "default": "",
-      "examples": [
-        "BNet"
-      ],
+      "examples": ["BNet"],
       "pattern": "^(.*)$"
     },
     "map": {
       "$id": "#/properties/map",
       "type": "object",
       "title": "The Map Schema",
-      "required": [
-        "path",
-        "file"
-      ],
+      "required": ["path", "file"],
       "properties": {
         "path": {
           "$id": "#/properties/map/properties/path",
           "type": "string",
           "title": "The Path Schema",
           "default": "",
-          "examples": [
-            "Maps\\FrozenThrone\\(4)TwistedMeadows.w3x"
-          ],
+          "examples": ["Maps\\FrozenThrone\\(4)TwistedMeadows.w3x"],
           "pattern": "^(.*)$"
         },
         "file": {
@@ -574,9 +495,7 @@
           "type": "string",
           "title": "The File Schema",
           "default": "",
-          "examples": [
-            "(4)TwistedMeadows.w3x"
-          ],
+          "examples": ["(4)TwistedMeadows.w3x"],
           "pattern": "^(.*)$"
         },
         "checksum": {
@@ -584,9 +503,7 @@
           "type": "string",
           "title": "The Checksum Schema",
           "default": "",
-          "examples": [
-            "b4230d1e"
-          ],
+          "examples": ["b4230d1e"],
           "pattern": "^(.*)$"
         },
         "checksumSha1": {
@@ -594,9 +511,7 @@
           "type": "string",
           "title": "The ChecksumSha1 Schema",
           "default": "",
-          "examples": [
-            "1f75e2a24fd995a6d7b123bb44d8afae7b5c6222"
-          ],
+          "examples": ["1f75e2a24fd995a6d7b123bb44d8afae7b5c6222"],
           "pattern": "^(.*)$"
         }
       }
@@ -606,9 +521,7 @@
       "type": "string",
       "title": "The Version Schema",
       "default": "",
-      "examples": [
-        "1.31"
-      ],
+      "examples": ["1.31"],
       "pattern": "^(.*)$"
     },
     "settings": {
@@ -633,64 +546,47 @@
           "type": "boolean",
           "title": "The Hideterrain Schema",
           "default": false,
-          "examples": [
-            true
-          ]
+          "examples": [true]
         },
         "mapExplored": {
           "$id": "#/properties/settings/properties/mapExplored",
           "type": "boolean",
           "title": "The Mapexplored Schema",
           "default": false,
-          "examples": [
-            true
-          ]
+          "examples": [true]
         },
         "alwaysVisible": {
           "$id": "#/properties/settings/properties/alwaysVisible",
           "type": "boolean",
           "title": "The Alwaysvisible Schema",
           "default": false,
-          "examples": [
-            true
-          ]
+          "examples": [true]
         },
         "teamsTogether": {
           "$id": "#/properties/settings/properties/teamsTogether",
           "type": "boolean",
           "title": "The Teamstogether Schema",
           "default": false,
-          "examples": [
-            false
-          ]
+          "examples": [false]
         },
         "randomHero": {
           "$id": "#/properties/settings/properties/randomHero",
           "type": "boolean",
           "title": "The Randomhero Schema",
           "default": false,
-          "examples": [
-            false
-          ]
+          "examples": [false]
         },
         "randomRaces": {
           "$id": "#/properties/settings/properties/randomRaces",
           "type": "boolean",
           "title": "The Randomraces Schema",
           "default": false,
-          "examples": [
-            false
-          ]
+          "examples": [false]
         },
         "observerMode": {
           "$id": "#/properties/settings/properties/referees",
           "type": "string",
-          "enum": [
-            "FULL",
-            "NONE",
-            "ON_DEFEAT",
-            "REFEREES"
-          ],
+          "enum": ["FULL", "NONE", "ON_DEFEAT", "REFEREES"],
           "title": "The Referees Schema",
           "default": false
         },
@@ -699,27 +595,21 @@
           "type": "boolean",
           "title": "The Fixedteams Schema",
           "default": false,
-          "examples": [
-            true
-          ]
+          "examples": [true]
         },
         "fullSharedUnitControl": {
           "$id": "#/properties/settings/properties/fullSharedUnitControl",
           "type": "boolean",
           "title": "The Fullsharedunitcontrol Schema",
           "default": false,
-          "examples": [
-            true
-          ]
+          "examples": [true]
         },
         "speed": {
           "$id": "#/properties/settings/properties/speed",
           "type": "integer",
           "title": "The Speed Schema",
           "default": 0,
-          "examples": [
-            2
-          ]
+          "examples": [2]
         }
       }
     },
@@ -737,10 +627,7 @@
         "type": "string",
         "title": "The Items Schema",
         "default": "",
-        "examples": [
-          "observer1",
-          "observer2"
-        ],
+        "examples": ["observer1", "observer2"],
         "pattern": "^(.*)$"
       }
     },
@@ -752,20 +639,14 @@
         "$id": "#/properties/chat/items",
         "type": "object",
         "title": "The Items Schema",
-        "required": [
-          "mode",
-          "playerName",
-          "message"
-        ],
+        "required": ["mode", "playerName", "message"],
         "properties": {
           "mode": {
             "$id": "#/properties/chat/items/properties/mode",
             "type": "string",
             "title": "The Mode Schema",
             "default": "",
-            "examples": [
-              "ALL|ALLY|OBS|REF|PRIVATE"
-            ],
+            "examples": ["ALL|ALLY|OBS|REF|PRIVATE"],
             "pattern": "^(.*)$"
           },
           "player": {
@@ -773,9 +654,7 @@
             "type": "string",
             "title": "The Player Schema",
             "default": "",
-            "examples": [
-              "a playername"
-            ],
+            "examples": ["a playername"],
             "pattern": "^(.*)$"
           },
           "message": {
@@ -783,9 +662,7 @@
             "type": "string",
             "title": "The Message Schema",
             "default": "",
-            "examples": [
-              "the chat message"
-            ],
+            "examples": ["the chat message"],
             "pattern": "^(.*)$"
           }
         }

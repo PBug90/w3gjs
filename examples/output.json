@@ -7,12 +7,7 @@
   "players": [
     {
       "actions": {
-        "timed": [
-          216,
-          338,
-          259,
-          42
-        ],
+        "timed": [216, 338, 259, 42],
         "assigngroup": 14,
         "rightclick": 85,
         "basic": 13,
@@ -24,6 +19,48 @@
         "subgroup": 0,
         "selecthotkey": 656,
         "esc": 0
+      },
+      "groupHotkeys": {
+        "0": {
+          "assigned": 0,
+          "used": 0
+        },
+        "1": {
+          "assigned": 4,
+          "used": 62
+        },
+        "2": {
+          "assigned": 2,
+          "used": 184
+        },
+        "3": {
+          "assigned": 3,
+          "used": 177
+        },
+        "4": {
+          "assigned": 2,
+          "used": 143
+        },
+        "5": {
+          "assigned": 1,
+          "used": 90
+        },
+        "6": {
+          "assigned": 2,
+          "used": 0
+        },
+        "7": {
+          "assigned": 0,
+          "used": 0
+        },
+        "8": {
+          "assigned": 0,
+          "used": 0
+        },
+        "9": {
+          "assigned": 0,
+          "used": 0
+        }
       },
       "buildings": {
         "summary": {
@@ -144,12 +181,7 @@
     },
     {
       "actions": {
-        "timed": [
-          136,
-          130,
-          93,
-          37
-        ],
+        "timed": [136, 130, 93, 37],
         "assigngroup": 10,
         "rightclick": 162,
         "basic": 0,
@@ -161,6 +193,48 @@
         "subgroup": 0,
         "selecthotkey": 89,
         "esc": 0
+      },
+      "groupHotkeys": {
+        "0": {
+          "assigned": 0,
+          "used": 0
+        },
+        "1": {
+          "assigned": 3,
+          "used": 9
+        },
+        "2": {
+          "assigned": 1,
+          "used": 3
+        },
+        "3": {
+          "assigned": 0,
+          "used": 0
+        },
+        "4": {
+          "assigned": 1,
+          "used": 54
+        },
+        "5": {
+          "assigned": 3,
+          "used": 23
+        },
+        "6": {
+          "assigned": 2,
+          "used": 0
+        },
+        "7": {
+          "assigned": 0,
+          "used": 0
+        },
+        "8": {
+          "assigned": 0,
+          "used": 0
+        },
+        "9": {
+          "assigned": 0,
+          "used": 0
+        }
       },
       "buildings": {
         "summary": {
@@ -299,12 +373,7 @@
     },
     {
       "actions": {
-        "timed": [
-          66,
-          60,
-          39,
-          0
-        ],
+        "timed": [66, 60, 39, 0],
         "assigngroup": 3,
         "rightclick": 55,
         "basic": 0,
@@ -316,6 +385,48 @@
         "subgroup": 0,
         "selecthotkey": 57,
         "esc": 0
+      },
+      "groupHotkeys": {
+        "0": {
+          "assigned": 0,
+          "used": 0
+        },
+        "1": {
+          "assigned": 0,
+          "used": 0
+        },
+        "2": {
+          "assigned": 1,
+          "used": 0
+        },
+        "3": {
+          "assigned": 1,
+          "used": 55
+        },
+        "4": {
+          "assigned": 1,
+          "used": 2
+        },
+        "5": {
+          "assigned": 0,
+          "used": 0
+        },
+        "6": {
+          "assigned": 0,
+          "used": 0
+        },
+        "7": {
+          "assigned": 0,
+          "used": 0
+        },
+        "8": {
+          "assigned": 0,
+          "used": 0
+        },
+        "9": {
+          "assigned": 0,
+          "used": 0
+        }
       },
       "buildings": {
         "summary": {
@@ -411,12 +522,7 @@
     },
     {
       "actions": {
-        "timed": [
-          279,
-          359,
-          168,
-          47
-        ],
+        "timed": [279, 359, 168, 47],
         "assigngroup": 9,
         "rightclick": 159,
         "basic": 13,
@@ -428,6 +534,48 @@
         "subgroup": 0,
         "selecthotkey": 599,
         "esc": 0
+      },
+      "groupHotkeys": {
+        "0": {
+          "assigned": 0,
+          "used": 0
+        },
+        "1": {
+          "assigned": 4,
+          "used": 87
+        },
+        "2": {
+          "assigned": 0,
+          "used": 0
+        },
+        "3": {
+          "assigned": 1,
+          "used": 58
+        },
+        "4": {
+          "assigned": 1,
+          "used": 206
+        },
+        "5": {
+          "assigned": 1,
+          "used": 154
+        },
+        "6": {
+          "assigned": 2,
+          "used": 94
+        },
+        "7": {
+          "assigned": 0,
+          "used": 0
+        },
+        "8": {
+          "assigned": 0,
+          "used": 0
+        },
+        "9": {
+          "assigned": 0,
+          "used": 0
+        }
       },
       "buildings": {
         "summary": {
@@ -884,7 +1032,8 @@
   "map": {
     "path": "Maps\\w3arena\\w3arena__maelstrom__v2.w3x",
     "file": "w3arena__maelstrom__v2.w3x",
-    "checksum": "b4230d1e"
+    "checksum": "b4230d1e",
+    "checksumSha1": "1f75e2a24fd995a6d7b123bb44d8afae7b5c6222"
   },
   "version": "1.26",
   "buildNumber": 6059,
@@ -903,5 +1052,5 @@
     "randomRaces": false,
     "speed": 2
   },
-  "parseTime": 145
+  "parseTime": 171
 }
