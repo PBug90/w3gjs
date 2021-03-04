@@ -1,4 +1,5 @@
 # identifier algorithm
+
 In order to detect duplicate replays, an algorithm can be used to determine a unique identifier for each replay file.
 That unique identifier must not rely on actual game data or game outcome and must only rely on information that is shared across all game participants regardless of time of replay saving.
 Since replays of the same game can differ in binary (players leaving earlier than other players), a file hash is of no use. But one can use existing replay information to construct a hash as follows:
@@ -32,19 +33,20 @@ generateID(): void {
 
 # matchup algorithm
 
-For a given matchup, the matchup algorithm is supposed to return the same string regardless of player or team order. 
+For a given matchup, the matchup algorithm is supposed to return the same string regardless of player or team order.
 Consider the following example:
-* Team1: Undead + Human
-* Team0: Orc + Human
+
+- Team1: Undead + Human
+- Team0: Orc + Human
 
 The resulting matchup string must be HOvHU
 
 Algorithm:
 
-* for each team, get the first letter of the race of each player and uppercase it
-* in that team, sort by race letter ascending
-* for each sorted team race combination, sort the team race combinations ascending
-* concat the resulting team race combinations with a 'v' to form the final matchup string
+- for each team, get the first letter of the race of each player and uppercase it
+- in that team, sort by race letter ascending
+- for each sorted team race combination, sort the team race combinations ascending
+- concat the resulting team race combinations with a 'v' to form the final matchup string
 
 ```typescript
 determineMatchup(): void {
