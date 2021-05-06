@@ -81,6 +81,22 @@ it("parse is a promise that resolves with parser output", async () => {
   expect(metadataCallback).toHaveBeenCalledTimes(1);
 });
 
+it("emits 0x1A player actions", async () => {
+  const Parser = new W3GReplay();
+  let amountOf0x1AActions = 0;
+  Parser.on("gamedatablock", (block: GameDataBlock) => {
+    if (block.id === 0x1f) {
+      for (const cmdBlock of block.commandBlocks) {
+        amountOf0x1AActions += cmdBlock.actions.filter(
+          (action) => action.id === 0x1a
+        ).length;
+      }
+    }
+  });
+  await Parser.parse(path.resolve(__dirname, "netease_132.nwg"));
+  expect(amountOf0x1AActions).toBeGreaterThan(0);
+});
+
 it("handles truncated player names in reforged replays", async () => {
   const test = await Parser.parse(
     path.resolve(__dirname, "reforged_truncated_playernames.w3g")
