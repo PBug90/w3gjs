@@ -1,6 +1,13 @@
-# Change Log
+# Changelog
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+
+## [2.4.0](https://github.com/PBug90/w3gjs/compare/v2.3.0...v2.4.0) (2021-05-06)
+
+
+### Features
+
+* include 0x1A actions in CommandBlocks ([#81](https://github.com/PBug90/w3gjs/issues/81)) ([27b6fb1](https://github.com/PBug90/w3gjs/commit/27b6fb1e65e01a859861b38a89200e62bb65343a))
 
 <a name="2.3.0"></a>
 
