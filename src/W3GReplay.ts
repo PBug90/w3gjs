@@ -36,6 +36,7 @@ enum ChatMessageMode {
   All = "All",
   Private = "Private",
   Team = "Team",
+  Observers = "Obervers",
 }
 
 export enum ObserverMode {
@@ -204,12 +205,25 @@ export default class W3GReplay extends EventEmitter {
     return this.slotToPlayerId.get(slotId);
   }
 
+  private numericalChatModeToChatMessageMode(number: number) {
+    switch (number) {
+      case 0x00:
+        return ChatMessageMode.All;
+      case 0x01:
+        return ChatMessageMode.Team;
+      case 0x02:
+        return ChatMessageMode.Observers;
+      default:
+        return ChatMessageMode.Private;
+    }
+  }
+
   handleChatMessage(block: PlayerChatMessageBlock, timeMS: number): void {
     const message: ChatMessage = {
       playerName: this.players[block.playerId].name,
       playerId: block.playerId,
       message: block.message,
-      mode: ChatMessageMode.Team,
+      mode: this.numericalChatModeToChatMessageMode(block.mode),
       timeMS,
     };
     this.chatlog.push(message);

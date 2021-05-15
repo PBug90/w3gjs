@@ -175,6 +175,11 @@ it("should parse a flo w3c hostbot game correctly", async () => {
   expect(test.players).toMatchSnapshot();
 });
 
+it("should return chat mode types correctly", async () => {
+  const test = await Parser.parse(path.resolve(__dirname, "ced_vs_lyn.w3g"));
+  expect(test.chat).toMatchSnapshot();
+});
+
 it("should handle a netease replay with rogue playerId 3 CommandDataBlocks correctly", async () => {
   const test = await Parser.parse(path.resolve(__dirname, "moju_vs_fly.nwg"));
   expect(test.players).toMatchSnapshot();
