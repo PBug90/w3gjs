@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.4.1](https://github.com/PBug90/w3gjs/compare/v2.4.0...v2.4.1) (2021-05-15)
+
+
+### Bug Fixes
+
+* chat messages include correctly mapped chat mode ([#85](https://github.com/PBug90/w3gjs/issues/85)) ([23911e2](https://github.com/PBug90/w3gjs/commit/23911e28bd0229a441ce2ee19ffef5f8b124bcdc))
+
 ## [2.4.0](https://github.com/PBug90/w3gjs/compare/v2.3.0...v2.4.0) (2021-05-06)
 
 
