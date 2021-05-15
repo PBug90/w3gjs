@@ -27,6 +27,7 @@ export type CommandBlock = {
 export type PlayerChatMessageBlock = {
   id: 0x20;
   playerId: number;
+  mode: number;
   message: string;
 };
 
@@ -97,13 +98,15 @@ export default class GameDataParser extends EventEmitter {
     const playerId = this.parser.readUInt8();
     const byteCount = this.parser.readUInt16LE();
     const flags = this.parser.readUInt8();
+    let mode = 0;
     if (flags === 0x20) {
-      this.parser.skip(4);
+      mode = this.parser.readUInt32LE();
     }
     const message = this.parser.readZeroTermString("utf-8");
     return {
       id: 0x20,
       playerId,
+      mode,
       message,
     };
   }
