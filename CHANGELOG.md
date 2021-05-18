@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.4.2](https://github.com/PBug90/w3gjs/compare/v2.4.1...v2.4.2) (2021-05-18)
+
+
+### Bug Fixes
+
+* less restrictive map file name extraction regex ([#87](https://github.com/PBug90/w3gjs/issues/87)) ([5731637](https://github.com/PBug90/w3gjs/commit/573163787bf361486b0827f8f19eab2cf9f8647d))
+
 ### [2.4.1](https://github.com/PBug90/w3gjs/compare/v2.4.0...v2.4.1) (2021-05-15)
 
 
