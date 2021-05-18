@@ -63,7 +63,7 @@ const gameVersion = (version: number): string => {
   return `1.${version}`;
 };
 
-const mapFilenameRegex = /(\([1-9]+\))?[^\\/]+\.(w3x|w3m)/;
+const mapFilenameRegex = /[^\\/]+(\([1-9]+\))?\.(w3x|w3m)/;
 const mapFilename = (mapPath: string): string => {
   const match = mapFilenameRegex.exec(mapPath);
   if (match) {
