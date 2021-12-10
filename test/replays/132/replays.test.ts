@@ -197,6 +197,5 @@ it("should handle a netease replay with rogue playerId 3 CommandDataBlocks corre
 
 it("should parse kotg as level 6", async () => {
   const test = await Parser.parse(path.resolve(__dirname, "706266088.w3g"));
-  console.log(JSON.stringify(test.players[1].heroes));
   expect(test.players[1].heroes[0].level).toBe(6);
 });

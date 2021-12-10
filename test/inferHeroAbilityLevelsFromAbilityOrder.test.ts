@@ -99,7 +99,7 @@ const input: Ability[] = [
   },
 ];
 
-it("correctly calculates kotg", () => {
+it("correctly infers that KOTG only has tranquility level 1", () => {
   expect(inferHeroAbilityLevelsFromAbilityOrder(input)).toEqual({
     AEfn: 2,
     AEer: 3,
