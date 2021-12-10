@@ -1,0 +1,22 @@
+name: Node.js CI
+on: [push]
+jobs:
+  testandbuild:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [16.x]
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - run: npm i -g typescript typedoc
+      - run: typedoc --out doc src
+      - run: touch ./doc/.nojekyll
+      - name: Deploy
+        uses: JamesIves/github-pages-deploy-action@4.1.7
+        with:
+          branch: gh-pages
+          folder: doc
