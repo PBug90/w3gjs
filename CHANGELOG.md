@@ -1,6 +1,27 @@
-# Change Log
+# Changelog
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+
+### [2.4.2](https://github.com/PBug90/w3gjs/compare/v2.4.1...v2.4.2) (2021-05-18)
+
+
+### Bug Fixes
+
+* less restrictive map file name extraction regex ([#87](https://github.com/PBug90/w3gjs/issues/87)) ([5731637](https://github.com/PBug90/w3gjs/commit/573163787bf361486b0827f8f19eab2cf9f8647d))
+
+### [2.4.1](https://github.com/PBug90/w3gjs/compare/v2.4.0...v2.4.1) (2021-05-15)
+
+
+### Bug Fixes
+
+* chat messages include correctly mapped chat mode ([#85](https://github.com/PBug90/w3gjs/issues/85)) ([23911e2](https://github.com/PBug90/w3gjs/commit/23911e28bd0229a441ce2ee19ffef5f8b124bcdc))
+
+## [2.4.0](https://github.com/PBug90/w3gjs/compare/v2.3.0...v2.4.0) (2021-05-06)
+
+
+### Features
+
+* include 0x1A actions in CommandBlocks ([#81](https://github.com/PBug90/w3gjs/issues/81)) ([27b6fb1](https://github.com/PBug90/w3gjs/commit/27b6fb1e65e01a859861b38a89200e62bb65343a))
 
 <a name="2.3.0"></a>
 

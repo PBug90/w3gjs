@@ -110,6 +110,10 @@ type RemoveUnitFromBuildingQueue = {
   itemId: number[];
 };
 
+type PreSubselectionAction = {
+  id: 0x1a;
+};
+
 export type W3MMDAction = {
   id: 0x6b;
   filename: string;
@@ -123,6 +127,7 @@ export type Action =
   | UnitBuildingAbilityActionTargetPositionTargetObjectId
   | GiveItemToUnitAciton
   | UnitBuildingAbilityActionTwoTargetPositions
+  | PreSubselectionAction
   | ChangeSelectionAction
   | AssignGroupHotkeyAction
   | SelectGroupHotkeyAction
@@ -314,6 +319,10 @@ export default class ActionParser extends StatefulBufferParser {
         const objectId2 = this.readUInt32LE();
         return { id: actionId, itemId, objectId1, objectId2 };
       }
+      case 0x1a: {
+        return { id: actionId };
+      }
+
       case 0x1b: {
         this.skip(9);
         return null;

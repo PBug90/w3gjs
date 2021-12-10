@@ -7,12 +7,7 @@
   "players": [
     {
       "actions": {
-        "timed": [
-          216,
-          338,
-          259,
-          42
-        ],
+        "timed": [216, 338, 259, 42],
         "assigngroup": 14,
         "rightclick": 85,
         "basic": 13,
@@ -186,12 +181,7 @@
     },
     {
       "actions": {
-        "timed": [
-          136,
-          130,
-          93,
-          37
-        ],
+        "timed": [136, 130, 93, 37],
         "assigngroup": 10,
         "rightclick": 162,
         "basic": 0,
@@ -383,12 +373,7 @@
     },
     {
       "actions": {
-        "timed": [
-          66,
-          60,
-          39,
-          0
-        ],
+        "timed": [66, 60, 39, 0],
         "assigngroup": 3,
         "rightclick": 55,
         "basic": 0,
@@ -537,12 +522,7 @@
     },
     {
       "actions": {
-        "timed": [
-          279,
-          359,
-          168,
-          47
-        ],
+        "timed": [279, 359, 168, 47],
         "assigngroup": 9,
         "rightclick": 159,
         "basic": 13,
@@ -1072,5 +1052,5 @@
     "randomRaces": false,
     "speed": 2
   },
-  "parseTime": 168
+  "parseTime": 155
 }

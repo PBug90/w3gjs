@@ -81,6 +81,22 @@ it("parse is a promise that resolves with parser output", async () => {
   expect(metadataCallback).toHaveBeenCalledTimes(1);
 });
 
+it("emits 0x1A player actions", async () => {
+  const Parser = new W3GReplay();
+  let amountOf0x1AActions = 0;
+  Parser.on("gamedatablock", (block: GameDataBlock) => {
+    if (block.id === 0x1f) {
+      for (const cmdBlock of block.commandBlocks) {
+        amountOf0x1AActions += cmdBlock.actions.filter(
+          (action) => action.id === 0x1a
+        ).length;
+      }
+    }
+  });
+  await Parser.parse(path.resolve(__dirname, "netease_132.nwg"));
+  expect(amountOf0x1AActions).toBeGreaterThan(0);
+});
+
 it("handles truncated player names in reforged replays", async () => {
   const test = await Parser.parse(
     path.resolve(__dirname, "reforged_truncated_playernames.w3g")
@@ -157,6 +173,11 @@ it("should parse hotkeys correctly", async () => {
 it("should parse a flo w3c hostbot game correctly", async () => {
   const test = await Parser.parse(path.resolve(__dirname, "ced_vs_lyn.w3g"));
   expect(test.players).toMatchSnapshot();
+});
+
+it("should return chat mode types correctly", async () => {
+  const test = await Parser.parse(path.resolve(__dirname, "ced_vs_lyn.w3g"));
+  expect(test.chat).toMatchSnapshot();
 });
 
 it("should handle a netease replay with rogue playerId 3 CommandDataBlocks correctly", async () => {

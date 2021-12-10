@@ -80,3 +80,12 @@ it("parses a standard 1.30.4 1on1 tome of retraining", async () => {
     ],
   });
 });
+
+test("#86 extracts correct map name", async () => {
+  const test = await Parser.parse(
+    path.resolve(__dirname, "roc-losttemple-mapname.w3g")
+  );
+  expect(test.version).toBe("1.31");
+  expect(test.buildNumber).toBe(6072);
+  expect(test.map.file).toBe("(4)LostTemple [Unforged 0.5 RoC].w3x");
+});
