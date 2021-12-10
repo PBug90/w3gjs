@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.4.3](https://github.com/PBug90/w3gjs/compare/v2.4.2...v2.4.3) (2021-12-10)
+
+
+### Bug Fixes
+
+* better hero ability & level calculation ([#75](https://github.com/PBug90/w3gjs/issues/75)) ([0f79376](https://github.com/PBug90/w3gjs/commit/0f7937688fc161c2be9f4802589540f8f1c6565d))
+
 ### [2.4.2](https://github.com/PBug90/w3gjs/compare/v2.4.1...v2.4.2) (2021-05-18)
 
 
