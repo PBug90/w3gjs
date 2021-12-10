@@ -3,6 +3,7 @@ import { items, units, buildings, upgrades, abilityToHero } from "./mappings";
 import { Race, ItemID } from "./types";
 import { TransferResourcesActionWithPlayer } from "./W3GReplay";
 import { Action } from "./parsers/ActionParser";
+import { HeroAbilityCalculator } from "./inferHeroAbilityLevelsFromAbilityOrder";
 
 const isRightclickAction = (input: number[]) =>
   input[0] === 0x03 && input[1] === 0;
@@ -18,6 +19,7 @@ export const reduceHeroes = (heroCollector: {
   return Object.values(heroCollector)
     .sort((h1, h2) => h1.order - h2.order)
     .reduce((aggregator, hero) => {
+      hero.abilities = HeroAbilityCalculator(hero.abilityOrder);
       hero.level = Object.values(hero.abilities).reduce(
         (prev, curr) => prev + curr,
         0

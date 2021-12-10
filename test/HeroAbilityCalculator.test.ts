@@ -1,4 +1,4 @@
-import { HeroAbilityCalculator } from "../src/HeroAbilityCalculator";
+import { HeroAbilityCalculator } from "../src/inferHeroAbilityLevelsFromAbilityOrder";
 import { Ability } from "../src/Player";
 
 const input: Ability[] = [

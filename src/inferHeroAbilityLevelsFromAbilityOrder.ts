@@ -2,7 +2,7 @@ import { Ability, Retraining } from "./Player";
 
 const ultimates = new Set<string>().add("AEtq");
 
-export function HeroAbilityCalculator(
+export function inferHeroAbilityLevelsFromAbilityOrder(
   abilityOrder: (Ability | Retraining)[]
 ): { [key: string]: number } {
   let abilities: { [key: string]: number } = {};
@@ -20,10 +20,5 @@ export function HeroAbilityCalculator(
       abilities = {};
     }
   }
-  const herolevel = Object.values(abilities).reduce(
-    (previousValue, current) => previousValue + current,
-    0
-  );
-  console.log("Detected hero level " + herolevel);
   return abilities;
 }
