@@ -55,7 +55,8 @@ The **gamedatablock** event provides you with all blocks that make up the actual
 
 ```javascript
 const ReplayParser = require("w3gjs/dist/lib/parsers/ReplayParser").default;
-const fs = require("fs")(async () => {
+const fs = require("fs");
+(async () => {
   const buffer = fs.readFileSync("./reforged1.w3g");
   const parser = new ReplayParser();
   parser.on("basic_replay_information", (info) => console.log(info));
