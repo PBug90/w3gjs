@@ -88,6 +88,7 @@ export default class W3GReplay extends EventEmitter {
   msElapsed = 0;
   slotToPlayerId = new Map<number, number>();
   knownPlayerIds: Set<string>;
+  winningTeamId = -1;
 
   constructor() {
     super();
@@ -129,9 +130,35 @@ export default class W3GReplay extends EventEmitter {
 
     this.generateID();
     this.determineMatchup();
+    this.determineWinningTeam();
     this.cleanup();
 
     return this.finalize();
+  }
+
+  private determineWinningTeam() {
+    if (this.gametype === "1on1") {
+      let winningTeamId = -1;
+      this.leaveEvents.forEach((event, index) => {
+        if (
+          this.isObserver(this.players[event.playerId]) === true ||
+          winningTeamId !== -1
+        ) {
+          return;
+        }
+        if (event.result === "09000000") {
+          winningTeamId = this.players[event.playerId].teamid;
+          return;
+        }
+        if (event.reason === "0c000000") {
+          winningTeamId = this.players[event.playerId].teamid;
+        }
+        if (index === this.leaveEvents.length - 1) {
+          winningTeamId = this.players[event.playerId].teamid;
+        }
+      });
+      this.winningTeamId = winningTeamId;
+    }
   }
 
   handleBasicReplayInformation(info: BasicReplayInformation): void {
@@ -366,7 +393,6 @@ export default class W3GReplay extends EventEmitter {
 
   cleanup(): void {
     this.observers = [];
-
     Object.values(this.players).forEach((p) => {
       p.newActionTrackingSegment(this.playerActionTrackInterval);
       p.cleanup();
@@ -444,6 +470,7 @@ export default class W3GReplay extends EventEmitter {
       expansion: this.info.subheader.gameIdentifier === "PX3W",
       settings,
       parseTime: Math.round(performance.now() - this.parseStartTime),
+      winningTeamId: this.winningTeamId,
     };
     return root;
   }
