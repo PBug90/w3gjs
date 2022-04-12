@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.5.0](https://github.com/PBug90/w3gjs/compare/v2.4.3...v2.5.0) (2022-04-12)
+
+
+### Features
+
+* basic winner detection for 1on1 games ([#98](https://github.com/PBug90/w3gjs/issues/98)) ([031bf52](https://github.com/PBug90/w3gjs/commit/031bf521d7a5d88382f1e42ac722237580c3f2ef))
+
 ### [2.4.3](https://github.com/PBug90/w3gjs/compare/v2.4.2...v2.4.3) (2021-12-10)
 
 
