@@ -621,7 +621,7 @@
     "winningTeamId": {
       "$id": "#/properties/winningTeamId",
       "type": "integer",
-      "title": "Identifier of the best guess of which team id has won the game. -1 if it could not be determined."
+      "title": "Identifier of the best guess of which team id has won the game. -1 if it could not be determined. Currently only evaluated if type is \"1on1\""
     },
     "observers": {
       "$id": "#/properties/observers",

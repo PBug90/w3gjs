@@ -201,7 +201,7 @@ it("should parse kotg as level 6", async () => {
 });
 
 describe("winner detection", () => {
-  it("should show teamid of winner of game 1640262494.w3g", async () => {
+  it("should set winningTeamId to teamId of winner of game 1640262494.w3g", async () => {
     const test = await Parser.parse(path.resolve(__dirname, "1640262494.w3g"));
     expect(test.winningTeamId).toBe(0);
     expect(
@@ -209,7 +209,7 @@ describe("winner detection", () => {
     ).toBe("Happie");
   });
 
-  it("should show teamid of winner of game 1448202825.w3g", async () => {
+  it("should set winningTeamId to teamId of winner of game 1448202825.w3g", async () => {
     const test = await Parser.parse(path.resolve(__dirname, "1448202825.w3g"));
     expect(test.winningTeamId).toBe(1);
     expect(
@@ -217,7 +217,7 @@ describe("winner detection", () => {
     ).toBe("ThundeR#31281");
   });
 
-  it("should show teamid of winner of game wan_vs_trunks.w3g", async () => {
+  it("should set winningTeamId to teamId of winner of game wan_vs_trunks.w3g", async () => {
     const test = await Parser.parse(
       path.resolve(__dirname, "wan_vs_trunks.w3g")
     );
@@ -226,7 +226,7 @@ describe("winner detection", () => {
       test.players.find((player) => player.teamid === test.winningTeamId)!.name
     ).toBe("WaN#1734");
   });
-  it("should show teamid of winner of game benjiii_vs_Scars_Concealed_Hill.w3g", async () => {
+  it("should set winningTeamId to teamId of winner of game benjiii_vs_Scars_Concealed_Hill.w3g", async () => {
     const test = await Parser.parse(
       path.resolve(__dirname, "benjiii_vs_Scars_Concealed_Hill.w3g")
     );
@@ -236,7 +236,7 @@ describe("winner detection", () => {
     ).toBe("benjiii#1588");
   });
 
-  it("should show teamid of winner of game esl_cup_vs_changer_1.w3g", async () => {
+  it("should set winningTeamId to teamId of winner of game esl_cup_vs_changer_1.w3g", async () => {
     const test = await Parser.parse(
       path.resolve(__dirname, "esl_cup_vs_changer_1.w3g")
     );
