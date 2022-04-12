@@ -226,4 +226,23 @@ describe("winner detection", () => {
       test.players.find((player) => player.teamid === test.winningTeamId)!.name
     ).toBe("WaN#1734");
   });
+  it("should show teamid of winner of game benjiii_vs_Scars_Concealed_Hill.w3g", async () => {
+    const test = await Parser.parse(
+      path.resolve(__dirname, "benjiii_vs_Scars_Concealed_Hill.w3g")
+    );
+    expect(test.winningTeamId).toBe(1);
+    expect(
+      test.players.find((player) => player.teamid === test.winningTeamId)!.name
+    ).toBe("benjiii#1588");
+  });
+
+  it("should show teamid of winner of game esl_cup_vs_changer_1.w3g", async () => {
+    const test = await Parser.parse(
+      path.resolve(__dirname, "esl_cup_vs_changer_1.w3g")
+    );
+    expect(test.winningTeamId).toBe(0);
+    expect(
+      test.players.find((player) => player.teamid === test.winningTeamId)!.name
+    ).toBe("TapioN#2351");
+  });
 });

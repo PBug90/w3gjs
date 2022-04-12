@@ -393,7 +393,6 @@ export default class W3GReplay extends EventEmitter {
 
   cleanup(): void {
     this.observers = [];
-
     Object.values(this.players).forEach((p) => {
       p.newActionTrackingSegment(this.playerActionTrackInterval);
       p.cleanup();
