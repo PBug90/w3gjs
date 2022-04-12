@@ -199,3 +199,31 @@ it("should parse kotg as level 6", async () => {
   const test = await Parser.parse(path.resolve(__dirname, "706266088.w3g"));
   expect(test.players[1].heroes[0].level).toBe(6);
 });
+
+describe("winner detection", () => {
+  it("should show teamid of winner of game 1640262494.w3g", async () => {
+    const test = await Parser.parse(path.resolve(__dirname, "1640262494.w3g"));
+    expect(test.winningTeamId).toBe(0);
+    expect(
+      test.players.find((player) => player.teamid === test.winningTeamId)!.name
+    ).toBe("Happie");
+  });
+
+  it("should show teamid of winner of game 1448202825.w3g", async () => {
+    const test = await Parser.parse(path.resolve(__dirname, "1448202825.w3g"));
+    expect(test.winningTeamId).toBe(1);
+    expect(
+      test.players.find((player) => player.teamid === test.winningTeamId)!.name
+    ).toBe("ThundeR#31281");
+  });
+
+  it("should show teamid of winner of game wan_vs_trunks.w3g", async () => {
+    const test = await Parser.parse(
+      path.resolve(__dirname, "wan_vs_trunks.w3g")
+    );
+    expect(test.winningTeamId).toBe(0);
+    expect(
+      test.players.find((player) => player.teamid === test.winningTeamId)!.name
+    ).toBe("WaN#1734");
+  });
+});

@@ -150,8 +150,11 @@ export default class W3GReplay extends EventEmitter {
           winningTeamId = this.players[event.playerId].teamid;
           return;
         }
+        if (event.reason === "0c000000") {
+          winningTeamId = this.players[event.playerId].teamid;
+        }
         if (index === this.leaveEvents.length - 1) {
-          winningTeamId = winningTeamId = this.players[event.playerId].teamid;
+          winningTeamId = this.players[event.playerId].teamid;
         }
       });
       this.winningTeamId = winningTeamId;

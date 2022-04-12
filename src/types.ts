@@ -39,6 +39,7 @@ export interface ParserOutput {
   duration: number;
   expansion: boolean;
   parseTime: number;
+  winningTeamId: number;
   settings: {
     observerMode: ObserverMode;
     fixedTeams: boolean;
