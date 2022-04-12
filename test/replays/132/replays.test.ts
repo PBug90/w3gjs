@@ -245,4 +245,24 @@ describe("winner detection", () => {
       test.players.find((player) => player.teamid === test.winningTeamId)!.name
     ).toBe("TapioN#2351");
   });
+
+  it("should set winningTeamId to teamId of winner of game buildingwin_anxietyperspective.w3g", async () => {
+    const test = await Parser.parse(
+      path.resolve(__dirname, "buildingwin_anxietyperspective.w3g")
+    );
+    expect(test.winningTeamId).toBe(1);
+    expect(
+      test.players.find((player) => player.teamid === test.winningTeamId)!.name
+    ).toBe("anXieTy#2932");
+  });
+
+  it("should set winningTeamId to teamId of winner of game buildingwin_helpstoneperspective.w3g", async () => {
+    const test = await Parser.parse(
+      path.resolve(__dirname, "buildingwin_helpstoneperspective.w3g")
+    );
+    expect(test.winningTeamId).toBe(1);
+    expect(
+      test.players.find((player) => player.teamid === test.winningTeamId)!.name
+    ).toBe("anXieTy#2932");
+  });
 });
