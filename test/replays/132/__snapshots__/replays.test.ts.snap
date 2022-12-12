@@ -1,9 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ignores a player entry in reforged extraPlayerList that misses in playerList 1`] = `
-Array [
-  Object {
-    "actions": Object {
+[
+  {
+    "actions": {
       "ability": 54,
       "assigngroup": 87,
       "basic": 0,
@@ -15,7 +15,7 @@ Array [
       "select": 17,
       "selecthotkey": 1,
       "subgroup": 0,
-      "timed": Array [
+      "timed": [
         46,
         248,
         260,
@@ -38,75 +38,75 @@ Array [
       ],
     },
     "apm": 222,
-    "buildings": Object {
-      "order": Array [],
-      "summary": Object {},
+    "buildings": {
+      "order": [],
+      "summary": {},
     },
     "color": "#ff0303",
-    "groupHotkeys": Object {
-      "0": Object {
+    "groupHotkeys": {
+      "0": {
         "assigned": 0,
         "used": 0,
       },
-      "1": Object {
+      "1": {
         "assigned": 87,
         "used": 1,
       },
-      "2": Object {
+      "2": {
         "assigned": 0,
         "used": 0,
       },
-      "3": Object {
+      "3": {
         "assigned": 0,
         "used": 0,
       },
-      "4": Object {
+      "4": {
         "assigned": 0,
         "used": 0,
       },
-      "5": Object {
+      "5": {
         "assigned": 0,
         "used": 0,
       },
-      "6": Object {
+      "6": {
         "assigned": 0,
         "used": 0,
       },
-      "7": Object {
+      "7": {
         "assigned": 0,
         "used": 0,
       },
-      "8": Object {
+      "8": {
         "assigned": 0,
         "used": 0,
       },
-      "9": Object {
+      "9": {
         "assigned": 0,
         "used": 0,
       },
     },
-    "heroes": Array [],
+    "heroes": [],
     "id": 1,
-    "items": Object {
-      "order": Array [],
-      "summary": Object {},
+    "items": {
+      "order": [],
+      "summary": {},
     },
     "name": "Tallah#2192",
     "race": "H",
     "raceDetected": "H",
-    "resourceTransfers": Array [],
+    "resourceTransfers": [],
     "teamid": 0,
-    "units": Object {
-      "order": Array [],
-      "summary": Object {},
+    "units": {
+      "order": [],
+      "summary": {},
     },
-    "upgrades": Object {
-      "order": Array [],
-      "summary": Object {},
+    "upgrades": {
+      "order": [],
+      "summary": {},
     },
   },
-  Object {
-    "actions": Object {
+  {
+    "actions": {
       "ability": 21,
       "assigngroup": 0,
       "basic": 0,
@@ -118,7 +118,7 @@ Array [
       "select": 11,
       "selecthotkey": 0,
       "subgroup": 0,
-      "timed": Array [
+      "timed": [
         55,
         64,
         82,
@@ -141,75 +141,75 @@ Array [
       ],
     },
     "apm": 74,
-    "buildings": Object {
-      "order": Array [],
-      "summary": Object {},
+    "buildings": {
+      "order": [],
+      "summary": {},
     },
     "color": "#0042ff",
-    "groupHotkeys": Object {
-      "0": Object {
+    "groupHotkeys": {
+      "0": {
         "assigned": 0,
         "used": 0,
       },
-      "1": Object {
+      "1": {
         "assigned": 0,
         "used": 0,
       },
-      "2": Object {
+      "2": {
         "assigned": 0,
         "used": 0,
       },
-      "3": Object {
+      "3": {
         "assigned": 0,
         "used": 0,
       },
-      "4": Object {
+      "4": {
         "assigned": 0,
         "used": 0,
       },
-      "5": Object {
+      "5": {
         "assigned": 0,
         "used": 0,
       },
-      "6": Object {
+      "6": {
         "assigned": 0,
         "used": 0,
       },
-      "7": Object {
+      "7": {
         "assigned": 0,
         "used": 0,
       },
-      "8": Object {
+      "8": {
         "assigned": 0,
         "used": 0,
       },
-      "9": Object {
+      "9": {
         "assigned": 0,
         "used": 0,
       },
     },
-    "heroes": Array [],
+    "heroes": [],
     "id": 2,
-    "items": Object {
-      "order": Array [],
-      "summary": Object {},
+    "items": {
+      "order": [],
+      "summary": {},
     },
     "name": "RaNgeR#2873",
     "race": "H",
     "raceDetected": "H",
-    "resourceTransfers": Array [],
+    "resourceTransfers": [],
     "teamid": 0,
-    "units": Object {
-      "order": Array [],
-      "summary": Object {},
+    "units": {
+      "order": [],
+      "summary": {},
     },
-    "upgrades": Object {
-      "order": Array [],
-      "summary": Object {},
+    "upgrades": {
+      "order": [],
+      "summary": {},
     },
   },
-  Object {
-    "actions": Object {
+  {
+    "actions": {
       "ability": 74,
       "assigngroup": 94,
       "basic": 0,
@@ -221,7 +221,7 @@ Array [
       "select": 38,
       "selecthotkey": 0,
       "subgroup": 0,
-      "timed": Array [
+      "timed": [
         128,
         325,
         334,
@@ -244,75 +244,75 @@ Array [
       ],
     },
     "apm": 290,
-    "buildings": Object {
-      "order": Array [],
-      "summary": Object {},
+    "buildings": {
+      "order": [],
+      "summary": {},
     },
     "color": "#1ce6b9",
-    "groupHotkeys": Object {
-      "0": Object {
+    "groupHotkeys": {
+      "0": {
         "assigned": 0,
         "used": 0,
       },
-      "1": Object {
+      "1": {
         "assigned": 94,
         "used": 0,
       },
-      "2": Object {
+      "2": {
         "assigned": 0,
         "used": 0,
       },
-      "3": Object {
+      "3": {
         "assigned": 0,
         "used": 0,
       },
-      "4": Object {
+      "4": {
         "assigned": 0,
         "used": 0,
       },
-      "5": Object {
+      "5": {
         "assigned": 0,
         "used": 0,
       },
-      "6": Object {
+      "6": {
         "assigned": 0,
         "used": 0,
       },
-      "7": Object {
+      "7": {
         "assigned": 0,
         "used": 0,
       },
-      "8": Object {
+      "8": {
         "assigned": 0,
         "used": 0,
       },
-      "9": Object {
+      "9": {
         "assigned": 0,
         "used": 0,
       },
     },
-    "heroes": Array [],
+    "heroes": [],
     "id": 3,
-    "items": Object {
-      "order": Array [],
-      "summary": Object {},
+    "items": {
+      "order": [],
+      "summary": {},
     },
     "name": "Banjo#12494",
     "race": "H",
     "raceDetected": "H",
-    "resourceTransfers": Array [],
+    "resourceTransfers": [],
     "teamid": 0,
-    "units": Object {
-      "order": Array [],
-      "summary": Object {},
+    "units": {
+      "order": [],
+      "summary": {},
     },
-    "upgrades": Object {
-      "order": Array [],
-      "summary": Object {},
+    "upgrades": {
+      "order": [],
+      "summary": {},
     },
   },
-  Object {
-    "actions": Object {
+  {
+    "actions": {
       "ability": 0,
       "assigngroup": 0,
       "basic": 0,
@@ -324,7 +324,7 @@ Array [
       "select": 5,
       "selecthotkey": 0,
       "subgroup": 0,
-      "timed": Array [
+      "timed": [
         0,
         4,
         0,
@@ -347,75 +347,75 @@ Array [
       ],
     },
     "apm": 0,
-    "buildings": Object {
-      "order": Array [],
-      "summary": Object {},
+    "buildings": {
+      "order": [],
+      "summary": {},
     },
     "color": "#fe8a0e",
-    "groupHotkeys": Object {
-      "0": Object {
+    "groupHotkeys": {
+      "0": {
         "assigned": 0,
         "used": 0,
       },
-      "1": Object {
+      "1": {
         "assigned": 0,
         "used": 0,
       },
-      "2": Object {
+      "2": {
         "assigned": 0,
         "used": 0,
       },
-      "3": Object {
+      "3": {
         "assigned": 0,
         "used": 0,
       },
-      "4": Object {
+      "4": {
         "assigned": 0,
         "used": 0,
       },
-      "5": Object {
+      "5": {
         "assigned": 0,
         "used": 0,
       },
-      "6": Object {
+      "6": {
         "assigned": 0,
         "used": 0,
       },
-      "7": Object {
+      "7": {
         "assigned": 0,
         "used": 0,
       },
-      "8": Object {
+      "8": {
         "assigned": 0,
         "used": 0,
       },
-      "9": Object {
+      "9": {
         "assigned": 0,
         "used": 0,
       },
     },
-    "heroes": Array [],
+    "heroes": [],
     "id": 4,
-    "items": Object {
-      "order": Array [],
-      "summary": Object {},
+    "items": {
+      "order": [],
+      "summary": {},
     },
     "name": "TrencH#11363",
     "race": "H",
     "raceDetected": "H",
-    "resourceTransfers": Array [],
+    "resourceTransfers": [],
     "teamid": 0,
-    "units": Object {
-      "order": Array [],
-      "summary": Object {},
+    "units": {
+      "order": [],
+      "summary": {},
     },
-    "upgrades": Object {
-      "order": Array [],
-      "summary": Object {},
+    "upgrades": {
+      "order": [],
+      "summary": {},
     },
   },
-  Object {
-    "actions": Object {
+  {
+    "actions": {
       "ability": 47,
       "assigngroup": 0,
       "basic": 0,
@@ -427,7 +427,7 @@ Array [
       "select": 11,
       "selecthotkey": 0,
       "subgroup": 0,
-      "timed": Array [
+      "timed": [
         30,
         230,
         245,
@@ -450,75 +450,75 @@ Array [
       ],
     },
     "apm": 221,
-    "buildings": Object {
-      "order": Array [],
-      "summary": Object {},
+    "buildings": {
+      "order": [],
+      "summary": {},
     },
     "color": "#fffc00",
-    "groupHotkeys": Object {
-      "0": Object {
+    "groupHotkeys": {
+      "0": {
         "assigned": 0,
         "used": 0,
       },
-      "1": Object {
+      "1": {
         "assigned": 0,
         "used": 0,
       },
-      "2": Object {
+      "2": {
         "assigned": 0,
         "used": 0,
       },
-      "3": Object {
+      "3": {
         "assigned": 0,
         "used": 0,
       },
-      "4": Object {
+      "4": {
         "assigned": 0,
         "used": 0,
       },
-      "5": Object {
+      "5": {
         "assigned": 0,
         "used": 0,
       },
-      "6": Object {
+      "6": {
         "assigned": 0,
         "used": 0,
       },
-      "7": Object {
+      "7": {
         "assigned": 0,
         "used": 0,
       },
-      "8": Object {
+      "8": {
         "assigned": 0,
         "used": 0,
       },
-      "9": Object {
+      "9": {
         "assigned": 0,
         "used": 0,
       },
     },
-    "heroes": Array [],
+    "heroes": [],
     "id": 11,
-    "items": Object {
-      "order": Array [],
-      "summary": Object {},
+    "items": {
+      "order": [],
+      "summary": {},
     },
     "name": "second536#1404",
     "race": "H",
     "raceDetected": "H",
-    "resourceTransfers": Array [],
+    "resourceTransfers": [],
     "teamid": 0,
-    "units": Object {
-      "order": Array [],
-      "summary": Object {},
+    "units": {
+      "order": [],
+      "summary": {},
     },
-    "upgrades": Object {
-      "order": Array [],
-      "summary": Object {},
+    "upgrades": {
+      "order": [],
+      "summary": {},
     },
   },
-  Object {
-    "actions": Object {
+  {
+    "actions": {
       "ability": 40,
       "assigngroup": 1535,
       "basic": 0,
@@ -530,7 +530,7 @@ Array [
       "select": 11,
       "selecthotkey": 0,
       "subgroup": 0,
-      "timed": Array [
+      "timed": [
         86,
         336,
         376,
@@ -553,75 +553,75 @@ Array [
       ],
     },
     "apm": 359,
-    "buildings": Object {
-      "order": Array [],
-      "summary": Object {},
+    "buildings": {
+      "order": [],
+      "summary": {},
     },
     "color": "#20c000",
-    "groupHotkeys": Object {
-      "0": Object {
+    "groupHotkeys": {
+      "0": {
         "assigned": 0,
         "used": 0,
       },
-      "1": Object {
+      "1": {
         "assigned": 410,
         "used": 0,
       },
-      "2": Object {
+      "2": {
         "assigned": 434,
         "used": 0,
       },
-      "3": Object {
+      "3": {
         "assigned": 691,
         "used": 0,
       },
-      "4": Object {
+      "4": {
         "assigned": 0,
         "used": 0,
       },
-      "5": Object {
+      "5": {
         "assigned": 0,
         "used": 0,
       },
-      "6": Object {
+      "6": {
         "assigned": 0,
         "used": 0,
       },
-      "7": Object {
+      "7": {
         "assigned": 0,
         "used": 0,
       },
-      "8": Object {
+      "8": {
         "assigned": 0,
         "used": 0,
       },
-      "9": Object {
+      "9": {
         "assigned": 0,
         "used": 0,
       },
     },
-    "heroes": Array [],
+    "heroes": [],
     "id": 5,
-    "items": Object {
-      "order": Array [],
-      "summary": Object {},
+    "items": {
+      "order": [],
+      "summary": {},
     },
     "name": "Gravedigger#11445",
     "race": "H",
     "raceDetected": "H",
-    "resourceTransfers": Array [],
+    "resourceTransfers": [],
     "teamid": 1,
-    "units": Object {
-      "order": Array [],
-      "summary": Object {},
+    "units": {
+      "order": [],
+      "summary": {},
     },
-    "upgrades": Object {
-      "order": Array [],
-      "summary": Object {},
+    "upgrades": {
+      "order": [],
+      "summary": {},
     },
   },
-  Object {
-    "actions": Object {
+  {
+    "actions": {
       "ability": 37,
       "assigngroup": 12,
       "basic": 0,
@@ -633,7 +633,7 @@ Array [
       "select": 36,
       "selecthotkey": 20,
       "subgroup": 0,
-      "timed": Array [
+      "timed": [
         95,
         252,
         237,
@@ -656,75 +656,75 @@ Array [
       ],
     },
     "apm": 223,
-    "buildings": Object {
-      "order": Array [],
-      "summary": Object {},
+    "buildings": {
+      "order": [],
+      "summary": {},
     },
     "color": "#4a2a04",
-    "groupHotkeys": Object {
-      "0": Object {
+    "groupHotkeys": {
+      "0": {
         "assigned": 0,
         "used": 0,
       },
-      "1": Object {
+      "1": {
         "assigned": 12,
         "used": 20,
       },
-      "2": Object {
+      "2": {
         "assigned": 0,
         "used": 0,
       },
-      "3": Object {
+      "3": {
         "assigned": 0,
         "used": 0,
       },
-      "4": Object {
+      "4": {
         "assigned": 0,
         "used": 0,
       },
-      "5": Object {
+      "5": {
         "assigned": 0,
         "used": 0,
       },
-      "6": Object {
+      "6": {
         "assigned": 0,
         "used": 0,
       },
-      "7": Object {
+      "7": {
         "assigned": 0,
         "used": 0,
       },
-      "8": Object {
+      "8": {
         "assigned": 0,
         "used": 0,
       },
-      "9": Object {
+      "9": {
         "assigned": 0,
         "used": 0,
       },
     },
-    "heroes": Array [],
+    "heroes": [],
     "id": 6,
-    "items": Object {
-      "order": Array [],
-      "summary": Object {},
+    "items": {
+      "order": [],
+      "summary": {},
     },
     "name": "Niko#25549",
     "race": "H",
     "raceDetected": "H",
-    "resourceTransfers": Array [],
+    "resourceTransfers": [],
     "teamid": 1,
-    "units": Object {
-      "order": Array [],
-      "summary": Object {},
+    "units": {
+      "order": [],
+      "summary": {},
     },
-    "upgrades": Object {
-      "order": Array [],
-      "summary": Object {},
+    "upgrades": {
+      "order": [],
+      "summary": {},
     },
   },
-  Object {
-    "actions": Object {
+  {
+    "actions": {
       "ability": 33,
       "assigngroup": 269,
       "basic": 0,
@@ -736,7 +736,7 @@ Array [
       "select": 22,
       "selecthotkey": 9,
       "subgroup": 0,
-      "timed": Array [
+      "timed": [
         203,
         299,
         345,
@@ -759,75 +759,75 @@ Array [
       ],
     },
     "apm": 289,
-    "buildings": Object {
-      "order": Array [],
-      "summary": Object {},
+    "buildings": {
+      "order": [],
+      "summary": {},
     },
     "color": "#959697",
-    "groupHotkeys": Object {
-      "0": Object {
+    "groupHotkeys": {
+      "0": {
         "assigned": 0,
         "used": 0,
       },
-      "1": Object {
+      "1": {
         "assigned": 269,
         "used": 9,
       },
-      "2": Object {
+      "2": {
         "assigned": 0,
         "used": 0,
       },
-      "3": Object {
+      "3": {
         "assigned": 0,
         "used": 0,
       },
-      "4": Object {
+      "4": {
         "assigned": 0,
         "used": 0,
       },
-      "5": Object {
+      "5": {
         "assigned": 0,
         "used": 0,
       },
-      "6": Object {
+      "6": {
         "assigned": 0,
         "used": 0,
       },
-      "7": Object {
+      "7": {
         "assigned": 0,
         "used": 0,
       },
-      "8": Object {
+      "8": {
         "assigned": 0,
         "used": 0,
       },
-      "9": Object {
+      "9": {
         "assigned": 0,
         "used": 0,
       },
     },
-    "heroes": Array [],
+    "heroes": [],
     "id": 7,
-    "items": Object {
-      "order": Array [],
-      "summary": Object {},
+    "items": {
+      "order": [],
+      "summary": {},
     },
     "name": "Enclop#21668",
     "race": "H",
     "raceDetected": "H",
-    "resourceTransfers": Array [],
+    "resourceTransfers": [],
     "teamid": 1,
-    "units": Object {
-      "order": Array [],
-      "summary": Object {},
+    "units": {
+      "order": [],
+      "summary": {},
     },
-    "upgrades": Object {
-      "order": Array [],
-      "summary": Object {},
+    "upgrades": {
+      "order": [],
+      "summary": {},
     },
   },
-  Object {
-    "actions": Object {
+  {
+    "actions": {
       "ability": 0,
       "assigngroup": 0,
       "basic": 0,
@@ -839,7 +839,7 @@ Array [
       "select": 4,
       "selecthotkey": 0,
       "subgroup": 0,
-      "timed": Array [
+      "timed": [
         4,
         0,
         1,
@@ -862,75 +862,75 @@ Array [
       ],
     },
     "apm": 0,
-    "buildings": Object {
-      "order": Array [],
-      "summary": Object {},
+    "buildings": {
+      "order": [],
+      "summary": {},
     },
     "color": "#e55bb0",
-    "groupHotkeys": Object {
-      "0": Object {
+    "groupHotkeys": {
+      "0": {
         "assigned": 0,
         "used": 0,
       },
-      "1": Object {
+      "1": {
         "assigned": 0,
         "used": 0,
       },
-      "2": Object {
+      "2": {
         "assigned": 0,
         "used": 0,
       },
-      "3": Object {
+      "3": {
         "assigned": 0,
         "used": 0,
       },
-      "4": Object {
+      "4": {
         "assigned": 0,
         "used": 0,
       },
-      "5": Object {
+      "5": {
         "assigned": 0,
         "used": 0,
       },
-      "6": Object {
+      "6": {
         "assigned": 0,
         "used": 0,
       },
-      "7": Object {
+      "7": {
         "assigned": 0,
         "used": 0,
       },
-      "8": Object {
+      "8": {
         "assigned": 0,
         "used": 0,
       },
-      "9": Object {
+      "9": {
         "assigned": 0,
         "used": 0,
       },
     },
-    "heroes": Array [],
+    "heroes": [],
     "id": 8,
-    "items": Object {
-      "order": Array [],
-      "summary": Object {},
+    "items": {
+      "order": [],
+      "summary": {},
     },
     "name": "Ziggs#11403",
     "race": "H",
     "raceDetected": "H",
-    "resourceTransfers": Array [],
+    "resourceTransfers": [],
     "teamid": 1,
-    "units": Object {
-      "order": Array [],
-      "summary": Object {},
+    "units": {
+      "order": [],
+      "summary": {},
     },
-    "upgrades": Object {
-      "order": Array [],
-      "summary": Object {},
+    "upgrades": {
+      "order": [],
+      "summary": {},
     },
   },
-  Object {
-    "actions": Object {
+  {
+    "actions": {
       "ability": 24,
       "assigngroup": 0,
       "basic": 0,
@@ -942,7 +942,7 @@ Array [
       "select": 13,
       "selecthotkey": 0,
       "subgroup": 0,
-      "timed": Array [
+      "timed": [
         10,
         193,
         183,
@@ -965,80 +965,80 @@ Array [
       ],
     },
     "apm": 175,
-    "buildings": Object {
-      "order": Array [],
-      "summary": Object {},
+    "buildings": {
+      "order": [],
+      "summary": {},
     },
     "color": "#106246",
-    "groupHotkeys": Object {
-      "0": Object {
+    "groupHotkeys": {
+      "0": {
         "assigned": 0,
         "used": 0,
       },
-      "1": Object {
+      "1": {
         "assigned": 0,
         "used": 0,
       },
-      "2": Object {
+      "2": {
         "assigned": 0,
         "used": 0,
       },
-      "3": Object {
+      "3": {
         "assigned": 0,
         "used": 0,
       },
-      "4": Object {
+      "4": {
         "assigned": 0,
         "used": 0,
       },
-      "5": Object {
+      "5": {
         "assigned": 0,
         "used": 0,
       },
-      "6": Object {
+      "6": {
         "assigned": 0,
         "used": 0,
       },
-      "7": Object {
+      "7": {
         "assigned": 0,
         "used": 0,
       },
-      "8": Object {
+      "8": {
         "assigned": 0,
         "used": 0,
       },
-      "9": Object {
+      "9": {
         "assigned": 0,
         "used": 0,
       },
     },
-    "heroes": Array [],
+    "heroes": [],
     "id": 10,
-    "items": Object {
-      "order": Array [],
-      "summary": Object {},
+    "items": {
+      "order": [],
+      "summary": {},
     },
     "name": "BunsInHotDog#1757",
     "race": "H",
     "raceDetected": "H",
-    "resourceTransfers": Array [],
+    "resourceTransfers": [],
     "teamid": 1,
-    "units": Object {
-      "order": Array [],
-      "summary": Object {},
+    "units": {
+      "order": [],
+      "summary": {},
     },
-    "upgrades": Object {
-      "order": Array [],
-      "summary": Object {},
+    "upgrades": {
+      "order": [],
+      "summary": {},
     },
   },
 ]
 `;
 
 exports[`parses single player replay twistedmeadows.w3g 1`] = `
-Array [
-  Object {
-    "actions": Object {
+[
+  {
+    "actions": {
       "ability": 54,
       "assigngroup": 87,
       "basic": 0,
@@ -1050,7 +1050,7 @@ Array [
       "select": 17,
       "selecthotkey": 1,
       "subgroup": 0,
-      "timed": Array [
+      "timed": [
         46,
         248,
         260,
@@ -1073,75 +1073,75 @@ Array [
       ],
     },
     "apm": 222,
-    "buildings": Object {
-      "order": Array [],
-      "summary": Object {},
+    "buildings": {
+      "order": [],
+      "summary": {},
     },
     "color": "#ff0303",
-    "groupHotkeys": Object {
-      "0": Object {
+    "groupHotkeys": {
+      "0": {
         "assigned": 0,
         "used": 0,
       },
-      "1": Object {
+      "1": {
         "assigned": 87,
         "used": 1,
       },
-      "2": Object {
+      "2": {
         "assigned": 0,
         "used": 0,
       },
-      "3": Object {
+      "3": {
         "assigned": 0,
         "used": 0,
       },
-      "4": Object {
+      "4": {
         "assigned": 0,
         "used": 0,
       },
-      "5": Object {
+      "5": {
         "assigned": 0,
         "used": 0,
       },
-      "6": Object {
+      "6": {
         "assigned": 0,
         "used": 0,
       },
-      "7": Object {
+      "7": {
         "assigned": 0,
         "used": 0,
       },
-      "8": Object {
+      "8": {
         "assigned": 0,
         "used": 0,
       },
-      "9": Object {
+      "9": {
         "assigned": 0,
         "used": 0,
       },
     },
-    "heroes": Array [],
+    "heroes": [],
     "id": 1,
-    "items": Object {
-      "order": Array [],
-      "summary": Object {},
+    "items": {
+      "order": [],
+      "summary": {},
     },
     "name": "Tallah#2192",
     "race": "H",
     "raceDetected": "H",
-    "resourceTransfers": Array [],
+    "resourceTransfers": [],
     "teamid": 0,
-    "units": Object {
-      "order": Array [],
-      "summary": Object {},
+    "units": {
+      "order": [],
+      "summary": {},
     },
-    "upgrades": Object {
-      "order": Array [],
-      "summary": Object {},
+    "upgrades": {
+      "order": [],
+      "summary": {},
     },
   },
-  Object {
-    "actions": Object {
+  {
+    "actions": {
       "ability": 21,
       "assigngroup": 0,
       "basic": 0,
@@ -1153,7 +1153,7 @@ Array [
       "select": 11,
       "selecthotkey": 0,
       "subgroup": 0,
-      "timed": Array [
+      "timed": [
         55,
         64,
         82,
@@ -1176,75 +1176,75 @@ Array [
       ],
     },
     "apm": 74,
-    "buildings": Object {
-      "order": Array [],
-      "summary": Object {},
+    "buildings": {
+      "order": [],
+      "summary": {},
     },
     "color": "#0042ff",
-    "groupHotkeys": Object {
-      "0": Object {
+    "groupHotkeys": {
+      "0": {
         "assigned": 0,
         "used": 0,
       },
-      "1": Object {
+      "1": {
         "assigned": 0,
         "used": 0,
       },
-      "2": Object {
+      "2": {
         "assigned": 0,
         "used": 0,
       },
-      "3": Object {
+      "3": {
         "assigned": 0,
         "used": 0,
       },
-      "4": Object {
+      "4": {
         "assigned": 0,
         "used": 0,
       },
-      "5": Object {
+      "5": {
         "assigned": 0,
         "used": 0,
       },
-      "6": Object {
+      "6": {
         "assigned": 0,
         "used": 0,
       },
-      "7": Object {
+      "7": {
         "assigned": 0,
         "used": 0,
       },
-      "8": Object {
+      "8": {
         "assigned": 0,
         "used": 0,
       },
-      "9": Object {
+      "9": {
         "assigned": 0,
         "used": 0,
       },
     },
-    "heroes": Array [],
+    "heroes": [],
     "id": 2,
-    "items": Object {
-      "order": Array [],
-      "summary": Object {},
+    "items": {
+      "order": [],
+      "summary": {},
     },
     "name": "RaNgeR#2873",
     "race": "H",
     "raceDetected": "H",
-    "resourceTransfers": Array [],
+    "resourceTransfers": [],
     "teamid": 0,
-    "units": Object {
-      "order": Array [],
-      "summary": Object {},
+    "units": {
+      "order": [],
+      "summary": {},
     },
-    "upgrades": Object {
-      "order": Array [],
-      "summary": Object {},
+    "upgrades": {
+      "order": [],
+      "summary": {},
     },
   },
-  Object {
-    "actions": Object {
+  {
+    "actions": {
       "ability": 74,
       "assigngroup": 94,
       "basic": 0,
@@ -1256,7 +1256,7 @@ Array [
       "select": 38,
       "selecthotkey": 0,
       "subgroup": 0,
-      "timed": Array [
+      "timed": [
         128,
         325,
         334,
@@ -1279,75 +1279,75 @@ Array [
       ],
     },
     "apm": 290,
-    "buildings": Object {
-      "order": Array [],
-      "summary": Object {},
+    "buildings": {
+      "order": [],
+      "summary": {},
     },
     "color": "#1ce6b9",
-    "groupHotkeys": Object {
-      "0": Object {
+    "groupHotkeys": {
+      "0": {
         "assigned": 0,
         "used": 0,
       },
-      "1": Object {
+      "1": {
         "assigned": 94,
         "used": 0,
       },
-      "2": Object {
+      "2": {
         "assigned": 0,
         "used": 0,
       },
-      "3": Object {
+      "3": {
         "assigned": 0,
         "used": 0,
       },
-      "4": Object {
+      "4": {
         "assigned": 0,
         "used": 0,
       },
-      "5": Object {
+      "5": {
         "assigned": 0,
         "used": 0,
       },
-      "6": Object {
+      "6": {
         "assigned": 0,
         "used": 0,
       },
-      "7": Object {
+      "7": {
         "assigned": 0,
         "used": 0,
       },
-      "8": Object {
+      "8": {
         "assigned": 0,
         "used": 0,
       },
-      "9": Object {
+      "9": {
         "assigned": 0,
         "used": 0,
       },
     },
-    "heroes": Array [],
+    "heroes": [],
     "id": 3,
-    "items": Object {
-      "order": Array [],
-      "summary": Object {},
+    "items": {
+      "order": [],
+      "summary": {},
     },
     "name": "Banjo#12494",
     "race": "H",
     "raceDetected": "H",
-    "resourceTransfers": Array [],
+    "resourceTransfers": [],
     "teamid": 0,
-    "units": Object {
-      "order": Array [],
-      "summary": Object {},
+    "units": {
+      "order": [],
+      "summary": {},
     },
-    "upgrades": Object {
-      "order": Array [],
-      "summary": Object {},
+    "upgrades": {
+      "order": [],
+      "summary": {},
     },
   },
-  Object {
-    "actions": Object {
+  {
+    "actions": {
       "ability": 0,
       "assigngroup": 0,
       "basic": 0,
@@ -1359,7 +1359,7 @@ Array [
       "select": 5,
       "selecthotkey": 0,
       "subgroup": 0,
-      "timed": Array [
+      "timed": [
         0,
         4,
         0,
@@ -1382,75 +1382,75 @@ Array [
       ],
     },
     "apm": 0,
-    "buildings": Object {
-      "order": Array [],
-      "summary": Object {},
+    "buildings": {
+      "order": [],
+      "summary": {},
     },
     "color": "#fe8a0e",
-    "groupHotkeys": Object {
-      "0": Object {
+    "groupHotkeys": {
+      "0": {
         "assigned": 0,
         "used": 0,
       },
-      "1": Object {
+      "1": {
         "assigned": 0,
         "used": 0,
       },
-      "2": Object {
+      "2": {
         "assigned": 0,
         "used": 0,
       },
-      "3": Object {
+      "3": {
         "assigned": 0,
         "used": 0,
       },
-      "4": Object {
+      "4": {
         "assigned": 0,
         "used": 0,
       },
-      "5": Object {
+      "5": {
         "assigned": 0,
         "used": 0,
       },
-      "6": Object {
+      "6": {
         "assigned": 0,
         "used": 0,
       },
-      "7": Object {
+      "7": {
         "assigned": 0,
         "used": 0,
       },
-      "8": Object {
+      "8": {
         "assigned": 0,
         "used": 0,
       },
-      "9": Object {
+      "9": {
         "assigned": 0,
         "used": 0,
       },
     },
-    "heroes": Array [],
+    "heroes": [],
     "id": 4,
-    "items": Object {
-      "order": Array [],
-      "summary": Object {},
+    "items": {
+      "order": [],
+      "summary": {},
     },
     "name": "TrencH#11363",
     "race": "H",
     "raceDetected": "H",
-    "resourceTransfers": Array [],
+    "resourceTransfers": [],
     "teamid": 0,
-    "units": Object {
-      "order": Array [],
-      "summary": Object {},
+    "units": {
+      "order": [],
+      "summary": {},
     },
-    "upgrades": Object {
-      "order": Array [],
-      "summary": Object {},
+    "upgrades": {
+      "order": [],
+      "summary": {},
     },
   },
-  Object {
-    "actions": Object {
+  {
+    "actions": {
       "ability": 47,
       "assigngroup": 0,
       "basic": 0,
@@ -1462,7 +1462,7 @@ Array [
       "select": 11,
       "selecthotkey": 0,
       "subgroup": 0,
-      "timed": Array [
+      "timed": [
         30,
         230,
         245,
@@ -1485,75 +1485,75 @@ Array [
       ],
     },
     "apm": 221,
-    "buildings": Object {
-      "order": Array [],
-      "summary": Object {},
+    "buildings": {
+      "order": [],
+      "summary": {},
     },
     "color": "#fffc00",
-    "groupHotkeys": Object {
-      "0": Object {
+    "groupHotkeys": {
+      "0": {
         "assigned": 0,
         "used": 0,
       },
-      "1": Object {
+      "1": {
         "assigned": 0,
         "used": 0,
       },
-      "2": Object {
+      "2": {
         "assigned": 0,
         "used": 0,
       },
-      "3": Object {
+      "3": {
         "assigned": 0,
         "used": 0,
       },
-      "4": Object {
+      "4": {
         "assigned": 0,
         "used": 0,
       },
-      "5": Object {
+      "5": {
         "assigned": 0,
         "used": 0,
       },
-      "6": Object {
+      "6": {
         "assigned": 0,
         "used": 0,
       },
-      "7": Object {
+      "7": {
         "assigned": 0,
         "used": 0,
       },
-      "8": Object {
+      "8": {
         "assigned": 0,
         "used": 0,
       },
-      "9": Object {
+      "9": {
         "assigned": 0,
         "used": 0,
       },
     },
-    "heroes": Array [],
+    "heroes": [],
     "id": 11,
-    "items": Object {
-      "order": Array [],
-      "summary": Object {},
+    "items": {
+      "order": [],
+      "summary": {},
     },
     "name": "second536#1404",
     "race": "H",
     "raceDetected": "H",
-    "resourceTransfers": Array [],
+    "resourceTransfers": [],
     "teamid": 0,
-    "units": Object {
-      "order": Array [],
-      "summary": Object {},
+    "units": {
+      "order": [],
+      "summary": {},
     },
-    "upgrades": Object {
-      "order": Array [],
-      "summary": Object {},
+    "upgrades": {
+      "order": [],
+      "summary": {},
     },
   },
-  Object {
-    "actions": Object {
+  {
+    "actions": {
       "ability": 40,
       "assigngroup": 1535,
       "basic": 0,
@@ -1565,7 +1565,7 @@ Array [
       "select": 11,
       "selecthotkey": 0,
       "subgroup": 0,
-      "timed": Array [
+      "timed": [
         86,
         336,
         376,
@@ -1588,75 +1588,75 @@ Array [
       ],
     },
     "apm": 359,
-    "buildings": Object {
-      "order": Array [],
-      "summary": Object {},
+    "buildings": {
+      "order": [],
+      "summary": {},
     },
     "color": "#20c000",
-    "groupHotkeys": Object {
-      "0": Object {
+    "groupHotkeys": {
+      "0": {
         "assigned": 0,
         "used": 0,
       },
-      "1": Object {
+      "1": {
         "assigned": 410,
         "used": 0,
       },
-      "2": Object {
+      "2": {
         "assigned": 434,
         "used": 0,
       },
-      "3": Object {
+      "3": {
         "assigned": 691,
         "used": 0,
       },
-      "4": Object {
+      "4": {
         "assigned": 0,
         "used": 0,
       },
-      "5": Object {
+      "5": {
         "assigned": 0,
         "used": 0,
       },
-      "6": Object {
+      "6": {
         "assigned": 0,
         "used": 0,
       },
-      "7": Object {
+      "7": {
         "assigned": 0,
         "used": 0,
       },
-      "8": Object {
+      "8": {
         "assigned": 0,
         "used": 0,
       },
-      "9": Object {
+      "9": {
         "assigned": 0,
         "used": 0,
       },
     },
-    "heroes": Array [],
+    "heroes": [],
     "id": 5,
-    "items": Object {
-      "order": Array [],
-      "summary": Object {},
+    "items": {
+      "order": [],
+      "summary": {},
     },
     "name": "Gravedigger#11445",
     "race": "H",
     "raceDetected": "H",
-    "resourceTransfers": Array [],
+    "resourceTransfers": [],
     "teamid": 1,
-    "units": Object {
-      "order": Array [],
-      "summary": Object {},
+    "units": {
+      "order": [],
+      "summary": {},
     },
-    "upgrades": Object {
-      "order": Array [],
-      "summary": Object {},
+    "upgrades": {
+      "order": [],
+      "summary": {},
     },
   },
-  Object {
-    "actions": Object {
+  {
+    "actions": {
       "ability": 37,
       "assigngroup": 12,
       "basic": 0,
@@ -1668,7 +1668,7 @@ Array [
       "select": 36,
       "selecthotkey": 20,
       "subgroup": 0,
-      "timed": Array [
+      "timed": [
         95,
         252,
         237,
@@ -1691,75 +1691,75 @@ Array [
       ],
     },
     "apm": 223,
-    "buildings": Object {
-      "order": Array [],
-      "summary": Object {},
+    "buildings": {
+      "order": [],
+      "summary": {},
     },
     "color": "#4a2a04",
-    "groupHotkeys": Object {
-      "0": Object {
+    "groupHotkeys": {
+      "0": {
         "assigned": 0,
         "used": 0,
       },
-      "1": Object {
+      "1": {
         "assigned": 12,
         "used": 20,
       },
-      "2": Object {
+      "2": {
         "assigned": 0,
         "used": 0,
       },
-      "3": Object {
+      "3": {
         "assigned": 0,
         "used": 0,
       },
-      "4": Object {
+      "4": {
         "assigned": 0,
         "used": 0,
       },
-      "5": Object {
+      "5": {
         "assigned": 0,
         "used": 0,
       },
-      "6": Object {
+      "6": {
         "assigned": 0,
         "used": 0,
       },
-      "7": Object {
+      "7": {
         "assigned": 0,
         "used": 0,
       },
-      "8": Object {
+      "8": {
         "assigned": 0,
         "used": 0,
       },
-      "9": Object {
+      "9": {
         "assigned": 0,
         "used": 0,
       },
     },
-    "heroes": Array [],
+    "heroes": [],
     "id": 6,
-    "items": Object {
-      "order": Array [],
-      "summary": Object {},
+    "items": {
+      "order": [],
+      "summary": {},
     },
     "name": "Niko#25549",
     "race": "H",
     "raceDetected": "H",
-    "resourceTransfers": Array [],
+    "resourceTransfers": [],
     "teamid": 1,
-    "units": Object {
-      "order": Array [],
-      "summary": Object {},
+    "units": {
+      "order": [],
+      "summary": {},
     },
-    "upgrades": Object {
-      "order": Array [],
-      "summary": Object {},
+    "upgrades": {
+      "order": [],
+      "summary": {},
     },
   },
-  Object {
-    "actions": Object {
+  {
+    "actions": {
       "ability": 33,
       "assigngroup": 269,
       "basic": 0,
@@ -1771,7 +1771,7 @@ Array [
       "select": 22,
       "selecthotkey": 9,
       "subgroup": 0,
-      "timed": Array [
+      "timed": [
         203,
         299,
         345,
@@ -1794,75 +1794,75 @@ Array [
       ],
     },
     "apm": 289,
-    "buildings": Object {
-      "order": Array [],
-      "summary": Object {},
+    "buildings": {
+      "order": [],
+      "summary": {},
     },
     "color": "#959697",
-    "groupHotkeys": Object {
-      "0": Object {
+    "groupHotkeys": {
+      "0": {
         "assigned": 0,
         "used": 0,
       },
-      "1": Object {
+      "1": {
         "assigned": 269,
         "used": 9,
       },
-      "2": Object {
+      "2": {
         "assigned": 0,
         "used": 0,
       },
-      "3": Object {
+      "3": {
         "assigned": 0,
         "used": 0,
       },
-      "4": Object {
+      "4": {
         "assigned": 0,
         "used": 0,
       },
-      "5": Object {
+      "5": {
         "assigned": 0,
         "used": 0,
       },
-      "6": Object {
+      "6": {
         "assigned": 0,
         "used": 0,
       },
-      "7": Object {
+      "7": {
         "assigned": 0,
         "used": 0,
       },
-      "8": Object {
+      "8": {
         "assigned": 0,
         "used": 0,
       },
-      "9": Object {
+      "9": {
         "assigned": 0,
         "used": 0,
       },
     },
-    "heroes": Array [],
+    "heroes": [],
     "id": 7,
-    "items": Object {
-      "order": Array [],
-      "summary": Object {},
+    "items": {
+      "order": [],
+      "summary": {},
     },
     "name": "Enclop#21668",
     "race": "H",
     "raceDetected": "H",
-    "resourceTransfers": Array [],
+    "resourceTransfers": [],
     "teamid": 1,
-    "units": Object {
-      "order": Array [],
-      "summary": Object {},
+    "units": {
+      "order": [],
+      "summary": {},
     },
-    "upgrades": Object {
-      "order": Array [],
-      "summary": Object {},
+    "upgrades": {
+      "order": [],
+      "summary": {},
     },
   },
-  Object {
-    "actions": Object {
+  {
+    "actions": {
       "ability": 0,
       "assigngroup": 0,
       "basic": 0,
@@ -1874,7 +1874,7 @@ Array [
       "select": 4,
       "selecthotkey": 0,
       "subgroup": 0,
-      "timed": Array [
+      "timed": [
         4,
         0,
         1,
@@ -1897,75 +1897,75 @@ Array [
       ],
     },
     "apm": 0,
-    "buildings": Object {
-      "order": Array [],
-      "summary": Object {},
+    "buildings": {
+      "order": [],
+      "summary": {},
     },
     "color": "#e55bb0",
-    "groupHotkeys": Object {
-      "0": Object {
+    "groupHotkeys": {
+      "0": {
         "assigned": 0,
         "used": 0,
       },
-      "1": Object {
+      "1": {
         "assigned": 0,
         "used": 0,
       },
-      "2": Object {
+      "2": {
         "assigned": 0,
         "used": 0,
       },
-      "3": Object {
+      "3": {
         "assigned": 0,
         "used": 0,
       },
-      "4": Object {
+      "4": {
         "assigned": 0,
         "used": 0,
       },
-      "5": Object {
+      "5": {
         "assigned": 0,
         "used": 0,
       },
-      "6": Object {
+      "6": {
         "assigned": 0,
         "used": 0,
       },
-      "7": Object {
+      "7": {
         "assigned": 0,
         "used": 0,
       },
-      "8": Object {
+      "8": {
         "assigned": 0,
         "used": 0,
       },
-      "9": Object {
+      "9": {
         "assigned": 0,
         "used": 0,
       },
     },
-    "heroes": Array [],
+    "heroes": [],
     "id": 8,
-    "items": Object {
-      "order": Array [],
-      "summary": Object {},
+    "items": {
+      "order": [],
+      "summary": {},
     },
     "name": "Ziggs#11403",
     "race": "H",
     "raceDetected": "H",
-    "resourceTransfers": Array [],
+    "resourceTransfers": [],
     "teamid": 1,
-    "units": Object {
-      "order": Array [],
-      "summary": Object {},
+    "units": {
+      "order": [],
+      "summary": {},
     },
-    "upgrades": Object {
-      "order": Array [],
-      "summary": Object {},
+    "upgrades": {
+      "order": [],
+      "summary": {},
     },
   },
-  Object {
-    "actions": Object {
+  {
+    "actions": {
       "ability": 24,
       "assigngroup": 0,
       "basic": 0,
@@ -1977,7 +1977,7 @@ Array [
       "select": 13,
       "selecthotkey": 0,
       "subgroup": 0,
-      "timed": Array [
+      "timed": [
         10,
         193,
         183,
@@ -2000,80 +2000,80 @@ Array [
       ],
     },
     "apm": 175,
-    "buildings": Object {
-      "order": Array [],
-      "summary": Object {},
+    "buildings": {
+      "order": [],
+      "summary": {},
     },
     "color": "#106246",
-    "groupHotkeys": Object {
-      "0": Object {
+    "groupHotkeys": {
+      "0": {
         "assigned": 0,
         "used": 0,
       },
-      "1": Object {
+      "1": {
         "assigned": 0,
         "used": 0,
       },
-      "2": Object {
+      "2": {
         "assigned": 0,
         "used": 0,
       },
-      "3": Object {
+      "3": {
         "assigned": 0,
         "used": 0,
       },
-      "4": Object {
+      "4": {
         "assigned": 0,
         "used": 0,
       },
-      "5": Object {
+      "5": {
         "assigned": 0,
         "used": 0,
       },
-      "6": Object {
+      "6": {
         "assigned": 0,
         "used": 0,
       },
-      "7": Object {
+      "7": {
         "assigned": 0,
         "used": 0,
       },
-      "8": Object {
+      "8": {
         "assigned": 0,
         "used": 0,
       },
-      "9": Object {
+      "9": {
         "assigned": 0,
         "used": 0,
       },
     },
-    "heroes": Array [],
+    "heroes": [],
     "id": 10,
-    "items": Object {
-      "order": Array [],
-      "summary": Object {},
+    "items": {
+      "order": [],
+      "summary": {},
     },
     "name": "BunsInHotDog#1757",
     "race": "H",
     "raceDetected": "H",
-    "resourceTransfers": Array [],
+    "resourceTransfers": [],
     "teamid": 1,
-    "units": Object {
-      "order": Array [],
-      "summary": Object {},
+    "units": {
+      "order": [],
+      "summary": {},
     },
-    "upgrades": Object {
-      "order": Array [],
-      "summary": Object {},
+    "upgrades": {
+      "order": [],
+      "summary": {},
     },
   },
 ]
 `;
 
 exports[`should handle a netease replay with rogue playerId 3 CommandDataBlocks correctly #2 1`] = `
-Array [
-  Object {
-    "actions": Object {
+[
+  {
+    "actions": {
       "ability": 24,
       "assigngroup": 43,
       "basic": 20,
@@ -2085,7 +2085,7 @@ Array [
       "select": 306,
       "selecthotkey": 1063,
       "subgroup": 0,
-      "timed": Array [
+      "timed": [
         198,
         178,
         207,
@@ -2101,66 +2101,66 @@ Array [
       ],
     },
     "apm": 233,
-    "buildings": Object {
-      "order": Array [
-        Object {
+    "buildings": {
+      "order": [
+        {
           "id": "eate",
           "ms": 8778,
         },
-        Object {
+        {
           "id": "emow",
           "ms": 20130,
         },
-        Object {
+        {
           "id": "eaom",
           "ms": 23364,
         },
-        Object {
+        {
           "id": "emow",
           "ms": 103224,
         },
-        Object {
+        {
           "id": "eden",
           "ms": 122298,
         },
-        Object {
+        {
           "id": "eaom",
           "ms": 173316,
         },
-        Object {
+        {
           "id": "edob",
           "ms": 174966,
         },
-        Object {
+        {
           "id": "emow",
           "ms": 237864,
         },
-        Object {
+        {
           "id": "etol",
           "ms": 246906,
         },
-        Object {
+        {
           "id": "eaom",
           "ms": 279444,
         },
-        Object {
+        {
           "id": "etol",
           "ms": 404778,
         },
-        Object {
+        {
           "id": "etol",
           "ms": 408804,
         },
-        Object {
+        {
           "id": "emow",
           "ms": 428274,
         },
-        Object {
+        {
           "id": "etoa",
           "ms": 478104,
         },
       ],
-      "summary": Object {
+      "summary": {
         "eaom": 3,
         "eate": 1,
         "eden": 1,
@@ -2171,66 +2171,66 @@ Array [
       },
     },
     "color": "#ff0303",
-    "groupHotkeys": Object {
-      "0": Object {
+    "groupHotkeys": {
+      "0": {
         "assigned": 0,
         "used": 0,
       },
-      "1": Object {
+      "1": {
         "assigned": 22,
         "used": 439,
       },
-      "2": Object {
+      "2": {
         "assigned": 4,
         "used": 443,
       },
-      "3": Object {
+      "3": {
         "assigned": 8,
         "used": 110,
       },
-      "4": Object {
+      "4": {
         "assigned": 0,
         "used": 0,
       },
-      "5": Object {
+      "5": {
         "assigned": 7,
         "used": 29,
       },
-      "6": Object {
+      "6": {
         "assigned": 1,
         "used": 7,
       },
-      "7": Object {
+      "7": {
         "assigned": 1,
         "used": 35,
       },
-      "8": Object {
+      "8": {
         "assigned": 0,
         "used": 0,
       },
-      "9": Object {
+      "9": {
         "assigned": 0,
         "used": 0,
       },
     },
-    "heroes": Array [
-      Object {
-        "abilities": Object {
+    "heroes": [
+      {
+        "abilities": {
           "AEer": 2,
           "AEfn": 1,
         },
-        "abilityOrder": Array [
-          Object {
+        "abilityOrder": [
+          {
             "time": 135102,
             "type": "ability",
             "value": "AEfn",
           },
-          Object {
+          {
             "time": 277662,
             "type": "ability",
             "value": "AEer",
           },
-          Object {
+          {
             "time": 554466,
             "type": "ability",
             "value": "AEer",
@@ -2238,38 +2238,38 @@ Array [
         ],
         "id": "Ekee",
         "level": 3,
-        "retrainingHistory": Array [],
+        "retrainingHistory": [],
       },
     ],
     "id": 1,
-    "items": Object {
-      "order": Array [
-        Object {
+    "items": {
+      "order": [
+        {
           "id": "plcl",
           "ms": 285384,
         },
-        Object {
+        {
           "id": "plcl",
           "ms": 285582,
         },
-        Object {
+        {
           "id": "plcl",
           "ms": 469260,
         },
-        Object {
+        {
           "id": "dust",
           "ms": 469524,
         },
-        Object {
+        {
           "id": "moon",
           "ms": 469986,
         },
-        Object {
+        {
           "id": "shea",
           "ms": 646536,
         },
       ],
-      "summary": Object {
+      "summary": {
         "dust": 1,
         "moon": 1,
         "plcl": 3,
@@ -2279,155 +2279,155 @@ Array [
     "name": "一地狱咆哮",
     "race": "N",
     "raceDetected": "N",
-    "resourceTransfers": Array [],
+    "resourceTransfers": [],
     "teamid": 0,
-    "units": Object {
-      "order": Array [
-        Object {
+    "units": {
+      "order": [
+        {
           "id": "ewsp",
           "ms": 2508,
         },
-        Object {
+        {
           "id": "ewsp",
           "ms": 2772,
         },
-        Object {
+        {
           "id": "ewsp",
           "ms": 31416,
         },
-        Object {
+        {
           "id": "ewsp",
           "ms": 43230,
         },
-        Object {
+        {
           "id": "ewsp",
           "ms": 47454,
         },
-        Object {
+        {
           "id": "ewsp",
           "ms": 55968,
         },
-        Object {
+        {
           "id": "ewsp",
           "ms": 57882,
         },
-        Object {
+        {
           "id": "earc",
           "ms": 85734,
         },
-        Object {
+        {
           "id": "ewsp",
           "ms": 96822,
         },
-        Object {
+        {
           "id": "ewsp",
           "ms": 105600,
         },
-        Object {
+        {
           "id": "ewsp",
           "ms": 118470,
         },
-        Object {
+        {
           "id": "ewsp",
           "ms": 173844,
         },
-        Object {
+        {
           "id": "ewsp",
           "ms": 198594,
         },
-        Object {
+        {
           "id": "ewsp",
           "ms": 208560,
         },
-        Object {
+        {
           "id": "ewsp",
           "ms": 236214,
         },
-        Object {
+        {
           "id": "esen",
           "ms": 254430,
         },
-        Object {
+        {
           "id": "esen",
           "ms": 292974,
         },
-        Object {
+        {
           "id": "esen",
           "ms": 325050,
         },
-        Object {
+        {
           "id": "esen",
           "ms": 345642,
         },
-        Object {
+        {
           "id": "ewsp",
           "ms": 370788,
         },
-        Object {
+        {
           "id": "esen",
           "ms": 389400,
         },
-        Object {
+        {
           "id": "esen",
           "ms": 480612,
         },
-        Object {
+        {
           "id": "esen",
           "ms": 497706,
         },
-        Object {
+        {
           "id": "esen",
           "ms": 525492,
         },
-        Object {
+        {
           "id": "esen",
           "ms": 560472,
         },
-        Object {
+        {
           "id": "esen",
           "ms": 577170,
         },
-        Object {
+        {
           "id": "esen",
           "ms": 598092,
         },
-        Object {
+        {
           "id": "ewsp",
           "ms": 600798,
         },
-        Object {
+        {
           "id": "ewsp",
           "ms": 615384,
         },
-        Object {
+        {
           "id": "ewsp",
           "ms": 617892,
         },
-        Object {
+        {
           "id": "esen",
           "ms": 628848,
         },
       ],
-      "summary": Object {
+      "summary": {
         "earc": 1,
         "esen": 12,
         "ewsp": 18,
       },
     },
-    "upgrades": Object {
-      "order": Array [
-        Object {
+    "upgrades": {
+      "order": [
+        {
           "id": "Resm",
           "ms": 499422,
         },
       ],
-      "summary": Object {
+      "summary": {
         "Resm": 1,
       },
     },
   },
-  Object {
-    "actions": Object {
+  {
+    "actions": {
       "ability": 63,
       "assigngroup": 106,
       "basic": 59,
@@ -2439,7 +2439,7 @@ Array [
       "select": 344,
       "selecthotkey": 671,
       "subgroup": 0,
-      "timed": Array [
+      "timed": [
         308,
         260,
         278,
@@ -2455,62 +2455,62 @@ Array [
       ],
     },
     "apm": 220,
-    "buildings": Object {
-      "order": Array [
-        Object {
+    "buildings": {
+      "order": [
+        {
           "id": "oalt",
           "ms": 5808,
         },
-        Object {
+        {
           "id": "otrb",
           "ms": 17820,
         },
-        Object {
+        {
           "id": "obar",
           "ms": 33264,
         },
-        Object {
+        {
           "id": "ostr",
           "ms": 122100,
         },
-        Object {
+        {
           "id": "ostr",
           "ms": 122232,
         },
-        Object {
+        {
           "id": "otrb",
           "ms": 135234,
         },
-        Object {
+        {
           "id": "ovln",
           "ms": 166650,
         },
-        Object {
+        {
           "id": "otrb",
           "ms": 238128,
         },
-        Object {
+        {
           "id": "osld",
           "ms": 263406,
         },
-        Object {
+        {
           "id": "obea",
           "ms": 264660,
         },
-        Object {
+        {
           "id": "otrb",
           "ms": 346368,
         },
-        Object {
+        {
           "id": "ofor",
           "ms": 470844,
         },
-        Object {
+        {
           "id": "otrb",
           "ms": 523512,
         },
       ],
-      "summary": Object {
+      "summary": {
         "oalt": 1,
         "obar": 1,
         "obea": 1,
@@ -2522,61 +2522,61 @@ Array [
       },
     },
     "color": "#0042ff",
-    "groupHotkeys": Object {
-      "0": Object {
+    "groupHotkeys": {
+      "0": {
         "assigned": 3,
         "used": 0,
       },
-      "1": Object {
+      "1": {
         "assigned": 34,
         "used": 136,
       },
-      "2": Object {
+      "2": {
         "assigned": 53,
         "used": 169,
       },
-      "3": Object {
+      "3": {
         "assigned": 4,
         "used": 99,
       },
-      "4": Object {
+      "4": {
         "assigned": 5,
         "used": 164,
       },
-      "5": Object {
+      "5": {
         "assigned": 4,
         "used": 100,
       },
-      "6": Object {
+      "6": {
         "assigned": 3,
         "used": 3,
       },
-      "7": Object {
+      "7": {
         "assigned": 0,
         "used": 0,
       },
-      "8": Object {
+      "8": {
         "assigned": 0,
         "used": 0,
       },
-      "9": Object {
+      "9": {
         "assigned": 0,
         "used": 0,
       },
     },
-    "heroes": Array [
-      Object {
-        "abilities": Object {
+    "heroes": [
+      {
+        "abilities": {
           "AOcr": 1,
           "AOwk": 1,
         },
-        "abilityOrder": Array [
-          Object {
+        "abilityOrder": [
+          {
             "time": 127710,
             "type": "ability",
             "value": "AOwk",
           },
-          Object {
+          {
             "time": 563178,
             "type": "ability",
             "value": "AOcr",
@@ -2584,25 +2584,25 @@ Array [
         ],
         "id": "Obla",
         "level": 2,
-        "retrainingHistory": Array [],
+        "retrainingHistory": [],
       },
-      Object {
-        "abilities": Object {
+      {
+        "abilities": {
           "AOhw": 2,
           "AOsw": 1,
         },
-        "abilityOrder": Array [
-          Object {
+        "abilityOrder": [
+          {
             "time": 352968,
             "type": "ability",
             "value": "AOsw",
           },
-          Object {
+          {
             "time": 424512,
             "type": "ability",
             "value": "AOhw",
           },
-          Object {
+          {
             "time": 547668,
             "type": "ability",
             "value": "AOhw",
@@ -2610,74 +2610,74 @@ Array [
         ],
         "id": "Oshd",
         "level": 3,
-        "retrainingHistory": Array [],
+        "retrainingHistory": [],
       },
     ],
     "id": 2,
-    "items": Object {
-      "order": Array [
-        Object {
+    "items": {
+      "order": [
+        {
           "id": "cnob",
           "ms": 195822,
         },
-        Object {
+        {
           "id": "dust",
           "ms": 195888,
         },
-        Object {
+        {
           "id": "stel",
           "ms": 395340,
         },
-        Object {
+        {
           "id": "dust",
           "ms": 395472,
         },
-        Object {
+        {
           "id": "hslv",
           "ms": 410916,
         },
-        Object {
+        {
           "id": "shas",
           "ms": 411048,
         },
-        Object {
+        {
           "id": "plcl",
           "ms": 500940,
         },
-        Object {
+        {
           "id": "hslv",
           "ms": 501996,
         },
-        Object {
+        {
           "id": "shas",
           "ms": 503910,
         },
-        Object {
+        {
           "id": "plcl",
           "ms": 532026,
         },
-        Object {
+        {
           "id": "plcl",
           "ms": 532158,
         },
-        Object {
+        {
           "id": "plcl",
           "ms": 532356,
         },
-        Object {
+        {
           "id": "phea",
           "ms": 555060,
         },
-        Object {
+        {
           "id": "plcl",
           "ms": 608322,
         },
-        Object {
+        {
           "id": "plcl",
           "ms": 608520,
         },
       ],
-      "summary": Object {
+      "summary": {
         "cnob": 1,
         "dust": 2,
         "hslv": 2,
@@ -2690,84 +2690,84 @@ Array [
     "name": "GrubbyGrubby",
     "race": "O",
     "raceDetected": "O",
-    "resourceTransfers": Array [],
+    "resourceTransfers": [],
     "teamid": 1,
-    "units": Object {
-      "order": Array [
-        Object {
+    "units": {
+      "order": [
+        {
           "id": "opeo",
           "ms": 1782,
         },
-        Object {
+        {
           "id": "opeo",
           "ms": 13332,
         },
-        Object {
+        {
           "id": "opeo",
           "ms": 26400,
         },
-        Object {
+        {
           "id": "opeo",
           "ms": 42834,
         },
-        Object {
+        {
           "id": "opeo",
           "ms": 52140,
         },
-        Object {
+        {
           "id": "opeo",
           "ms": 71346,
         },
-        Object {
+        {
           "id": "opeo",
           "ms": 81510,
         },
-        Object {
+        {
           "id": "ogru",
           "ms": 95106,
         },
-        Object {
+        {
           "id": "ogru",
           "ms": 186780,
         },
-        Object {
+        {
           "id": "ogru",
           "ms": 227370,
         },
-        Object {
+        {
           "id": "orai",
           "ms": 326502,
         },
-        Object {
+        {
           "id": "oshm",
           "ms": 343926,
         },
-        Object {
+        {
           "id": "oshm",
           "ms": 376134,
         },
-        Object {
+        {
           "id": "orai",
           "ms": 377652,
         },
-        Object {
+        {
           "id": "orai",
           "ms": 427944,
         },
-        Object {
+        {
           "id": "oshm",
           "ms": 469920,
         },
-        Object {
+        {
           "id": "orai",
           "ms": 497772,
         },
-        Object {
+        {
           "id": "okod",
           "ms": 601788,
         },
       ],
-      "summary": Object {
+      "summary": {
         "ogru": 3,
         "okod": 1,
         "opeo": 7,
@@ -2775,38 +2775,38 @@ Array [
         "oshm": 3,
       },
     },
-    "upgrades": Object {
-      "order": Array [
-        Object {
+    "upgrades": {
+      "order": [
+        {
           "id": "Roen",
           "ms": 358314,
         },
-        Object {
+        {
           "id": "Rost",
           "ms": 402468,
         },
-        Object {
+        {
           "id": "Robs",
           "ms": 442530,
         },
-        Object {
+        {
           "id": "Roar",
           "ms": 603438,
         },
-        Object {
+        {
           "id": "Rorb",
           "ms": 629442,
         },
-        Object {
+        {
           "id": "Ropg",
           "ms": 637230,
         },
-        Object {
+        {
           "id": "Ropg",
           "ms": 637428,
         },
       ],
-      "summary": Object {
+      "summary": {
         "Roar": 1,
         "Robs": 1,
         "Roen": 1,
@@ -2820,9 +2820,9 @@ Array [
 `;
 
 exports[`should handle a netease replay with rogue playerId 3 CommandDataBlocks correctly #3 1`] = `
-Array [
-  Object {
-    "actions": Object {
+[
+  {
+    "actions": {
       "ability": 21,
       "assigngroup": 25,
       "basic": 247,
@@ -2834,7 +2834,7 @@ Array [
       "select": 331,
       "selecthotkey": 807,
       "subgroup": 0,
-      "timed": Array [
+      "timed": [
         188,
         228,
         146,
@@ -2850,58 +2850,58 @@ Array [
       ],
     },
     "apm": 198,
-    "buildings": Object {
-      "order": Array [
-        Object {
+    "buildings": {
+      "order": [
+        {
           "id": "uaod",
           "ms": 6006,
         },
-        Object {
+        {
           "id": "usep",
           "ms": 9108,
         },
-        Object {
+        {
           "id": "uzig",
           "ms": 22506,
         },
-        Object {
+        {
           "id": "utom",
           "ms": 56298,
         },
-        Object {
+        {
           "id": "unp1",
           "ms": 142494,
         },
-        Object {
+        {
           "id": "ugrv",
           "ms": 160710,
         },
-        Object {
+        {
           "id": "uzig",
           "ms": 188760,
         },
-        Object {
+        {
           "id": "unp2",
           "ms": 298452,
         },
-        Object {
+        {
           "id": "unp2",
           "ms": 298584,
         },
-        Object {
+        {
           "id": "uslh",
           "ms": 331122,
         },
-        Object {
+        {
           "id": "uzig",
           "ms": 356796,
         },
-        Object {
+        {
           "id": "uzig",
           "ms": 508662,
         },
       ],
-      "summary": Object {
+      "summary": {
         "uaod": 1,
         "ugrv": 1,
         "unp1": 1,
@@ -2913,66 +2913,66 @@ Array [
       },
     },
     "color": "#ff0303",
-    "groupHotkeys": Object {
-      "0": Object {
+    "groupHotkeys": {
+      "0": {
         "assigned": 0,
         "used": 0,
       },
-      "1": Object {
+      "1": {
         "assigned": 22,
         "used": 392,
       },
-      "2": Object {
+      "2": {
         "assigned": 2,
         "used": 184,
       },
-      "3": Object {
+      "3": {
         "assigned": 1,
         "used": 231,
       },
-      "4": Object {
+      "4": {
         "assigned": 0,
         "used": 0,
       },
-      "5": Object {
+      "5": {
         "assigned": 0,
         "used": 0,
       },
-      "6": Object {
+      "6": {
         "assigned": 0,
         "used": 0,
       },
-      "7": Object {
+      "7": {
         "assigned": 0,
         "used": 0,
       },
-      "8": Object {
+      "8": {
         "assigned": 0,
         "used": 0,
       },
-      "9": Object {
+      "9": {
         "assigned": 0,
         "used": 0,
       },
     },
-    "heroes": Array [
-      Object {
-        "abilities": Object {
+    "heroes": [
+      {
+        "abilities": {
           "AUau": 1,
           "AUdc": 2,
         },
-        "abilityOrder": Array [
-          Object {
+        "abilityOrder": [
+          {
             "time": 137346,
             "type": "ability",
             "value": "AUdc",
           },
-          Object {
+          {
             "time": 209616,
             "type": "ability",
             "value": "AUau",
           },
-          Object {
+          {
             "time": 295944,
             "type": "ability",
             "value": "AUdc",
@@ -2980,30 +2980,30 @@ Array [
         ],
         "id": "Udea",
         "level": 3,
-        "retrainingHistory": Array [],
+        "retrainingHistory": [],
       },
-      Object {
-        "abilities": Object {
+      {
+        "abilities": {
           "AUfn": 3,
           "AUfu": 1,
         },
-        "abilityOrder": Array [
-          Object {
+        "abilityOrder": [
+          {
             "time": 347094,
             "type": "ability",
             "value": "AUfu",
           },
-          Object {
+          {
             "time": 566280,
             "type": "ability",
             "value": "AUfn",
           },
-          Object {
+          {
             "time": 566478,
             "type": "ability",
             "value": "AUfn",
           },
-          Object {
+          {
             "time": 566544,
             "type": "ability",
             "value": "AUfn",
@@ -3011,20 +3011,20 @@ Array [
         ],
         "id": "Ulic",
         "level": 4,
-        "retrainingHistory": Array [],
+        "retrainingHistory": [],
       },
-      Object {
-        "abilities": Object {
+      {
+        "abilities": {
           "AUcs": 1,
           "AUsl": 1,
         },
-        "abilityOrder": Array [
-          Object {
+        "abilityOrder": [
+          {
             "time": 538428,
             "type": "ability",
             "value": "AUsl",
           },
-          Object {
+          {
             "time": 691812,
             "type": "ability",
             "value": "AUcs",
@@ -3032,46 +3032,46 @@ Array [
         ],
         "id": "Udre",
         "level": 2,
-        "retrainingHistory": Array [],
+        "retrainingHistory": [],
       },
     ],
     "id": 1,
-    "items": Object {
-      "order": Array [
-        Object {
+    "items": {
+      "order": [
+        {
           "id": "rnec",
           "ms": 129492,
         },
-        Object {
+        {
           "id": "rnec",
           "ms": 129624,
         },
-        Object {
+        {
           "id": "phea",
           "ms": 339768,
         },
-        Object {
+        {
           "id": "rnec",
           "ms": 340296,
         },
-        Object {
+        {
           "id": "dust",
           "ms": 442596,
         },
-        Object {
+        {
           "id": "ocor",
           "ms": 443190,
         },
-        Object {
+        {
           "id": "rnec",
           "ms": 516582,
         },
-        Object {
+        {
           "id": "rnec",
           "ms": 516714,
         },
       ],
-      "summary": Object {
+      "summary": {
         "dust": 1,
         "ocor": 1,
         "phea": 1,
@@ -3081,113 +3081,113 @@ Array [
     "name": "十方普贤",
     "race": "U",
     "raceDetected": "U",
-    "resourceTransfers": Array [],
+    "resourceTransfers": [],
     "teamid": 0,
-    "units": Object {
-      "order": Array [
-        Object {
+    "units": {
+      "order": [
+        {
           "id": "uaco",
           "ms": 1716,
         },
-        Object {
+        {
           "id": "uaco",
           "ms": 31152,
         },
-        Object {
+        {
           "id": "uaco",
           "ms": 31416,
         },
-        Object {
+        {
           "id": "uaco",
           "ms": 42108,
         },
-        Object {
+        {
           "id": "uaco",
           "ms": 42240,
         },
-        Object {
+        {
           "id": "ugho",
           "ms": 70158,
         },
-        Object {
+        {
           "id": "ugho",
           "ms": 70290,
         },
-        Object {
+        {
           "id": "ugho",
           "ms": 87186,
         },
-        Object {
+        {
           "id": "ugho",
           "ms": 87318,
         },
-        Object {
+        {
           "id": "ugho",
           "ms": 100386,
         },
-        Object {
+        {
           "id": "ucry",
           "ms": 243474,
         },
-        Object {
+        {
           "id": "ucry",
           "ms": 243540,
         },
-        Object {
+        {
           "id": "uobs",
           "ms": 415668,
         },
-        Object {
+        {
           "id": "ucry",
           "ms": 416130,
         },
-        Object {
+        {
           "id": "ucry",
           "ms": 507408,
         },
-        Object {
+        {
           "id": "uobs",
           "ms": 573276,
         },
-        Object {
+        {
           "id": "ucry",
           "ms": 573738,
         },
-        Object {
+        {
           "id": "ugho",
           "ms": 611424,
         },
       ],
-      "summary": Object {
+      "summary": {
         "uaco": 5,
         "ucry": 5,
         "ugho": 6,
         "uobs": 2,
       },
     },
-    "upgrades": Object {
-      "order": Array [
-        Object {
+    "upgrades": {
+      "order": [
+        {
           "id": "Rubu",
           "ms": 354552,
         },
-        Object {
+        {
           "id": "Rusp",
           "ms": 463584,
         },
-        Object {
+        {
           "id": "Rusp",
           "ms": 463716,
         },
       ],
-      "summary": Object {
+      "summary": {
         "Rubu": 1,
         "Rusp": 2,
       },
     },
   },
-  Object {
-    "actions": Object {
+  {
+    "actions": {
       "ability": 40,
       "assigngroup": 68,
       "basic": 40,
@@ -3199,7 +3199,7 @@ Array [
       "select": 318,
       "selecthotkey": 586,
       "subgroup": 0,
-      "timed": Array [
+      "timed": [
         306,
         178,
         213,
@@ -3215,66 +3215,66 @@ Array [
       ],
     },
     "apm": 188,
-    "buildings": Object {
-      "order": Array [
-        Object {
+    "buildings": {
+      "order": [
+        {
           "id": "oalt",
           "ms": 5214,
         },
-        Object {
+        {
           "id": "otrb",
           "ms": 18150,
         },
-        Object {
+        {
           "id": "obar",
           "ms": 34848,
         },
-        Object {
+        {
           "id": "ovln",
           "ms": 84216,
         },
-        Object {
+        {
           "id": "ostr",
           "ms": 146322,
         },
-        Object {
+        {
           "id": "ostr",
           "ms": 146520,
         },
-        Object {
+        {
           "id": "otrb",
           "ms": 154506,
         },
-        Object {
+        {
           "id": "otrb",
           "ms": 222684,
         },
-        Object {
+        {
           "id": "obea",
           "ms": 307560,
         },
-        Object {
+        {
           "id": "ofrt",
           "ms": 322476,
         },
-        Object {
+        {
           "id": "otrb",
           "ms": 400488,
         },
-        Object {
+        {
           "id": "ofor",
           "ms": 410322,
         },
-        Object {
+        {
           "id": "otrb",
           "ms": 572220,
         },
-        Object {
+        {
           "id": "otto",
           "ms": 613470,
         },
       ],
-      "summary": Object {
+      "summary": {
         "oalt": 1,
         "obar": 1,
         "obea": 1,
@@ -3287,71 +3287,71 @@ Array [
       },
     },
     "color": "#0042ff",
-    "groupHotkeys": Object {
-      "0": Object {
+    "groupHotkeys": {
+      "0": {
         "assigned": 2,
         "used": 0,
       },
-      "1": Object {
+      "1": {
         "assigned": 32,
         "used": 94,
       },
-      "2": Object {
+      "2": {
         "assigned": 25,
         "used": 86,
       },
-      "3": Object {
+      "3": {
         "assigned": 1,
         "used": 125,
       },
-      "4": Object {
+      "4": {
         "assigned": 3,
         "used": 129,
       },
-      "5": Object {
+      "5": {
         "assigned": 2,
         "used": 150,
       },
-      "6": Object {
+      "6": {
         "assigned": 3,
         "used": 2,
       },
-      "7": Object {
+      "7": {
         "assigned": 0,
         "used": 0,
       },
-      "8": Object {
+      "8": {
         "assigned": 0,
         "used": 0,
       },
-      "9": Object {
+      "9": {
         "assigned": 0,
         "used": 0,
       },
     },
-    "heroes": Array [
-      Object {
-        "abilities": Object {
+    "heroes": [
+      {
+        "abilities": {
           "AOcr": 2,
           "AOwk": 2,
         },
-        "abilityOrder": Array [
-          Object {
+        "abilityOrder": [
+          {
             "time": 126786,
             "type": "ability",
             "value": "AOwk",
           },
-          Object {
+          {
             "time": 227436,
             "type": "ability",
             "value": "AOcr",
           },
-          Object {
+          {
             "time": 321618,
             "type": "ability",
             "value": "AOwk",
           },
-          Object {
+          {
             "time": 684156,
             "type": "ability",
             "value": "AOcr",
@@ -3359,30 +3359,30 @@ Array [
         ],
         "id": "Obla",
         "level": 4,
-        "retrainingHistory": Array [],
+        "retrainingHistory": [],
       },
-      Object {
-        "abilities": Object {
+      {
+        "abilities": {
           "AOhw": 2,
           "AOhx": 2,
         },
-        "abilityOrder": Array [
-          Object {
+        "abilityOrder": [
+          {
             "time": 366234,
             "type": "ability",
             "value": "AOhx",
           },
-          Object {
+          {
             "time": 437514,
             "type": "ability",
             "value": "AOhw",
           },
-          Object {
+          {
             "time": 516780,
             "type": "ability",
             "value": "AOhw",
           },
-          Object {
+          {
             "time": 691614,
             "type": "ability",
             "value": "AOhx",
@@ -3390,25 +3390,25 @@ Array [
         ],
         "id": "Oshd",
         "level": 4,
-        "retrainingHistory": Array [],
+        "retrainingHistory": [],
       },
-      Object {
-        "abilities": Object {
+      {
+        "abilities": {
           "AOae": 1,
           "AOws": 2,
         },
-        "abilityOrder": Array [
-          Object {
+        "abilityOrder": [
+          {
             "time": 531828,
             "type": "ability",
             "value": "AOae",
           },
-          Object {
+          {
             "time": 595188,
             "type": "ability",
             "value": "AOws",
           },
-          Object {
+          {
             "time": 668514,
             "type": "ability",
             "value": "AOws",
@@ -3416,86 +3416,86 @@ Array [
         ],
         "id": "Otch",
         "level": 3,
-        "retrainingHistory": Array [],
+        "retrainingHistory": [],
       },
     ],
     "id": 2,
-    "items": Object {
-      "order": Array [
-        Object {
+    "items": {
+      "order": [
+        {
           "id": "cnob",
           "ms": 133122,
         },
-        Object {
+        {
           "id": "cnob",
           "ms": 133254,
         },
-        Object {
+        {
           "id": "hslv",
           "ms": 178134,
         },
-        Object {
+        {
           "id": "hslv",
           "ms": 178332,
         },
-        Object {
+        {
           "id": "hslv",
           "ms": 178464,
         },
-        Object {
+        {
           "id": "stel",
           "ms": 333696,
         },
-        Object {
+        {
           "id": "hslv",
           "ms": 363990,
         },
-        Object {
+        {
           "id": "shas",
           "ms": 364122,
         },
-        Object {
+        {
           "id": "plcl",
           "ms": 501204,
         },
-        Object {
+        {
           "id": "hslv",
           "ms": 502392,
         },
-        Object {
+        {
           "id": "oli2",
           "ms": 509520,
         },
-        Object {
+        {
           "id": "hslv",
           "ms": 527340,
         },
-        Object {
+        {
           "id": "shas",
           "ms": 527538,
         },
-        Object {
+        {
           "id": "plcl",
           "ms": 584958,
         },
-        Object {
+        {
           "id": "hslv",
           "ms": 587598,
         },
-        Object {
+        {
           "id": "hslv",
           "ms": 587730,
         },
-        Object {
+        {
           "id": "plcl",
           "ms": 639012,
         },
-        Object {
+        {
           "id": "plcl",
           "ms": 639210,
         },
       ],
-      "summary": Object {
+      "summary": {
         "cnob": 2,
         "hslv": 8,
         "oli2": 1,
@@ -3507,88 +3507,88 @@ Array [
     "name": "GrubbyGrubby",
     "race": "O",
     "raceDetected": "O",
-    "resourceTransfers": Array [],
+    "resourceTransfers": [],
     "teamid": 1,
-    "units": Object {
-      "order": Array [
-        Object {
+    "units": {
+      "order": [
+        {
           "id": "opeo",
           "ms": 1650,
         },
-        Object {
+        {
           "id": "opeo",
           "ms": 9900,
         },
-        Object {
+        {
           "id": "opeo",
           "ms": 27786,
         },
-        Object {
+        {
           "id": "opeo",
           "ms": 42042,
         },
-        Object {
+        {
           "id": "opeo",
           "ms": 42306,
         },
-        Object {
+        {
           "id": "opeo",
           "ms": 52932,
         },
-        Object {
+        {
           "id": "opeo",
           "ms": 61710,
         },
-        Object {
+        {
           "id": "ogru",
           "ms": 95304,
         },
-        Object {
+        {
           "id": "ogru",
           "ms": 95502,
         },
-        Object {
+        {
           "id": "opeo",
           "ms": 104016,
         },
-        Object {
+        {
           "id": "ogru",
           "ms": 207570,
         },
-        Object {
+        {
           "id": "ogru",
           "ms": 241890,
         },
-        Object {
+        {
           "id": "owyv",
           "ms": 372570,
         },
-        Object {
+        {
           "id": "okod",
           "ms": 515460,
         },
-        Object {
+        {
           "id": "ohun",
           "ms": 540936,
         },
-        Object {
+        {
           "id": "ohun",
           "ms": 569778,
         },
-        Object {
+        {
           "id": "ohun",
           "ms": 601194,
         },
-        Object {
+        {
           "id": "otbk",
           "ms": 695640,
         },
-        Object {
+        {
           "id": "orai",
           "ms": 695904,
         },
       ],
-      "summary": Object {
+      "summary": {
         "ogru": 4,
         "ohun": 3,
         "okod": 1,
@@ -3598,38 +3598,38 @@ Array [
         "owyv": 1,
       },
     },
-    "upgrades": Object {
-      "order": Array [
-        Object {
+    "upgrades": {
+      "order": [
+        {
           "id": "Robs",
           "ms": 323994,
         },
-        Object {
+        {
           "id": "Rorb",
           "ms": 570372,
         },
-        Object {
+        {
           "id": "Rorb",
           "ms": 570636,
         },
-        Object {
+        {
           "id": "Rwdm",
           "ms": 570900,
         },
-        Object {
+        {
           "id": "Rwdm",
           "ms": 571098,
         },
-        Object {
+        {
           "id": "Robk",
           "ms": 624162,
         },
-        Object {
+        {
           "id": "Robk",
           "ms": 624360,
         },
       ],
-      "summary": Object {
+      "summary": {
         "Robk": 2,
         "Robs": 1,
         "Rorb": 2,
@@ -3641,9 +3641,9 @@ Array [
 `;
 
 exports[`should handle a netease replay with rogue playerId 3 CommandDataBlocks correctly 1`] = `
-Array [
-  Object {
-    "actions": Object {
+[
+  {
+    "actions": {
       "ability": 21,
       "assigngroup": 52,
       "basic": 38,
@@ -3655,7 +3655,7 @@ Array [
       "select": 272,
       "selecthotkey": 743,
       "subgroup": 0,
-      "timed": Array [
+      "timed": [
         211,
         239,
         191,
@@ -3670,74 +3670,74 @@ Array [
       ],
     },
     "apm": 199,
-    "buildings": Object {
-      "order": Array [
-        Object {
+    "buildings": {
+      "order": [
+        {
           "id": "halt",
           "ms": 5478,
         },
-        Object {
+        {
           "id": "hhou",
           "ms": 17424,
         },
-        Object {
+        {
           "id": "hbar",
           "ms": 18744,
         },
-        Object {
+        {
           "id": "hhou",
           "ms": 62304,
         },
-        Object {
+        {
           "id": "hwtw",
           "ms": 85404,
         },
-        Object {
+        {
           "id": "hhou",
           "ms": 101376,
         },
-        Object {
+        {
           "id": "hatw",
           "ms": 116622,
         },
-        Object {
+        {
           "id": "hatw",
           "ms": 116754,
         },
-        Object {
+        {
           "id": "hkee",
           "ms": 199584,
         },
-        Object {
+        {
           "id": "hhou",
           "ms": 222222,
         },
-        Object {
+        {
           "id": "hbla",
           "ms": 238392,
         },
-        Object {
+        {
           "id": "hhou",
           "ms": 264396,
         },
-        Object {
+        {
           "id": "hhou",
           "ms": 322542,
         },
-        Object {
+        {
           "id": "hars",
           "ms": 348744,
         },
-        Object {
+        {
           "id": "hvlt",
           "ms": 356334,
         },
-        Object {
+        {
           "id": "hhou",
           "ms": 460548,
         },
       ],
-      "summary": Object {
+      "summary": {
         "halt": 1,
         "hars": 1,
         "hatw": 2,
@@ -3750,66 +3750,66 @@ Array [
       },
     },
     "color": "#ff0303",
-    "groupHotkeys": Object {
-      "0": Object {
+    "groupHotkeys": {
+      "0": {
         "assigned": 0,
         "used": 0,
       },
-      "1": Object {
+      "1": {
         "assigned": 39,
         "used": 230,
       },
-      "2": Object {
+      "2": {
         "assigned": 7,
         "used": 219,
       },
-      "3": Object {
+      "3": {
         "assigned": 5,
         "used": 273,
       },
-      "4": Object {
+      "4": {
         "assigned": 1,
         "used": 21,
       },
-      "5": Object {
+      "5": {
         "assigned": 0,
         "used": 0,
       },
-      "6": Object {
+      "6": {
         "assigned": 0,
         "used": 0,
       },
-      "7": Object {
+      "7": {
         "assigned": 0,
         "used": 0,
       },
-      "8": Object {
+      "8": {
         "assigned": 0,
         "used": 0,
       },
-      "9": Object {
+      "9": {
         "assigned": 0,
         "used": 0,
       },
     },
-    "heroes": Array [
-      Object {
-        "abilities": Object {
+    "heroes": [
+      {
+        "abilities": {
           "AHab": 1,
           "AHwe": 2,
         },
-        "abilityOrder": Array [
-          Object {
+        "abilityOrder": [
+          {
             "time": 126126,
             "type": "ability",
             "value": "AHwe",
           },
-          Object {
+          {
             "time": 342210,
             "type": "ability",
             "value": "AHab",
           },
-          Object {
+          {
             "time": 572880,
             "type": "ability",
             "value": "AHwe",
@@ -3817,25 +3817,25 @@ Array [
         ],
         "id": "Hamg",
         "level": 3,
-        "retrainingHistory": Array [],
+        "retrainingHistory": [],
       },
-      Object {
-        "abilities": Object {
+      {
+        "abilities": {
           "AHtb": 2,
           "AHtc": 1,
         },
-        "abilityOrder": Array [
-          Object {
+        "abilityOrder": [
+          {
             "time": 397518,
             "type": "ability",
             "value": "AHtb",
           },
-          Object {
+          {
             "time": 494802,
             "type": "ability",
             "value": "AHtc",
           },
-          Object {
+          {
             "time": 582120,
             "type": "ability",
             "value": "AHtb",
@@ -3843,26 +3843,26 @@ Array [
         ],
         "id": "Hmkg",
         "level": 3,
-        "retrainingHistory": Array [],
+        "retrainingHistory": [],
       },
     ],
     "id": 1,
-    "items": Object {
-      "order": Array [
-        Object {
+    "items": {
+      "order": [
+        {
           "id": "bspd",
           "ms": 261492,
         },
-        Object {
+        {
           "id": "cnob",
           "ms": 369600,
         },
-        Object {
+        {
           "id": "sreg",
           "ms": 426030,
         },
       ],
-      "summary": Object {
+      "summary": {
         "bspd": 1,
         "cnob": 1,
         "sreg": 1,
@@ -3871,174 +3871,174 @@ Array [
     "name": "mojusheji",
     "race": "R",
     "raceDetected": "H",
-    "resourceTransfers": Array [],
+    "resourceTransfers": [],
     "teamid": 0,
-    "units": Object {
-      "order": Array [
-        Object {
+    "units": {
+      "order": [
+        {
           "id": "hpea",
           "ms": 1518,
         },
-        Object {
+        {
           "id": "hpea",
           "ms": 1716,
         },
-        Object {
+        {
           "id": "hpea",
           "ms": 1914,
         },
-        Object {
+        {
           "id": "hpea",
           "ms": 2112,
         },
-        Object {
+        {
           "id": "hpea",
           "ms": 2244,
         },
-        Object {
+        {
           "id": "hpea",
           "ms": 2442,
         },
-        Object {
+        {
           "id": "hpea",
           "ms": 7656,
         },
-        Object {
+        {
           "id": "hpea",
           "ms": 7788,
         },
-        Object {
+        {
           "id": "hpea",
           "ms": 11088,
         },
-        Object {
+        {
           "id": "hpea",
           "ms": 22242,
         },
-        Object {
+        {
           "id": "hpea",
           "ms": 28908,
         },
-        Object {
+        {
           "id": "hpea",
           "ms": 55176,
         },
-        Object {
+        {
           "id": "hpea",
           "ms": 55374,
         },
-        Object {
+        {
           "id": "hpea",
           "ms": 55506,
         },
-        Object {
+        {
           "id": "hpea",
           "ms": 67386,
         },
-        Object {
+        {
           "id": "hpea",
           "ms": 67518,
         },
-        Object {
+        {
           "id": "hfoo",
           "ms": 81312,
         },
-        Object {
+        {
           "id": "hfoo",
           "ms": 102960,
         },
-        Object {
+        {
           "id": "hpea",
           "ms": 117546,
         },
-        Object {
+        {
           "id": "hfoo",
           "ms": 131868,
         },
-        Object {
+        {
           "id": "hfoo",
           "ms": 148632,
         },
-        Object {
+        {
           "id": "hfoo",
           "ms": 148764,
         },
-        Object {
+        {
           "id": "hpea",
           "ms": 167706,
         },
-        Object {
+        {
           "id": "hfoo",
           "ms": 174042,
         },
-        Object {
+        {
           "id": "hrif",
           "ms": 344388,
         },
-        Object {
+        {
           "id": "hrif",
           "ms": 395076,
         },
-        Object {
+        {
           "id": "hmpr",
           "ms": 398508,
         },
-        Object {
+        {
           "id": "hmpr",
           "ms": 451242,
         },
-        Object {
+        {
           "id": "hrif",
           "ms": 458964,
         },
-        Object {
+        {
           "id": "hmpr",
           "ms": 480810,
         },
-        Object {
+        {
           "id": "hrif",
           "ms": 499488,
         },
-        Object {
+        {
           "id": "hrif",
           "ms": 529584,
         },
       ],
-      "summary": Object {
+      "summary": {
         "hfoo": 6,
         "hmpr": 3,
         "hpea": 18,
         "hrif": 5,
       },
     },
-    "upgrades": Object {
-      "order": Array [
-        Object {
+    "upgrades": {
+      "order": [
+        {
           "id": "Rhri",
           "ms": 423258,
         },
-        Object {
+        {
           "id": "Rhpt",
           "ms": 481074,
         },
-        Object {
+        {
           "id": "Rhra",
           "ms": 530112,
         },
-        Object {
+        {
           "id": "Rhra",
           "ms": 530244,
         },
       ],
-      "summary": Object {
+      "summary": {
         "Rhpt": 1,
         "Rhra": 2,
         "Rhri": 1,
       },
     },
   },
-  Object {
-    "actions": Object {
+  {
+    "actions": {
       "ability": 43,
       "assigngroup": 210,
       "basic": 80,
@@ -4050,7 +4050,7 @@ Array [
       "select": 371,
       "selecthotkey": 952,
       "subgroup": 0,
-      "timed": Array [
+      "timed": [
         421,
         371,
         294,
@@ -4065,70 +4065,70 @@ Array [
       ],
     },
     "apm": 297,
-    "buildings": Object {
-      "order": Array [
-        Object {
+    "buildings": {
+      "order": [
+        {
           "id": "oalt",
           "ms": 4422,
         },
-        Object {
+        {
           "id": "oalt",
           "ms": 4950,
         },
-        Object {
+        {
           "id": "oalt",
           "ms": 5808,
         },
-        Object {
+        {
           "id": "otrb",
           "ms": 18876,
         },
-        Object {
+        {
           "id": "obar",
           "ms": 33330,
         },
-        Object {
+        {
           "id": "ostr",
           "ms": 136026,
         },
-        Object {
+        {
           "id": "otrb",
           "ms": 147114,
         },
-        Object {
+        {
           "id": "ovln",
           "ms": 162888,
         },
-        Object {
+        {
           "id": "otrb",
           "ms": 234498,
         },
-        Object {
+        {
           "id": "otrb",
           "ms": 235620,
         },
-        Object {
+        {
           "id": "osld",
           "ms": 278058,
         },
-        Object {
+        {
           "id": "obea",
           "ms": 278718,
         },
-        Object {
+        {
           "id": "ofor",
           "ms": 318186,
         },
-        Object {
+        {
           "id": "otrb",
           "ms": 422796,
         },
-        Object {
+        {
           "id": "ogre",
           "ms": 461274,
         },
       ],
-      "summary": Object {
+      "summary": {
         "oalt": 3,
         "obar": 1,
         "obea": 1,
@@ -4141,71 +4141,71 @@ Array [
       },
     },
     "color": "#0042ff",
-    "groupHotkeys": Object {
-      "0": Object {
+    "groupHotkeys": {
+      "0": {
         "assigned": 0,
         "used": 0,
       },
-      "1": Object {
+      "1": {
         "assigned": 101,
         "used": 375,
       },
-      "2": Object {
+      "2": {
         "assigned": 40,
         "used": 239,
       },
-      "3": Object {
+      "3": {
         "assigned": 52,
         "used": 241,
       },
-      "4": Object {
+      "4": {
         "assigned": 10,
         "used": 94,
       },
-      "5": Object {
+      "5": {
         "assigned": 7,
         "used": 3,
       },
-      "6": Object {
+      "6": {
         "assigned": 0,
         "used": 0,
       },
-      "7": Object {
+      "7": {
         "assigned": 0,
         "used": 0,
       },
-      "8": Object {
+      "8": {
         "assigned": 0,
         "used": 0,
       },
-      "9": Object {
+      "9": {
         "assigned": 0,
         "used": 0,
       },
     },
-    "heroes": Array [
-      Object {
-        "abilities": Object {
+    "heroes": [
+      {
+        "abilities": {
           "AOcl": 1,
           "AOsf": 3,
         },
-        "abilityOrder": Array [
-          Object {
+        "abilityOrder": [
+          {
             "time": 131406,
             "type": "ability",
             "value": "AOsf",
           },
-          Object {
+          {
             "time": 362208,
             "type": "ability",
             "value": "AOcl",
           },
-          Object {
+          {
             "time": 532158,
             "type": "ability",
             "value": "AOsf",
           },
-          Object {
+          {
             "time": 532290,
             "type": "ability",
             "value": "AOsf",
@@ -4213,30 +4213,30 @@ Array [
         ],
         "id": "Ofar",
         "level": 4,
-        "retrainingHistory": Array [],
+        "retrainingHistory": [],
       },
-      Object {
-        "abilities": Object {
+      {
+        "abilities": {
           "AOae": 2,
           "AOws": 2,
         },
-        "abilityOrder": Array [
-          Object {
+        "abilityOrder": [
+          {
             "time": 339042,
             "type": "ability",
             "value": "AOae",
           },
-          Object {
+          {
             "time": 492294,
             "type": "ability",
             "value": "AOws",
           },
-          Object {
+          {
             "time": 543906,
             "type": "ability",
             "value": "AOws",
           },
-          Object {
+          {
             "time": 584628,
             "type": "ability",
             "value": "AOae",
@@ -4244,34 +4244,34 @@ Array [
         ],
         "id": "Otch",
         "level": 4,
-        "retrainingHistory": Array [],
+        "retrainingHistory": [],
       },
     ],
     "id": 2,
-    "items": Object {
-      "order": Array [
-        Object {
+    "items": {
+      "order": [
+        {
           "id": "shas",
           "ms": 337656,
         },
-        Object {
+        {
           "id": "hslv",
           "ms": 337788,
         },
-        Object {
+        {
           "id": "hslv",
           "ms": 337920,
         },
-        Object {
+        {
           "id": "plcl",
           "ms": 602250,
         },
-        Object {
+        {
           "id": "hslv",
           "ms": 602448,
         },
       ],
-      "summary": Object {
+      "summary": {
         "hslv": 3,
         "plcl": 1,
         "shas": 1,
@@ -4280,112 +4280,112 @@ Array [
     "name": "RW浪的象征",
     "race": "O",
     "raceDetected": "O",
-    "resourceTransfers": Array [],
+    "resourceTransfers": [],
     "teamid": 1,
-    "units": Object {
-      "order": Array [
-        Object {
+    "units": {
+      "order": [
+        {
           "id": "opeo",
           "ms": 1320,
         },
-        Object {
+        {
           "id": "opeo",
           "ms": 2112,
         },
-        Object {
+        {
           "id": "opeo",
           "ms": 3102,
         },
-        Object {
+        {
           "id": "opeo",
           "ms": 16104,
         },
-        Object {
+        {
           "id": "opeo",
           "ms": 41580,
         },
-        Object {
+        {
           "id": "opeo",
           "ms": 51942,
         },
-        Object {
+        {
           "id": "opeo",
           "ms": 59730,
         },
-        Object {
+        {
           "id": "opeo",
           "ms": 92400,
         },
-        Object {
+        {
           "id": "ogru",
           "ms": 94710,
         },
-        Object {
+        {
           "id": "opeo",
           "ms": 99990,
         },
-        Object {
+        {
           "id": "ogru",
           "ms": 199980,
         },
-        Object {
+        {
           "id": "ogru",
           "ms": 230934,
         },
-        Object {
+        {
           "id": "ogru",
           "ms": 296736,
         },
-        Object {
+        {
           "id": "orai",
           "ms": 348546,
         },
-        Object {
+        {
           "id": "oshm",
           "ms": 357654,
         },
-        Object {
+        {
           "id": "oshm",
           "ms": 370260,
         },
-        Object {
+        {
           "id": "oshm",
           "ms": 395208,
         },
-        Object {
+        {
           "id": "oshm",
           "ms": 401742,
         },
-        Object {
+        {
           "id": "okod",
           "ms": 503712,
         },
-        Object {
+        {
           "id": "ogru",
           "ms": 524106,
         },
-        Object {
+        {
           "id": "orai",
           "ms": 536052,
         },
-        Object {
+        {
           "id": "orai",
           "ms": 579546,
         },
-        Object {
+        {
           "id": "oshm",
           "ms": 579744,
         },
-        Object {
+        {
           "id": "orai",
           "ms": 599808,
         },
-        Object {
+        {
           "id": "oshm",
           "ms": 601128,
         },
       ],
-      "summary": Object {
+      "summary": {
         "ogru": 5,
         "okod": 1,
         "opeo": 9,
@@ -4393,30 +4393,30 @@ Array [
         "oshm": 6,
       },
     },
-    "upgrades": Object {
-      "order": Array [
-        Object {
+    "upgrades": {
+      "order": [
+        {
           "id": "Ropg",
           "ms": 97812,
         },
-        Object {
+        {
           "id": "Robs",
           "ms": 374748,
         },
-        Object {
+        {
           "id": "Roen",
           "ms": 379896,
         },
-        Object {
+        {
           "id": "Rost",
           "ms": 433488,
         },
-        Object {
+        {
           "id": "Rorb",
           "ms": 526086,
         },
       ],
-      "summary": Object {
+      "summary": {
         "Robs": 1,
         "Roen": 1,
         "Ropg": 1,
@@ -4429,9 +4429,9 @@ Array [
 `;
 
 exports[`should parse a flo w3c hostbot game correctly 1`] = `
-Array [
-  Object {
-    "actions": Object {
+[
+  {
+    "actions": {
       "ability": 32,
       "assigngroup": 249,
       "basic": 161,
@@ -4443,7 +4443,7 @@ Array [
       "select": 494,
       "selecthotkey": 1836,
       "subgroup": 0,
-      "timed": Array [
+      "timed": [
         387,
         454,
         409,
@@ -4459,74 +4459,74 @@ Array [
       ],
     },
     "apm": 362,
-    "buildings": Object {
-      "order": Array [
-        Object {
+    "buildings": {
+      "order": [
+        {
           "id": "oalt",
           "ms": 5519,
         },
-        Object {
+        {
           "id": "oalt",
           "ms": 5999,
         },
-        Object {
+        {
           "id": "otrb",
           "ms": 17259,
         },
-        Object {
+        {
           "id": "obar",
           "ms": 34779,
         },
-        Object {
+        {
           "id": "ostr",
           "ms": 137099,
         },
-        Object {
+        {
           "id": "otrb",
           "ms": 145079,
         },
-        Object {
+        {
           "id": "ovln",
           "ms": 157419,
         },
-        Object {
+        {
           "id": "otrb",
           "ms": 270199,
         },
-        Object {
+        {
           "id": "obea",
           "ms": 291719,
         },
-        Object {
+        {
           "id": "obea",
           "ms": 298559,
         },
-        Object {
+        {
           "id": "ofor",
           "ms": 335759,
         },
-        Object {
+        {
           "id": "otrb",
           "ms": 429139,
         },
-        Object {
+        {
           "id": "owtw",
           "ms": 431439,
         },
-        Object {
+        {
           "id": "ogre",
           "ms": 572059,
         },
-        Object {
+        {
           "id": "owtw",
           "ms": 621439,
         },
-        Object {
+        {
           "id": "obea",
           "ms": 652879,
         },
       ],
-      "summary": Object {
+      "summary": {
         "oalt": 2,
         "obar": 1,
         "obea": 3,
@@ -4539,66 +4539,66 @@ Array [
       },
     },
     "color": "#540081",
-    "groupHotkeys": Object {
-      "0": Object {
+    "groupHotkeys": {
+      "0": {
         "assigned": 9,
         "used": 94,
       },
-      "1": Object {
+      "1": {
         "assigned": 112,
         "used": 292,
       },
-      "2": Object {
+      "2": {
         "assigned": 46,
         "used": 157,
       },
-      "3": Object {
+      "3": {
         "assigned": 16,
         "used": 18,
       },
-      "4": Object {
+      "4": {
         "assigned": 56,
         "used": 621,
       },
-      "5": Object {
+      "5": {
         "assigned": 8,
         "used": 653,
       },
-      "6": Object {
+      "6": {
         "assigned": 2,
         "used": 1,
       },
-      "7": Object {
+      "7": {
         "assigned": 0,
         "used": 0,
       },
-      "8": Object {
+      "8": {
         "assigned": 0,
         "used": 0,
       },
-      "9": Object {
+      "9": {
         "assigned": 0,
         "used": 0,
       },
     },
-    "heroes": Array [
-      Object {
-        "abilities": Object {
+    "heroes": [
+      {
+        "abilities": {
           "AOcl": 1,
           "AOsf": 2,
         },
-        "abilityOrder": Array [
-          Object {
+        "abilityOrder": [
+          {
             "time": 125339,
             "type": "ability",
             "value": "AOsf",
           },
-          Object {
+          {
             "time": 329059,
             "type": "ability",
             "value": "AOcl",
           },
-          Object {
+          {
             "time": 556359,
             "type": "ability",
             "value": "AOsf",
@@ -4606,20 +4606,20 @@ Array [
         ],
         "id": "Ofar",
         "level": 3,
-        "retrainingHistory": Array [],
+        "retrainingHistory": [],
       },
-      Object {
-        "abilities": Object {
+      {
+        "abilities": {
           "AOae": 1,
           "AOws": 1,
         },
-        "abilityOrder": Array [
-          Object {
+        "abilityOrder": [
+          {
             "time": 355559,
             "type": "ability",
             "value": "AOae",
           },
-          Object {
+          {
             "time": 464359,
             "type": "ability",
             "value": "AOws",
@@ -4627,54 +4627,54 @@ Array [
         ],
         "id": "Otch",
         "level": 2,
-        "retrainingHistory": Array [],
+        "retrainingHistory": [],
       },
     ],
     "id": 1,
-    "items": Object {
-      "order": Array [
-        Object {
+    "items": {
+      "order": [
+        {
           "id": "hslv",
           "ms": 345179,
         },
-        Object {
+        {
           "id": "hslv",
           "ms": 345299,
         },
-        Object {
+        {
           "id": "shas",
           "ms": 345439,
         },
-        Object {
+        {
           "id": "hslv",
           "ms": 455919,
         },
-        Object {
+        {
           "id": "hslv",
           "ms": 456059,
         },
-        Object {
+        {
           "id": "shas",
           "ms": 456179,
         },
-        Object {
+        {
           "id": "plcl",
           "ms": 474219,
         },
-        Object {
+        {
           "id": "shea",
           "ms": 489079,
         },
-        Object {
+        {
           "id": "dust",
           "ms": 489399,
         },
-        Object {
+        {
           "id": "bspd",
           "ms": 489399,
         },
       ],
-      "summary": Object {
+      "summary": {
         "bspd": 1,
         "dust": 1,
         "hslv": 4,
@@ -4686,100 +4686,100 @@ Array [
     "name": "IIIIIlllIIIl#3697",
     "race": "O",
     "raceDetected": "O",
-    "resourceTransfers": Array [],
+    "resourceTransfers": [],
     "teamid": 0,
-    "units": Object {
-      "order": Array [
-        Object {
+    "units": {
+      "order": [
+        {
           "id": "opeo",
           "ms": 1299,
         },
-        Object {
+        {
           "id": "opeo",
           "ms": 1439,
         },
-        Object {
+        {
           "id": "opeo",
           "ms": 20459,
         },
-        Object {
+        {
           "id": "opeo",
           "ms": 44259,
         },
-        Object {
+        {
           "id": "opeo",
           "ms": 44419,
         },
-        Object {
+        {
           "id": "opeo",
           "ms": 53159,
         },
-        Object {
+        {
           "id": "opeo",
           "ms": 53319,
         },
-        Object {
+        {
           "id": "opeo",
           "ms": 63719,
         },
-        Object {
+        {
           "id": "opeo",
           "ms": 84319,
         },
-        Object {
+        {
           "id": "ogru",
           "ms": 95339,
         },
-        Object {
+        {
           "id": "opeo",
           "ms": 99879,
         },
-        Object {
+        {
           "id": "ogru",
           "ms": 196579,
         },
-        Object {
+        {
           "id": "ogru",
           "ms": 223199,
         },
-        Object {
+        {
           "id": "orai",
           "ms": 360299,
         },
-        Object {
+        {
           "id": "nftb",
           "ms": 403739,
         },
-        Object {
+        {
           "id": "okod",
           "ms": 454599,
         },
-        Object {
+        {
           "id": "orai",
           "ms": 497679,
         },
-        Object {
+        {
           "id": "okod",
           "ms": 525239,
         },
-        Object {
+        {
           "id": "orai",
           "ms": 548039,
         },
-        Object {
+        {
           "id": "orai",
           "ms": 609599,
         },
-        Object {
+        {
           "id": "nzep",
           "ms": 638779,
         },
-        Object {
+        {
           "id": "orai",
           "ms": 649619,
         },
       ],
-      "summary": Object {
+      "summary": {
         "nftb": 1,
         "nzep": 1,
         "ogru": 3,
@@ -4788,26 +4788,26 @@ Array [
         "orai": 5,
       },
     },
-    "upgrades": Object {
-      "order": Array [
-        Object {
+    "upgrades": {
+      "order": [
+        {
           "id": "Robs",
           "ms": 300919,
         },
-        Object {
+        {
           "id": "Roen",
           "ms": 386859,
         },
-        Object {
+        {
           "id": "Rorb",
           "ms": 579819,
         },
-        Object {
+        {
           "id": "Ropg",
           "ms": 654579,
         },
       ],
-      "summary": Object {
+      "summary": {
         "Robs": 1,
         "Roen": 1,
         "Ropg": 1,
@@ -4815,8 +4815,8 @@ Array [
       },
     },
   },
-  Object {
-    "actions": Object {
+  {
+    "actions": {
       "ability": 26,
       "assigngroup": 105,
       "basic": 106,
@@ -4828,7 +4828,7 @@ Array [
       "select": 435,
       "selecthotkey": 1407,
       "subgroup": 0,
-      "timed": Array [
+      "timed": [
         393,
         370,
         341,
@@ -4844,86 +4844,86 @@ Array [
       ],
     },
     "apm": 319,
-    "buildings": Object {
-      "order": Array [
-        Object {
+    "buildings": {
+      "order": [
+        {
           "id": "ugrv",
           "ms": 4859,
         },
-        Object {
+        {
           "id": "usep",
           "ms": 7779,
         },
-        Object {
+        {
           "id": "usep",
           "ms": 9319,
         },
-        Object {
+        {
           "id": "usep",
           "ms": 9819,
         },
-        Object {
+        {
           "id": "uaod",
           "ms": 40099,
         },
-        Object {
+        {
           "id": "uzig",
           "ms": 56199,
         },
-        Object {
+        {
           "id": "utom",
           "ms": 80999,
         },
-        Object {
+        {
           "id": "utom",
           "ms": 81579,
         },
-        Object {
+        {
           "id": "uzig",
           "ms": 117359,
         },
-        Object {
+        {
           "id": "uzg2",
           "ms": 157619,
         },
-        Object {
+        {
           "id": "unp1",
           "ms": 222559,
         },
-        Object {
+        {
           "id": "unp1",
           "ms": 222679,
         },
-        Object {
+        {
           "id": "uzig",
           "ms": 287019,
         },
-        Object {
+        {
           "id": "unp2",
           "ms": 380679,
         },
-        Object {
+        {
           "id": "uslh",
           "ms": 430019,
         },
-        Object {
+        {
           "id": "uzig",
           "ms": 437319,
         },
-        Object {
+        {
           "id": "uzig",
           "ms": 580959,
         },
-        Object {
+        {
           "id": "uzg1",
           "ms": 616959,
         },
-        Object {
+        {
           "id": "uzg1",
           "ms": 617079,
         },
       ],
-      "summary": Object {
+      "summary": {
         "uaod": 1,
         "ugrv": 1,
         "unp1": 2,
@@ -4937,71 +4937,71 @@ Array [
       },
     },
     "color": "#1ce6b9",
-    "groupHotkeys": Object {
-      "0": Object {
+    "groupHotkeys": {
+      "0": {
         "assigned": 1,
         "used": 0,
       },
-      "1": Object {
+      "1": {
         "assigned": 91,
         "used": 415,
       },
-      "2": Object {
+      "2": {
         "assigned": 5,
         "used": 141,
       },
-      "3": Object {
+      "3": {
         "assigned": 3,
         "used": 153,
       },
-      "4": Object {
+      "4": {
         "assigned": 2,
         "used": 219,
       },
-      "5": Object {
+      "5": {
         "assigned": 2,
         "used": 264,
       },
-      "6": Object {
+      "6": {
         "assigned": 1,
         "used": 215,
       },
-      "7": Object {
+      "7": {
         "assigned": 0,
         "used": 0,
       },
-      "8": Object {
+      "8": {
         "assigned": 0,
         "used": 0,
       },
-      "9": Object {
+      "9": {
         "assigned": 0,
         "used": 0,
       },
     },
-    "heroes": Array [
-      Object {
-        "abilities": Object {
+    "heroes": [
+      {
+        "abilities": {
           "AUau": 2,
           "AUdc": 2,
         },
-        "abilityOrder": Array [
-          Object {
+        "abilityOrder": [
+          {
             "time": 162919,
             "type": "ability",
             "value": "AUdc",
           },
-          Object {
+          {
             "time": 332199,
             "type": "ability",
             "value": "AUau",
           },
-          Object {
+          {
             "time": 397079,
             "type": "ability",
             "value": "AUdc",
           },
-          Object {
+          {
             "time": 606239,
             "type": "ability",
             "value": "AUau",
@@ -5009,20 +5009,20 @@ Array [
         ],
         "id": "Udea",
         "level": 4,
-        "retrainingHistory": Array [],
+        "retrainingHistory": [],
       },
-      Object {
-        "abilities": Object {
+      {
+        "abilities": {
           "AUfn": 1,
           "AUfu": 1,
         },
-        "abilityOrder": Array [
-          Object {
+        "abilityOrder": [
+          {
             "time": 431139,
             "type": "ability",
             "value": "AUfu",
           },
-          Object {
+          {
             "time": 530679,
             "type": "ability",
             "value": "AUfn",
@@ -5030,14 +5030,14 @@ Array [
         ],
         "id": "Ulic",
         "level": 2,
-        "retrainingHistory": Array [],
+        "retrainingHistory": [],
       },
-      Object {
-        "abilities": Object {
+      {
+        "abilities": {
           "ANba": 1,
         },
-        "abilityOrder": Array [
-          Object {
+        "abilityOrder": [
+          {
             "time": 537679,
             "type": "ability",
             "value": "ANba",
@@ -5045,42 +5045,42 @@ Array [
         ],
         "id": "Nbrn",
         "level": 1,
-        "retrainingHistory": Array [],
+        "retrainingHistory": [],
       },
     ],
     "id": 2,
-    "items": Object {
-      "order": Array [
-        Object {
+    "items": {
+      "order": [
+        {
           "id": "rnec",
           "ms": 166359,
         },
-        Object {
+        {
           "id": "rnec",
           "ms": 166499,
         },
-        Object {
+        {
           "id": "rnec",
           "ms": 307119,
         },
-        Object {
+        {
           "id": "skul",
           "ms": 307259,
         },
-        Object {
+        {
           "id": "rnec",
           "ms": 427779,
         },
-        Object {
+        {
           "id": "ocor",
           "ms": 563759,
         },
-        Object {
+        {
           "id": "ocor",
           "ms": 563899,
         },
       ],
-      "summary": Object {
+      "summary": {
         "ocor": 2,
         "rnec": 4,
         "skul": 1,
@@ -5089,110 +5089,110 @@ Array [
     "name": "iNSUPERABLE#11842",
     "race": "U",
     "raceDetected": "U",
-    "resourceTransfers": Array [],
+    "resourceTransfers": [],
     "teamid": 1,
-    "units": Object {
-      "order": Array [
-        Object {
+    "units": {
+      "order": [
+        {
           "id": "uaco",
           "ms": 1799,
         },
-        Object {
+        {
           "id": "uaco",
           "ms": 17999,
         },
-        Object {
+        {
           "id": "uaco",
           "ms": 18139,
         },
-        Object {
+        {
           "id": "ugho",
           "ms": 70499,
         },
-        Object {
+        {
           "id": "ugho",
           "ms": 70639,
         },
-        Object {
+        {
           "id": "ucry",
           "ms": 106499,
         },
-        Object {
+        {
           "id": "ucry",
           "ms": 139519,
         },
-        Object {
+        {
           "id": "ucry",
           "ms": 139639,
         },
-        Object {
+        {
           "id": "ucry",
           "ms": 186099,
         },
-        Object {
+        {
           "id": "ucry",
           "ms": 186239,
         },
-        Object {
+        {
           "id": "ucry",
           "ms": 242119,
         },
-        Object {
+        {
           "id": "ucry",
           "ms": 265539,
         },
-        Object {
+        {
           "id": "ugho",
           "ms": 287879,
         },
-        Object {
+        {
           "id": "ucry",
           "ms": 339259,
         },
-        Object {
+        {
           "id": "uobs",
           "ms": 495999,
         },
-        Object {
+        {
           "id": "ucry",
           "ms": 500099,
         },
-        Object {
+        {
           "id": "uobs",
           "ms": 513139,
         },
-        Object {
+        {
           "id": "ucry",
           "ms": 652299,
         },
       ],
-      "summary": Object {
+      "summary": {
         "uaco": 3,
         "ucry": 10,
         "ugho": 3,
         "uobs": 2,
       },
     },
-    "upgrades": Object {
-      "order": Array [
-        Object {
+    "upgrades": {
+      "order": [
+        {
           "id": "Rubu",
           "ms": 465119,
         },
-        Object {
+        {
           "id": "Rura",
           "ms": 614559,
         },
-        Object {
+        {
           "id": "Rusp",
           "ms": 634919,
         },
-        Object {
+        {
           "id": "Rusp",
           "ms": 635039,
         },
       ],
-      "summary": Object {
+      "summary": {
         "Rubu": 1,
         "Rura": 1,
         "Rusp": 2,
@@ -5203,78 +5203,78 @@ Array [
 `;
 
 exports[`should return chat mode types correctly 1`] = `
-Array [
-  Object {
+[
+  {
     "message": "ping good?",
     "mode": "All",
     "playerId": 2,
     "playerName": "iNSUPERABLE#11842",
     "timeMS": 20379,
   },
-  Object {
+  {
     "message": "how much ping do u hv",
     "mode": "All",
     "playerId": 1,
     "playerName": "IIIIIlllIIIl#3697",
     "timeMS": 29779,
   },
-  Object {
+  {
     "message": "im gd",
     "mode": "All",
     "playerId": 1,
     "playerName": "IIIIIlllIIIl#3697",
     "timeMS": 31319,
   },
-  Object {
+  {
     "message": "135",
     "mode": "All",
     "playerId": 2,
     "playerName": "iNSUPERABLE#11842",
     "timeMS": 32659,
   },
-  Object {
+  {
     "message": "145",
     "mode": "All",
     "playerId": 1,
     "playerName": "IIIIIlllIIIl#3697",
     "timeMS": 37419,
   },
-  Object {
+  {
     "message": "almost same",
     "mode": "All",
     "playerId": 1,
     "playerName": "IIIIIlllIIIl#3697",
     "timeMS": 40319,
   },
-  Object {
+  {
     "message": "yea nice",
     "mode": "All",
     "playerId": 2,
     "playerName": "iNSUPERABLE#11842",
     "timeMS": 42659,
   },
-  Object {
+  {
     "message": "glhf",
     "mode": "All",
     "playerId": 2,
     "playerName": "iNSUPERABLE#11842",
     "timeMS": 43159,
   },
-  Object {
+  {
     "message": "gl",
     "mode": "All",
     "playerId": 1,
     "playerName": "IIIIIlllIIIl#3697",
     "timeMS": 45599,
   },
-  Object {
+  {
     "message": "GG",
     "mode": "All",
     "playerId": 1,
     "playerName": "IIIIIlllIIIl#3697",
     "timeMS": 661359,
   },
-  Object {
+  {
     "message": "gg",
     "mode": "All",
     "playerId": 2,
