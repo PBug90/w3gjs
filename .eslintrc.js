@@ -1,7 +1,7 @@
 module.exports = {
-  parser: "@typescript-eslint/parser", // Specifies the ESLint parser
+  parser: "@typescript-eslint/parser",
   extends: [
-    "plugin:@typescript-eslint/recommended", // Uses the recommended rules from @typescript-eslint/eslint-plugin
+    "plugin:@typescript-eslint/recommended",
     "plugin:prettier/recommended",
   ],
   rules: {},

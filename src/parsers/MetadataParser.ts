@@ -145,7 +145,7 @@ export default class MetadataParser extends StatefulBufferParser {
       const followingBytes = this.readUInt32LE();
       const data = this.buffer.slice(this.offset, this.offset + followingBytes);
       if (subtype === 0x3) {
-        const decoded = (protoPlayer.decode(data) as unknown) as {
+        const decoded = protoPlayer.decode(data) as unknown as {
           playerId: number;
           battleTag: string;
           clan: string;
