@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`parses a standard 1.30.4 2on2 replay properly 1`] = `
-Object {
-  "actions": Object {
+{
+  "actions": {
     "ability": 163,
     "assigngroup": 60,
     "basic": 115,
@@ -14,7 +14,7 @@ Object {
     "select": 988,
     "selecthotkey": 752,
     "subgroup": 0,
-    "timed": Array [
+    "timed": [
       144,
       211,
       282,
@@ -37,90 +37,90 @@ Object {
     ],
   },
   "apm": 198,
-  "buildings": Object {
-    "order": Array [
-      Object {
+  "buildings": {
+    "order": [
+      {
         "id": "hbla",
         "ms": 33036,
       },
-      Object {
+      {
         "id": "halt",
         "ms": 36623,
       },
-      Object {
+      {
         "id": "hbar",
         "ms": 38699,
       },
-      Object {
+      {
         "id": "hhou",
         "ms": 46647,
       },
-      Object {
+      {
         "id": "hhou",
         "ms": 62724,
       },
-      Object {
+      {
         "id": "hhou",
         "ms": 122755,
       },
-      Object {
+      {
         "id": "hkee",
         "ms": 190494,
       },
-      Object {
+      {
         "id": "hhou",
         "ms": 210930,
       },
-      Object {
+      {
         "id": "hwtw",
         "ms": 216711,
       },
-      Object {
+      {
         "id": "hatw",
         "ms": 248942,
       },
-      Object {
+      {
         "id": "hhou",
         "ms": 253012,
       },
-      Object {
+      {
         "id": "hhou",
         "ms": 254028,
       },
-      Object {
+      {
         "id": "hvlt",
         "ms": 258542,
       },
-      Object {
+      {
         "id": "hhou",
         "ms": 327627,
       },
-      Object {
+      {
         "id": "hhou",
         "ms": 485876,
       },
-      Object {
+      {
         "id": "htow",
         "ms": 504685,
       },
-      Object {
+      {
         "id": "hlum",
         "ms": 662483,
       },
-      Object {
+      {
         "id": "hhou",
         "ms": 673657,
       },
-      Object {
+      {
         "id": "hatw",
         "ms": 933869,
       },
-      Object {
+      {
         "id": "htow",
         "ms": 1065471,
       },
     ],
-    "summary": Object {
+    "summary": {
       "halt": 1,
       "hatw": 2,
       "hbar": 1,
@@ -134,71 +134,71 @@ Object {
     },
   },
   "color": "#ff0303",
-  "groupHotkeys": Object {
-    "0": Object {
+  "groupHotkeys": {
+    "0": {
       "assigned": 1,
       "used": 128,
     },
-    "1": Object {
+    "1": {
       "assigned": 47,
       "used": 283,
     },
-    "2": Object {
+    "2": {
       "assigned": 7,
       "used": 45,
     },
-    "3": Object {
+    "3": {
       "assigned": 0,
       "used": 0,
     },
-    "4": Object {
+    "4": {
       "assigned": 1,
       "used": 211,
     },
-    "5": Object {
+    "5": {
       "assigned": 0,
       "used": 0,
     },
-    "6": Object {
+    "6": {
       "assigned": 0,
       "used": 0,
     },
-    "7": Object {
+    "7": {
       "assigned": 0,
       "used": 0,
     },
-    "8": Object {
+    "8": {
       "assigned": 2,
       "used": 2,
     },
-    "9": Object {
+    "9": {
       "assigned": 2,
       "used": 83,
     },
   },
-  "heroes": Array [
-    Object {
-      "abilities": Object {
+  "heroes": [
+    {
+      "abilities": {
         "AHad": 2,
         "AHhb": 2,
       },
-      "abilityOrder": Array [
-        Object {
+      "abilityOrder": [
+        {
           "time": 166550,
           "type": "ability",
           "value": "AHhb",
         },
-        Object {
+        {
           "time": 226152,
           "type": "ability",
           "value": "AHad",
         },
-        Object {
+        {
           "time": 298939,
           "type": "ability",
           "value": "AHhb",
         },
-        Object {
+        {
           "time": 592029,
           "type": "ability",
           "value": "AHad",
@@ -206,25 +206,25 @@ Object {
       ],
       "id": "Hpal",
       "level": 4,
-      "retrainingHistory": Array [],
+      "retrainingHistory": [],
     },
-    Object {
-      "abilities": Object {
+    {
+      "abilities": {
         "AHbn": 1,
         "AHdr": 2,
       },
-      "abilityOrder": Array [
-        Object {
+      "abilityOrder": [
+        {
           "time": 387930,
           "type": "ability",
           "value": "AHdr",
         },
-        Object {
+        {
           "time": 652084,
           "type": "ability",
           "value": "AHbn",
         },
-        Object {
+        {
           "time": 819587,
           "type": "ability",
           "value": "AHdr",
@@ -232,82 +232,82 @@ Object {
       ],
       "id": "Hblm",
       "level": 3,
-      "retrainingHistory": Array [],
+      "retrainingHistory": [],
     },
   ],
   "id": 5,
-  "items": Object {
-    "order": Array [
-      Object {
+  "items": {
+    "order": [
+      {
         "id": "sreg",
         "ms": 327162,
       },
-      Object {
+      {
         "id": "plcl",
         "ms": 341634,
       },
-      Object {
+      {
         "id": "tsct",
         "ms": 342990,
       },
-      Object {
+      {
         "id": "phea",
         "ms": 417767,
       },
-      Object {
+      {
         "id": "plcl",
         "ms": 619906,
       },
-      Object {
+      {
         "id": "sreg",
         "ms": 690935,
       },
-      Object {
+      {
         "id": "plcl",
         "ms": 692398,
       },
-      Object {
+      {
         "id": "stwp",
         "ms": 694301,
       },
-      Object {
+      {
         "id": "sreg",
         "ms": 829648,
       },
-      Object {
+      {
         "id": "phea",
         "ms": 833926,
       },
-      Object {
+      {
         "id": "sreg",
         "ms": 909258,
       },
-      Object {
+      {
         "id": "phea",
         "ms": 910479,
       },
-      Object {
+      {
         "id": "plcl",
         "ms": 918180,
       },
-      Object {
+      {
         "id": "tsct",
         "ms": 926555,
       },
-      Object {
+      {
         "id": "sreg",
         "ms": 932210,
       },
-      Object {
+      {
         "id": "stel",
         "ms": 992084,
       },
-      Object {
+      {
         "id": "shea",
         "ms": 995541,
       },
     ],
-    "summary": Object {
+    "summary": {
       "phea": 3,
       "plcl": 4,
       "shea": 1,
@@ -320,8 +320,8 @@ Object {
   "name": "Thorzain",
   "race": "H",
   "raceDetected": "H",
-  "resourceTransfers": Array [
-    Object {
+  "resourceTransfers": [
+    {
       "gold": 0,
       "lumber": 30,
       "msElapsed": 82662,
@@ -329,7 +329,7 @@ Object {
       "playerName": "Starshaped",
       "slot": 3,
     },
-    Object {
+    {
       "gold": 200,
       "lumber": 0,
       "msElapsed": 736480,
@@ -339,258 +339,258 @@ Object {
     },
   ],
   "teamid": 3,
-  "units": Object {
-    "order": Array [
-      Object {
+  "units": {
+    "order": [
+      {
         "id": "hpea",
         "ms": 812,
       },
-      Object {
+      {
         "id": "hpea",
         "ms": 2885,
       },
-      Object {
+      {
         "id": "hpea",
         "ms": 8742,
       },
-      Object {
+      {
         "id": "hpea",
         "ms": 39120,
       },
-      Object {
+      {
         "id": "hpea",
         "ms": 58282,
       },
-      Object {
+      {
         "id": "hpea",
         "ms": 68247,
       },
-      Object {
+      {
         "id": "hpea",
         "ms": 86734,
       },
-      Object {
+      {
         "id": "hpea",
         "ms": 102922,
       },
-      Object {
+      {
         "id": "hrif",
         "ms": 112469,
       },
-      Object {
+      {
         "id": "hrif",
         "ms": 134194,
       },
-      Object {
+      {
         "id": "hrif",
         "ms": 160527,
       },
-      Object {
+      {
         "id": "hrif",
         "ms": 202902,
       },
-      Object {
+      {
         "id": "hrif",
         "ms": 250426,
       },
-      Object {
+      {
         "id": "hrif",
         "ms": 277323,
       },
-      Object {
+      {
         "id": "hrif",
         "ms": 307310,
       },
-      Object {
+      {
         "id": "hrif",
         "ms": 363259,
       },
-      Object {
+      {
         "id": "hrif",
         "ms": 397380,
       },
-      Object {
+      {
         "id": "hrif",
         "ms": 410317,
       },
-      Object {
+      {
         "id": "hrif",
         "ms": 445278,
       },
-      Object {
+      {
         "id": "hrif",
         "ms": 465282,
       },
-      Object {
+      {
         "id": "hrif",
         "ms": 525932,
       },
-      Object {
+      {
         "id": "hrif",
         "ms": 542208,
       },
-      Object {
+      {
         "id": "hrif",
         "ms": 549121,
       },
-      Object {
+      {
         "id": "hpea",
         "ms": 550446,
       },
-      Object {
+      {
         "id": "hpea",
         "ms": 550581,
       },
-      Object {
+      {
         "id": "hrif",
         "ms": 579797,
       },
-      Object {
+      {
         "id": "hrif",
         "ms": 593823,
       },
-      Object {
+      {
         "id": "hrif",
         "ms": 610863,
       },
-      Object {
+      {
         "id": "hpea",
         "ms": 630067,
       },
-      Object {
+      {
         "id": "hpea",
         "ms": 630179,
       },
-      Object {
+      {
         "id": "hrif",
         "ms": 636477,
       },
-      Object {
+      {
         "id": "hpea",
         "ms": 661473,
       },
-      Object {
+      {
         "id": "hrif",
         "ms": 680850,
       },
-      Object {
+      {
         "id": "hpea",
         "ms": 681776,
       },
-      Object {
+      {
         "id": "hpea",
         "ms": 681972,
       },
-      Object {
+      {
         "id": "hpea",
         "ms": 712775,
       },
-      Object {
+      {
         "id": "hrif",
         "ms": 721842,
       },
-      Object {
+      {
         "id": "hpea",
         "ms": 743320,
       },
-      Object {
+      {
         "id": "hrif",
         "ms": 757033,
       },
-      Object {
+      {
         "id": "hrif",
         "ms": 771398,
       },
-      Object {
+      {
         "id": "hpea",
         "ms": 779182,
       },
-      Object {
+      {
         "id": "hrif",
         "ms": 802580,
       },
-      Object {
+      {
         "id": "hrif",
         "ms": 814565,
       },
-      Object {
+      {
         "id": "hrif",
         "ms": 830732,
       },
-      Object {
+      {
         "id": "hrif",
         "ms": 852290,
       },
-      Object {
+      {
         "id": "hpea",
         "ms": 853277,
       },
-      Object {
+      {
         "id": "hrif",
         "ms": 860086,
       },
-      Object {
+      {
         "id": "hrif",
         "ms": 878292,
       },
-      Object {
+      {
         "id": "hpea",
         "ms": 879865,
       },
-      Object {
+      {
         "id": "hrif",
         "ms": 893893,
       },
-      Object {
+      {
         "id": "hrif",
         "ms": 916553,
       },
-      Object {
+      {
         "id": "hrif",
         "ms": 959420,
       },
-      Object {
+      {
         "id": "hrif",
         "ms": 984615,
       },
-      Object {
+      {
         "id": "hrif",
         "ms": 1006417,
       },
-      Object {
+      {
         "id": "hrif",
         "ms": 1035124,
       },
-      Object {
+      {
         "id": "hrif",
         "ms": 1045427,
       },
-      Object {
+      {
         "id": "hrif",
         "ms": 1082176,
       },
-      Object {
+      {
         "id": "hrif",
         "ms": 1112217,
       },
     ],
-    "summary": Object {
+    "summary": {
       "hpea": 20,
       "hrif": 38,
     },
   },
-  "upgrades": Object {
-    "order": Array [
-      Object {
+  "upgrades": {
+    "order": [
+      {
         "id": "Rhri",
         "ms": 332547,
       },
-      Object {
+      {
         "id": "Rhra",
         "ms": 623973,
       },
     ],
-    "summary": Object {
+    "summary": {
       "Rhra": 1,
       "Rhri": 1,
     },
