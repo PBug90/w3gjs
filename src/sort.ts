@@ -4,7 +4,7 @@ type SortablePlayerProps = Pick<Player, "teamid" | "id">;
 
 export const sortPlayers = (
   player1: SortablePlayerProps,
-  player2: SortablePlayerProps
+  player2: SortablePlayerProps,
 ): number => {
   if (player2.teamid > player1.teamid) return -1;
   if (player2.teamid < player1.teamid) return 1;

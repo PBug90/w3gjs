@@ -57,13 +57,15 @@ export type ChatMessage = {
 type Team = {
   [key: number]: number[];
 };
+// eslint-disable-next-line @typescript-eslint/no-unsafe-declaration-merging
 export default interface W3GReplay {
   on(event: "gamedatablock", listener: (block: GameDataBlock) => void): this;
   on(
     event: "basic_replay_information",
-    listener: (data: BasicReplayInformation) => void
+    listener: (data: BasicReplayInformation) => void,
   ): this;
 }
+// eslint-disable-next-line @typescript-eslint/no-unsafe-declaration-merging
 export default class W3GReplay extends EventEmitter {
   info: BasicReplayInformation;
   players: { [key: string]: Player };
@@ -99,7 +101,7 @@ export default class W3GReplay extends EventEmitter {
       (information: BasicReplayInformation) => {
         this.handleBasicReplayInformation(information);
         this.emit("basic_replay_information", information);
-      }
+      },
     );
     this.parser.on("gamedatablock", (block) => {
       this.emit("gamedatablock", block);
@@ -197,7 +199,7 @@ export default class W3GReplay extends EventEmitter {
             : "Computer",
           slot.teamId,
           slot.color,
-          raceFlagFormatter(slot.raceFlag)
+          raceFlagFormatter(slot.raceFlag),
         );
       }
     });
@@ -213,7 +215,7 @@ export default class W3GReplay extends EventEmitter {
         this.timeSegmentTracker += block.timeIncrement;
         if (this.timeSegmentTracker > this.playerActionTrackInterval) {
           Object.values(this.players).forEach((p) =>
-            p.newActionTrackingSegment()
+            p.newActionTrackingSegment(),
           );
           this.timeSegmentTracker = 0;
         }
@@ -266,7 +268,7 @@ export default class W3GReplay extends EventEmitter {
   processCommandDataBlock(block: CommandBlock): void {
     if (this.knownPlayerIds.has(String(block.playerId)) === false) {
       console.log(
-        `detected unknown playerId in CommandBlock: ${block.playerId} - time elapsed: ${this.totalTimeTracker}`
+        `detected unknown playerId in CommandBlock: ${block.playerId} - time elapsed: ${this.totalTimeTracker}`,
       );
       return;
     }
@@ -290,13 +292,13 @@ export default class W3GReplay extends EventEmitter {
         }
         currentPlayer.handle0x10(
           objectIdFormatter(action.itemId),
-          this.totalTimeTracker
+          this.totalTimeTracker,
         );
         break;
       case 0x11:
         currentPlayer.handle0x11(
           objectIdFormatter(action.itemId),
-          this.totalTimeTracker
+          this.totalTimeTracker,
         );
         break;
       case 0x12:
@@ -333,6 +335,7 @@ export default class W3GReplay extends EventEmitter {
       case 0x51: {
         const playerId = this.getPlayerBySlotId(action.slot);
         if (playerId) {
+          // eslint-disable-next-line @typescript-eslint/no-unused-vars
           const { id, ...actionWithoutId } = action;
           currentPlayer.handle0x51({
             ...actionWithoutId,
@@ -414,7 +417,7 @@ export default class W3GReplay extends EventEmitter {
 
   private getObserverMode(
     refereeFlag: boolean,
-    observerMode: number
+    observerMode: number,
   ): ObserverMode {
     if ((observerMode === 3 || observerMode === 0) && refereeFlag === true) {
       return ObserverMode.REFEREES;
@@ -431,7 +434,7 @@ export default class W3GReplay extends EventEmitter {
       referees: this.meta.map.referees,
       observerMode: this.getObserverMode(
         this.meta.map.referees,
-        this.meta.map.observerMode
+        this.meta.map.observerMode,
       ),
       fixedTeams: this.meta.map.fixedTeams,
       fullSharedUnitControl: this.meta.map.fullSharedUnitControl,

@@ -11,14 +11,16 @@ export type ParserOutput = {
 
 export type BasicReplayInformation = ParserOutput;
 
+// eslint-disable-next-line @typescript-eslint/no-unsafe-declaration-merging
 export default interface ReplayParser {
   on(event: "gamedatablock", listener: (block: GameDataBlock) => void): this;
   on(
     event: "basic_replay_information",
-    listener: (data: BasicReplayInformation) => void
+    listener: (data: BasicReplayInformation) => void,
   ): this;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unsafe-declaration-merging
 export default class ReplayParser extends EventEmitter {
   private rawParser: RawParser = new RawParser();
   private metadataParser: MetadataParser = new MetadataParser();
@@ -27,14 +29,14 @@ export default class ReplayParser extends EventEmitter {
   constructor() {
     super();
     this.gameDataParser.on("gamedatablock", (block: GameDataBlock) =>
-      this.emit("gamedatablock", block)
+      this.emit("gamedatablock", block),
     );
   }
 
   async parse(input: Buffer): Promise<ParserOutput> {
     const rawParserResult = await this.rawParser.parse(input);
     const metadataParserResult = await this.metadataParser.parse(
-      rawParserResult.blocks
+      rawParserResult.blocks,
     );
     const result: ParserOutput = {
       header: rawParserResult.header,

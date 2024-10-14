@@ -27,7 +27,7 @@ it("parses a replay with new reforged metadata successfully", async () => {
 
 it("parses a reforged replay of version 1.32, build 6105 successfully", async () => {
   const test = await Parser.parse(
-    path.resolve(__dirname, "reforged_release.w3g")
+    path.resolve(__dirname, "reforged_release.w3g"),
   );
   expect(test.version).toBe("1.32");
   expect(test.buildNumber).toBe(6105);
@@ -38,7 +38,7 @@ it("parses a reforged replay of version 1.32, build 6105 successfully", async ()
 
 it("parses a replay with hunter2 as privateString between game name and encoded string successfully", async () => {
   const test = await Parser.parse(
-    path.resolve(__dirname, "reforged_hunter2_privatestring.w3g")
+    path.resolve(__dirname, "reforged_hunter2_privatestring.w3g"),
   );
   expect(test.version).toBe("1.32");
   expect(test.buildNumber).toBe(6105);
@@ -88,7 +88,7 @@ it("emits 0x1A player actions", async () => {
     if (block.id === 0x1f) {
       for (const cmdBlock of block.commandBlocks) {
         amountOf0x1AActions += cmdBlock.actions.filter(
-          (action) => action.id === 0x1a
+          (action) => action.id === 0x1a,
         ).length;
       }
     }
@@ -99,7 +99,7 @@ it("emits 0x1A player actions", async () => {
 
 it("handles truncated player names in reforged replays", async () => {
   const test = await Parser.parse(
-    path.resolve(__dirname, "reforged_truncated_playernames.w3g")
+    path.resolve(__dirname, "reforged_truncated_playernames.w3g"),
   );
   expect(test.version).toBe("1.32");
   expect(test.buildNumber).toBe(6105);
@@ -110,21 +110,21 @@ it("handles truncated player names in reforged replays", async () => {
 
 it("ignores a player entry in reforged extraPlayerList that misses in playerList", async () => {
   const test = await Parser.parse(
-    path.resolve(__dirname, "reforged_metadata_ghostplayer.w3g")
+    path.resolve(__dirname, "reforged_metadata_ghostplayer.w3g"),
   );
   expect(test.players).toMatchSnapshot();
 });
 
 it("parses single player replay twistedmeadows.w3g", async () => {
   const test = await Parser.parse(
-    path.resolve(__dirname, "reforged_metadata_ghostplayer.w3g")
+    path.resolve(__dirname, "reforged_metadata_ghostplayer.w3g"),
   );
   expect(test.players).toMatchSnapshot();
 });
 
 it("parses 1.32.8 replay with randomhero and randomraces", async () => {
   const test = await Parser.parse(
-    path.resolve(__dirname, "replay_randomhero_randomraces.w3g")
+    path.resolve(__dirname, "replay_randomhero_randomraces.w3g"),
   );
   expect(test.settings.randomHero).toBe(true);
   expect(test.settings.randomRaces).toBe(true);
@@ -132,7 +132,7 @@ it("parses 1.32.8 replay with randomhero and randomraces", async () => {
 
 it("parses 1.32.8 replay with fullsharedunitcontrol, teams together and lock teams", async () => {
   const test = await Parser.parse(
-    path.resolve(__dirname, "replay_teamstogether.w3g")
+    path.resolve(__dirname, "replay_teamstogether.w3g"),
   );
   expect(test.settings.fullSharedUnitControl).toBe(true);
   expect(test.settings.teamsTogether).toBe(true);
@@ -143,21 +143,21 @@ it("parses 1.32.8 replay with fullsharedunitcontrol, teams together and lock tea
 
 it("parses 1.32.8 replay with full observers", async () => {
   const test = await Parser.parse(
-    path.resolve(__dirname, "replay_fullobs.w3g")
+    path.resolve(__dirname, "replay_fullobs.w3g"),
   );
   expect(test.settings.observerMode).toBe("FULL");
 });
 
 it("parses 1.32.8 replay with referee setting", async () => {
   const test = await Parser.parse(
-    path.resolve(__dirname, "replay_referee.w3g")
+    path.resolve(__dirname, "replay_referee.w3g"),
   );
   expect(test.settings.observerMode).toBe("REFEREES");
 });
 
 it("parses 1.32.8 replay with observer on defeat setting", async () => {
   const test = await Parser.parse(
-    path.resolve(__dirname, "replay_obs_on_defeat.w3g")
+    path.resolve(__dirname, "replay_obs_on_defeat.w3g"),
   );
   expect(test.settings.observerMode).toBe("ON_DEFEAT");
 });
@@ -205,7 +205,7 @@ describe("winner detection", () => {
     const test = await Parser.parse(path.resolve(__dirname, "1640262494.w3g"));
     expect(test.winningTeamId).toBe(0);
     expect(
-      test.players.find((player) => player.teamid === test.winningTeamId)!.name
+      test.players.find((player) => player.teamid === test.winningTeamId)!.name,
     ).toBe("Happie");
   });
 
@@ -213,56 +213,56 @@ describe("winner detection", () => {
     const test = await Parser.parse(path.resolve(__dirname, "1448202825.w3g"));
     expect(test.winningTeamId).toBe(1);
     expect(
-      test.players.find((player) => player.teamid === test.winningTeamId)!.name
+      test.players.find((player) => player.teamid === test.winningTeamId)!.name,
     ).toBe("ThundeR#31281");
   });
 
   it("should set winningTeamId to teamId of winner of game wan_vs_trunks.w3g", async () => {
     const test = await Parser.parse(
-      path.resolve(__dirname, "wan_vs_trunks.w3g")
+      path.resolve(__dirname, "wan_vs_trunks.w3g"),
     );
     expect(test.winningTeamId).toBe(0);
     expect(
-      test.players.find((player) => player.teamid === test.winningTeamId)!.name
+      test.players.find((player) => player.teamid === test.winningTeamId)!.name,
     ).toBe("WaN#1734");
   });
   it("should set winningTeamId to teamId of winner of game benjiii_vs_Scars_Concealed_Hill.w3g", async () => {
     const test = await Parser.parse(
-      path.resolve(__dirname, "benjiii_vs_Scars_Concealed_Hill.w3g")
+      path.resolve(__dirname, "benjiii_vs_Scars_Concealed_Hill.w3g"),
     );
     expect(test.winningTeamId).toBe(1);
     expect(
-      test.players.find((player) => player.teamid === test.winningTeamId)!.name
+      test.players.find((player) => player.teamid === test.winningTeamId)!.name,
     ).toBe("benjiii#1588");
   });
 
   it("should set winningTeamId to teamId of winner of game esl_cup_vs_changer_1.w3g", async () => {
     const test = await Parser.parse(
-      path.resolve(__dirname, "esl_cup_vs_changer_1.w3g")
+      path.resolve(__dirname, "esl_cup_vs_changer_1.w3g"),
     );
     expect(test.winningTeamId).toBe(0);
     expect(
-      test.players.find((player) => player.teamid === test.winningTeamId)!.name
+      test.players.find((player) => player.teamid === test.winningTeamId)!.name,
     ).toBe("TapioN#2351");
   });
 
   it("should set winningTeamId to teamId of winner of game buildingwin_anxietyperspective.w3g", async () => {
     const test = await Parser.parse(
-      path.resolve(__dirname, "buildingwin_anxietyperspective.w3g")
+      path.resolve(__dirname, "buildingwin_anxietyperspective.w3g"),
     );
     expect(test.winningTeamId).toBe(1);
     expect(
-      test.players.find((player) => player.teamid === test.winningTeamId)!.name
+      test.players.find((player) => player.teamid === test.winningTeamId)!.name,
     ).toBe("anXieTy#2932");
   });
 
   it("should set winningTeamId to teamId of winner of game buildingwin_helpstoneperspective.w3g", async () => {
     const test = await Parser.parse(
-      path.resolve(__dirname, "buildingwin_helpstoneperspective.w3g")
+      path.resolve(__dirname, "buildingwin_helpstoneperspective.w3g"),
     );
     expect(test.winningTeamId).toBe(1);
     expect(
-      test.players.find((player) => player.teamid === test.winningTeamId)!.name
+      test.players.find((player) => player.teamid === test.winningTeamId)!.name,
     ).toBe("anXieTy#2932");
   });
 });

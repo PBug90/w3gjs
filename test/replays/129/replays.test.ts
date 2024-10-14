@@ -4,7 +4,7 @@ import path from "path";
 const Parser = new W3GReplay();
 it("parses a netease 1.29 replay properly", async () => {
   const test = await Parser.parse(
-    path.resolve(__dirname, "netease_129_obs.nwg")
+    path.resolve(__dirname, "netease_129_obs.nwg"),
   );
   expect(test.version).toBe("1.29");
 
@@ -24,7 +24,7 @@ it("parses a netease 1.29 replay properly", async () => {
 
 it("parses a standard 1.29 replay with observers properly", async () => {
   const test = await Parser.parse(
-    path.resolve(__dirname, "standard_129_obs.w3g")
+    path.resolve(__dirname, "standard_129_obs.w3g"),
   );
 
   expect(test.version).toBe("1.29");
@@ -98,10 +98,10 @@ it("parses a standard 1.29 replay with observers properly", async () => {
 
 it("evaluates APM correctly in a team game with an early leaver", async () => {
   const test = await Parser.parse(
-    path.resolve(__dirname, "standard_129_3on3_leaver.w3g")
+    path.resolve(__dirname, "standard_129_3on3_leaver.w3g"),
   );
   const firstLeftMinute = Math.ceil(
-    test.players[0].currentTimePlayed / 1000 / 60
+    test.players[0].currentTimePlayed / 1000 / 60,
   );
   const postLeaveBlocks = test.players[0].actions.timed.slice(firstLeftMinute);
   const postLeaveApmSum = postLeaveBlocks.reduce((a, b) => a + b);

@@ -14,6 +14,7 @@ const protoPlayer = new Type("ReforgedPlayerData")
 const inflatePromise = (buffer: Buffer, options = {}): Promise<Buffer> =>
   new Promise((resolve, reject) => {
     inflate(buffer, options, (err, result) => {
+      // eslint-disable-next-line @typescript-eslint/no-unused-expressions
       err !== null ? reject(err) : resolve(result);
     });
   });
@@ -90,12 +91,12 @@ export default class MetadataParser extends StatefulBufferParser {
     this.readZeroTermString("utf-8"); // privateString
     const encodedString = this.readZeroTermString("hex");
     const mapMetadata = this.parseEncodedMapMetaString(
-      this.decodeGameMetaString(encodedString)
+      this.decodeGameMetaString(encodedString),
     );
     this.skip(12);
     const playerListFinal = playerRecords.concat(
       playerRecords,
-      this.parsePlayerList()
+      this.parsePlayerList(),
     );
     let reforgedPlayerMetadata: ReforgedPlayerMetadata[] = [];
     if (this.readUInt8() !== 25) {
