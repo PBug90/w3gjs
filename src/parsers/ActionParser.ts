@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import StatefulBufferParser from "./StatefulBufferParser";
 
 type UnitBuildingAbilityActionNoParams = {
@@ -277,9 +278,7 @@ export default class ActionParser extends StatefulBufferParser {
         ];
         this.skip(9);
         const targetBX = this.readFloatLE();
-        30;
         const targetBY = this.readFloatLE();
-        34;
         return {
           id: actionId,
           abilityFlags,
@@ -440,7 +439,7 @@ export default class ActionParser extends StatefulBufferParser {
   }
 
   private readSelectionUnits(
-    length: number
+    length: number,
   ): { itemId1: number[]; itemId2: number[] }[] {
     const v: { itemId1: number[]; itemId2: number[] }[] = [];
     for (let i = 0; i < length; i++) {

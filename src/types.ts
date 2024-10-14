@@ -9,11 +9,17 @@ export enum Race {
   Random = "R",
 }
 
-export interface ItemID {
-  type: "alphanumeric" | "stringencoded";
-  value: string | number[];
+interface AlphaNumericItemId {
+  type: "alphanumeric";
+  value: number[];
 }
 
+interface StringEncodedItemId {
+  type: "stringencoded";
+  value: string;
+}
+
+export type ItemID = AlphaNumericItemId | StringEncodedItemId;
 export interface ParserOutput {
   id: string;
   gamename: string;

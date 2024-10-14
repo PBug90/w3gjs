@@ -26,7 +26,7 @@ it("parses a standard 1.30.4 replay properly", async () => {
 
 it("parses a standard 1.30.4 replay properly as buffer", async () => {
   const buffer: Buffer = readFileSync(
-    path.resolve(__dirname, "standard_1304.w3g")
+    path.resolve(__dirname, "standard_1304.w3g"),
   );
   const test = await Parser.parse(buffer);
   expect(test.version).toBe("1.30.2+");
@@ -35,7 +35,7 @@ it("parses a standard 1.30.4 replay properly as buffer", async () => {
 
 it("parses a standard 1.30.4 2on2 replay properly", async () => {
   const test = await Parser.parse(
-    path.resolve(__dirname, "standard_1304.2on2.w3g")
+    path.resolve(__dirname, "standard_1304.2on2.w3g"),
   );
   expect(test.version).toBe("1.30.2+");
   expect(test.buildNumber).toBe(6061);
@@ -56,13 +56,13 @@ it("parses a standard 1.30 replay properly", async () => {
   expect(test.players[1].raceDetected).toBe("N");
   expect(test.players.length).toBe(2);
   expect(test.players[0].heroes[0]).toEqual(
-    expect.objectContaining({ id: "Udea", level: 6 })
+    expect.objectContaining({ id: "Udea", level: 6 }),
   );
   expect(test.players[0].heroes[1]).toEqual(
-    expect.objectContaining({ id: "Ulic", level: 6 })
+    expect.objectContaining({ id: "Ulic", level: 6 }),
   );
   expect(test.players[0].heroes[2]).toEqual(
-    expect.objectContaining({ id: "Udre", level: 3 })
+    expect.objectContaining({ id: "Udre", level: 3 }),
   );
   expect(test.map).toEqual({
     file: "(4)TwistedMeadows.w3x",

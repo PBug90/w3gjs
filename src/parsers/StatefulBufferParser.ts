@@ -1,7 +1,7 @@
 const readZeroTermString = (
   input: Buffer,
   startAt = 0,
-  encoding: BufferEncoding
+  encoding: BufferEncoding,
 ): { value: string; posDifference: number } => {
   let pos = startAt;
   while (input.readInt8(pos) !== 0) {
@@ -17,7 +17,7 @@ const readStringOfLength = (
   input: Buffer,
   length: number,
   startAt = 0,
-  encoding: BufferEncoding = "utf-8"
+  encoding: BufferEncoding = "utf-8",
 ): string => {
   return input.slice(startAt, startAt + length).toString(encoding);
 };
@@ -35,7 +35,7 @@ export default class StatefulBufferParser {
       this.buffer,
       length,
       this.offset,
-      encoding
+      encoding,
     );
     this.offset += length;
     return result;

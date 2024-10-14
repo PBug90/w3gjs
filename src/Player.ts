@@ -18,18 +18,22 @@ export const reduceHeroes = (heroCollector: {
 }): Omit<HeroInfo, "order">[] => {
   return Object.values(heroCollector)
     .sort((h1, h2) => h1.order - h2.order)
-    .reduce((aggregator, hero) => {
-      hero.abilities = inferHeroAbilityLevelsFromAbilityOrder(
-        hero.abilityOrder
-      );
-      hero.level = Object.values(hero.abilities).reduce(
-        (prev, curr) => prev + curr,
-        0
-      );
-      const { order, ...heroWithoutOrder } = hero;
-      aggregator.push(heroWithoutOrder);
-      return aggregator;
-    }, [] as Omit<HeroInfo, "order">[]);
+    .reduce(
+      (aggregator, hero) => {
+        hero.abilities = inferHeroAbilityLevelsFromAbilityOrder(
+          hero.abilityOrder,
+        );
+        hero.level = Object.values(hero.abilities).reduce(
+          (prev, curr) => prev + curr,
+          0,
+        );
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        const { order, ...heroWithoutOrder } = hero;
+        aggregator.push(heroWithoutOrder);
+        return aggregator;
+      },
+      [] as Omit<HeroInfo, "order">[],
+    );
 };
 
 export interface Ability {
@@ -109,7 +113,7 @@ class Player {
     name: string,
     teamid: number,
     color: number,
-    race: Race
+    race: Race,
   ) {
     this.id = id;
     this.name = name;
@@ -161,7 +165,7 @@ class Player {
 
   newActionTrackingSegment(timeTrackingInterval = 60000): void {
     this.actions.timed.push(
-      Math.floor(this._currentlyTrackedAPM * (60000.0 / timeTrackingInterval))
+      Math.floor(this._currentlyTrackedAPM * (60000.0 / timeTrackingInterval)),
     );
     this._currentlyTrackedAPM = 0;
   }
@@ -262,6 +266,7 @@ class Player {
         this.handleStringencodedItemID(itemid.value as string, gametime);
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     itemid.value[0] !== "0"
       ? this.actions.buildtrain++
       : this.actions.ability++;
@@ -354,7 +359,7 @@ class Player {
 
   cleanup(): void {
     const apmSum = this.actions.timed.reduce(
-      (a: number, b: number): number => a + b
+      (a: number, b: number): number => a + b,
     );
     if (this.currentTimePlayed === 0) {
       this.apm = 0;

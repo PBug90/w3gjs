@@ -30,7 +30,7 @@ const ultimates = new Set<string>()
   .add("AHpx");
 
 export function inferHeroAbilityLevelsFromAbilityOrder(
-  abilityOrder: (Ability | Retraining)[]
+  abilityOrder: (Ability | Retraining)[],
 ): { [key: string]: number } {
   let abilities: { [key: string]: number } = {};
   for (const ability of abilityOrder) {

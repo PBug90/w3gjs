@@ -11,7 +11,7 @@ parser.on("gamedatablock", (block) => {
       console.log(
         commandBlock.playerId +
           " dispatched actions: " +
-          JSON.stringify(commandBlock.actions)
+          JSON.stringify(commandBlock.actions),
       );
     });
   }
