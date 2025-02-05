@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.5.1](https://github.com/PBug90/w3gjs/compare/v2.5.0...v2.5.1) (2025-02-05)
+
+
+### Bug Fixes
+
+* **#161:** track haunted gold mine build commands ([#162](https://github.com/PBug90/w3gjs/issues/162)) ([4f6400d](https://github.com/PBug90/w3gjs/commit/4f6400d99bfc4f88ac15b419ccb6e195128e2637)), closes [#161](https://github.com/PBug90/w3gjs/issues/161)
+
 ## [2.5.0](https://github.com/PBug90/w3gjs/compare/v2.4.3...v2.5.0) (2022-04-12)
 
 
