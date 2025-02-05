@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.5.2](https://github.com/PBug90/w3gjs/compare/v2.5.1...v2.5.2) (2025-02-05)
+
+
+### Bug Fixes
+
+* **#163:** parse game version for >= 2.00 correctly ([#164](https://github.com/PBug90/w3gjs/issues/164)) ([511716a](https://github.com/PBug90/w3gjs/commit/511716a8788f22c5d1225ef63ed2c98c6a3cf71b)), closes [#163](https://github.com/PBug90/w3gjs/issues/163)
+
 ### [2.5.1](https://github.com/PBug90/w3gjs/compare/v2.5.0...v2.5.1) (2025-02-05)
 
 
