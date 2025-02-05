@@ -302,7 +302,10 @@ export default class W3GReplay extends EventEmitter {
         );
         break;
       case 0x12:
-        currentPlayer.handle0x12(objectIdFormatter(action.itemId));
+        currentPlayer.handle0x12(
+          objectIdFormatter(action.itemId),
+          this.totalTimeTracker,
+        );
         break;
       case 0x13:
         currentPlayer.handle0x13();
