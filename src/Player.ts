@@ -287,13 +287,16 @@ class Player {
     }
   }
 
-  handle0x12(itemid: ItemID): void {
+  handle0x12(itemid: ItemID, gametime: number): void {
     if (isRightclickAction(itemid.value as number[])) {
       this.actions.rightclick++;
     } else if (isBasicAction(itemid.value as number[])) {
       this.actions.basic++;
     } else {
       this.actions.ability++;
+    }
+    if (itemid.type === "stringencoded") {
+      this.handleStringencodedItemID(itemid.value, gametime);
     }
     this._currentlyTrackedAPM++;
   }
