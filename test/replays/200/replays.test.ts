@@ -8,3 +8,8 @@ it("recognizes a 'build haunted gold mine' command correctly and adds it to the 
   expect(test.players[0].buildings.summary).toHaveProperty("ugol", 1);
   expect(test.players[0].buildings.order).toEqual([{ id: "ugol", ms: 28435 }]);
 });
+
+it("identifies game version 2 and sets the version number to 2.00", async () => {
+  const test = await Parser.parse(path.resolve(__dirname, "goldmine test.w3g"));
+  expect(test.version).toBe("2.00");
+});
