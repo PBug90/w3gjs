@@ -13,3 +13,10 @@ it("identifies game version 2 and sets the version number to 2.00", async () => 
   const test = await Parser.parse(path.resolve(__dirname, "goldmine test.w3g"));
   expect(test.version).toBe("2.00");
 });
+
+it("#191 parses a custom map using UI components encoded in actions successfully and without logging errors", async () => {
+  const consoleSpy = jest.spyOn(console, "log");
+  const test = await Parser.parse(path.resolve(__dirname, "TempReplay.w3g"));
+  expect(test.version).toBe("2.00");
+  expect(consoleSpy).not.toHaveBeenCalled();
+});
