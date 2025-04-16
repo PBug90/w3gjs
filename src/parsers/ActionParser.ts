@@ -123,6 +123,17 @@ export type W3MMDAction = {
   value: number;
 };
 
+type BlzSyncAction = {
+  id: 0x78;
+  identifier: string;
+  value: string;
+};
+
+type UnknownAction = {
+  id: 0x79 | 0x76 | 0x73;
+  action: Buffer;
+};
+
 export type Action =
   | UnitBuildingAbilityActionNoParams
   | UnitBuildingAbilityActionTargetPositionTargetObjectId
@@ -141,7 +152,9 @@ export type Action =
   | ChooseHeroSkillSubmenu
   | EnterBuildingSubmenu
   | TransferResourcesAction
-  | UnitBuildingAbilityActionTargetPosition;
+  | UnitBuildingAbilityActionTargetPosition
+  | BlzSyncAction
+  | UnknownAction;
 
 export default class ActionParser extends StatefulBufferParser {
   parse(input: Buffer): Action[] {
@@ -162,20 +175,49 @@ export default class ActionParser extends StatefulBufferParser {
 
   private parseAction(actionId: number): Action | null {
     switch (actionId) {
-      case 0x79:
+      case 0x79: {
+        const action = {
+          id: 0x79,
+          action: this.buffer.slice(
+            this.getOffset() - 1,
+            this.getOffset() + 0x11,
+          ),
+        } as const;
         this.skip(0x11);
-        break;
+        return action;
+      }
       case 0x78:
-        this.skip(0xf);
-        this.readZeroTermString("ascii");
+        const identifier = this.readZeroTermString("utf8");
+        const value = this.readZeroTermString("utf8");
         this.skip(4);
-        break;
-      case 0x76:
+        return {
+          id: actionId,
+          value,
+          identifier,
+        };
+
+      case 0x76: {
+        const action = {
+          id: 0x73,
+          action: this.buffer.slice(
+            this.getOffset() - 1,
+            this.getOffset() + 0xa,
+          ),
+        } as const;
         this.skip(0xa);
-        break;
-      case 0x73:
+        return action;
+      }
+      case 0x73: {
+        const action = {
+          id: 0x73,
+          action: this.buffer.slice(
+            this.getOffset() - 1,
+            this.getOffset() + 0x6,
+          ),
+        } as const;
         this.skip(0x6);
-        break;
+        return action;
+      }
       case 0x1:
         break;
       case 0x2:
