@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.5.4](https://github.com/PBug90/w3gjs/compare/v2.5.2...v2.5.4) (2025-04-16)
+
+
+### Bug Fixes
+
+* **#191:** parse UI actions successfully ([#192](https://github.com/PBug90/w3gjs/issues/192)) ([c867bdf](https://github.com/PBug90/w3gjs/commit/c867bdf046dfea8d3101abd0d95b7d518b3dba29)), closes [#191](https://github.com/PBug90/w3gjs/issues/191)
+
+### [2.5.3](https://github.com/PBug90/w3gjs/compare/v2.5.2...v2.5.3) (2025-04-16)
+
+
+### Bug Fixes
+
+* **#191:** parse UI actions successfully ([#192](https://github.com/PBug90/w3gjs/issues/192)) ([c867bdf](https://github.com/PBug90/w3gjs/commit/c867bdf046dfea8d3101abd0d95b7d518b3dba29)), closes [#191](https://github.com/PBug90/w3gjs/issues/191)
+
 ### [2.5.2](https://github.com/PBug90/w3gjs/compare/v2.5.1...v2.5.2) (2025-02-05)
 
 
