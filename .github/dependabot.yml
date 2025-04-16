@@ -5,9 +5,9 @@ updates:
     schedule:
       interval: "weekly"
     groups:
-        all-dependencies-but-not-node-types:
-          applies-to: version-updates
-          patterns:
-            - "*"
-          exclude-patterns:
-            - "@types/node" 
+      all-dependencies-but-not-node-types:
+        applies-to: version-updates
+        patterns:
+          - "*"
+        exclude-patterns:
+          - "@types/node"
