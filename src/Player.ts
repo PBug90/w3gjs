@@ -27,7 +27,6 @@ export const reduceHeroes = (heroCollector: {
           (prev, curr) => prev + curr,
           0,
         );
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const { order, ...heroWithoutOrder } = hero;
         aggregator.push(heroWithoutOrder);
         return aggregator;
