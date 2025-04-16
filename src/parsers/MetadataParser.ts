@@ -14,8 +14,10 @@ const protoPlayer = new Type("ReforgedPlayerData")
 const inflatePromise = (buffer: Buffer, options = {}): Promise<Buffer> =>
   new Promise((resolve, reject) => {
     inflate(buffer, options, (err, result) => {
-      // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-      err !== null ? reject(err) : resolve(result);
+      if (err !== null) {
+        reject(err);
+      }
+      resolve(result);
     });
   });
 
@@ -110,7 +112,7 @@ export default class MetadataParser extends StatefulBufferParser {
     this.skip(1);
     const startSpotCount = this.readUInt8();
     return {
-      gameData: this.buffer.slice(this.getOffset()),
+      gameData: this.buffer.subarray(this.getOffset()),
       map: mapMetadata,
       playerRecords: playerListFinal,
       slotRecords,
@@ -144,7 +146,10 @@ export default class MetadataParser extends StatefulBufferParser {
     while (this.readUInt8() === 0x39) {
       const subtype = this.readUInt8();
       const followingBytes = this.readUInt32LE();
-      const data = this.buffer.slice(this.offset, this.offset + followingBytes);
+      const data = this.buffer.subarray(
+        this.offset,
+        this.offset + followingBytes,
+      );
       if (subtype === 0x3) {
         const decoded = protoPlayer.decode(data) as unknown as {
           playerId: number;

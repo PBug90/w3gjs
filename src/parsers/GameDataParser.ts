@@ -96,8 +96,7 @@ export default class GameDataParser extends EventEmitter {
 
   private parseChatMessage(): PlayerChatMessageBlock {
     const playerId = this.parser.readUInt8();
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const byteCount = this.parser.readUInt16LE();
+    this.parser.readUInt16LE(); // byteCount
     const flags = this.parser.readUInt8();
     let mode = 0;
     if (flags === 0x20) {
@@ -134,7 +133,7 @@ export default class GameDataParser extends EventEmitter {
       const commandBlock: Partial<CommandBlock> = {};
       commandBlock.playerId = this.parser.readUInt8();
       const actionBlockLength = this.parser.readUInt16LE();
-      const actions = this.parser.buffer.slice(
+      const actions = this.parser.buffer.subarray(
         this.parser.offset,
         this.parser.offset + actionBlockLength,
       );

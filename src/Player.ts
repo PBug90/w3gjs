@@ -265,11 +265,11 @@ class Player {
       default:
         this.handleStringencodedItemID(itemid.value as string, gametime);
     }
-
-    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-    itemid.value[0] !== "0"
-      ? this.actions.buildtrain++
-      : this.actions.ability++;
+    if (itemid.value[0] !== "0") {
+      this.actions.buildtrain++;
+    } else {
+      this.actions.ability++;
+    }
 
     this._currentlyTrackedAPM++;
   }

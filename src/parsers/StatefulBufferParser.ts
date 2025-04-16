@@ -8,7 +8,7 @@ const readZeroTermString = (
     pos++;
   }
   return {
-    value: input.slice(startAt, pos).toString(encoding),
+    value: input.subarray(startAt, pos).toString(encoding),
     posDifference: pos - startAt + 1,
   };
 };
@@ -19,7 +19,7 @@ const readStringOfLength = (
   startAt = 0,
   encoding: BufferEncoding = "utf-8",
 ): string => {
-  return input.slice(startAt, startAt + length).toString(encoding);
+  return input.subarray(startAt, startAt + length).toString(encoding);
 };
 export default class StatefulBufferParser {
   buffer: Buffer;

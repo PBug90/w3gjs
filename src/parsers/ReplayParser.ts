@@ -10,9 +10,7 @@ export type ParserOutput = {
 };
 
 export type BasicReplayInformation = ParserOutput;
-
-// eslint-disable-next-line @typescript-eslint/no-unsafe-declaration-merging
-export default interface ReplayParser {
+export interface ReplayParserEvents {
   on(event: "gamedatablock", listener: (block: GameDataBlock) => void): this;
   on(
     event: "basic_replay_information",
@@ -20,8 +18,10 @@ export default interface ReplayParser {
   ): this;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unsafe-declaration-merging
-export default class ReplayParser extends EventEmitter {
+export default class ReplayParser
+  extends EventEmitter
+  implements ReplayParserEvents
+{
   private rawParser: RawParser = new RawParser();
   private metadataParser: MetadataParser = new MetadataParser();
   private gameDataParser: GameDataParser = new GameDataParser();

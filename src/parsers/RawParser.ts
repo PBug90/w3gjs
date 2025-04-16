@@ -59,12 +59,12 @@ export default class CustomReplayParser extends StatefulBufferParser {
   private parseBlock(): DataBlock {
     const isReforged = this.subheader.buildNo < 6089 ? false : true;
     const blockSize = this.readUInt16LE();
-    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-    isReforged ? this.skip(2) : this.skip(0);
+
+    this.skip(isReforged ? 2 : 0);
     const blockDecompressedSize = this.readUInt16LE();
-    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-    isReforged ? this.skip(6) : this.skip(4);
-    const blockContent = this.buffer.slice(
+
+    this.skip(isReforged ? 6 : 4);
+    const blockContent = this.buffer.subarray(
       this.getOffset(),
       this.getOffset() + blockSize,
     );

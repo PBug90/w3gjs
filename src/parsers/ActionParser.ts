@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import StatefulBufferParser from "./StatefulBufferParser";
 
 type UnitBuildingAbilityActionNoParams = {
@@ -200,8 +199,8 @@ export default class ActionParser extends StatefulBufferParser {
           this.readUInt8(),
           this.readUInt8(),
         ];
-        const unknownA = this.readUInt32LE();
-        const unknownB = this.readUInt32LE();
+        this.readUInt32LE(); // unknownA
+        this.readUInt32LE(); // unknownB
         return { id: actionId, abilityFlags, itemId };
       }
       case 0x11: {
@@ -212,8 +211,8 @@ export default class ActionParser extends StatefulBufferParser {
           this.readUInt8(),
           this.readUInt8(),
         ];
-        const unknownA = this.readUInt32LE();
-        const unknownB = this.readUInt32LE();
+        this.readUInt32LE(); // unknownA
+        this.readUInt32LE(); // unknownB
         const targetX = this.readFloatLE();
         const targetY = this.readFloatLE();
         return { id: actionId, abilityFlags, itemId, targetX, targetY };
@@ -227,8 +226,8 @@ export default class ActionParser extends StatefulBufferParser {
           this.readUInt8(),
           this.readUInt8(),
         ];
-        const unknownA = this.readUInt32LE();
-        const unknownB = this.readUInt32LE();
+        this.readUInt32LE(); // unknownA
+        this.readUInt32LE(); // unknownB
         const targetX = this.readFloatLE();
         const targetY = this.readFloatLE();
         const objectId1 = this.readUInt32LE();
@@ -252,8 +251,8 @@ export default class ActionParser extends StatefulBufferParser {
           this.readUInt8(),
           this.readUInt8(),
         ];
-        const unknownA = this.readUInt32LE();
-        const unknownB = this.readUInt32LE();
+        this.readUInt32LE(); // unknownA
+        this.readUInt32LE(); // unknownB
         const targetX = this.readFloatLE();
         const targetY = this.readFloatLE();
         const objectId1 = this.readUInt32LE();
@@ -280,8 +279,8 @@ export default class ActionParser extends StatefulBufferParser {
           this.readUInt8(),
           this.readUInt8(),
         ];
-        const unknownA = this.readUInt32LE();
-        const unknownB = this.readUInt32LE();
+        this.readUInt32LE(); // unknownA
+        this.readUInt32LE(); // unknownB
         const targetAX = this.readFloatLE();
         const targetAY = this.readFloatLE();
         const itemId2 = [
@@ -391,8 +390,8 @@ export default class ActionParser extends StatefulBufferParser {
         this.skip(4);
         break;
       case 0x50:
-        const slotNumber = this.readUInt8();
-        const flags = this.readUInt32LE();
+        this.readUInt8(); // slotNumber
+        this.readUInt32LE(); // flags
         return null;
       case 0x51:
         const slot = this.readUInt8();
