@@ -4,6 +4,7 @@ import { Race, ItemID } from "./types";
 import { TransferResourcesActionWithPlayer } from "./W3GReplay";
 import { Action } from "./parsers/ActionParser";
 import { inferHeroAbilityLevelsFromAbilityOrder } from "./inferHeroAbilityLevelsFromAbilityOrder";
+import { getRetrainingIndex } from "./detectRetraining";
 
 const isRightclickAction = (input: number[]) =>
   input[0] === 0x03 && input[1] === 0;
@@ -12,28 +13,6 @@ const isBasicAction = (input: number[]) => input[0] <= 0x19 && input[1] === 0;
 type TransferResourcesActionWithPlayerAndTimestamp = {
   msElapsed: number;
 } & TransferResourcesActionWithPlayer;
-
-export const reduceHeroes = (heroCollector: {
-  [key: string]: HeroInfo;
-}): Omit<HeroInfo, "order">[] => {
-  return Object.values(heroCollector)
-    .sort((h1, h2) => h1.order - h2.order)
-    .reduce(
-      (aggregator, hero) => {
-        hero.abilities = inferHeroAbilityLevelsFromAbilityOrder(
-          hero.abilityOrder,
-        );
-        hero.level = Object.values(hero.abilities).reduce(
-          (prev, curr) => prev + curr,
-          0,
-        );
-        const { order, ...heroWithoutOrder } = hero;
-        aggregator.push(heroWithoutOrder);
-        return aggregator;
-      },
-      [] as Omit<HeroInfo, "order">[],
-    );
-};
 
 export interface Ability {
   type: "ability";
@@ -217,27 +196,25 @@ class Player {
         retrainingHistory: [],
       };
     }
-
-    if (this._lastRetrainingTime > 0) {
-      this.heroCollector[heroId].retrainingHistory.push({
-        time: this._lastRetrainingTime,
-        abilities: this.heroCollector[heroId].abilities,
-      });
-      this.heroCollector[heroId].abilities = {};
-      this.heroCollector[heroId].abilityOrder.push({
-        type: "retraining",
-        time: this._lastRetrainingTime,
-      });
-      this._lastRetrainingTime = 0;
-    }
-    this.heroCollector[heroId].abilities[actionId] =
-      this.heroCollector[heroId].abilities[actionId] || 0;
-    this.heroCollector[heroId].abilities[actionId] += 1;
     this.heroCollector[heroId].abilityOrder.push({
       type: "ability",
       time: gametime,
       value: actionId,
     });
+    if (this._lastRetrainingTime > 0) {
+      const retrainingIndex = getRetrainingIndex(
+        this.heroCollector[heroId].abilityOrder,
+        this._lastRetrainingTime,
+      );
+
+      if (retrainingIndex >= 0) {
+        this.heroCollector[heroId].abilityOrder.splice(retrainingIndex, 0, {
+          type: "retraining",
+          time: this._lastRetrainingTime,
+        });
+        this._lastRetrainingTime = 0;
+      }
+    }
   }
 
   handleRetraining(gametime: number): void {
@@ -264,6 +241,7 @@ class Player {
       default:
         this.handleStringencodedItemID(itemid.value as string, gametime);
     }
+
     if (itemid.value[0] !== "0") {
       this.actions.buildtrain++;
     } else {
@@ -359,6 +337,26 @@ class Player {
     }
   }
 
+  determineHeroLevelsAndHandleRetrainings() {
+    const heroInfo: Omit<HeroInfo, "order">[] = [];
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    for (const { order, ...hero } of Object.values(this.heroCollector).sort(
+      (h1, h2) => h1.order - h2.order,
+    )) {
+      const inferredAbilityInfo = inferHeroAbilityLevelsFromAbilityOrder(
+        hero.abilityOrder,
+      );
+      hero.abilities = inferredAbilityInfo.finalHeroAbilities;
+      hero.retrainingHistory = inferredAbilityInfo.retrainingHistory;
+      hero.level = Object.values(hero.abilities).reduce(
+        (prev, curr) => prev + curr,
+        0,
+      );
+      heroInfo.push(hero);
+    }
+    this.heroes = heroInfo;
+  }
+
   cleanup(): void {
     const apmSum = this.actions.timed.reduce(
       (a: number, b: number): number => a + b,
@@ -368,7 +366,7 @@ class Player {
     } else {
       this.apm = Math.round(apmSum / (this.currentTimePlayed / 1000 / 60));
     }
-    this.heroes = reduceHeroes(this.heroCollector);
+    this.determineHeroLevelsAndHandleRetrainings();
   }
 
   toJSON(): Partial<Player> {
