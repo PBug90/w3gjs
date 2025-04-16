@@ -4,7 +4,12 @@ module.exports = {
     "plugin:@typescript-eslint/recommended",
     "plugin:prettier/recommended",
   ],
-  rules: {},
+  rules: {
+    "@typescript-eslint/no-unused-vars": [
+      "error",
+      { ignoreRestSiblings: true },
+    ],
+  },
   plugins: ["@typescript-eslint", "prettier"],
   settings: {
     "import/resolver": {
