@@ -162,6 +162,20 @@ export default class ActionParser extends StatefulBufferParser {
 
   private parseAction(actionId: number): Action | null {
     switch (actionId) {
+      case 0x79:
+        this.skip(0x11);
+        break;
+      case 0x78:
+        this.skip(0xf);
+        this.readZeroTermString("ascii");
+        this.skip(4);
+        break;
+      case 0x76:
+        this.skip(0xa);
+        break;
+      case 0x73:
+        this.skip(0x6);
+        break;
       case 0x1:
         break;
       case 0x2:
@@ -433,6 +447,9 @@ export default class ActionParser extends StatefulBufferParser {
         return null;
       case 0x7b:
         this.skip(16);
+        return null;
+      default:
+        console.log("unknown action id ", actionId);
         return null;
     }
     return null;
