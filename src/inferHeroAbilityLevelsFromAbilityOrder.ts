@@ -29,10 +29,16 @@ const ultimates = new Set<string>()
   .add("AHre")
   .add("AHpx");
 
+type HeroAbilities = { [key: string]: number };
+
 export function inferHeroAbilityLevelsFromAbilityOrder(
   abilityOrder: (Ability | Retraining)[],
-): { [key: string]: number } {
+): {
+  finalHeroAbilities: HeroAbilities;
+  retrainingHistory: { time: number; abilities: HeroAbilities }[];
+} {
   let abilities: { [key: string]: number } = {};
+  const retrainings: { time: number; abilities: HeroAbilities }[] = [];
   for (const ability of abilityOrder) {
     if (ability.type === "ability") {
       if (ultimates.has(ability.value) && abilities[ability.value] === 1) {
@@ -44,8 +50,9 @@ export function inferHeroAbilityLevelsFromAbilityOrder(
       }
     }
     if (ability.type === "retraining") {
+      retrainings.push({ time: ability.time, abilities });
       abilities = {};
     }
   }
-  return abilities;
+  return { finalHeroAbilities: abilities, retrainingHistory: retrainings };
 }
