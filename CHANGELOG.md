@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.5.5](https://github.com/PBug90/w3gjs/compare/v2.5.4...v2.5.5) (2025-04-17)
+
+
+### Bug Fixes
+
+* **#191:** parse 0x78 as BlzSyncAction and provide buffers for unknown actions ([#193](https://github.com/PBug90/w3gjs/issues/193)) ([726ba72](https://github.com/PBug90/w3gjs/commit/726ba729a748f369f0ff8c318f07f699622c8256)), closes [#191](https://github.com/PBug90/w3gjs/issues/191)
+
 ### [2.5.4](https://github.com/PBug90/w3gjs/compare/v2.5.2...v2.5.4) (2025-04-16)
 
 
