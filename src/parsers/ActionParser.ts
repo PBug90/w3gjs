@@ -179,12 +179,13 @@ export default class ActionParser extends StatefulBufferParser {
           id: 0x79,
           action: this.buffer.slice(
             this.getOffset() - 1,
-            this.getOffset() + 0x11,
+            this.getOffset() + 0x14,
           ),
         } as const;
-        this.skip(0x11);
+        this.skip(0x14);
         return action;
       }
+      case 0x77:
       case 0x78:
         const identifier = this.readZeroTermString("utf8");
         const value = this.readZeroTermString("utf8");
@@ -480,11 +481,8 @@ export default class ActionParser extends StatefulBufferParser {
         this.skip(1);
         return null;
       }
-      case 0x77:
-        this.skip(13);
-        return null;
       case 0x7a:
-        this.skip(20);
+        this.skip(16);
         return null;
       case 0x7b:
         this.skip(16);
