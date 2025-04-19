@@ -24,6 +24,9 @@ const inflatePromise = (buffer: Buffer, options = {}): Promise<Buffer> =>
 export type ReplayMetadata = {
   gameData: Buffer;
   map: MapMetadata;
+  playerCount: number;
+  gameType: string;
+  localeHash: string;
   playerRecords: PlayerRecord[];
   slotRecords: SlotRecord[];
   reforgedPlayerMetadata: ReforgedPlayerMetadata[];
@@ -99,17 +102,18 @@ export default class MetadataParser extends StatefulBufferParser {
     const mapMetadata = this.parseEncodedMapMetaString(
       this.decodeGameMetaString(encodedString),
     );
-    this.skip(12);
+    const playerCount = this.readUInt32LE();
+    const gameType = this.readStringOfLength(4, "hex");
+    const localeHash = this.readStringOfLength(4, "hex");
     const playerListFinal = playerRecords.concat(
       playerRecords,
       this.parsePlayerList(),
     );
     let reforgedPlayerMetadata: ReforgedPlayerMetadata[] = [];
-    if (this.readUInt8() !== 25) {
-      this.skip(-1);
+    if (this.peekUInt8() !== 25) {
       reforgedPlayerMetadata = this.parseReforgedPlayerMetadata();
     }
-    this.skip(2);
+    this.skip(3);
     const slotRecordCount = this.readUInt8();
     const slotRecords = this.parseSlotRecords(slotRecordCount);
     const randomSeed = this.readUInt32LE();
@@ -118,6 +122,9 @@ export default class MetadataParser extends StatefulBufferParser {
     return {
       gameData: this.buffer.subarray(this.getOffset()),
       map: mapMetadata,
+      playerCount,
+      gameType,
+      localeHash,
       playerRecords: playerListFinal,
       slotRecords,
       reforgedPlayerMetadata,
@@ -147,7 +154,11 @@ export default class MetadataParser extends StatefulBufferParser {
 
   private parseReforgedPlayerMetadata(): ReforgedPlayerMetadata[] {
     const result: ReforgedPlayerMetadata[] = [];
-    while (this.readUInt8() === 0x39) {
+    while (this.peekUInt8() == 0x38 || this.peekUInt8() == 0x39) {
+      const type = this.readUInt8();
+      if (type == 0x38) {
+        console.log("Message Type 0x38 detected (Patch 2.0.2)!");
+      }
       const subtype = this.readUInt8();
       const followingBytes = this.readUInt32LE();
       const data = this.buffer.subarray(
@@ -224,13 +235,7 @@ export default class MetadataParser extends StatefulBufferParser {
     const playerId = this.readUInt8();
     const playerName = this.readZeroTermString("utf-8");
     const addData = this.readUInt8();
-    if (addData === 1) {
-      this.skip(1);
-    } else if (addData === 2) {
-      this.skip(2);
-    } else if (addData === 8) {
-      this.skip(8);
-    }
+    this.skip(addData);
     return { playerId, playerName };
   }
 
