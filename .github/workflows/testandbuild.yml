@@ -15,6 +15,10 @@ jobs:
       - run: npm install
       - run: npm run lint
       - run: npm test
+      - uses: qltysh/qlty-action/coverage@main
+        with:
+          coverage-token: ${{secrets.QLTY_COVERAGE_TOKEN}}
+          files: coverage/lcov.info      
       - run: npm run build
         env:
           CI: true

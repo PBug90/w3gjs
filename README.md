@@ -1,9 +1,9 @@
 # w3gjs
 
 [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg)](https://conventionalcommits.org)
-[![Build Status](https://travis-ci.org/PBug90/w3gjs.svg?branch=master)](https://travis-ci.org/w3gjs/w3gjs)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/8499316ea1ee69d2dd0b/test_coverage)](https://codeclimate.com/github/PBug90/w3gjs/test_coverage)
-[![Maintainability](https://api.codeclimate.com/v1/badges/8499316ea1ee69d2dd0b/maintainability)](https://codeclimate.com/github/PBug90/w3gjs/maintainability)
+[![Node.js CI](https://github.com/PBug90/w3gjs/actions/workflows/testandbuild.yml/badge.svg)](https://github.com/PBug90/w3gjs/actions/workflows/testandbuild.yml)
+[![Maintainability](https://qlty.sh/badges/01276c08-f34a-459c-b01d-a2b21b932485/maintainability.svg)](https://qlty.sh/gh/PBug90/projects/w3gjs)
+[![Code Coverage](https://qlty.sh/badges/01276c08-f34a-459c-b01d-a2b21b932485/test_coverage.svg)](https://qlty.sh/gh/PBug90/projects/w3gjs)
 
 ## Parser
 
