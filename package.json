@@ -11,7 +11,7 @@
   ],
   "scripts": {
     "test": "jest --config test/jest.config.js",
-    "coverage": "jest --collectCoverage --config test/jest.config.js",
+    "test:coverage": "jest --collectCoverage --config test/jest.config.js",
     "lint": "eslint --ext .ts,.js src/ test/ && prettier --check .",
     "lint:fix": "eslint --ext .jsx,.js src/** --fix",
     "build": "tsc"
