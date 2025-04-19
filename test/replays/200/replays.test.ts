@@ -96,7 +96,7 @@ it("parses 2.0.2 replay Reforged data successfully and without logging errors", 
   const consoleSpy = jest.spyOn(console, "log");
 
   const rawParser = new RawParser();
-  const file = readFileSync(path.resolve(__dirname, "2.0.2-Replay.w3g"))
+  const file = readFileSync(path.resolve(__dirname, "2.0.2-Replay.w3g"));
   const data = await rawParser.parse(file);
 
   const metadataParser = new MetadataParser();

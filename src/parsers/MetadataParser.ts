@@ -101,7 +101,6 @@ export default class MetadataParser extends StatefulBufferParser {
   }
 
   async parse(blocks: DataBlock[]): Promise<ReplayMetadata> {
-   
     return this.parseData(await MetadataParser.getUncompressedData(blocks));
   }
 
