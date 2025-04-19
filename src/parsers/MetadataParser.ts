@@ -134,7 +134,7 @@ export default class MetadataParser extends StatefulBufferParser {
     const remainingBytes = this.readUInt16LE();
     const slotRecordCount = this.readUInt8();
     // remaining bytes are: slotRecordCount(1), slots(9*count), seed(4), mode(1), spots(1)
-    if (remainingBytes != 1 + slotRecordCount * 9 + 6) {
+    if (remainingBytes !== 1 + slotRecordCount * 9 + 6) {
       console.error(
         `Remaining bytes (${remainingBytes}) do not match expected bytes (${1 + slotRecordCount * 9 + 6})`,
       );
@@ -180,7 +180,7 @@ export default class MetadataParser extends StatefulBufferParser {
   private parseReforgedPlayerMetadata(): ReforgedPlayerMetadata[] {
     const result: ReforgedPlayerMetadata[] = [];
     const skinSet: Map<number, number[]> = new Map();
-    while (this.peekUInt8() == 0x38 || this.peekUInt8() == 0x39) {
+    while (this.peekUInt8() === 0x38 || this.peekUInt8() === 0x39) {
       this.skip(1);
       const subtype = this.readUInt8();
       const followingBytes = this.readUInt32LE();
