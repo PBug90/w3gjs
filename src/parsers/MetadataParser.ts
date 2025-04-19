@@ -86,7 +86,8 @@ type MapMetadata = {
 
 export default class MetadataParser extends StatefulBufferParser {
   private mapmetaParser: StatefulBufferParser = new StatefulBufferParser();
-  async parse(blocks: DataBlock[]): Promise<ReplayMetadata> {
+
+  static async getUncompressedData(blocks: DataBlock[]): Promise<Buffer> {
     const buffs: Buffer[] = [];
     for (const block of blocks) {
       const block2 = await inflatePromise(block.blockContent, {
@@ -96,7 +97,12 @@ export default class MetadataParser extends StatefulBufferParser {
         buffs.push(block2);
       }
     }
-    return this.parseData(Buffer.concat(buffs));
+    return Buffer.concat(buffs);
+  }
+
+  async parse(blocks: DataBlock[]): Promise<ReplayMetadata> {
+   
+    return this.parseData(await MetadataParser.getUncompressedData(blocks));
   }
 
   public async parseData(data: Buffer): Promise<ReplayMetadata> {
@@ -175,10 +181,7 @@ export default class MetadataParser extends StatefulBufferParser {
     const result: ReforgedPlayerMetadata[] = [];
     const skinSet: Map<number, number[]> = new Map();
     while (this.peekUInt8() == 0x38 || this.peekUInt8() == 0x39) {
-      const type = this.readUInt8();
-      if (type == 0x38) {
-        console.log("Message Type 0x38 detected (Patch 2.0.2)!");
-      }
+      this.skip(1);
       const subtype = this.readUInt8();
       const followingBytes = this.readUInt32LE();
       const data = this.buffer.subarray(
