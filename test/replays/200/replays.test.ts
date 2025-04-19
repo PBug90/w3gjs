@@ -1,6 +1,6 @@
-import W3GReplay from "../../../src";
+import { readFileSync } from "fs";
+import W3GReplay, { MetadataParser, RawParser } from "../../../src";
 import path from "path";
-
 const Parser = new W3GReplay();
 
 it("recognizes a 'build haunted gold mine' command correctly and adds it to the player's buildings", async () => {
@@ -90,4 +90,21 @@ it("detects retraining", async () => {
     },
   ]);
   expect(test.players[1].heroes[0].level).toBe(6);
+});
+
+it("parses 2.0.2 replay Reforged data successfully and without logging errors", async () => {
+  const consoleSpy = jest.spyOn(console, "log");
+
+  const rawParser = new RawParser();
+  const file = readFileSync(path.resolve(__dirname, "2.0.2-Replay.w3g"))
+  const data = await rawParser.parse(file);
+
+  const metadataParser = new MetadataParser();
+  const metadata = await metadataParser.parse(data.blocks);
+
+  expect(metadata.reforgedPlayerMetadata).toBeDefined();
+  expect(metadata.reforgedPlayerMetadata.length).toBeGreaterThan(0);
+
+  expect(data.subheader.version).toBe(10100);
+  expect(consoleSpy).not.toHaveBeenCalled();
 });
