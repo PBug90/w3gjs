@@ -339,7 +339,6 @@ class Player {
 
   determineHeroLevelsAndHandleRetrainings() {
     const heroInfo: Omit<HeroInfo, "order">[] = [];
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     for (const { order, ...hero } of Object.values(this.heroCollector).sort(
       (h1, h2) => h1.order - h2.order,
     )) {
