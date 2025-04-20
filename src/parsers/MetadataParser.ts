@@ -11,9 +11,22 @@ const protoPlayer = new Type("ReforgedPlayerData")
   .add(new Field("team", 5, "uint32"))
   .add(new Field("unknown", 6, "string"));
 
+type SkinData = {
+  unitId: number;
+  skinId: number;
+  skinName: string;
+};
+
+
+const protoSkinData = new Type("SkinData")
+  .add(new Field("unitId", 1, "uint32"))
+  .add(new Field("skinId", 2, "uint32"))
+  .add(new Field("skinName", 3, "string"));
+
 const protoSkin = new Type("ReforgedSkinData")
+  .add(protoSkinData)
   .add(new Field("playerId", 1, "uint32"))
-  .add(new Field("skins", 2, "uint32", "repeated"));
+  .add(new Field("skins", 2, "SkinData", "repeated"));
 
 const inflatePromise = (buffer: Buffer, options = {}): Promise<Buffer> =>
   new Promise((resolve, reject) => {
@@ -62,7 +75,7 @@ type ReforgedPlayerMetadata = {
   playerId: number;
   name: string;
   clan: string;
-  skins: number[];
+  skins: SkinData[];
 };
 
 type MapMetadata = {
@@ -177,7 +190,7 @@ export default class MetadataParser extends StatefulBufferParser {
 
   private parseReforgedPlayerMetadata(): ReforgedPlayerMetadata[] {
     const result: ReforgedPlayerMetadata[] = [];
-    const skinSet: Map<number, number[]> = new Map();
+    const skinSet: Map<number, SkinData[]> = new Map();
     while (this.peekUInt8() === 0x38 || this.peekUInt8() === 0x39) {
       this.skip(1);
       const subtype = this.readUInt8();
@@ -204,7 +217,7 @@ export default class MetadataParser extends StatefulBufferParser {
       } else if (subtype === 0x4) {
         const decoded = protoSkin.decode(data) as unknown as {
           playerId: number;
-          skins: number[];
+          skins: SkinData[];
         };
         if (decoded.skins !== undefined) {
           skinSet.set(decoded.playerId, decoded.skins);
