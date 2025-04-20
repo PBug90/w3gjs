@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0-0](https://github.com/PBug90/w3gjs/compare/v2.5.5...v3.0.0-0) (2025-04-20)
+
+
+### ⚠ BREAKING CHANGES
+
+* **#197:** update existing actions payloads and parse new action types from reverse engineering 2.0.1
+
+### Features
+
+* **#197:** update existing actions payloads and parse new action types from reverse engineering 2.0.1 ([370601c](https://github.com/PBug90/w3gjs/commit/370601c7f74274227aa259520d9d72f2c9ac41d6)), closes [#197](https://github.com/PBug90/w3gjs/issues/197)
+
 ### [2.5.5](https://github.com/PBug90/w3gjs/compare/v2.5.4...v2.5.5) (2025-04-17)
 
 
