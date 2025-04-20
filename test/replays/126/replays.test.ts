@@ -5,7 +5,6 @@ import fs from "fs";
 const Parser = new W3GReplay();
 it("parses a 2on2standard 1.29 replay properly", async () => {
   const test = await Parser.parse(path.resolve(__dirname, "999.w3g"));
-  fs.writeFileSync("output.json", JSON.stringify(test, undefined, 2));
   expect(test.version).toBe("1.26");
   expect(test.players[0].id).toBe(2);
   expect(test.players[0].teamid).toBe(0);
