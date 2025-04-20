@@ -1,6 +1,9 @@
 import W3GReplay from "../../../src/";
 import path from "path";
-import { GameDataBlock } from "../../../src/parsers/GameDataParser";
+import {
+  GameDataBlock,
+  TimeslotBlock
+} from "../../../src/parsers/GameDataParser";
 
 const Parser = new W3GReplay();
 it("parses a reforged replay properly #1", async () => {
@@ -58,7 +61,7 @@ it("parses a netease 1.32 replay successfully", async () => {
 
 it("parse is a promise that resolves with parser output", async () => {
   const Parser = new W3GReplay();
-  const timeslotBlocks = [];
+  const timeslotBlocks: TimeslotBlock[] = [];
   let completedAsyncDummyTask = false;
   const metadataCallback = jest.fn();
   Parser.on("basic_replay_information", metadataCallback);

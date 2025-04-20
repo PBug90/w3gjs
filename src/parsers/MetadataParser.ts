@@ -17,7 +17,6 @@ type SkinData = {
   skinName: string;
 };
 
-
 const protoSkinData = new Type("SkinData")
   .add(new Field("unitId", 1, "uint32"))
   .add(new Field("skinId", 2, "uint32"))
@@ -140,7 +139,10 @@ export default class MetadataParser extends StatefulBufferParser {
       reforgedPlayerMetadata = this.parseReforgedPlayerMetadata();
     }
     if (this.readUInt8() !== 25) {
-      console.log("Unknown chunk detected!", this.buffer.subarray(this.getOffset() - 1));
+      console.log(
+        "Unknown chunk detected!",
+        this.buffer.subarray(this.getOffset() - 1),
+      );
     }
     const remainingBytes = this.readUInt16LE();
     const slotRecordCount = this.readUInt8();
