@@ -37,7 +37,9 @@ const inflatePromise = (buffer: Buffer, options = {}): Promise<Buffer> =>
     });
   });
 
-export async function getUncompressedData(blocks: DataBlock[]): Promise<Buffer> {
+export async function getUncompressedData(
+  blocks: DataBlock[],
+): Promise<Buffer> {
   const buffs: Buffer[] = [];
   for (const block of blocks) {
     const block2 = await inflatePromise(block.blockContent, {

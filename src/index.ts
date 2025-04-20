@@ -6,4 +6,11 @@ import RawParser, { DataBlock, getUncompressedData } from "./parsers/RawParser";
 import ReplayParser from "./parsers/ReplayParser";
 
 export default W3GReplay;
-export { GameDataParser, MetadataParser, RawParser, ReplayParser, getUncompressedData, DataBlock };
+export {
+  GameDataParser,
+  MetadataParser,
+  RawParser,
+  ReplayParser,
+  getUncompressedData,
+  DataBlock,
+};
