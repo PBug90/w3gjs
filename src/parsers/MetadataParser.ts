@@ -149,7 +149,7 @@ export default class MetadataParser extends StatefulBufferParser {
     // remaining bytes are: slotRecordCount(1), slots(9*count), seed(4), mode(1), spots(1)
     if (remainingBytes !== 1 + slotRecordCount * 9 + 6) {
       console.log(
-        `Remaining bytes (${remainingBytes}) do not match expected bytes (${1 + slotRecordCount * 9 + 6})`
+        `Remaining bytes (${remainingBytes}) do not match expected bytes (${1 + slotRecordCount * 9 + 6})`,
       );
     }
     const slotRecords = this.parseSlotRecords(slotRecordCount);

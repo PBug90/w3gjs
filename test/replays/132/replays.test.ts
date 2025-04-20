@@ -2,7 +2,7 @@ import W3GReplay from "../../../src/";
 import path from "path";
 import {
   GameDataBlock,
-  TimeslotBlock
+  TimeslotBlock,
 } from "../../../src/parsers/GameDataParser";
 
 const Parser = new W3GReplay();
