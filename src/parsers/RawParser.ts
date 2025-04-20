@@ -1,4 +1,6 @@
 import StatefulBufferParser from "./StatefulBufferParser";
+import { inflate, constants } from "zlib";
+
 export type Header = {
   compressedSize: number;
   headerVersion: string;
@@ -24,6 +26,29 @@ export type DataBlock = {
   blockDecompressedSize: number;
   blockContent: Buffer;
 };
+
+const inflatePromise = (buffer: Buffer, options = {}): Promise<Buffer> =>
+  new Promise((resolve, reject) => {
+    inflate(buffer, options, (err, result) => {
+      if (err !== null) {
+        reject(err);
+      }
+      resolve(result);
+    });
+  });
+
+export async function getUncompressedData(blocks: DataBlock[]): Promise<Buffer> {
+  const buffs: Buffer[] = [];
+  for (const block of blocks) {
+    const block2 = await inflatePromise(block.blockContent, {
+      finishFlush: constants.Z_SYNC_FLUSH,
+    });
+    if (block2.byteLength > 0 && block.blockContent.byteLength > 0) {
+      buffs.push(block2);
+    }
+  }
+  return Buffer.concat(buffs);
+}
 
 export default class CustomReplayParser extends StatefulBufferParser {
   private header: Header;

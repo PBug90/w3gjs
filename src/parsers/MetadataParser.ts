@@ -1,5 +1,4 @@
-import { inflate, constants } from "zlib";
-import { DataBlock } from "./RawParser";
+import { DataBlock, getUncompressedData } from "./RawParser";
 import StatefulBufferParser from "./StatefulBufferParser";
 import { Type, Field } from "protobufjs";
 
@@ -26,16 +25,6 @@ const protoSkin = new Type("ReforgedSkinData")
   .add(protoSkinData)
   .add(new Field("playerId", 1, "uint32"))
   .add(new Field("skins", 2, "SkinData", "repeated"));
-
-const inflatePromise = (buffer: Buffer, options = {}): Promise<Buffer> =>
-  new Promise((resolve, reject) => {
-    inflate(buffer, options, (err, result) => {
-      if (err !== null) {
-        reject(err);
-      }
-      resolve(result);
-    });
-  });
 
 export type ReplayMetadata = {
   gameData: Buffer;
@@ -99,21 +88,8 @@ type MapMetadata = {
 export default class MetadataParser extends StatefulBufferParser {
   private mapmetaParser: StatefulBufferParser = new StatefulBufferParser();
 
-  static async getUncompressedData(blocks: DataBlock[]): Promise<Buffer> {
-    const buffs: Buffer[] = [];
-    for (const block of blocks) {
-      const block2 = await inflatePromise(block.blockContent, {
-        finishFlush: constants.Z_SYNC_FLUSH,
-      });
-      if (block2.byteLength > 0 && block.blockContent.byteLength > 0) {
-        buffs.push(block2);
-      }
-    }
-    return Buffer.concat(buffs);
-  }
-
   async parse(blocks: DataBlock[]): Promise<ReplayMetadata> {
-    return this.parseData(await MetadataParser.getUncompressedData(blocks));
+    return this.parseData(await getUncompressedData(blocks));
   }
 
   public async parseData(data: Buffer): Promise<ReplayMetadata> {
