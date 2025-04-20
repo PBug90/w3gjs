@@ -285,25 +285,25 @@ export default class W3GReplay extends EventEmitter implements W3GReplayEvents {
     switch (action.id) {
       case 0x10:
         if (
-          objectIdFormatter(action.itemId).value === "tert" ||
-          objectIdFormatter(action.itemId).value === "tret"
+          objectIdFormatter(action.orderId).value === "tert" ||
+          objectIdFormatter(action.orderId).value === "tret"
         ) {
           currentPlayer.handleRetraining(this.totalTimeTracker);
         }
         currentPlayer.handle0x10(
-          objectIdFormatter(action.itemId),
+          objectIdFormatter(action.orderId),
           this.totalTimeTracker,
         );
         break;
       case 0x11:
         currentPlayer.handle0x11(
-          objectIdFormatter(action.itemId),
+          objectIdFormatter(action.orderId),
           this.totalTimeTracker,
         );
         break;
       case 0x12:
         currentPlayer.handle0x12(
-          objectIdFormatter(action.itemId),
+          objectIdFormatter(action.orderId),
           this.totalTimeTracker,
         );
         break;
@@ -311,7 +311,7 @@ export default class W3GReplay extends EventEmitter implements W3GReplayEvents {
         currentPlayer.handle0x13();
         break;
       case 0x14:
-        currentPlayer.handle0x14(objectIdFormatter(action.itemId1));
+        currentPlayer.handle0x14(objectIdFormatter(action.orderId1));
         break;
       case 0x16:
         if (action.selectMode === 0x02) {

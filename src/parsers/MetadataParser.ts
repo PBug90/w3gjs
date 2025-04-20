@@ -1,5 +1,4 @@
-import { inflate, constants } from "zlib";
-import { DataBlock } from "./RawParser";
+import { DataBlock, getUncompressedData } from "./RawParser";
 import StatefulBufferParser from "./StatefulBufferParser";
 import { Type, Field } from "protobufjs";
 
@@ -11,23 +10,33 @@ const protoPlayer = new Type("ReforgedPlayerData")
   .add(new Field("team", 5, "uint32"))
   .add(new Field("unknown", 6, "string"));
 
-const inflatePromise = (buffer: Buffer, options = {}): Promise<Buffer> =>
-  new Promise((resolve, reject) => {
-    inflate(buffer, options, (err, result) => {
-      if (err !== null) {
-        reject(err);
-      }
-      resolve(result);
-    });
-  });
+type SkinData = {
+  unitId: number;
+  skinId: number;
+  skinName: string;
+};
+
+const protoSkinData = new Type("SkinData")
+  .add(new Field("unitId", 1, "uint32"))
+  .add(new Field("skinId", 2, "uint32"))
+  .add(new Field("skinName", 3, "string"));
+
+const protoSkin = new Type("ReforgedSkinData")
+  .add(protoSkinData)
+  .add(new Field("playerId", 1, "uint32"))
+  .add(new Field("skins", 2, "SkinData", "repeated"));
 
 export type ReplayMetadata = {
   gameData: Buffer;
   map: MapMetadata;
+  playerCount: number;
+  gameType: string;
+  localeHash: string;
   playerRecords: PlayerRecord[];
   slotRecords: SlotRecord[];
   reforgedPlayerMetadata: ReforgedPlayerMetadata[];
   randomSeed: number;
+  selectMode: string;
   gameName: string;
   startSpotCount: number;
 };
@@ -39,6 +48,8 @@ type PlayerRecord = {
 
 type SlotRecord = {
   playerId: number;
+  // 0-100, -1 for bots and embedded maps
+  downloadProgress: number;
   slotStatus: number;
   computerFlag: number;
   teamId: number;
@@ -52,6 +63,7 @@ type ReforgedPlayerMetadata = {
   playerId: number;
   name: string;
   clan: string;
+  skins: SkinData[];
 };
 
 type MapMetadata = {
@@ -75,17 +87,13 @@ type MapMetadata = {
 
 export default class MetadataParser extends StatefulBufferParser {
   private mapmetaParser: StatefulBufferParser = new StatefulBufferParser();
+
   async parse(blocks: DataBlock[]): Promise<ReplayMetadata> {
-    const buffs: Buffer[] = [];
-    for (const block of blocks) {
-      const block2 = await inflatePromise(block.blockContent, {
-        finishFlush: constants.Z_SYNC_FLUSH,
-      });
-      if (block2.byteLength > 0 && block.blockContent.byteLength > 0) {
-        buffs.push(block2);
-      }
-    }
-    this.initialize(Buffer.concat(buffs));
+    return this.parseData(await getUncompressedData(blocks));
+  }
+
+  public async parseData(data: Buffer): Promise<ReplayMetadata> {
+    this.initialize(data);
     this.skip(5);
     const playerRecords = [];
     playerRecords.push(this.parseHostRecord());
@@ -95,29 +103,46 @@ export default class MetadataParser extends StatefulBufferParser {
     const mapMetadata = this.parseEncodedMapMetaString(
       this.decodeGameMetaString(encodedString),
     );
-    this.skip(12);
+    const playerCount = this.readUInt32LE();
+    const gameType = this.readStringOfLength(4, "hex");
+    const localeHash = this.readStringOfLength(4, "hex");
     const playerListFinal = playerRecords.concat(
       playerRecords,
       this.parsePlayerList(),
     );
     let reforgedPlayerMetadata: ReforgedPlayerMetadata[] = [];
-    if (this.readUInt8() !== 25) {
-      this.skip(-1);
+    if (this.peekUInt8() !== 25) {
       reforgedPlayerMetadata = this.parseReforgedPlayerMetadata();
     }
-    this.skip(2);
+    if (this.readUInt8() !== 25) {
+      console.log(
+        "Unknown chunk detected!",
+        this.buffer.subarray(this.getOffset() - 1),
+      );
+    }
+    const remainingBytes = this.readUInt16LE();
     const slotRecordCount = this.readUInt8();
+    // remaining bytes are: slotRecordCount(1), slots(9*count), seed(4), mode(1), spots(1)
+    if (remainingBytes !== 1 + slotRecordCount * 9 + 6) {
+      console.log(
+        `Remaining bytes (${remainingBytes}) do not match expected bytes (${1 + slotRecordCount * 9 + 6})`,
+      );
+    }
     const slotRecords = this.parseSlotRecords(slotRecordCount);
     const randomSeed = this.readUInt32LE();
-    this.skip(1);
+    const selectMode = this.readStringOfLength(1, "hex");
     const startSpotCount = this.readUInt8();
     return {
       gameData: this.buffer.subarray(this.getOffset()),
       map: mapMetadata,
+      playerCount,
+      gameType,
+      localeHash,
       playerRecords: playerListFinal,
       slotRecords,
       reforgedPlayerMetadata,
       randomSeed,
+      selectMode,
       gameName,
       startSpotCount,
     };
@@ -128,7 +153,7 @@ export default class MetadataParser extends StatefulBufferParser {
     for (let i = 0; i < count; i++) {
       const record: Partial<SlotRecord> = {};
       record.playerId = this.readUInt8();
-      this.skip(1);
+      record.downloadProgress = this.readUInt8();
       record.slotStatus = this.readUInt8();
       record.computerFlag = this.readUInt8();
       record.teamId = this.readUInt8();
@@ -143,7 +168,9 @@ export default class MetadataParser extends StatefulBufferParser {
 
   private parseReforgedPlayerMetadata(): ReforgedPlayerMetadata[] {
     const result: ReforgedPlayerMetadata[] = [];
-    while (this.readUInt8() === 0x39) {
+    const skinSet: Map<number, SkinData[]> = new Map();
+    while (this.peekUInt8() === 0x38 || this.peekUInt8() === 0x39) {
+      this.skip(1);
       const subtype = this.readUInt8();
       const followingBytes = this.readUInt32LE();
       const data = this.buffer.subarray(
@@ -163,10 +190,23 @@ export default class MetadataParser extends StatefulBufferParser {
           playerId: decoded.playerId,
           name: decoded.battleTag,
           clan: decoded.clan,
+          skins: [],
         });
       } else if (subtype === 0x4) {
+        const decoded = protoSkin.decode(data) as unknown as {
+          playerId: number;
+          skins: SkinData[];
+        };
+        if (decoded.skins !== undefined) {
+          skinSet.set(decoded.playerId, decoded.skins);
+        }
       }
       this.skip(followingBytes);
+    }
+    for (const player of result) {
+      if (skinSet.has(player.playerId)) {
+        player.skins = skinSet.get(player.playerId)!;
+      }
     }
     return result;
   }
@@ -220,13 +260,7 @@ export default class MetadataParser extends StatefulBufferParser {
     const playerId = this.readUInt8();
     const playerName = this.readZeroTermString("utf-8");
     const addData = this.readUInt8();
-    if (addData === 1) {
-      this.skip(1);
-    } else if (addData === 2) {
-      this.skip(2);
-    } else if (addData === 8) {
-      this.skip(8);
-    }
+    this.skip(addData);
     return { playerId, playerName };
   }
 

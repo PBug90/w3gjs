@@ -77,6 +77,11 @@ export default class StatefulBufferParser {
     return val;
   }
 
+  public peekUInt8(): number {
+    const val = this.buffer.readUInt8(this.offset);
+    return val;
+  }
+
   public readFloatLE(): number {
     const val = this.buffer.readFloatLE(this.offset);
     this.offset += 4;
