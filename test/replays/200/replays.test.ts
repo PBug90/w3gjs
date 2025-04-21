@@ -108,3 +108,29 @@ it("parses 2.0.2 replay Reforged data successfully and without logging errors", 
   expect(data.subheader.version).toBe(10100);
   expect(consoleSpy).not.toHaveBeenCalled();
 });
+
+it("parses 2.0.2 melee replay with chat successfully and without logging errors", async () => {
+  const consoleSpy = jest.spyOn(console, "log");
+
+  const parser = new W3GReplay();
+
+  let chat1 = false;
+  let chat2 = false;
+
+  parser.on("gamedatablock", (block) => {
+    if (block.id === 32) {
+      if (block.playerId === 1 && block.message === "don't hurt me") {
+        chat1 = true;
+      } else if (block.playerId === 2 && block.message === "no more") {
+        chat2 = true;
+      }
+    }
+  });
+
+  await parser.parse(path.resolve(__dirname, "2.0.2-Melee.w3g"));
+
+  expect(chat1).toBe(true);
+  expect(chat2).toBe(true);
+
+  expect(consoleSpy).not.toHaveBeenCalled();
+});
