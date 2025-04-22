@@ -114,23 +114,12 @@ it("parses 2.0.2 melee replay with chat successfully and without logging errors"
 
   const parser = new W3GReplay();
 
-  let chat1 = false;
-  let chat2 = false;
-
-  parser.on("gamedatablock", (block) => {
-    if (block.id === 32) {
-      if (block.playerId === 1 && block.message === "don't hurt me") {
-        chat1 = true;
-      } else if (block.playerId === 2 && block.message === "no more") {
-        chat2 = true;
-      }
-    }
-  });
-
   await parser.parse(path.resolve(__dirname, "2.0.2-Melee.w3g"));
 
-  expect(chat1).toBe(true);
-  expect(chat2).toBe(true);
+  expect(parser.chatlog[0].playerId).toBe(1);
+  expect(parser.chatlog[0].message).toBe("don't hurt me");
+  expect(parser.chatlog[1].playerId).toBe(2);
+  expect(parser.chatlog[1].message).toBe("no more");
 
   expect(consoleSpy).not.toHaveBeenCalled();
 });
