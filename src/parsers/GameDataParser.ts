@@ -39,13 +39,16 @@ export type GameDataBlock =
 export default class GameDataParser extends EventEmitter {
   private actionParser: ActionParser;
   private parser: StatefulBufferParser;
+  private post_202: boolean = false;
+
   constructor() {
     super();
     this.actionParser = new ActionParser();
     this.parser = new StatefulBufferParser();
   }
 
-  async parse(data: Buffer): Promise<void> {
+  async parse(data: Buffer, post_202: boolean = false): Promise<void> {
+    this.post_202 = post_202;
     this.parser.initialize(data);
     while (this.parser.offset < data.length) {
       const block = this.parseBlock();
@@ -137,7 +140,7 @@ export default class GameDataParser extends EventEmitter {
         this.parser.offset,
         this.parser.offset + actionBlockLength,
       );
-      commandBlock.actions = this.actionParser.parse(actions);
+      commandBlock.actions = this.actionParser.parse(actions, this.post_202);
       this.parser.skip(actionBlockLength);
       commandBlocks.push(commandBlock as CommandBlock);
     }

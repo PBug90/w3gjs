@@ -48,7 +48,10 @@ export default class ReplayParser
       subheader: rawParserResult.subheader,
       metadata: metadataParserResult,
     });
-    await this.gameDataParser.parse(metadataParserResult.gameData);
+    await this.gameDataParser.parse(
+      metadataParserResult.gameData,
+      metadataParserResult.post_202!,
+    );
 
     return result;
   }

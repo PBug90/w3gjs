@@ -312,13 +312,13 @@ export type Action =
   | ArrowKeyAction;
 
 export default class ActionParser extends StatefulBufferParser {
-  parse(input: Buffer): Action[] {
+  parse(input: Buffer, post_202: boolean = false): Action[] {
     this.initialize(input);
     const actions: Action[] = [];
     while (this.getOffset() < input.length) {
       try {
         const actionId = this.readUInt8();
-        const action = this.parseAction(actionId);
+        const action = this.parseAction(actionId, post_202);
         if (action !== null) actions.push(action);
       } catch (ex) {
         console.log(ex);
@@ -341,8 +341,14 @@ export default class ActionParser extends StatefulBufferParser {
   }
 
   private oldActionId: number = 999999;
-  private parseAction(actionId: number): Action | null {
+  private parseAction(
+    actionId: number,
+    post_202: boolean = false,
+  ): Action | null {
     try {
+      if (post_202 && actionId > 0x77) {
+        actionId++;
+      }
       switch (actionId) {
         // no action 0x00
         case 0x1:
@@ -501,34 +507,34 @@ export default class ActionParser extends StatefulBufferParser {
           return { id: actionId, slotNumber, itemId };
         }
         // 0x20 to 0x4f are cheat actions
-        case 0x20:
-          break;
-        case 0x21:
-          this.skip(8);
-          break;
-        case 0x22:
-        case 0x23:
-        case 0x24:
-        case 0x25:
-        case 0x26:
-          break;
-        case 0x27:
-        case 0x28:
-          this.skip(5);
-          break;
-        case 0x29:
-        case 0x2a:
-        case 0x2b:
-        case 0x2c:
-          break;
-        case 0x2d:
-          this.skip(5);
-          break;
-        case 0x2e:
-          this.skip(4);
-          break;
-        case 0x2f:
-          break;
+        // case 0x20:
+        //   break;
+        // case 0x21:
+        //   this.skip(8);
+        //   break;
+        // case 0x22:
+        // case 0x23:
+        // case 0x24:
+        // case 0x25:
+        // case 0x26:
+        //   break;
+        // case 0x27:
+        // case 0x28:
+        //   this.skip(5);
+        //   break;
+        // case 0x29:
+        // case 0x2a:
+        // case 0x2b:
+        // case 0x2c:
+        //   break;
+        // case 0x2d:
+        //   this.skip(5);
+        //   break;
+        // case 0x2e:
+        //   this.skip(4);
+        //   break;
+        // case 0x2f:
+        //   break;
         // TODO: the rest of the cheats
 
         // END OF TODO
@@ -664,6 +670,8 @@ export default class ActionParser extends StatefulBufferParser {
             actionId,
             " after ",
             this.oldActionId,
+            " at offset ",
+            this.getOffset() - 1,
           );
           return null;
       }
