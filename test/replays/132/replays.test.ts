@@ -1,11 +1,21 @@
+import { jest, it } from "@jest/globals";
+import console from "node:console";
 import W3GReplay from "../../../src/";
-import path from "path";
+import path from "node:path";
 import {
   GameDataBlock,
   TimeslotBlock,
 } from "../../../src/parsers/GameDataParser";
 
 const Parser = new W3GReplay();
+let spiedConsoleError: jest.Spied<typeof console.error> | undefined = undefined;
+let spiedConsoleInfo: jest.Spied<typeof console.info> | undefined = undefined;
+
+afterEach(() => {
+  spiedConsoleError?.mockReset();
+  spiedConsoleInfo?.mockReset();
+});
+
 it("parses a reforged replay properly #1", async () => {
   const test = await Parser.parse(path.resolve(__dirname, "reforged1.w3g"));
   expect(test.version).toBe("1.32");
@@ -184,18 +194,60 @@ it("should return chat mode types correctly", async () => {
 });
 
 it("should handle a netease replay with rogue playerId 3 CommandDataBlocks correctly", async () => {
+  spiedConsoleError = jest.spyOn(console, "error").mockReturnValue();
+  spiedConsoleInfo = jest.spyOn(console, "info").mockReturnValue();
+
   const test = await Parser.parse(path.resolve(__dirname, "moju_vs_fly.nwg"));
+
   expect(test.players).toMatchSnapshot();
+  expect(spiedConsoleInfo).not.toHaveBeenCalled();
+  expect(spiedConsoleError).toHaveBeenCalledTimes(2);
+  expect(spiedConsoleError).toHaveBeenNthCalledWith(
+    1,
+    "detected unknown playerId in CommandBlock: 3 - time elapsed: 66",
+  );
+  expect(spiedConsoleError).toHaveBeenNthCalledWith(
+    2,
+    "detected unknown playerId in CommandBlock: 3 - time elapsed: 331452",
+  );
 });
 
 it("should handle a netease replay with rogue playerId 3 CommandDataBlocks correctly #2", async () => {
+  spiedConsoleError = jest.spyOn(console, "error").mockReturnValue();
+  spiedConsoleInfo = jest.spyOn(console, "info").mockReturnValue();
+
   const test = await Parser.parse(path.resolve(__dirname, "1582161008.nwg"));
+
   expect(test.players).toMatchSnapshot();
+  expect(spiedConsoleInfo).not.toHaveBeenCalled();
+  expect(spiedConsoleError).toHaveBeenCalledTimes(2);
+  expect(spiedConsoleError).toHaveBeenNthCalledWith(
+    1,
+    "detected unknown playerId in CommandBlock: 3 - time elapsed: 66",
+  );
+  expect(spiedConsoleError).toHaveBeenNthCalledWith(
+    2,
+    "detected unknown playerId in CommandBlock: 3 - time elapsed: 90750",
+  );
 });
 
 it("should handle a netease replay with rogue playerId 3 CommandDataBlocks correctly #3", async () => {
+  spiedConsoleError = jest.spyOn(console, "error").mockReturnValue();
+  spiedConsoleInfo = jest.spyOn(console, "info").mockReturnValue();
+
   const test = await Parser.parse(path.resolve(__dirname, "1582070968.nwg"));
+
   expect(test.players).toMatchSnapshot();
+  expect(spiedConsoleInfo).not.toHaveBeenCalled();
+  expect(spiedConsoleError).toHaveBeenCalledTimes(2);
+  expect(spiedConsoleError).toHaveBeenNthCalledWith(
+    1,
+    "detected unknown playerId in CommandBlock: 3 - time elapsed: 66",
+  );
+  expect(spiedConsoleError).toHaveBeenNthCalledWith(
+    2,
+    "detected unknown playerId in CommandBlock: 3 - time elapsed: 294624",
+  );
 });
 
 it("should parse kotg as level 6", async () => {

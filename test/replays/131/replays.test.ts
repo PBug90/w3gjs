@@ -1,5 +1,5 @@
 import W3GReplay from "../../../src/";
-import path from "path";
+import path from "node:path";
 
 const Parser = new W3GReplay();
 

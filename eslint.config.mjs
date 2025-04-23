@@ -40,6 +40,12 @@ export default defineConfig([
     },
 
     rules: {
+      "no-console": [
+        "error",
+        {
+          allow: ["warn", "error"],
+        },
+      ],
       "@typescript-eslint/no-unused-vars": [
         "error",
         {

@@ -1,7 +1,7 @@
 import RawParser, { Header, SubHeader } from "./RawParser";
 import MetadataParser, { ReplayMetadata } from "./MetadataParser";
 import GameDataParser, { GameDataBlock } from "./GameDataParser";
-import { EventEmitter } from "events";
+import { EventEmitter } from "node:events";
 
 export type ParserOutput = {
   header: Header;

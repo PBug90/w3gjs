@@ -9,6 +9,9 @@
     "dist",
     "index.js"
   ],
+  "engines": {
+    "node": ">=18.x"
+  },
   "scripts": {
     "test": "jest --config test/jest.config.js",
     "test:coverage": "jest --collectCoverage --config test/jest.config.js",

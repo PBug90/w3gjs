@@ -3,15 +3,16 @@ import convert from "./convert";
 import { objectIdFormatter, raceFlagFormatter } from "./parsers/formatters";
 import { ParserOutput } from "./types";
 import { sortPlayers } from "./sort";
-import { EventEmitter } from "events";
-import { createHash } from "crypto";
-import { performance } from "perf_hooks";
+import { EventEmitter } from "node:events";
+import console from "node:console";
+import { createHash } from "node:crypto";
+import { performance } from "node:perf_hooks";
+import { readFile } from "node:fs";
+import { promisify } from "node:util";
 import ReplayParser, {
   ParserOutput as ReplayParserOutput,
   BasicReplayInformation,
 } from "./parsers/ReplayParser";
-import { readFile } from "fs";
-import { promisify } from "util";
 import {
   GameDataBlock,
   PlayerChatMessageBlock,
@@ -267,7 +268,7 @@ export default class W3GReplay extends EventEmitter implements W3GReplayEvents {
 
   processCommandDataBlock(block: CommandBlock): void {
     if (this.knownPlayerIds.has(String(block.playerId)) === false) {
-      console.log(
+      console.error(
         `detected unknown playerId in CommandBlock: ${block.playerId} - time elapsed: ${this.totalTimeTracker}`,
       );
       return;

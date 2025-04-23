@@ -1,6 +1,6 @@
 import W3GReplay from "../../../src/";
-import path from "path";
-import fs from "fs";
+import path from "node:path";
+import fs from "node:fs";
 
 const Parser = new W3GReplay();
 it("parses a 2on2standard 1.29 replay properly", async () => {

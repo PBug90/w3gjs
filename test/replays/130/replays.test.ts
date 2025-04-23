@@ -1,5 +1,5 @@
 import W3GReplay from "../../../src/";
-import path from "path";
+import path from "node:path";
 import { readFileSync } from "fs";
 import { Validator } from "jsonschema";
 import schema from "../../schema.json";
