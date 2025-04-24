@@ -39,6 +39,7 @@ export type ReplayMetadata = {
   selectMode: string;
   gameName: string;
   startSpotCount: number;
+  post_202?: boolean;
 };
 
 type PlayerRecord = {
@@ -88,6 +89,7 @@ type MapMetadata = {
 export default class MetadataParser extends StatefulBufferParser {
   private mapmetaParser: StatefulBufferParser = new StatefulBufferParser();
 
+  private post_202: boolean = false;
   async parse(blocks: DataBlock[]): Promise<ReplayMetadata> {
     return this.parseData(await getUncompressedData(blocks));
   }
@@ -145,6 +147,7 @@ export default class MetadataParser extends StatefulBufferParser {
       selectMode,
       gameName,
       startSpotCount,
+      post_202: this.post_202,
     };
   }
 
@@ -170,7 +173,9 @@ export default class MetadataParser extends StatefulBufferParser {
     const result: ReforgedPlayerMetadata[] = [];
     const skinSet: Map<number, SkinData[]> = new Map();
     while (this.peekUInt8() === 0x38 || this.peekUInt8() === 0x39) {
-      this.skip(1);
+      if (this.readUInt8() === 0x38) {
+        this.post_202 = true;
+      }
       const subtype = this.readUInt8();
       const followingBytes = this.readUInt32LE();
       const data = this.buffer.subarray(
