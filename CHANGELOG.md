@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0](https://github.com/PBug90/w3gjs/compare/v3.0.0-0...v3.0.0) (2025-04-24)
+
+
+### Features
+
+* support new blizzard action types ([#205](https://github.com/PBug90/w3gjs/issues/205)) ([e76bd73](https://github.com/PBug90/w3gjs/commit/e76bd731acde390dc53447e8936438f30e3daf84))
+
+
+### Bug Fixes
+
+* **#206:** switch console.log to console.error for errors ([#207](https://github.com/PBug90/w3gjs/issues/207)) ([63ee5a1](https://github.com/PBug90/w3gjs/commit/63ee5a15ae9f8a24d209a5ef97fc68842408f131)), closes [#206](https://github.com/PBug90/w3gjs/issues/206)
+
 ## [3.0.0-0](https://github.com/PBug90/w3gjs/compare/v2.5.5...v3.0.0-0) (2025-04-20)
 
 
