@@ -3,6 +3,9 @@ import W3GReplay, { MetadataParser, RawParser } from "../../../src";
 import path from "node:path";
 const Parser = new W3GReplay();
 
+const consoleLogSpy = jest.spyOn(console, "log");
+const consoleErrorSpy = jest.spyOn(console, "log");
+
 it("recognizes a 'build haunted gold mine' command correctly and adds it to the player's buildings", async () => {
   const test = await Parser.parse(path.resolve(__dirname, "goldmine test.w3g"));
   expect(test.players[0].buildings.summary).toHaveProperty("ugol", 1);
@@ -93,8 +96,6 @@ it("detects retraining", async () => {
 });
 
 it("parses 2.0.2 replay Reforged data successfully and without logging errors", async () => {
-  const consoleSpy = jest.spyOn(console, "log");
-
   const rawParser = new RawParser();
   const file = readFileSync(path.resolve(__dirname, "2.0.2-LAN-bots.w3g"));
   const data = await rawParser.parse(file);
@@ -106,14 +107,11 @@ it("parses 2.0.2 replay Reforged data successfully and without logging errors", 
   expect(metadata.reforgedPlayerMetadata.length).toBeGreaterThan(0);
 
   expect(data.subheader.version).toBe(10100);
-  expect(consoleSpy).not.toHaveBeenCalled();
+  expect(consoleLogSpy).not.toHaveBeenCalled();
 });
 
 it("parses 2.0.2 melee replay with chat successfully and without logging errors", async () => {
-  const consoleSpy = jest.spyOn(console, "log");
-
   const parser = new W3GReplay();
-
   await parser.parse(path.resolve(__dirname, "2.0.2-Melee.w3g"));
 
   expect(parser.chatlog[0].playerId).toBe(1);
@@ -121,5 +119,12 @@ it("parses 2.0.2 melee replay with chat successfully and without logging errors"
   expect(parser.chatlog[1].playerId).toBe(2);
   expect(parser.chatlog[1].message).toBe("no more");
 
-  expect(consoleSpy).not.toHaveBeenCalled();
+  expect(consoleLogSpy).not.toHaveBeenCalled();
+});
+
+it("parses 2.0.2 flotv game successfully that was saved with WC3", async () => {
+  const parser = new W3GReplay();
+  await parser.parse(path.resolve(__dirname, "2.0.2-FloTVSavedByWc3.w3g"));
+  expect(consoleLogSpy).not.toHaveBeenCalled();
+  expect(consoleErrorSpy).not.toHaveBeenCalled();
 });
