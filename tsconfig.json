@@ -1,9 +1,9 @@
 {
   "compilerOptions": {
-    "moduleResolution": "node",
-    "lib": ["es2018"],
-    "module": "commonjs",
-    "target": "es2018",
+    "moduleResolution": "node16",
+    "lib": ["es2023"],
+    "module": "node16",
+    "target": "es2022",
     "strict": true,
     "sourceMap": true,
     "declaration": true,
@@ -15,7 +15,9 @@
     "outDir": "dist/lib",
     "resolveJsonModule": true,
     "esModuleInterop": true,
-    "typeRoots": ["node_modules/@types"]
+    "typeRoots": ["node_modules/@types"],
+    "skipLibCheck": true,
+    "isolatedModules": true
   },
   "include": ["src"]
 }

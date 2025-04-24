@@ -1,6 +1,6 @@
 import { readFileSync } from "fs";
 import W3GReplay, { MetadataParser, RawParser } from "../../../src";
-import path from "path";
+import path from "node:path";
 const Parser = new W3GReplay();
 
 it("recognizes a 'build haunted gold mine' command correctly and adds it to the player's buildings", async () => {

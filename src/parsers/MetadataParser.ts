@@ -115,7 +115,7 @@ export default class MetadataParser extends StatefulBufferParser {
       reforgedPlayerMetadata = this.parseReforgedPlayerMetadata();
     }
     if (this.readUInt8() !== 25) {
-      console.log(
+      console.error(
         "Unknown chunk detected!",
         this.buffer.subarray(this.getOffset() - 1),
       );
@@ -124,7 +124,7 @@ export default class MetadataParser extends StatefulBufferParser {
     const slotRecordCount = this.readUInt8();
     // remaining bytes are: slotRecordCount(1), slots(9*count), seed(4), mode(1), spots(1)
     if (remainingBytes !== 1 + slotRecordCount * 9 + 6) {
-      console.log(
+      console.error(
         `Remaining bytes (${remainingBytes}) do not match expected bytes (${1 + slotRecordCount * 9 + 6})`,
       );
     }

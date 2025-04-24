@@ -321,23 +321,11 @@ export default class ActionParser extends StatefulBufferParser {
         const action = this.parseAction(actionId);
         if (action !== null) actions.push(action);
       } catch (ex) {
-        console.log(ex);
+        console.error(ex);
         break;
       }
     }
     return actions;
-  }
-
-  private writeHexString(data: string) {
-    for (let i = 0; i < data.length; ) {
-      process.stdout.write(data[i] + data[i + 1]);
-      i += 2;
-      process.stdout.write(" ");
-      if (i % 32 == 0 && i < data.length) {
-        process.stdout.write("\n");
-      }
-    }
-    console.log();
   }
 
   private oldActionId: number = 999999;
@@ -659,7 +647,7 @@ export default class ActionParser extends StatefulBufferParser {
         case 0xa1:
           this.skip(9);
         default:
-          console.log(
+          console.error(
             "unknown action id ",
             actionId,
             " after ",

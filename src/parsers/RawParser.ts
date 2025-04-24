@@ -1,5 +1,5 @@
 import StatefulBufferParser from "./StatefulBufferParser";
-import { inflate, constants } from "zlib";
+import { inflate, constants } from "node:zlib";
 
 export type Header = {
   compressedSize: number;
