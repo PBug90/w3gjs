@@ -39,7 +39,7 @@ export type GameDataBlock =
 export default class GameDataParser extends EventEmitter {
   private actionParser: ActionParser;
   private parser: StatefulBufferParser;
-  private post_202: boolean = false;
+  private isPost202ReplayFormat: boolean = false;
 
   constructor() {
     super();
@@ -47,8 +47,11 @@ export default class GameDataParser extends EventEmitter {
     this.parser = new StatefulBufferParser();
   }
 
-  async parse(data: Buffer, post_202: boolean = false): Promise<void> {
-    this.post_202 = post_202;
+  async parse(
+    data: Buffer,
+    isPost202ReplayFormat: boolean = false,
+  ): Promise<void> {
+    this.isPost202ReplayFormat = isPost202ReplayFormat;
     this.parser.initialize(data);
     while (this.parser.offset < data.length) {
       const block = this.parseBlock();
@@ -140,7 +143,10 @@ export default class GameDataParser extends EventEmitter {
         this.parser.offset,
         this.parser.offset + actionBlockLength,
       );
-      commandBlock.actions = this.actionParser.parse(actions, this.post_202);
+      commandBlock.actions = this.actionParser.parse(
+        actions,
+        this.isPost202ReplayFormat,
+      );
       this.parser.skip(actionBlockLength);
       commandBlocks.push(commandBlock as CommandBlock);
     }

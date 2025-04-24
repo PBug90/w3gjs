@@ -331,10 +331,10 @@ export default class ActionParser extends StatefulBufferParser {
   private oldActionId: number = 999999;
   private parseAction(
     actionId: number,
-    post_202: boolean = false,
+    isPost202ReplayFormat: boolean = false,
   ): Action | null {
     try {
-      if (post_202 && actionId > 0x77) {
+      if (isPost202ReplayFormat && actionId > 0x77) {
         actionId++;
       }
       switch (actionId) {
@@ -495,37 +495,34 @@ export default class ActionParser extends StatefulBufferParser {
           return { id: actionId, slotNumber, itemId };
         }
         // 0x20 to 0x4f are cheat actions
-        // case 0x20:
-        //   break;
-        // case 0x21:
-        //   this.skip(8);
-        //   break;
-        // case 0x22:
-        // case 0x23:
-        // case 0x24:
-        // case 0x25:
-        // case 0x26:
-        //   break;
-        // case 0x27:
-        // case 0x28:
-        //   this.skip(5);
-        //   break;
-        // case 0x29:
-        // case 0x2a:
-        // case 0x2b:
-        // case 0x2c:
-        //   break;
-        // case 0x2d:
-        //   this.skip(5);
-        //   break;
-        // case 0x2e:
-        //   this.skip(4);
-        //   break;
-        // case 0x2f:
-        //   break;
-        // TODO: the rest of the cheats
-
-        // END OF TODO
+        case 0x20:
+          break;
+        case 0x21:
+          this.skip(8);
+          break;
+        case 0x22:
+        case 0x23:
+        case 0x24:
+        case 0x25:
+        case 0x26:
+          break;
+        case 0x27:
+        case 0x28:
+          this.skip(5);
+          break;
+        case 0x29:
+        case 0x2a:
+        case 0x2b:
+        case 0x2c:
+          break;
+        case 0x2d:
+          this.skip(5);
+          break;
+        case 0x2e:
+          this.skip(4);
+          break;
+        case 0x2f:
+          break;
         case 0x50:
           this.readUInt8(); // slotNumber
           this.readUInt32LE(); // flags
