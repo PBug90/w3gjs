@@ -50,7 +50,7 @@ export default class ReplayParser
     });
     await this.gameDataParser.parse(
       metadataParserResult.gameData,
-      metadataParserResult.post_202!,
+      metadataParserResult.isPost202ReplayFormat,
     );
 
     return result;
