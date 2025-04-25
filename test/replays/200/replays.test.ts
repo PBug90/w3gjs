@@ -4,7 +4,7 @@ import path from "node:path";
 const Parser = new W3GReplay();
 
 const consoleLogSpy = jest.spyOn(console, "log");
-const consoleErrorSpy = jest.spyOn(console, "log");
+const consoleErrorSpy = jest.spyOn(console, "error");
 
 it("recognizes a 'build haunted gold mine' command correctly and adds it to the player's buildings", async () => {
   const test = await Parser.parse(path.resolve(__dirname, "goldmine test.w3g"));
