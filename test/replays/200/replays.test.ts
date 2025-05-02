@@ -128,3 +128,21 @@ it("parses 2.0.2 flotv game successfully that was saved with WC3", async () => {
   expect(consoleLogSpy).not.toHaveBeenCalled();
   expect(consoleErrorSpy).not.toHaveBeenCalled();
 });
+
+it("parses 2.0.2 saved by WC3 successfully", async () => {
+  const parser = new W3GReplay();
+  await parser.parse(
+    path.resolve(__dirname, "3766547431_Rici_Kol9ni4_Concealed Hill.w3g"),
+  );
+  expect(consoleLogSpy).not.toHaveBeenCalled();
+  expect(consoleErrorSpy).not.toHaveBeenCalled();
+});
+
+it("parses 2.0.2 saved by WC3 successfully #2", async () => {
+  const parser = new W3GReplay();
+  await parser.parse(
+    path.resolve(__dirname, "905018518_DanGer_Sonik_Twisted Meadows 11.w3g"),
+  );
+  expect(consoleLogSpy).not.toHaveBeenCalled();
+  expect(consoleErrorSpy).not.toHaveBeenCalled();
+});
