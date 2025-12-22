@@ -20,7 +20,7 @@
     "build": "tsc"
   },
   "dependencies": {
-    "protobufjs": "^7.4.0"
+    "protobufjs": "^8.0.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.1",
