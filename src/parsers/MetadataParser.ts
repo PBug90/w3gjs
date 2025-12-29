@@ -279,7 +279,7 @@ export default class MetadataParser extends StatefulBufferParser {
       if (i % 8 === 0) {
         mask = hexRepresentation[i];
       } else {
-        if ((mask & (0x1 << i % 8)) === 0) {
+        if ((mask & (0x1 << (i % 8))) === 0) {
           decoded.writeUInt8(hexRepresentation[i] - 1, dpos++);
         } else {
           decoded.writeUInt8(hexRepresentation[i], dpos++);
