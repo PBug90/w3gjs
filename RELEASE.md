@@ -30,6 +30,7 @@ npx standard-version --release-as major
 ```
 
 This will:
+
 - Update `CHANGELOG.md` based on commit messages since the last tag
 - Bump the `version` field in `package.json`
 - Create a commit and a git tag (e.g. `v3.1.0`)
@@ -106,7 +107,7 @@ For urgent fixes, follow the same process with `--release-as patch`. There is no
 
 ## Required secrets
 
-| Secret | Purpose |
-|---|---|
-| `NPM_TOKEN` | Publish to npm |
+| Secret                | Purpose                    |
+| --------------------- | -------------------------- |
+| `NPM_TOKEN`           | Publish to npm             |
 | `QLTY_COVERAGE_TOKEN` | Upload coverage to qlty.sh |
