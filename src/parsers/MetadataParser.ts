@@ -1,6 +1,7 @@
-import { DataBlock, getUncompressedData } from "./RawParser";
-import StatefulBufferParser from "./StatefulBufferParser";
-import { Type, Field } from "protobufjs";
+import { DataBlock, getUncompressedData } from "./RawParser.js";
+import StatefulBufferParser from "./StatefulBufferParser.js";
+import protobufjs from "protobufjs";
+const { Type, Field } = protobufjs;
 
 const protoPlayer = new Type("ReforgedPlayerData")
   .add(new Field("playerId", 1, "uint32"))

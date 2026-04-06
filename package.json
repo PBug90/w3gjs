@@ -2,41 +2,53 @@
   "name": "w3gjs",
   "version": "3.0.0",
   "description": "A native JavaScript WarCraft 3 replay parser implementation.",
-  "main": "dist/lib/index.js",
-  "module": "dist/W3GReplay.es5.js",
-  "types": "dist/types/index.d.ts",
+  "main": "dist/cjs/index.js",
+  "types": "dist/cjs/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/esm/index.d.ts",
+        "default": "./dist/esm/index.js"
+      },
+      "require": {
+        "types": "./dist/cjs/index.d.ts",
+        "default": "./dist/cjs/index.js"
+      }
+    }
+  },
   "files": [
-    "dist",
-    "index.js"
+    "dist"
   ],
   "engines": {
     "node": ">=18.x"
   },
   "scripts": {
     "test": "jest --config test/jest.config.js",
+    "test:smoke": "node test/smoke/node-cjs.js && node test/smoke/node-esm.mjs && jest --config test/jest.smoke.config.js --no-coverage",
     "test:coverage": "jest --collectCoverage --config test/jest.config.js",
     "lint": "eslint --ext .ts,.js src/ test/ && prettier --check .",
-    "lint:fix": "eslint --ext .jsx,.js src/** --fix",
-    "build": "tsc"
+    "lint:fix": "eslint --ext .jsx,.js src/** --fix && prettier --write .",
+    "build": "tsc -p tsconfig.json && tsc -p tsconfig.esm.json && node -e \"require('fs').writeFileSync('dist/cjs/package.json', JSON.stringify({type:'commonjs'}))\" && node -e \"require('fs').writeFileSync('dist/esm/package.json', JSON.stringify({type:'module'}))\""
   },
   "dependencies": {
-    "protobufjs": "^8.0.0"
+    "protobufjs": "^8.0.1"
   },
   "devDependencies": {
-    "@eslint/eslintrc": "^3.3.1",
+    "@eslint/eslintrc": "^3.3.5",
     "@eslint/js": "^10.0.1",
     "@types/jest": "^30.0.0",
-    "@types/node": "^20.16.11",
-    "@typescript-eslint/eslint-plugin": "^8.9.0",
-    "@typescript-eslint/parser": "^8.9.0",
-    "eslint": "^10.0.3",
-    "eslint-config-prettier": "^10.1.2",
-    "eslint-plugin-prettier": "^5.2.1",
-    "jest": "^30.0.0",
-    "jsonschema": "^1.4.1",
-    "prettier": "^3.3.3",
-    "ts-jest": "^29.2.5",
-    "typescript": "^5.6.3"
+    "@types/node": "^25.5.2",
+    "@typescript-eslint/eslint-plugin": "^8.58.0",
+    "@typescript-eslint/parser": "^8.58.0",
+    "eslint": "^10.2.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.5",
+    "jest": "^30.3.0",
+    "jest-environment-jsdom": "^30.3.0",
+    "jsonschema": "^1.5.0",
+    "prettier": "^3.8.1",
+    "ts-jest": "^29.4.9",
+    "typescript": "^6.0.2"
   },
   "repository": {
     "type": "git",

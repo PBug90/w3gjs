@@ -1,4 +1,4 @@
-import { Race } from "../types";
+import { Race } from "../types.js";
 
 type ObjectIdStringencoded = {
   type: "stringencoded";

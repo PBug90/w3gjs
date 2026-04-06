@@ -1,4 +1,4 @@
-import StatefulBufferParser from "./StatefulBufferParser";
+import StatefulBufferParser from "./StatefulBufferParser.js";
 
 type NetTag = [number, number];
 type Vec2 = [number, number];
