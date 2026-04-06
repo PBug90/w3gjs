@@ -9,6 +9,7 @@ import { createHash } from "node:crypto";
 import { performance } from "node:perf_hooks";
 import { readFile } from "node:fs";
 import { promisify } from "node:util";
+import { ConcurrentParsingNotSupportedError } from "./errors";
 import ReplayParser, {
   ParserOutput as ReplayParserOutput,
   BasicReplayInformation,
@@ -92,6 +93,7 @@ export default class W3GReplay extends EventEmitter implements W3GReplayEvents {
   slotToPlayerId = new Map<number, number>();
   knownPlayerIds: Set<string>;
   winningTeamId = -1;
+  isParsing = false;
 
   constructor() {
     super();
@@ -111,32 +113,40 @@ export default class W3GReplay extends EventEmitter implements W3GReplayEvents {
   }
 
   async parse($buffer: string | Buffer): Promise<ParserOutput> {
-    this.msElapsed = 0;
-    this.parseStartTime = performance.now();
-    this.buffer = Buffer.from("");
-    this.filename = "";
-    this.id = "";
-    this.chatlog = [];
-    this.leaveEvents = [];
-    this.w3mmd = [];
-    this.players = {};
-    this.slotToPlayerId = new Map();
-    this.totalTimeTracker = 0;
-    this.timeSegmentTracker = 0;
-    this.slots = [];
-    this.playerList = [];
-    this.playerActionTrackInterval = 60000;
-    if (typeof $buffer === "string") {
-      $buffer = await readFilePromise($buffer);
+    if (this.isParsing) {
+      throw new ConcurrentParsingNotSupportedError();
     }
-    await this.parser.parse($buffer);
+    this.isParsing = true;
+    try {
+      this.msElapsed = 0;
+      this.parseStartTime = performance.now();
+      this.buffer = Buffer.from("");
+      this.filename = "";
+      this.id = "";
+      this.chatlog = [];
+      this.leaveEvents = [];
+      this.w3mmd = [];
+      this.players = {};
+      this.slotToPlayerId = new Map();
+      this.totalTimeTracker = 0;
+      this.timeSegmentTracker = 0;
+      this.slots = [];
+      this.playerList = [];
+      this.playerActionTrackInterval = 60000;
+      if (typeof $buffer === "string") {
+        $buffer = await readFilePromise($buffer);
+      }
+      await this.parser.parse($buffer);
 
-    this.generateID();
-    this.determineMatchup();
-    this.determineWinningTeam();
-    this.cleanup();
+      this.generateID();
+      this.determineMatchup();
+      this.determineWinningTeam();
+      this.cleanup();
 
-    return this.finalize();
+      return this.finalize();
+    } finally {
+      this.isParsing = false;
+    }
   }
 
   private determineWinningTeam() {
