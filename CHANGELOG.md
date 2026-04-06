@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.1.0-0](https://github.com/PBug90/w3gjs/compare/v3.0.0...v3.1.0-0) (2026-04-06)
+
+
+### Features
+
+* dual CJS/ESM build, concurrent parse guard, and smoke tests ([49aaa0c](https://github.com/PBug90/w3gjs/commit/49aaa0cb5abfe8ddd38d87b98374a5405964a638))
+* throw error if high level parser is used concurrently ([b5c780d](https://github.com/PBug90/w3gjs/commit/b5c780d19af414769b41554174b76df120e94031))
+
 ## [3.0.0](https://github.com/PBug90/w3gjs/compare/v3.0.0-0...v3.0.0) (2025-04-24)
 
 
