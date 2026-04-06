@@ -1,4 +1,5 @@
 import W3GReplay from "./W3GReplay";
+import { ConcurrentParsingNotSupportedError } from "./errors";
 
 import GameDataParser from "./parsers/GameDataParser";
 import MetadataParser from "./parsers/MetadataParser";
@@ -15,5 +16,6 @@ export {
   RawParser,
   ReplayParser,
   getUncompressedData,
+  ConcurrentParsingNotSupportedError,
   type DataBlock,
 };
