@@ -1,10 +1,16 @@
-import convert from "./convert";
-import { items, units, buildings, upgrades, abilityToHero } from "./mappings";
-import { Race, ItemID } from "./types";
-import { TransferResourcesActionWithPlayer } from "./W3GReplay";
-import { Action } from "./parsers/ActionParser";
-import { inferHeroAbilityLevelsFromAbilityOrder } from "./inferHeroAbilityLevelsFromAbilityOrder";
-import { getRetrainingIndex } from "./detectRetraining";
+import convert from "./convert.js";
+import {
+  items,
+  units,
+  buildings,
+  upgrades,
+  abilityToHero,
+} from "./mappings.js";
+import { Race, ItemID } from "./types.js";
+import { TransferResourcesActionWithPlayer } from "./W3GReplay.js";
+import { Action } from "./parsers/ActionParser.js";
+import { inferHeroAbilityLevelsFromAbilityOrder } from "./inferHeroAbilityLevelsFromAbilityOrder.js";
+import { getRetrainingIndex } from "./detectRetraining.js";
 
 const isRightclickAction = (input: number[]) =>
   input[0] === 0x03 && input[1] === 0;

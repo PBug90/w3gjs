@@ -1,4 +1,4 @@
-import { Ability, Retraining } from "./Player";
+import { Ability, Retraining } from "./Player.js";
 
 const ultimates = new Set<string>()
   .add("AEtq")

@@ -1,31 +1,31 @@
-import Player from "./Player";
-import convert from "./convert";
-import { objectIdFormatter, raceFlagFormatter } from "./parsers/formatters";
-import { ParserOutput } from "./types";
-import { sortPlayers } from "./sort";
+import Player from "./Player.js";
+import convert from "./convert.js";
+import { objectIdFormatter, raceFlagFormatter } from "./parsers/formatters.js";
+import { ParserOutput } from "./types.js";
+import { sortPlayers } from "./sort.js";
 import { EventEmitter } from "node:events";
 import console from "node:console";
 import { createHash } from "node:crypto";
 import { performance } from "node:perf_hooks";
 import { readFile } from "node:fs";
 import { promisify } from "node:util";
-import { ConcurrentParsingNotSupportedError } from "./errors";
+import { ConcurrentParsingNotSupportedError } from "./errors.js";
 import ReplayParser, {
   ParserOutput as ReplayParserOutput,
   BasicReplayInformation,
-} from "./parsers/ReplayParser";
+} from "./parsers/ReplayParser.js";
 import {
   GameDataBlock,
   PlayerChatMessageBlock,
   TimeslotBlock,
   CommandBlock,
   LeaveGameBlock,
-} from "./parsers/GameDataParser";
+} from "./parsers/GameDataParser.js";
 import {
   Action,
   W3MMDAction,
   TransferResourcesAction,
-} from "./parsers/ActionParser";
+} from "./parsers/ActionParser.js";
 
 export type TransferResourcesActionWithPlayer = {
   playerName: string;

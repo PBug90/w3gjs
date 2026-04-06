@@ -1,13 +1,13 @@
-import W3GReplay from "./W3GReplay";
-import { ConcurrentParsingNotSupportedError } from "./errors";
+import W3GReplay from "./W3GReplay.js";
+import { ConcurrentParsingNotSupportedError } from "./errors.js";
 
-import GameDataParser from "./parsers/GameDataParser";
-import MetadataParser from "./parsers/MetadataParser";
+import GameDataParser from "./parsers/GameDataParser.js";
+import MetadataParser from "./parsers/MetadataParser.js";
 import RawParser, {
   type DataBlock,
   getUncompressedData,
-} from "./parsers/RawParser";
-import ReplayParser from "./parsers/ReplayParser";
+} from "./parsers/RawParser.js";
+import ReplayParser from "./parsers/ReplayParser.js";
 
 export default W3GReplay;
 export {

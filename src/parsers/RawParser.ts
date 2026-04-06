@@ -1,4 +1,4 @@
-import StatefulBufferParser from "./StatefulBufferParser";
+import StatefulBufferParser from "./StatefulBufferParser.js";
 import { inflate, constants } from "node:zlib";
 
 export type Header = {

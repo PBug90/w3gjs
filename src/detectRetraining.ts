@@ -1,4 +1,4 @@
-import Player from "./Player";
+import Player from "./Player.js";
 
 const RETRAINING_DETECTION_TIME_RANGE = 60 * 1000;
 

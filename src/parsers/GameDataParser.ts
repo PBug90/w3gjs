@@ -1,7 +1,7 @@
 import { EventEmitter } from "node:events";
-import StatefulBufferParser from "./StatefulBufferParser";
-import ActionParser from "./ActionParser";
-import { Action } from "./ActionParser";
+import StatefulBufferParser from "./StatefulBufferParser.js";
+import ActionParser from "./ActionParser.js";
+import { Action } from "./ActionParser.js";
 
 const setImmediatePromise = () =>
   new Promise((resolve) => setImmediate(resolve));

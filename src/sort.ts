@@ -1,4 +1,4 @@
-import Player from "./Player";
+import Player from "./Player.js";
 
 type SortablePlayerProps = Pick<Player, "teamid" | "id">;
 

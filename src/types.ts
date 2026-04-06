@@ -1,5 +1,5 @@
-import Player from "./Player";
-import { ChatMessage, ObserverMode } from "./W3GReplay";
+import Player from "./Player.js";
+import { ChatMessage, ObserverMode } from "./W3GReplay.js";
 
 export enum Race {
   Human = "H",
