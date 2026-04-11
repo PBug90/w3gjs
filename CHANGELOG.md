@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [3.1.1-0](https://github.com/PBug90/w3gjs/compare/v3.1.0...v3.1.1-0) (2026-04-11)
+
+
+### Bug Fixes
+
+* export almost all parsers and types ([f6f157e](https://github.com/PBug90/w3gjs/commit/f6f157eb2830dc6e35568000f7771c96ba73fa85))
+
 ## [3.1.0](https://github.com/PBug90/w3gjs/compare/v3.1.0-1...v3.1.0) (2026-04-11)
 
 ## [3.1.0-1](https://github.com/PBug90/w3gjs/compare/v3.1.0-0...v3.1.0-1) (2026-04-06)
