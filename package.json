@@ -28,7 +28,7 @@
     "test:coverage": "jest --collectCoverage --config test/jest.config.js",
     "lint": "eslint --ext .ts,.js src/ test/ && prettier --check .",
     "lint:fix": "eslint --ext .jsx,.js src/** --fix && prettier --write .",
-    "build": "tsc -p tsconfig.json && tsc -p tsconfig.esm.json && node -e \"require('fs').writeFileSync('dist/cjs/package.json', JSON.stringify({type:'commonjs'}))\" && node -e \"require('fs').writeFileSync('dist/esm/package.json', JSON.stringify({type:'module'}))\""
+    "build": "tsc -p tsconfig.json && tsc -p tsconfig.esm.json"
   },
   "dependencies": {
     "protobufjs": "^8.0.1"
