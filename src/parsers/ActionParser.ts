@@ -1,4 +1,4 @@
-import StatefulBufferParser from "./StatefulBufferParser.js";
+import { StatefulBufferParser } from "./StatefulBufferParser.js";
 
 type NetTag = [number, number];
 type Vec2 = [number, number];
@@ -311,7 +311,7 @@ export type Action =
   | AllyPingAction
   | ArrowKeyAction;
 
-export default class ActionParser extends StatefulBufferParser {
+export class ActionParser extends StatefulBufferParser {
   parse(input: Buffer, post_202: boolean = false): Action[] {
     this.initialize(input);
     const actions: Action[] = [];

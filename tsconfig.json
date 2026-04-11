@@ -11,14 +11,12 @@
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "strictPropertyInitialization": false,
-    "outDir": "dist/cjs",
-    "rootDir": "src",
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "typeRoots": ["node_modules/@types"],
     "skipLibCheck": true,
     "isolatedModules": true,
-    "types": ["node"]
+    "types": ["node", "jest"]
   },
-  "include": ["src"]
+  "include": ["src", "test"]
 }

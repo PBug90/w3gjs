@@ -1,5 +1,5 @@
 import { DataBlock, getUncompressedData } from "./RawParser.js";
-import StatefulBufferParser from "./StatefulBufferParser.js";
+import { StatefulBufferParser } from "./StatefulBufferParser.js";
 import protobufjs from "protobufjs";
 const { Type, Field } = protobufjs;
 
@@ -87,7 +87,7 @@ type MapMetadata = {
   creator: string;
 };
 
-export default class MetadataParser extends StatefulBufferParser {
+export class MetadataParser extends StatefulBufferParser {
   private mapmetaParser: StatefulBufferParser = new StatefulBufferParser();
 
   private isPost202ReplayFormat: boolean = false;

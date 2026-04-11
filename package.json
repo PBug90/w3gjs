@@ -20,7 +20,7 @@
     "dist"
   ],
   "engines": {
-    "node": ">=18.x"
+    "node": ">=20.x"
   },
   "scripts": {
     "test": "jest --config test/jest.config.js",
@@ -28,7 +28,7 @@
     "test:coverage": "jest --collectCoverage --config test/jest.config.js",
     "lint": "eslint --ext .ts,.js src/ test/ && prettier --check .",
     "lint:fix": "eslint --ext .jsx,.js src/** --fix && prettier --write .",
-    "build": "tsc -p tsconfig.json && tsc -p tsconfig.esm.json"
+    "build": "tsc -p tsconfig.build.json && tsc -p tsconfig.esm.json && node scripts/set-package-types.js"
   },
   "dependencies": {
     "protobufjs": "^8.0.1"

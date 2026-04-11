@@ -21,7 +21,7 @@ const readStringOfLength = (
 ): string => {
   return input.subarray(startAt, startAt + length).toString(encoding);
 };
-export default class StatefulBufferParser {
+export class StatefulBufferParser {
   buffer: Buffer;
   offset = 0;
 

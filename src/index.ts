@@ -1,3 +1,5 @@
+import W3GReplay from "./W3GReplay.js";
+export default W3GReplay;
 export * from "./errors.js";
 export * from "./parsers/GameDataParser.js";
 export * from "./parsers/MetadataParser.js";

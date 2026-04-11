@@ -10,9 +10,10 @@ import { performance } from "node:perf_hooks";
 import { readFile } from "node:fs";
 import { promisify } from "node:util";
 import { ConcurrentParsingNotSupportedError } from "./errors.js";
-import ReplayParser, {
+import {
   ParserOutput as ReplayParserOutput,
   BasicReplayInformation,
+  ReplayParser,
 } from "./parsers/ReplayParser.js";
 import {
   GameDataBlock,

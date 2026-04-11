@@ -1,6 +1,6 @@
-import RawParser, { Header, SubHeader } from "./RawParser.js";
-import MetadataParser, { ReplayMetadata } from "./MetadataParser.js";
-import GameDataParser, { GameDataBlock } from "./GameDataParser.js";
+import { Header, SubHeader, RawParser } from "./RawParser.js";
+import { MetadataParser, ReplayMetadata } from "./MetadataParser.js";
+import { GameDataParser, GameDataBlock } from "./GameDataParser.js";
 import { EventEmitter } from "node:events";
 
 export type ParserOutput = {
@@ -18,10 +18,7 @@ export interface ReplayParserEvents {
   ): this;
 }
 
-export default class ReplayParser
-  extends EventEmitter
-  implements ReplayParserEvents
-{
+export class ReplayParser extends EventEmitter implements ReplayParserEvents {
   private rawParser: RawParser = new RawParser();
   private metadataParser: MetadataParser = new MetadataParser();
   private gameDataParser: GameDataParser = new GameDataParser();
