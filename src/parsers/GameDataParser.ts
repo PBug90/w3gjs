@@ -1,6 +1,6 @@
 import { EventEmitter } from "node:events";
-import StatefulBufferParser from "./StatefulBufferParser.js";
-import ActionParser from "./ActionParser.js";
+import { StatefulBufferParser } from "./StatefulBufferParser.js";
+import { ActionParser } from "./ActionParser.js";
 import { Action } from "./ActionParser.js";
 
 const setImmediatePromise = () =>
@@ -36,7 +36,7 @@ export type GameDataBlock =
   | TimeslotBlock
   | PlayerChatMessageBlock;
 
-export default class GameDataParser extends EventEmitter {
+export class GameDataParser extends EventEmitter {
   private actionParser: ActionParser;
   private parser: StatefulBufferParser;
   private isPost202ReplayFormat: boolean = false;

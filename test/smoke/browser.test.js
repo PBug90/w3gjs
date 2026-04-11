@@ -16,6 +16,7 @@ test("parses a replay buffer in a jsdom browser-like environment", async () => {
   const buffer = fs.readFileSync(
     path.resolve(__dirname, "../replays/126/999.w3g"),
   );
+  expect(global.window).toBeDefined();
   const parser = new W3GReplay();
   const result = await parser.parse(buffer);
   expect(result.version).toBe("1.26");

@@ -1,4 +1,4 @@
-import StatefulBufferParser from "./StatefulBufferParser.js";
+import { StatefulBufferParser } from "./StatefulBufferParser.js";
 import { inflate, constants } from "node:zlib";
 
 export type Header = {
@@ -52,7 +52,7 @@ export async function getUncompressedData(
   return Buffer.concat(buffs);
 }
 
-export default class CustomReplayParser extends StatefulBufferParser {
+export class RawParser extends StatefulBufferParser {
   private header: Header;
   private subheader: SubHeader;
 
