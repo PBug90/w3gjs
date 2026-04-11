@@ -2,6 +2,8 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.1.0](https://github.com/PBug90/w3gjs/compare/v3.1.0-1...v3.1.0) (2026-04-11)
+
 ## [3.1.0-1](https://github.com/PBug90/w3gjs/compare/v3.1.0-0...v3.1.0-1) (2026-04-06)
 
 ## [3.1.0-0](https://github.com/PBug90/w3gjs/compare/v3.0.0...v3.1.0-0) (2026-04-06)
