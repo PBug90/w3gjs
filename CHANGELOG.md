@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.0.0](https://github.com/PBug90/w3gjs/compare/v4.0.0-1...v4.0.0) (2026-04-12)
+
+
+### Miscellaneous Chores
+
+* release 4.0.0 ([40a314a](https://github.com/PBug90/w3gjs/commit/40a314a87d626f54caec210b2f075f54b2b67d72))
+
 ## [4.0.0-1](https://github.com/PBug90/w3gjs/compare/v4.0.0-0...v4.0.0-1) (2026-04-12)
 
 
