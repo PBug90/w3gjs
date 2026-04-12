@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.0.0-1](https://github.com/PBug90/w3gjs/compare/v4.0.0-0...v4.0.0-1) (2026-04-12)
+
+
+### Bug Fixes
+
+* ParserOutput is exported from entrypoint ([8cc01ad](https://github.com/PBug90/w3gjs/commit/8cc01ade00d0b271bc9a04575ecd9d5615b8d6ce))
+* ParserOutput is exported from entrypoint ([a4989e4](https://github.com/PBug90/w3gjs/commit/a4989e44010d5b121c63faa183af905b8377c7d6))
+
 ## [4.0.0-0](https://github.com/PBug90/w3gjs/compare/v3.1.1-0...v4.0.0-0) (2026-04-12)
 
 
