@@ -25,9 +25,19 @@ npm install w3gjs
 
 ## Usage
 
-See the [examples](./examples) folder for TypeScript and JavaScript usage examples.
+See the [examples](./examples) folder for TypeScript usage examples.
 
 For the full API reference, see the [documentation](https://pbug90.github.io/w3gjs).
+
+### Running the examples
+
+Use [`tsx`](https://tsx.is) to run any example directly without a compile step:
+
+```sh
+npx tsx examples/highlevel.ts
+npx tsx examples/lowlevel.ts
+npx tsx examples/apm-analysis.ts
+```
 
 ### High Level API
 
@@ -82,4 +92,4 @@ Please include an example replay file when reporting a parsing issue.
 
 ## License
 
-[MIT](./LICENSE.md)
+[MIT](./LICENSE)

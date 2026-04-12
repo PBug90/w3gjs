@@ -5,7 +5,7 @@
 import W3GReplay from "w3gjs";
 const parser = new W3GReplay();
 parser
-  .parse("./replay.w3g")
+  .parse("test/replays/126/999.w3g")
   .then((result) => {
     console.log(result);
   })

@@ -17,7 +17,7 @@ parser.on("gamedatablock", (block) => {
   }
 });
 parser
-  .parse(readFileSync("./replay.w3g"))
+  .parse(readFileSync("test/replays/126/999.w3g"))
   .then((result) => {
     console.log(result);
   })
