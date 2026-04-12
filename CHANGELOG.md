@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.0.0-0](https://github.com/PBug90/w3gjs/compare/v3.1.1-0...v4.0.0-0) (2026-04-12)
+
+
+### Features
+
+* correct ESM and CJS exports ([e9a0059](https://github.com/PBug90/w3gjs/commit/e9a0059dce9b95d103db67dcc39e00c1fe152c5d))
+
 ### [3.1.1-0](https://github.com/PBug90/w3gjs/compare/v3.1.0...v3.1.1-0) (2026-04-11)
 
 
