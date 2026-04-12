@@ -19,7 +19,19 @@ jobs:
         with:
           node-version: "24"
           registry-url: "https://registry.npmjs.org"
+
       - run: npm ci
       - run: npm run build --if-present
       - run: npm test
-      - run: npm publish
+
+      - name: Check for prerelease
+        id: prerelease
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+          if echo "$VERSION" | grep -qE '[-+]'; then
+            echo "tag=next" >> $GITHUB_OUTPUT
+          else
+            echo "tag=latest" >> $GITHUB_OUTPUT
+          fi
+
+      - run: npm publish --tag ${{ steps.prerelease.outputs.tag }}
