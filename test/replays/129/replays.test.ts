@@ -20,6 +20,10 @@ it("parses a netease 1.29 replay properly", async () => {
     file: "(4)TurtleRock.w3x",
     path: "Maps/1.29\\(4)TurtleRock.w3x",
   });
+  expect(test.winningTeamId).toBe(0);
+  expect(test.players.find((p) => p.teamid === test.winningTeamId)!.name).toBe(
+    "Headshot！",
+  );
 });
 
 it("parses a standard 1.29 replay with observers properly", async () => {
@@ -94,6 +98,10 @@ it("parses a standard 1.29 replay with observers properly", async () => {
     file: "w3arena__twistedmeadows__v3.w3x",
     path: "Maps\\w3arena\\w3arena__twistedmeadows__v3.w3x",
   });
+  expect(test.winningTeamId).toBe(0);
+  expect(test.players.find((p) => p.teamid === test.winningTeamId)!.name).toBe(
+    "Stormhoof",
+  );
 });
 
 it("evaluates APM correctly in a team game with an early leaver", async () => {
@@ -110,4 +118,5 @@ it("evaluates APM correctly in a team game with an early leaver", async () => {
   expect(test.players[0].apm).toEqual(98);
   expect(test.players[0].currentTimePlayed).toEqual(4371069);
   expect(Parser.msElapsed).toEqual(6433136);
+  expect(test.winningTeamId).toBe(-1);
 });

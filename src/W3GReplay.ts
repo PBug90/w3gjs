@@ -134,6 +134,7 @@ export default class W3GReplay extends EventEmitter implements W3GReplayEvents {
       this.slots = [];
       this.playerList = [];
       this.playerActionTrackInterval = 60000;
+      this.winningTeamId = -1;
       if (typeof $buffer === "string") {
         $buffer = await readFilePromise($buffer);
       }
@@ -151,27 +152,38 @@ export default class W3GReplay extends EventEmitter implements W3GReplayEvents {
   }
 
   private determineWinningTeam() {
-    if (this.gametype === "1on1") {
-      let winningTeamId = -1;
-      this.leaveEvents.forEach((event, index) => {
-        if (
-          this.isObserver(this.players[event.playerId]) === true ||
-          winningTeamId !== -1
-        ) {
-          return;
-        }
-        if (event.result === "09000000") {
-          winningTeamId = this.players[event.playerId].teamid;
-          return;
-        }
-        if (event.reason === "0c000000") {
-          winningTeamId = this.players[event.playerId].teamid;
-        }
-        if (index === this.leaveEvents.length - 1) {
-          winningTeamId = this.players[event.playerId].teamid;
-        }
-      });
-      this.winningTeamId = winningTeamId;
+    if (this.gametype !== "1on1") return;
+
+    const nonObsPlayers = Object.values(this.players).filter(
+      (p) => !this.isObserver(p),
+    );
+    const nonObsPlayerIds = new Set(nonObsPlayers.map((p) => p.id));
+    const nonObsLeaves = this.leaveEvents.filter((e) =>
+      nonObsPlayerIds.has(e.playerId),
+    );
+
+    const victoryLeave = nonObsLeaves.find((e) => e.result === "09000000");
+    if (victoryLeave) {
+      this.winningTeamId = this.players[victoryLeave.playerId].teamid;
+      return;
+    }
+
+    // The winner stays until WC3 ends the game for them (reason 0c = game over)
+    const gameOverLeave = nonObsLeaves.find((e) => e.reason === "0c000000");
+    if (gameOverLeave) {
+      this.winningTeamId = this.players[gameOverLeave.playerId].teamid;
+      return;
+    }
+
+    // Fallback: the first non-observer to leave is the loser; the other team wins
+    if (nonObsLeaves.length > 0) {
+      const loserTeamId = this.players[nonObsLeaves[0].playerId].teamid;
+      const winnerTeamId = nonObsPlayers.find(
+        (p) => p.teamid !== loserTeamId,
+      )?.teamid;
+      if (winnerTeamId !== undefined) {
+        this.winningTeamId = winnerTeamId;
+      }
     }
   }
 

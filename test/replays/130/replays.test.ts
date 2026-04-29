@@ -10,18 +10,30 @@ it("parses a standard 1.30.2 replay properly", async () => {
   expect(test.version).toBe("1.30.2+");
   expect(test.matchup).toBe("NvU");
   expect(test.players.length).toBe(2);
+  expect(test.winningTeamId).toBe(0);
+  expect(test.players.find((p) => p.teamid === test.winningTeamId)!.name).toBe(
+    "LexBG",
+  );
 });
 
 it("parses a standard 1.30.3 replay properly", async () => {
   const test = await Parser.parse(path.resolve(__dirname, "standard_1303.w3g"));
   expect(test.version).toBe("1.30.2+");
   expect(test.players.length).toBe(2);
+  expect(test.winningTeamId).toBe(1);
+  expect(test.players.find((p) => p.teamid === test.winningTeamId)!.name).toBe(
+    "|c00ffbd00:D",
+  );
 });
 
 it("parses a standard 1.30.4 replay properly", async () => {
   const test = await Parser.parse(path.resolve(__dirname, "standard_1304.w3g"));
   expect(test.version).toBe("1.30.2+");
   expect(test.players.length).toBe(2);
+  expect(test.winningTeamId).toBe(1);
+  expect(test.players.find((p) => p.teamid === test.winningTeamId)!.name).toBe(
+    "buffMyKotg",
+  );
 });
 
 it("parses a standard 1.30.4 replay properly as buffer", async () => {
@@ -31,6 +43,10 @@ it("parses a standard 1.30.4 replay properly as buffer", async () => {
   const test = await Parser.parse(buffer);
   expect(test.version).toBe("1.30.2+");
   expect(test.players.length).toBe(2);
+  expect(test.winningTeamId).toBe(1);
+  expect(test.players.find((p) => p.teamid === test.winningTeamId)!.name).toBe(
+    "buffMyKotg",
+  );
 });
 
 it("parses a standard 1.30.4 2on2 replay properly", async () => {
@@ -41,6 +57,7 @@ it("parses a standard 1.30.4 2on2 replay properly", async () => {
   expect(test.buildNumber).toBe(6061);
   expect(test.players.length).toBe(4);
   expect(test.players[2]).toMatchSnapshot();
+  expect(test.winningTeamId).toBe(-1);
 });
 
 it("parses a standard 1.30 replay properly", async () => {
@@ -70,6 +87,10 @@ it("parses a standard 1.30 replay properly", async () => {
     checksumSha1: "23dc614cca6fd7ec232fbba4898d318a90b95bc6",
     path: "Maps\\FrozenThrone\\(4)TwistedMeadows.w3x",
   });
+  expect(test.winningTeamId).toBe(3);
+  expect(test.players.find((p) => p.teamid === test.winningTeamId)!.name).toBe(
+    "123456789012345",
+  );
 });
 
 it("parsing result has the correct schema", async () => {
