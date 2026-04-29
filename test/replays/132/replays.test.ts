@@ -21,6 +21,10 @@ it("parses a reforged replay properly #1", async () => {
   expect(test.version).toBe("1.32");
   expect(test.buildNumber).toBe(6091);
   expect(test.players.length).toBe(2);
+  expect(test.winningTeamId).toBe(1);
+  expect(test.players.find((p) => p.teamid === test.winningTeamId)!.name).toBe(
+    "anXieTy#2932",
+  );
 });
 
 it("parses a reforged replay properly #2", async () => {
@@ -28,6 +32,10 @@ it("parses a reforged replay properly #2", async () => {
   expect(test.version).toBe("1.32");
   expect(test.buildNumber).toBe(6091);
   expect(test.players.length).toBe(2);
+  expect(test.winningTeamId).toBe(0);
+  expect(test.players.find((p) => p.teamid === test.winningTeamId)!.name).toBe(
+    "Sindroxa#1176",
+  );
 });
 
 it("parses a replay with new reforged metadata successfully", async () => {
@@ -36,6 +44,7 @@ it("parses a replay with new reforged metadata successfully", async () => {
   expect(test.buildNumber).toBe(6102);
   expect(test.players.length).toBe(6);
   expect(test.players[0].name).toBe("BEARAND#1604");
+  expect(test.winningTeamId).toBe(-1);
 });
 
 it("parses a reforged replay of version 1.32, build 6105 successfully", async () => {
@@ -47,6 +56,10 @@ it("parses a reforged replay of version 1.32, build 6105 successfully", async ()
   expect(test.players.length).toBe(2);
   expect(test.players[0].name).toBe("anXieTy#2932");
   expect(test.players[1].name).toBe("IroNSoul#22724");
+  expect(test.winningTeamId).toBe(0);
+  expect(test.players.find((p) => p.teamid === test.winningTeamId)!.name).toBe(
+    "anXieTy#2932",
+  );
 });
 
 it("parses a replay with hunter2 as privateString between game name and encoded string successfully", async () => {
@@ -58,6 +71,10 @@ it("parses a replay with hunter2 as privateString between game name and encoded 
   expect(test.players.length).toBe(2);
   expect(test.players[0].name).toBe("pischner#2950");
   expect(test.players[1].name).toBe("Wartoni#2638");
+  expect(test.winningTeamId).toBe(0);
+  expect(test.players.find((p) => p.teamid === test.winningTeamId)!.name).toBe(
+    "pischner#2950",
+  );
 });
 
 it("parses a netease 1.32 replay successfully", async () => {
@@ -67,6 +84,10 @@ it("parses a netease 1.32 replay successfully", async () => {
   expect(test.players.length).toBe(2);
   expect(test.players[0].name).toBe("HurricaneBo");
   expect(test.players[1].name).toBe("SimplyHunteR");
+  expect(test.winningTeamId).toBe(0);
+  expect(test.players.find((p) => p.teamid === test.winningTeamId)!.name).toBe(
+    "HurricaneBo",
+  );
 });
 
 it("parse is a promise that resolves with parser output", async () => {
@@ -92,6 +113,10 @@ it("parse is a promise that resolves with parser output", async () => {
   expect(test.players[0].name).toBe("HurricaneBo");
   expect(test.players[1].name).toBe("SimplyHunteR");
   expect(metadataCallback).toHaveBeenCalledTimes(1);
+  expect(test.winningTeamId).toBe(0);
+  expect(test.players.find((p) => p.teamid === test.winningTeamId)!.name).toBe(
+    "HurricaneBo",
+  );
 });
 
 it("emits 0x1A player actions", async () => {
@@ -106,8 +131,12 @@ it("emits 0x1A player actions", async () => {
       }
     }
   });
-  await Parser.parse(path.resolve(__dirname, "netease_132.nwg"));
+  const test = await Parser.parse(path.resolve(__dirname, "netease_132.nwg"));
   expect(amountOf0x1AActions).toBeGreaterThan(0);
+  expect(test.winningTeamId).toBe(0);
+  expect(test.players.find((p) => p.teamid === test.winningTeamId)!.name).toBe(
+    "HurricaneBo",
+  );
 });
 
 it("handles truncated player names in reforged replays", async () => {
@@ -119,6 +148,10 @@ it("handles truncated player names in reforged replays", async () => {
   expect(test.players.length).toBe(2);
   expect(test.players[0].name).toBe("WaN#1734");
   expect(test.players[1].name).toBe("РозовыйПони#228941");
+  expect(test.winningTeamId).toBe(0);
+  expect(test.players.find((p) => p.teamid === test.winningTeamId)!.name).toBe(
+    "WaN#1734",
+  );
 });
 
 it("ignores a player entry in reforged extraPlayerList that misses in playerList", async () => {
@@ -126,6 +159,7 @@ it("ignores a player entry in reforged extraPlayerList that misses in playerList
     path.resolve(__dirname, "reforged_metadata_ghostplayer.w3g"),
   );
   expect(test.players).toMatchSnapshot();
+  expect(test.winningTeamId).toBe(-1);
 });
 
 it("parses single player replay twistedmeadows.w3g", async () => {
@@ -133,6 +167,7 @@ it("parses single player replay twistedmeadows.w3g", async () => {
     path.resolve(__dirname, "reforged_metadata_ghostplayer.w3g"),
   );
   expect(test.players).toMatchSnapshot();
+  expect(test.winningTeamId).toBe(-1);
 });
 
 it("parses 1.32.8 replay with randomhero and randomraces", async () => {
@@ -141,6 +176,10 @@ it("parses 1.32.8 replay with randomhero and randomraces", async () => {
   );
   expect(test.settings.randomHero).toBe(true);
   expect(test.settings.randomRaces).toBe(true);
+  expect(test.winningTeamId).toBe(0);
+  expect(test.players.find((p) => p.teamid === test.winningTeamId)!.name).toBe(
+    "anXieTy#2932",
+  );
 });
 
 it("parses 1.32.8 replay with fullsharedunitcontrol, teams together and lock teams", async () => {
@@ -152,6 +191,10 @@ it("parses 1.32.8 replay with fullsharedunitcontrol, teams together and lock tea
   expect(test.settings.fixedTeams).toBe(true);
   expect(test.settings.randomHero).toBe(false);
   expect(test.settings.randomRaces).toBe(false);
+  expect(test.winningTeamId).toBe(0);
+  expect(test.players.find((p) => p.teamid === test.winningTeamId)!.name).toBe(
+    "anXieTy#2932",
+  );
 });
 
 it("parses 1.32.8 replay with full observers", async () => {
@@ -159,6 +202,10 @@ it("parses 1.32.8 replay with full observers", async () => {
     path.resolve(__dirname, "replay_fullobs.w3g"),
   );
   expect(test.settings.observerMode).toBe("FULL");
+  expect(test.winningTeamId).toBe(0);
+  expect(test.players.find((p) => p.teamid === test.winningTeamId)!.name).toBe(
+    "anXieTy#2932",
+  );
 });
 
 it("parses 1.32.8 replay with referee setting", async () => {
@@ -166,6 +213,10 @@ it("parses 1.32.8 replay with referee setting", async () => {
     path.resolve(__dirname, "replay_referee.w3g"),
   );
   expect(test.settings.observerMode).toBe("REFEREES");
+  expect(test.winningTeamId).toBe(0);
+  expect(test.players.find((p) => p.teamid === test.winningTeamId)!.name).toBe(
+    "anXieTy#2932",
+  );
 });
 
 it("parses 1.32.8 replay with observer on defeat setting", async () => {
@@ -173,6 +224,10 @@ it("parses 1.32.8 replay with observer on defeat setting", async () => {
     path.resolve(__dirname, "replay_obs_on_defeat.w3g"),
   );
   expect(test.settings.observerMode).toBe("ON_DEFEAT");
+  expect(test.winningTeamId).toBe(0);
+  expect(test.players.find((p) => p.teamid === test.winningTeamId)!.name).toBe(
+    "anXieTy#2932",
+  );
 });
 
 it("should parse hotkeys correctly", async () => {
@@ -181,16 +236,28 @@ it("should parse hotkeys correctly", async () => {
   expect(test.players[0].groupHotkeys[2]).toEqual({ assigned: 1, used: 60 });
   expect(test.players[1].groupHotkeys[1]).toEqual({ assigned: 21, used: 106 });
   expect(test.players[1].groupHotkeys[2]).toEqual({ assigned: 4, used: 64 });
+  expect(test.winningTeamId).toBe(1);
+  expect(test.players.find((p) => p.teamid === test.winningTeamId)!.name).toBe(
+    "anXieTy#2932",
+  );
 });
 
 it("should parse a flo w3c hostbot game correctly", async () => {
   const test = await Parser.parse(path.resolve(__dirname, "ced_vs_lyn.w3g"));
   expect(test.players).toMatchSnapshot();
+  expect(test.winningTeamId).toBe(1);
+  expect(test.players.find((p) => p.teamid === test.winningTeamId)!.name).toBe(
+    "iNSUPERABLE#11842",
+  );
 });
 
 it("should return chat mode types correctly", async () => {
   const test = await Parser.parse(path.resolve(__dirname, "ced_vs_lyn.w3g"));
   expect(test.chat).toMatchSnapshot();
+  expect(test.winningTeamId).toBe(1);
+  expect(test.players.find((p) => p.teamid === test.winningTeamId)!.name).toBe(
+    "iNSUPERABLE#11842",
+  );
 });
 
 it("should handle a netease replay with rogue playerId 3 CommandDataBlocks correctly", async () => {
@@ -209,6 +276,10 @@ it("should handle a netease replay with rogue playerId 3 CommandDataBlocks corre
   expect(spiedConsoleError).toHaveBeenNthCalledWith(
     2,
     "detected unknown playerId in CommandBlock: 3 - time elapsed: 331452",
+  );
+  expect(test.winningTeamId).toBe(1);
+  expect(test.players.find((p) => p.teamid === test.winningTeamId)!.name).toBe(
+    "RW浪的象征",
   );
 });
 
@@ -229,6 +300,10 @@ it("should handle a netease replay with rogue playerId 3 CommandDataBlocks corre
     2,
     "detected unknown playerId in CommandBlock: 3 - time elapsed: 90750",
   );
+  expect(test.winningTeamId).toBe(1);
+  expect(test.players.find((p) => p.teamid === test.winningTeamId)!.name).toBe(
+    "GrubbyGrubby",
+  );
 });
 
 it("should handle a netease replay with rogue playerId 3 CommandDataBlocks correctly #3", async () => {
@@ -248,11 +323,19 @@ it("should handle a netease replay with rogue playerId 3 CommandDataBlocks corre
     2,
     "detected unknown playerId in CommandBlock: 3 - time elapsed: 294624",
   );
+  expect(test.winningTeamId).toBe(1);
+  expect(test.players.find((p) => p.teamid === test.winningTeamId)!.name).toBe(
+    "GrubbyGrubby",
+  );
 });
 
 it("should parse kotg as level 6", async () => {
   const test = await Parser.parse(path.resolve(__dirname, "706266088.w3g"));
   expect(test.players[1].heroes[0].level).toBe(6);
+  expect(test.winningTeamId).toBe(1);
+  expect(test.players.find((p) => p.teamid === test.winningTeamId)!.name).toBe(
+    "MoonBG#2918",
+  );
 });
 
 describe("winner detection", () => {

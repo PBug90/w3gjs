@@ -7,6 +7,7 @@ it("parses a replay with action 0x7a successfully", async () => {
   const test = await Parser.parse(path.resolve(__dirname, "action0x7a.w3g"));
   expect(test.version).toBe("1.31");
   expect(test.players.length).toBe(1);
+  expect(test.winningTeamId).toBe(-1);
 });
 
 it("parses a standard 1.30.4 1on1 tome of retraining", async () => {
@@ -16,6 +17,10 @@ it("parses a standard 1.30.4 1on1 tome of retraining", async () => {
   expect(test.version).toBe("1.31");
   expect(test.buildNumber).toBe(6072);
   expect(test.players.length).toBe(2);
+  expect(test.winningTeamId).toBe(1);
+  expect(test.players.find((p) => p.teamid === test.winningTeamId)!.name).toBe(
+    "[OCG]shocker",
+  );
   expect(test.players[0].heroes[0]).toEqual({
     id: "Hamg",
     abilities: {
@@ -88,4 +93,8 @@ test("#86 extracts correct map name", async () => {
   expect(test.version).toBe("1.31");
   expect(test.buildNumber).toBe(6072);
   expect(test.map.file).toBe("(4)LostTemple [Unforged 0.5 RoC].w3x");
+  expect(test.winningTeamId).toBe(1);
+  expect(test.players.find((p) => p.teamid === test.winningTeamId)!.name).toBe(
+    "syNtec",
+  );
 });
