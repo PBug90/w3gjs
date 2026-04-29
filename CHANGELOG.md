@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.1.0](https://github.com/PBug90/w3gjs/compare/v4.0.0...v4.1.0) (2026-04-29)
+
+
+### Features
+
+* major improvement for 1on1 winner detection ([225105d](https://github.com/PBug90/w3gjs/commit/225105ddbf53bc7140e92c4ef212cabaaff5a645))
+
 ## [4.0.0](https://github.com/PBug90/w3gjs/compare/w3gjs-v4.0.0-1...w3gjs-v4.0.0) (2026-04-12)
 
 
