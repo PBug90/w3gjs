@@ -636,6 +636,10 @@ const heroAbilities: { [key: string]: string } = {
   ANab: "a_Goblin Alchemist:Acid Bomb",
   ANcr: "a_Goblin Alchemist:Chemical Rage",
   ANtm: "a_Goblin Alchemist:Transmute",
+  ANcp: "a_Forsaken Paladin:Righteous Fury",
+  AHcr: "a_Forsaken Paladin:Consecration",
+  AHpa: "a_Forsaken Paladin:Sacred Aura",
+  AHcl: "a_Forsaken Paladin:Cleansing Fire",
 };
 
 const abilityToHero: { [key: string]: string } = {
@@ -749,6 +753,7 @@ const abilityToHero: { [key: string]: string } = {
   ANcp: "Npal",
   AHcr: "Npal",
   AHpa: "Npal",
+  AHcl: "Npal",
 };
 
 const itemIds = Object.keys(items);
