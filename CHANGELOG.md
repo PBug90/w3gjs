@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.2.0](https://github.com/PBug90/w3gjs/compare/v4.1.0...v4.2.0) (2026-09-17)
+
+
+### Features
+
+* add Forsaken Paladin ability names and ultimate ([2e00070](https://github.com/PBug90/w3gjs/commit/2e00070a216fa1e8a52e249a923abc4f3bcfa590))
+* support Warcraft III patch 3.0 replays ([7529190](https://github.com/PBug90/w3gjs/commit/752919065f7bbfff92e394f126815c671ce09f09))
+
 ## [4.1.0](https://github.com/PBug90/w3gjs/compare/v4.0.0...v4.1.0) (2026-04-29)
 
 
