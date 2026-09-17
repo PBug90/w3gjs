@@ -61,7 +61,8 @@ const gameVersion = (version: number): string => {
     return `1.${str.substring(str.length - 2, str.length)}`;
   } else if (version >= 10100) {
     const str = String(version);
-    return `2.${str.substring(str.length - 2, str.length)}`;
+    const major = Math.floor(version / 100) - 99;
+    return `${major}.${str.substring(str.length - 2, str.length)}`;
   }
   return `1.${version}`;
 };
