@@ -27,7 +27,8 @@ const ultimates = new Set<string>()
   .add("AHmt")
   .add("AHav")
   .add("AHre")
-  .add("AHpx");
+  .add("AHpx")
+  .add("AHcl");
 
 type HeroAbilities = { [key: string]: number };
 

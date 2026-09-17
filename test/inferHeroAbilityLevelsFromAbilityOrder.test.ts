@@ -110,6 +110,41 @@ it("correctly infers that KOTG only has tranquility level 1", () => {
   });
 });
 
+it("correctly infers that the Forsaken Paladin only has cleansing fire level 1 because it is an ultimate", () => {
+  const forsakenPaladinAbilityOrder: Ability[] = [
+    {
+      type: "ability",
+      time: 126467,
+      value: "ANcp",
+    },
+    {
+      type: "ability",
+      time: 178541,
+      value: "AHpa",
+    },
+    {
+      type: "ability",
+      time: 534905,
+      value: "AHcl",
+    },
+    {
+      type: "ability",
+      time: 1016408,
+      value: "AHcl",
+    },
+  ];
+  expect(
+    inferHeroAbilityLevelsFromAbilityOrder(forsakenPaladinAbilityOrder),
+  ).toEqual({
+    finalHeroAbilities: {
+      ANcp: 1,
+      AHpa: 1,
+      AHcl: 1,
+    },
+    retrainingHistory: [],
+  });
+});
+
 it("correctly infers the final ability levels and the ability state before tome of retraining was used", () => {
   const retrainedAbilityOrder: Player["heroes"][number]["abilityOrder"] = [
     {
