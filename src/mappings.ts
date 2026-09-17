@@ -746,6 +746,9 @@ const abilityToHero: { [key: string]: string } = {
   ANab: "Nalc",
   ANcr: "Nalc",
   ANtm: "Nalc",
+  ANcp: "Npal",
+  AHcr: "Npal",
+  AHpa: "Npal",
 };
 
 const itemIds = Object.keys(items);
