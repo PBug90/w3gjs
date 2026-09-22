@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.3.0](https://github.com/PBug90/w3gjs/compare/v4.2.0...v4.3.0) (2026-09-22)
+
+
+### Features
+
+* yield to event loop every 500 blocks instead of every block ([#303](https://github.com/PBug90/w3gjs/issues/303)) ([136bbbe](https://github.com/PBug90/w3gjs/commit/136bbbe5053318e086f2bbe87f908d1d2d4a1ad7))
+
 ## [4.2.0](https://github.com/PBug90/w3gjs/compare/v4.1.0...v4.2.0) (2026-09-17)
 
 
