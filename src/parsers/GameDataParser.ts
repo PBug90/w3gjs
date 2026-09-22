@@ -6,6 +6,8 @@ import { Action } from "./ActionParser.js";
 const setImmediatePromise = () =>
   new Promise((resolve) => setImmediate(resolve));
 
+const YIELD_INTERVAL = 500;
+
 export type LeaveGameBlock = {
   id: 0x17;
   playerId: number;
@@ -53,12 +55,17 @@ export class GameDataParser extends EventEmitter {
   ): Promise<void> {
     this.isPost202ReplayFormat = isPost202ReplayFormat;
     this.parser.initialize(data);
+    let blocksSinceYield = 0;
     while (this.parser.offset < data.length) {
       const block = this.parseBlock();
       if (block !== null) {
         this.emit("gamedatablock", block);
       }
-      await setImmediatePromise();
+      blocksSinceYield++;
+      if (blocksSinceYield >= YIELD_INTERVAL) {
+        blocksSinceYield = 0;
+        await setImmediatePromise();
+      }
     }
   }
 
