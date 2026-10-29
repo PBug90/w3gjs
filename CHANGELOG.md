@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.4.0](https://github.com/PBug90/w3gjs/compare/v4.3.0...v4.4.0) (2026-10-29)
+
+
+### Features
+
+* map the patch 3.0 Animate Dead id to the Death Knight ([a29ca98](https://github.com/PBug90/w3gjs/commit/a29ca98d5f80fbdc3099f603325d46666ff75aee))
+
 ## [4.3.0](https://github.com/PBug90/w3gjs/compare/v4.2.0...v4.3.0) (2026-09-22)
 
 
