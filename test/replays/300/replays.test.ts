@@ -107,4 +107,18 @@ describe("hero detection", () => {
       { id: "Hmkg", level: 5, abilities: { AHtb: 3, AHbh: 2 } },
     ]);
   });
+
+  it("files the patch 3.0 Animate Dead (AUa2) under the Death Knight in 144840_4v4_Death_Knight_Animate_Dead.w3g", async () => {
+    const test = await Parser.parse(
+      path.resolve(__dirname, "144840_4v4_Death_Knight_Animate_Dead.w3g"),
+    );
+    const player = test.players.find(
+      (player) => player.name === "insomnia#23367",
+    )!;
+    expect(heroSummary(player.heroes)).toEqual([
+      { id: "Udea", level: 6, abilities: { AUdc: 3, AUau: 2, AUa2: 1 } },
+      { id: "Ulic", level: 5, abilities: { AUfn: 3, AUfu: 1, AUdr: 1 } },
+      { id: "Nbrn", level: 4, abilities: { ANsi: 2, ANba: 2 } },
+    ]);
+  });
 });
