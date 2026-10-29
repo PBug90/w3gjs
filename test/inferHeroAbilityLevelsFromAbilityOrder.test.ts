@@ -145,6 +145,41 @@ it("correctly infers that the Forsaken Paladin only has cleansing fire level 1 b
   });
 });
 
+it("correctly infers that the Death Knight only has the patch 3.0 animate dead level 1 because it is an ultimate", () => {
+  const deathKnightAbilityOrder: Ability[] = [
+    {
+      type: "ability",
+      time: 162811,
+      value: "AUdc",
+    },
+    {
+      type: "ability",
+      time: 230220,
+      value: "AUau",
+    },
+    {
+      type: "ability",
+      time: 1754130,
+      value: "AUa2",
+    },
+    {
+      type: "ability",
+      time: 1800000,
+      value: "AUa2",
+    },
+  ];
+  expect(
+    inferHeroAbilityLevelsFromAbilityOrder(deathKnightAbilityOrder),
+  ).toEqual({
+    finalHeroAbilities: {
+      AUdc: 1,
+      AUau: 1,
+      AUa2: 1,
+    },
+    retrainingHistory: [],
+  });
+});
+
 it("correctly infers the final ability levels and the ability state before tome of retraining was used", () => {
   const retrainedAbilityOrder: Player["heroes"][number]["abilityOrder"] = [
     {
